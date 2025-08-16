@@ -1,0 +1,96 @@
+# Criado por https://www.toptal.com/developers/gitignore/api/c,cmake,visualstudiocode
+# Edite em https://www.toptal.com/developers/gitignore?templates=c,cmake,visualstudiocode
+
+### C ###
+# Pré-requisitos
+*.d
+
+# Arquivos de objeto
+*.o
+*.ko
+*.obj
+*.duende
+
+# Saída do vinculador
+*.semente
+*.mapa
+*.exp
+
+# Cabeçalhos pré-compilados
+*.gch
+*.pch
+
+# Bibliotecas
+*.lib
+*.um
+*.la
+*.lo
+
+# Objetos compartilhados (incluindo DLLs do Windows)
+*.dll
+*.então
+*.então.*
+*.dylib
+
+# Executáveis
+*.exe
+*.fora
+*.aplicativo
+*.i*86
+*.x86_64
+*.hex
+
+# Arquivos de depuração
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Resultados da compilação do módulo do kernel
+*.mod*
+*.cmd
+.tmp_versões/
+módulos.ordem
+Módulo.symvers
+Mkfile.old
+dkms.conf
+
+### CMake ###
+CMakeLists.txt.usuário
+CMakeCache.txt
+Arquivos CMake
+CMakeScripts
+Teste
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+### Patch do CMake ###
+CMakeUserPresets.json
+
+# Projetos externos
+*-prefixo/
+
+### Código do VisualStudio ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensões.json
+!.vscode/*.trechos de código
+
+# Histórico local para o Visual Studio Code
+.história/
+
+# Extensões do Visual Studio Code criadas
+*.vsix
+
+### Patch do VisualStudioCode ###
+# Ignorar todo o histórico local de arquivos
+.história
+.ionídeo
+
+# Fim de https://www.toptal.com/developers/gitignore/api/c,cmake,visualstudiocode
