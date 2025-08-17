@@ -9,7 +9,7 @@ void modulo_equipe(void);
 void modulo_cliente(void);
 void modulo_cadastrar_cliente(void);
 void modulo_dados_cliente(void);
-// void modulo_atualizar_cliente(void);
+void modulo_atualizar_cliente(void);
 // void modulo_excluir_cliente(void);
 void modulo_de_veiculos(void);
 // void modulo_cadastrar_veiculo(void);
@@ -46,6 +46,7 @@ int main(void){
     modulo_relatorios();
     modulo_cadastrar_cliente();
     modulo_dados_cliente();
+    modulo_atualizar_cliente();
     return 0;
 }
 
@@ -389,6 +390,37 @@ void modulo_dados_cliente(void){
     printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
     printf("|                                                                     |\n");
     printf("|       Por favor informe o CPf do cliente que deseja encontrar:      |\n");
+    printf("|                                                                     |\n");
+    printf("|                    + CPF do cliente:                                |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
+
+
+
+void modulo_atualizar_cliente(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
+    printf("|             | < = = =  Alterar dados do Cliente  = = = > |          |\n");
+    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
+    printf("|                                                                     |\n");
+    printf("|      Por favor informe o CPf do cliente para alterar os dados:      |\n");
     printf("|                                                                     |\n");
     printf("|                    + CPF do cliente:                                |\n");
     printf("|                                                                     |\n");
