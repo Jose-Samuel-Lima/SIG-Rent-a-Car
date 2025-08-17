@@ -7,7 +7,7 @@ void menu_principal(void);
 void menu_sobre(void);
 void modulo_equipe(void);
 void modulo_cliente(void);
-// void modulo_cadastrar_cliente(void);
+void modulo_cadastrar_cliente(void);
 // void modulo_dados_cliente(void);
 // void modulo_atualizar_cliente(void);
 // void modulo_excluir_cliente(void);
@@ -40,6 +40,7 @@ int main(void){
     modulo_alugueis();
     modulo_funcionario();
     modulo_relatorios();
+    modulo_cadastrar_cliente();
     return 0;
 }
 
@@ -315,6 +316,43 @@ void modulo_relatorios(void){
     printf("|                    # 4 # Relatório de aluguéis finalizados          |\n");
     printf("|                    # 5 # Relatório de funcionários                  |\n");
     printf("|                    # 0 # Voltar ao menu principal                   |\n");
+    printf("|                                                                     |\n");
+    printf("|                   Escolha uma das opções...                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
+
+
+
+void modulo_cadastrar_cliente(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("|                | < = = = Cadastro de Clientes = = = > |             |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("|                                                                     |\n");
+    printf("|                    + Nome do cliente:                               |\n");
+    printf("|                    + CPF do cliente:                                |\n");
+    printf("|                    + CNH do cliente:                                |\n");
+    printf("|                    + Data de Nascimento do cliente:                 |\n");
+    printf("|                    + Endereço do cliente:                           |\n");
+    printf("|                    + Telefone do cliente:                           |\n");
+    printf("|                    + Email do cliente:                              |\n");
     printf("|                                                                     |\n");
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
