@@ -127,9 +127,10 @@ void modulo_equipe(void){
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
-    printf("|           < = = = Sistema de Gestão Locadora de Veículos>           |\n");
+    printf("|        < = = = Sistema de Gestão Locadora de Veículos = = = >       |\n");
     printf("|                                                                     |\n");
     printf("|      Projeto de sistema de gestão para uma locadora de vículos      |\n");
+    printf("|                                                                     |\n");
     printf("| Desenvolvedor(es): José Samuel Silva Lima & Icaro Nonato de Freitas |\n");
     printf("|      Email: jose.lima.146@ufrn.edu.br                               |\n");
     printf("|      Email: icaro.freitas.113@ufrn.edu.br                           |\n");
