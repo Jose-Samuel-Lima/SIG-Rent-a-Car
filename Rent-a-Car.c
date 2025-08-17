@@ -17,7 +17,7 @@ void modulo_dados_veiculo(void);
 void modulo_atualizar_veiculo(void);
 void modulo_excluir_veiculo(void);
 void modulo_alugueis(void);
-// void modulo_cadastrar_aluguel(void);
+void modulo_cadastrar_aluguel(void);
 // void modulo_dados_aluguel(void);
 // void modulo_alterar_aluguel(void);
 // void modulo_finalizar_aluguel(void);
@@ -52,6 +52,7 @@ int main(void){
     modulo_dados_veiculo();
     modulo_atualizar_veiculo();
     modulo_excluir_veiculo();
+    modulo_cadastrar_aluguel();
     return 0;
 }
 
@@ -591,6 +592,41 @@ void modulo_excluir_veiculo(void){
     printf("|       o veículo que deseja excluir:                                 |\n");
     printf("|                                                                     |\n");
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
+
+
+
+void modulo_cadastrar_aluguel(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("|                | < = = = Cadastro de Aluguéis = = = > |             |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("|                                                                     |\n");
+    printf("|                    + Nome do cliente:                               |\n");
+    printf("|                    + CPF do cliente:                                |\n");
+    printf("|                    + Placa do veículo:                              |\n");
+    printf("|                    + Código da RENAVAM:                             |\n");
+    printf("|                    + Código do Aluguel:                             |\n");
+    printf("|                                                                     |\n");
+    printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     scanf("%c", &op);
