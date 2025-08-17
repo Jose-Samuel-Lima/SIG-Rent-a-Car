@@ -2,30 +2,45 @@
 #include <stdlib.h>
 
 
-
+// Assinatura das funções
 void menu_principal(void);
 void menu_sobre(void);
 void modulo_equipe(void);
+
+
+// Funções Cliente
 void modulo_cliente(void);
 void modulo_cadastrar_cliente(void);
 void modulo_dados_cliente(void);
 void modulo_atualizar_cliente(void);
 void modulo_excluir_cliente(void);
+
+
+// Funções Veículo
 void modulo_de_veiculos(void);
 void modulo_cadastrar_veiculo(void);
 void modulo_dados_veiculo(void);
 void modulo_atualizar_veiculo(void);
 void modulo_excluir_veiculo(void);
+
+
+// Funções Aluguel
 void modulo_alugueis(void);
 void modulo_cadastrar_aluguel(void);
 // void modulo_dados_aluguel(void);
 // void modulo_alterar_aluguel(void);
 // void modulo_finalizar_aluguel(void);
+
+
+// Funções Funcionário
 void modulo_funcionario(void);
 // void modulo_cadastrar_funcionario(void);
 // void modulo_dados_funcionario(void);
 // void modulo_atualizar_funcionario(void);
 // void modulo_excluir_funcionario (void);
+
+
+// Funções Relatórios
 void modulo_relatorios(void);
 // void modulo_relatorio_clientes(void);
 // void modulo_relatorio_veiculos(void);
@@ -34,25 +49,31 @@ void modulo_relatorios(void);
 // void modulo_relatorio_funcionarios(void);
 
 
-
+// Programa principal
 int main(void){
     menu_principal();
     menu_sobre();
     modulo_equipe();
+
     modulo_cliente();
-    modulo_de_veiculos();
-    modulo_alugueis();
-    modulo_funcionario();
-    modulo_relatorios();
     modulo_cadastrar_cliente();
     modulo_dados_cliente();
     modulo_atualizar_cliente();
     modulo_excluir_cliente();
+
+    modulo_de_veiculos();
     modulo_cadastrar_veiculo();
     modulo_dados_veiculo();
     modulo_atualizar_veiculo();
     modulo_excluir_veiculo();
+
+    modulo_alugueis();
     modulo_cadastrar_aluguel();
+
+    modulo_funcionario();
+
+    modulo_relatorios();
+    
     return 0;
 }
 
