@@ -8,7 +8,7 @@ void menu_sobre(void);
 void modulo_equipe(void);
 void modulo_cliente(void);
 void modulo_cadastrar_cliente(void);
-// void modulo_dados_cliente(void);
+void modulo_dados_cliente(void);
 // void modulo_atualizar_cliente(void);
 // void modulo_excluir_cliente(void);
 void modulo_de_veiculos(void);
@@ -22,6 +22,10 @@ void modulo_alugueis(void);
 // void modulo_alterar_aluguel(void);
 // void modulo_finalizar_aluguel(void);
 void modulo_funcionario(void);
+// void modulo_cadastrar_funcionario(void);
+// void modulo_dados_funcionario(void);
+// void modulo_atualizar_funcionario(void);
+// void modulo_excluir_funcionario (void);
 void modulo_relatorios(void);
 // void modulo_relatorio_clientes(void);
 // void modulo_relatorio_veiculos(void);
@@ -41,6 +45,7 @@ int main(void){
     modulo_funcionario();
     modulo_relatorios();
     modulo_cadastrar_cliente();
+    modulo_dados_cliente();
     return 0;
 }
 
@@ -355,6 +360,37 @@ void modulo_cadastrar_cliente(void){
     printf("|                    + Email do cliente:                              |\n");
     printf("|                                                                     |\n");
     printf("|                   Escolha uma das opções...                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
+
+
+
+void modulo_dados_cliente(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("|                | < = = =  Dados dos Clientes  = = = > |             |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("|                                                                     |\n");
+    printf("|       Por favor informe o CPf do cliente que deseja encontrar:      |\n");
+    printf("|                                                                     |\n");
+    printf("|                    + CPF do cliente:                                |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     scanf("%c", &op);
