@@ -5,7 +5,7 @@
 
 void menu_principal(void);
 void menu_sobre(void);
-// void modulo_equipe(void);
+void modulo_equipe(void);
 // void modulo_cliente(void);
 // void modulo_de_veiculos(void);
 // void modulo_alugueis(void);
@@ -16,15 +16,13 @@ void menu_sobre(void);
 int main(void){
     menu_principal();
     menu_sobre();
-    // modulo_equipe();
+    modulo_equipe();
     // modulo_cliente();
     // modulo_de_veiculos();
     // modulo_alugueis();
     // modulo_relatorios();
     return 0;
 }
-
-
 
 
 
@@ -107,4 +105,40 @@ void menu_sobre(void){
     printf("\n");
 }
 
+
+
+void modulo_equipe(void){
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|             Universidade Federal do Rio Grande do Norte             |\n");
+    printf("|                 Centro de Ensino Superior do Seridó                 |\n");
+    printf("|               Departamento de Computação e Tecnologia               |\n");
+    printf("|                 Disciplina DCT1106 -- Programação                   |\n");
+    printf("|        Projeto Sistema de Gestão para uma Locadora de Veículos      |\n");
+    printf("|          Developed by @José-Samuel-Lima -- since Aug, 2025          |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|           < = = = Sistema de Gestão Locadora de Veículos>           |\n");
+    printf("|                                                                     |\n");
+    printf("|      Projeto de sistema de gestão para uma locadora de vículos      |\n");
+    printf("| Desenvolvedor(es): José Samuel Silva Lima & Icaro Nonato de Freitas |\n");
+    printf("|      Email: jose.lima.146@ufrn.edu.br                               |\n");
+    printf("|      Email: icaro.freitas.113@ufrn.edu.br                           |\n");
+    printf("|      Git: https://github.com/Jose-Samuel-Lima/SIG-Rent-a-Car.git    |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    getchar();
+    printf("\n");
+}
 
