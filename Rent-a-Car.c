@@ -21,7 +21,7 @@ void modulo_alugueis(void);
 // void modulo_dados_aluguel(void);
 // void modulo_alterar_aluguel(void);
 // void modulo_finalizar_aluguel(void);
-// void modulo_funcionario(void);
+void modulo_funcionario(void);
 void modulo_relatorios(void);
 // void modulo_relatorio_clientes(void);
 // void modulo_relatorio_veiculos(void);
@@ -38,7 +38,7 @@ int main(void){
     modulo_cliente();
     modulo_de_veiculos();
     modulo_alugueis();
-    // modulo_funcionario();
+    modulo_funcionario();
     modulo_relatorios();
     return 0;
 }
@@ -248,6 +248,38 @@ void modulo_alugueis(void){
     printf("|                    # 2 # Dados do aluguel                           |\n");
     printf("|                    # 3 # Alterar dados do aluguel                   |\n");
     printf("|                    # 4 # Finalizar aluguel                          |\n");
+    printf("|                    # 0 # Voltar ao menu principal                   |\n");
+    printf("|                                                                     |\n");
+    printf("|                   Escolha uma das opções...                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
+
+
+void modulo_funcionario(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                 < = = = Módulo de Funcionários = = = >              |\n");
+    printf("|                                                                     |\n");
+    printf("|                    # 1 # Cadastrar novo funcionário                 |\n");
+    printf("|                    # 2 # Dados do funcionário                       |\n");
+    printf("|                    # 3 # Alterar dados do funcionário               |\n");
+    printf("|                    # 4 # Excluir um funcionário                     |\n");
     printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|                                                                     |\n");
     printf("|                   Escolha uma das opções...                         |\n");
