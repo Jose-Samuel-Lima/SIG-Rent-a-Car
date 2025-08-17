@@ -17,7 +17,17 @@ void modulo_de_veiculos(void);
 // void modulo_atualizar_cliente(void);
 // void modulo_excluir_veiculo(void);
 void modulo_alugueis(void);
-// void modulo_relatorios(void);
+// void modulo_cadastrar_aluguel(void);
+// void modulo_dados_aluguel(void);
+// void modulo_alterar_aluguel(void);
+// void modulo_finalizar_aluguel(void);
+// void modulo_funcionario(void);
+void modulo_relatorios(void);
+// void modulo_relatorio_clientes(void);
+// void modulo_relatorio_veiculos(void);
+// void modulo_relatorio_aluguel_ativos(void);
+// void modulo_relatorio_aluguel_finalizado(void);
+// void modulo_relatorio_funcionarios(void);
 
 
 
@@ -28,7 +38,8 @@ int main(void){
     modulo_cliente();
     modulo_de_veiculos();
     modulo_alugueis();
-    // modulo_relatorios();
+    // modulo_funcionario();
+    modulo_relatorios();
     return 0;
 }
 
@@ -237,6 +248,40 @@ void modulo_alugueis(void){
     printf("|                    # 2 # Dados do aluguel                           |\n");
     printf("|                    # 3 # Alterar dados do aluguel                   |\n");
     printf("|                    # 4 # Finalizar aluguel                          |\n");
+    printf("|                    # 0 # Voltar ao menu principal                   |\n");
+    printf("|                                                                     |\n");
+    printf("|                   Escolha uma das opções...                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
+
+
+
+void modulo_relatorios(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                 < = = = Módulo de Relatórios = = = >                |\n");
+    printf("|                                                                     |\n");
+    printf("|                    # 1 # Relatório de clientes                      |\n");
+    printf("|                    # 2 # Relatório de veículos                      |\n");
+    printf("|                    # 3 # Relatório de aluguéis ativos               |\n");
+    printf("|                    # 4 # Relatório de aluguéis finalizados          |\n");
+    printf("|                    # 5 # Relatório de funcionários                  |\n");
     printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|                                                                     |\n");
     printf("|                   Escolha uma das opções...                         |\n");
