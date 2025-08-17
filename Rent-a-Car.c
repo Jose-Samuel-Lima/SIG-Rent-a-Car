@@ -6,7 +6,7 @@
 void menu_principal(void);
 void menu_sobre(void);
 void modulo_equipe(void);
-// void modulo_cliente(void);
+void modulo_cliente(void);
 // void modulo_de_veiculos(void);
 // void modulo_alugueis(void);
 // void modulo_relatorios(void);
@@ -17,7 +17,7 @@ int main(void){
     menu_principal();
     menu_sobre();
     modulo_equipe();
-    // modulo_cliente();
+    modulo_cliente();
     // modulo_de_veiculos();
     // modulo_alugueis();
     // modulo_relatorios();
@@ -129,7 +129,7 @@ void modulo_equipe(void){
     printf("|                                                                     |\n");
     printf("|        < = = = Sistema de Gestão Locadora de Veículos = = = >       |\n");
     printf("|                                                                     |\n");
-    printf("|      Projeto de sistema de gestão para uma locadora de vículos      |\n");
+    printf("|      Projeto de sistema de gestão para uma locadora de veículos     |\n");
     printf("|                                                                     |\n");
     printf("| Desenvolvedor(es): José Samuel Silva Lima & Icaro Nonato de Freitas |\n");
     printf("|      Email: jose.lima.146@ufrn.edu.br                               |\n");
@@ -143,3 +143,35 @@ void modulo_equipe(void){
     printf("\n");
 }
 
+
+
+void modulo_cliente(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                   < = = = Módulo Cliente = = = >                    |\n");
+    printf("|                                                                     |\n");
+    printf("|                    # 1 # Cadastrar novo cliente                     |\n");
+    printf("|                    # 2 # Dados do cliente                           |\n");
+    printf("|                    # 3 # Alterar dados do cliente                   |\n");
+    printf("|                    # 4 # Excluir um cliente                         |\n");
+    printf("|                    # 0 # Voltar ao menu principal                   |\n");
+    printf("|                                                                     |\n");
+    printf("|                   Escolha uma das opções...                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
