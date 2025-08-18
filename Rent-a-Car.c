@@ -36,6 +36,10 @@ void modulo_alugueis(void);
 void modulo_funcionario(void);
 
 
+// Funções Relatórios
+void modulo_relatorios(void);
+
+
 // Programa pricipal
 int main(void){
     menu_principal();
@@ -46,6 +50,7 @@ int main(void){
     modulo_de_veiculos();
     modulo_alugueis();
     modulo_funcionario();
+    modulo_relatorios();
 
     return 0;
 }
@@ -321,6 +326,40 @@ void modulo_funcionario(void){
     printf("|                    # 2 # Dados do funcionário                       |\n");
     printf("|                    # 3 # Alterar dados do funcionário               |\n");
     printf("|                    # 4 # Excluir um funcionário                     |\n");
+    printf("|                    # 0 # Voltar ao menu principal                   |\n");
+    printf("|                                                                     |\n");
+    printf("|                   Escolha uma das opções...                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
+
+
+
+void modulo_relatorios(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                 < = = = Módulo de Relatórios = = = >                |\n");
+    printf("|                                                                     |\n");
+    printf("|                    # 1 # Relatório de clientes                      |\n");
+    printf("|                    # 2 # Relatório de veículos                      |\n");
+    printf("|                    # 3 # Relatório de aluguéis ativos               |\n");
+    printf("|                    # 4 # Relatório de aluguéis finalizados          |\n");
+    printf("|                    # 5 # Relatório de funcionários                  |\n");
     printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|                                                                     |\n");
     printf("|                   Escolha uma das opções...                         |\n");
