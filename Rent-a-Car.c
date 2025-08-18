@@ -24,6 +24,10 @@ void tela_finalizacao(void);
 void modulo_cliente(void);
 
 
+// Funções Veículo
+void modulo_de_veiculos(void);
+
+
 // Programa pricipal
 int main(void){
     menu_principal();
@@ -31,6 +35,7 @@ int main(void){
     tela_equipe();
     tela_finalizacao();
     modulo_cliente();
+    modulo_de_veiculos();
 
     return 0;
 }
@@ -207,6 +212,39 @@ void modulo_cliente(void){
     printf("|                    # 2 # Dados do cliente                           |\n");
     printf("|                    # 3 # Alterar dados do cliente                   |\n");
     printf("|                    # 4 # Excluir um cliente                         |\n");
+    printf("|                    # 0 # Voltar ao menu principal                   |\n");
+    printf("|                                                                     |\n");
+    printf("|                   Escolha uma das opções...                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
+
+
+
+void modulo_de_veiculos(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                   < = = = Módulo de Veículos = = = >                |\n");
+    printf("|                                                                     |\n");
+    printf("|                    # 1 # Cadastrar novo veículo                     |\n");
+    printf("|                    # 2 # Dados do veículo                           |\n");
+    printf("|                    # 3 # Alterar dados do veículo                   |\n");
+    printf("|                    # 4 # Excluir um veículo                         |\n");
     printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|                                                                     |\n");
     printf("|                   Escolha uma das opções...                         |\n");
