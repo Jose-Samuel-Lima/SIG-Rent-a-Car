@@ -20,6 +20,9 @@ void tela_sobre(void);
 void tela_equipe(void);
 void tela_finalizacao(void);
 
+// Módulo Cliente
+void modulo_cliente(void);
+
 
 // Programa pricipal
 int main(void){
@@ -27,6 +30,7 @@ int main(void){
     tela_sobre();
     tela_equipe();
     tela_finalizacao();
+    modulo_cliente();
 
     return 0;
 }
@@ -184,3 +188,34 @@ void tela_finalizacao(void){
 }
 
 
+
+void modulo_cliente(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                   < = = = Módulo Cliente = = = >                    |\n");
+    printf("|                                                                     |\n");
+    printf("|                    # 1 # Cadastrar novo cliente                     |\n");
+    printf("|                    # 2 # Dados do cliente                           |\n");
+    printf("|                    # 3 # Alterar dados do cliente                   |\n");
+    printf("|                    # 4 # Excluir um cliente                         |\n");
+    printf("|                    # 0 # Voltar ao menu principal                   |\n");
+    printf("|                                                                     |\n");
+    printf("|                   Escolha uma das opções...                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
