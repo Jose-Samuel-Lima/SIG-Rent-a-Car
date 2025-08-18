@@ -1,0 +1,71 @@
+// #===================================================================================#
+// |                                                                                   |
+// |                    Universidade Federal do Rio Grande do Norte                    |
+// |                        Centro de Ensino Superior do Seridó                        |
+// |                    Departamento de Computação e Tecnologia                        |
+// |                        Disciplina DCT1106 -- Programação                          |
+// |               Projeto Sistema de Gestão para uma Locadora de Veículos             |
+// |          Developed by @j.samuel007 and @icarononato23 -- since Aug, 2025          |
+// |                                                                                   |
+// #===================================================================================#
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+// Assinaturas das Funções
+void menu_principal(void);
+
+
+
+// Programa pricipal
+int main(void){
+    menu_principal();
+
+    return 0;
+}
+
+
+
+void menu_principal(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|             Universidade Federal do Rio Grande do Norte             |\n");
+    printf("|                 Centro de Ensino Superior do Seridó                 |\n");
+    printf("|               Departamento de Computação e Tecnologia               |\n");
+    printf("|                 Disciplina DCT1106 -- Programação                   |\n");
+    printf("|        Projeto Sistema de Gestão para uma Locadora de Veículos      |\n");
+    printf("|    Developed by @j.samuel007 and icarononato23 - since Aug, 2025    |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                   < = = = Gestão Locadora = = = >                   |\n");
+    printf("|                                                                     |\n");
+    printf("|                    # 1 # Módulo Clientes                            |\n");
+    printf("|                    # 2 # Módulo de Veículos                         |\n");
+    printf("|                    # 3 # Módulo de Alugueis                         |\n");
+    printf("|                    # 4 # Módulo Relatórios                          |\n");
+    printf("|                    # 5 # Informações da Equipe                      |\n");
+    printf("|                    # 6 # Sobre o Programa                           |\n");
+    printf("|                    # 0 # Finalizar Programa                         |\n");
+    printf("|                                                                     |\n");
+    printf("|                   Escolha uma das opções...                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
