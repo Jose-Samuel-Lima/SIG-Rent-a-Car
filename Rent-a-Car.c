@@ -28,6 +28,10 @@ void modulo_cliente(void);
 void modulo_de_veiculos(void);
 
 
+// Funções Aluguel
+void modulo_alugueis(void);
+
+
 // Programa pricipal
 int main(void){
     menu_principal();
@@ -36,6 +40,7 @@ int main(void){
     tela_finalizacao();
     modulo_cliente();
     modulo_de_veiculos();
+    modulo_alugueis();
 
     return 0;
 }
@@ -245,6 +250,39 @@ void modulo_de_veiculos(void){
     printf("|                    # 2 # Dados do veículo                           |\n");
     printf("|                    # 3 # Alterar dados do veículo                   |\n");
     printf("|                    # 4 # Excluir um veículo                         |\n");
+    printf("|                    # 0 # Voltar ao menu principal                   |\n");
+    printf("|                                                                     |\n");
+    printf("|                   Escolha uma das opções...                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    scanf("%c", &op);
+    getchar();
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    printf("\n");
+    getchar();
+}
+
+
+
+void modulo_alugueis(void){
+    char op;
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                   < = = = Módulo de Aluguéis = = = >                |\n");
+    printf("|                                                                     |\n");
+    printf("|                    # 1 # Cadastrar novo aluguel                     |\n");
+    printf("|                    # 2 # Dados do aluguel                           |\n");
+    printf("|                    # 3 # Alterar dados do aluguel                   |\n");
+    printf("|                    # 4 # Finalizar aluguel                          |\n");
     printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|                                                                     |\n");
     printf("|                   Escolha uma das opções...                         |\n");
