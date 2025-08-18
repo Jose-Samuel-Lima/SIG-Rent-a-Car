@@ -18,6 +18,7 @@
 void menu_principal(void);
 void tela_sobre(void);
 void tela_equipe(void);
+void tela_finalizacao(void);
 
 
 // Programa pricipal
@@ -25,6 +26,7 @@ int main(void){
     menu_principal();
     tela_sobre();
     tela_equipe();
+    tela_finalizacao();
 
     return 0;
 }
@@ -147,3 +149,38 @@ void tela_equipe(void){
     getchar();
     printf("\n");
 }
+
+
+
+void tela_finalizacao(void){
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|             Universidade Federal do Rio Grande do Norte             |\n");
+    printf("|                 Centro de Ensino Superior do Seridó                 |\n");
+    printf("|               Departamento de Computação e Tecnologia               |\n");
+    printf("|                 Disciplina DCT1106 -- Programação                   |\n");
+    printf("|        Projeto Sistema de Gestão para uma Locadora de Veículos      |\n");
+    printf("|   Developed by @j.samuel007 and @icarononato23 -- since Aug, 2025   |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|       Obrigado por utilizar nosso programa..                        |\n");
+    printf("|       Finalizando o programa..                                      |\n");
+    printf("|                                                                     |\n");
+    printf("|       Programa finalizado com sucesso!                              |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("\n");
+    getchar();
+    printf("\n");
+}
+
+
