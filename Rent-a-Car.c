@@ -17,12 +17,14 @@
 // Assinaturas das Funções
 void menu_principal(void);
 void tela_sobre(void);
+void tela_equipe(void);
 
 
 // Programa pricipal
 int main(void){
     menu_principal();
     tela_sobre();
+    tela_equipe();
 
     return 0;
 }
@@ -100,6 +102,44 @@ void tela_sobre(void){
     printf("|   relacionadas à frota de veículos, aos clientes e às locações      |\n");
     printf("|   realizadas, garantindo maior eficiência, segurança e              |\n");
     printf("|   agilidade no atendimento.                                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("\n");
+    printf("\t\t\tTecle *Enter* para continuar..\n");
+    getchar();
+    printf("\n");
+}
+
+
+
+void tela_equipe(void){
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|             Universidade Federal do Rio Grande do Norte             |\n");
+    printf("|                 Centro de Ensino Superior do Seridó                 |\n");
+    printf("|               Departamento de Computação e Tecnologia               |\n");
+    printf("|                 Disciplina DCT1106 -- Programação                   |\n");
+    printf("|        Projeto Sistema de Gestão para uma Locadora de Veículos      |\n");
+    printf("|    Developed by @j.samuel and @icarononato23 -- since Aug, 2025     |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|        < = = = Sistema de Gestão Locadora de Veículos = = = >       |\n");
+    printf("|                                                                     |\n");
+    printf("|      Projeto de sistema de gestão para uma locadora de veículos     |\n");
+    printf("|                                                                     |\n");
+    printf("| Desenvolvedor(es): José Samuel Silva Lima & Icaro Nonato de Freitas |\n");
+    printf("|      Email: jose.lima.146@ufrn.edu.br                               |\n");
+    printf("|      Email: icaro.freitas.113@ufrn.edu.br                           |\n");
+    printf("|      Git: https://github.com/Jose-Samuel-Lima/SIG-Rent-a-Car.git    |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
