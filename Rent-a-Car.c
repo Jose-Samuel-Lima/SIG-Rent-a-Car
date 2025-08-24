@@ -45,32 +45,50 @@ void modulo_relatorios(void);
 int main(void)
 {
     char op;
-    op = '-1';
+    op = 'm';
     int ainda_roda;
     ainda_roda = 1;
 
     while (ainda_roda == 1) {
-        if (op == '-1') {
+        if (op == 'm') {
             menu_principal();
             scanf(" %c", &op);
         } else if (op == '1') {
             modulo_cliente();
             scanf(" %c", &op);
+            if (op == '0') {
+                op = 'm';
+            }
         } else if (op == '2') {
             modulo_de_veiculos();
             scanf(" %c", &op);
+            if (op == '0') {
+                op = 'm';
+            }
         } else if (op == '3') {
             modulo_alugueis();
             scanf(" %c", &op);
+            if (op == '0') {
+                op = 'm';
+            }
         } else if (op == '4') {
             modulo_relatorios();
             scanf(" %c", &op);
+            if (op == '0') {
+                op = 'm';
+            }
         } else if (op == '5') {
             modulo_equipe();
-            scanf(" %c", &op);
+            printf("Pressione Enter para voltar ao menu principal...");
+            getchar();
+            getchar();
+            op = 'm';
         } else if (op == '6') {
             menu_sobre();
-            scanf(" %c", &op);
+            printf("Pressione Enter para voltar ao menu principal...");
+            getchar();
+            getchar();
+            op = 'm';
         } else if (op == '0') {
             ainda_roda = 0;
         }
