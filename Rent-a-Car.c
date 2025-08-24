@@ -44,39 +44,43 @@ void modulo_relatorios(void);
 // Programa principal
 int main(void)
 {
-    menu_principal();
-    menu_sobre();
-    modulo_equipe();
+    char op;
+    op = '-1';
+    int ainda_roda;
+    ainda_roda = 1;
 
-    modulo_cliente();
-    modulo_de_veiculos();
-    modulo_alugueis();
-    modulo_funcionario();
-    modulo_relatorios();
-    modulo_cadastrar_cliente();
-    modulo_dados_cliente();
-    modulo_atualizar_cliente();
-    modulo_excluir_cliente();
-
-    modulo_de_veiculos();
-    modulo_cadastrar_veiculo();
-    modulo_dados_veiculo();
-    modulo_atualizar_veiculo();
-    modulo_excluir_veiculo();
-
-    modulo_alugueis();
-    modulo_cadastrar_aluguel();
-
-    modulo_funcionario();
-
-    modulo_relatorios();
+    while (ainda_roda == 1) {
+        if (op == '-1') {
+            menu_principal();
+            scanf(" %c", &op);
+        } else if (op == '1') {
+            modulo_cliente();
+            scanf(" %c", &op);
+        } else if (op == '2') {
+            modulo_de_veiculos();
+            scanf(" %c", &op);
+        } else if (op == '3') {
+            modulo_alugueis();
+            scanf(" %c", &op);
+        } else if (op == '4') {
+            modulo_relatorios();
+            scanf(" %c", &op);
+        } else if (op == '5') {
+            modulo_equipe();
+            scanf(" %c", &op);
+        } else if (op == '6') {
+            menu_sobre();
+            scanf(" %c", &op);
+        } else if (op == '0') {
+            ainda_roda = 0;
+        }
+    }
 
     return 0;
 }
 
 void menu_principal(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -109,12 +113,8 @@ void menu_principal(void)
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
+    
 }
 
 void menu_sobre(void)
@@ -147,9 +147,6 @@ void menu_sobre(void)
     printf("|   agilidade no atendimento.    a                                     |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    getchar();
     printf("\n");
 }
 
@@ -185,14 +182,10 @@ void modulo_equipe(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    getchar();
-    printf("\n");
 }
 
 void modulo_cliente(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -214,17 +207,11 @@ void modulo_cliente(void)
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_de_veiculos(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -246,17 +233,11 @@ void modulo_de_veiculos(void)
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_alugueis(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -278,17 +259,11 @@ void modulo_alugueis(void)
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_funcionario(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -310,17 +285,11 @@ void modulo_funcionario(void)
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_relatorios(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -343,17 +312,11 @@ void modulo_relatorios(void)
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_cadastrar_cliente(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -379,17 +342,11 @@ void modulo_cadastrar_cliente(void)
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_dados_cliente(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -409,17 +366,11 @@ void modulo_dados_cliente(void)
     printf("|                    + CPF do cliente:                                |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_atualizar_cliente(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -439,17 +390,11 @@ void modulo_atualizar_cliente(void)
     printf("|                    + CPF do cliente:                                |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_excluir_cliente(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -469,17 +414,11 @@ void modulo_excluir_cliente(void)
     printf("|                    + CPF do cliente:                                |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_cadastrar_veiculo(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -504,17 +443,11 @@ void modulo_cadastrar_veiculo(void)
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_dados_veiculo(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -535,17 +468,11 @@ void modulo_dados_veiculo(void)
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_atualizar_veiculo(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -566,17 +493,11 @@ void modulo_atualizar_veiculo(void)
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_excluir_veiculo(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -597,17 +518,11 @@ void modulo_excluir_veiculo(void)
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
 
 void modulo_cadastrar_aluguel(void)
 {
-    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -631,10 +546,5 @@ void modulo_cadastrar_aluguel(void)
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
-    scanf("%c", &op);
-    getchar();
     printf("\n");
-    printf("\t\t\tTecle *Enter* para continuar..\n");
-    printf("\n");
-    getchar();
 }
