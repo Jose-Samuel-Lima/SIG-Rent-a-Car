@@ -54,6 +54,12 @@ int main(void)
             menu_principal();
             scanf(" %c", &op);
         } else if (op == '1') {
+            modulo_funcionario();
+            scanf(" %c", &op);
+            if (op == '0') {
+                op = 'm';
+            }
+        } else if (op == '1') {
             modulo_cliente();
             scanf(" %c", &op);
             if (op == '0') {
@@ -120,12 +126,13 @@ void menu_principal(void)
     printf("|                                                                     |\n");
     printf("|                   < = = = Gestão Locadora = = = >                   |\n");
     printf("|                                                                     |\n");
-    printf("|                    # 1 # Módulo Clientes                            |\n");
-    printf("|                    # 2 # Módulo de Veículos                         |\n");
-    printf("|                    # 3 # Módulo de Alugueis                         |\n");
-    printf("|                    # 4 # Módulo Relatórios                          |\n");
-    printf("|                    # 5 # Informações da Equipe                      |\n");
-    printf("|                    # 6 # Sobre o Programa                           |\n");
+    printf("|                    # 1 # Módulo Funcionários                        |\n");
+    printf("|                    # 2 # Módulo Clientes                            |\n");
+    printf("|                    # 3 # Módulo de Veículos                         |\n");
+    printf("|                    # 4 # Módulo de Alugueis                         |\n");
+    printf("|                    # 5 # Módulo Relatórios                          |\n");
+    printf("|                    # 6 # Informações da Equipe                      |\n");
+    printf("|                    # 7 # Sobre o Programa                           |\n");
     printf("|                    # 0 # Finalizar Programa                         |\n");
     printf("|                                                                     |\n");
     printf("|                   Escolha uma das opções...                         |\n");
