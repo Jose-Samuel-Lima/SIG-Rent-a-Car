@@ -41,6 +41,22 @@ void modulo_relatorios(void);
 
 // void modulo_relatorio_funcionarios(void);
 
+void cadastrar_funcionario(void) {
+    char nome_funcionario[51];
+    int idade;
+    char cpf[12];
+    char cargo[22];
+    char email[30];
+
+    printf("Nome do funcionário: ");
+    getchar();
+    fgets(nome_funcionario, sizeof(nome_funcionario), stdin);
+    printf("%s", nome_funcionario);
+    getchar();
+    getchar();
+    
+}
+
 // Programa principal
 int main(void)
 {
@@ -56,8 +72,11 @@ int main(void)
         } else if (op == '1') {
             modulo_funcionario();
             scanf(" %c", &op);
-            if (op == '0') {
-                op = 'm';
+            switch (op) {
+                case '0': ainda_roda = 0;
+                        break;
+                case '1': cadastrar_funcionario();
+                        break;
             }
         } else if (op == '1') {
             modulo_cliente();
