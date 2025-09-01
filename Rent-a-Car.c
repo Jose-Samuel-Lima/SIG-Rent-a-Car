@@ -94,7 +94,7 @@ int main(void)
             switch (op) {
                 case '0': op = 'm';
                         break;
-                case '1': mensagem_manutencao();
+                case '1': modulo_cadastrar_veiculo();
                         break;
                 case '2': mensagem_manutencao();
                         break;
@@ -346,6 +346,34 @@ void modulo_de_veiculos(void)
     printf("\n");
 }
 
+void modulo_cadastrar_veiculo(void) {
+    char nome_veiculo[51];
+    float preco_veiculo;
+    char placa_veiculo[8];
+    char marca[15];
+    char modelo[13];
+
+    printf("Nome do veículo: ");
+    getchar();
+    fgets(nome_veiculo, sizeof(nome_veiculo), stdin);
+    printf("Preço do veículo: ");
+    getchar();
+    scanf("%f", &preco_veiculo);
+    printf("Placa do veículo: ");
+    getchar();
+    fgets(placa_veiculo, sizeof(placa_veiculo), stdin);
+    printf("Marca do veículo: ");
+    getchar();
+    fgets(marca, sizeof(marca), stdin);
+    printf("Modelo do veículo: ");
+    getchar();
+    fgets(modelo, sizeof(modelo), stdin);
+    system("cls||clear");
+    printf("Veículo Registrado com Sucesso!\n");
+    printf("Pressione Enter para continuar...");
+    getchar();
+}
+
 void modulo_alugueis(void)
 {
     system("clear||cls");
@@ -520,35 +548,6 @@ void modulo_excluir_cliente(void)
     printf("|        Por favor informe o CPf do cliente que deseja excluir:       |\n");
     printf("|                                                                     |\n");
     printf("|                    + CPF do cliente:                                |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
-
-void modulo_cadastrar_veiculo(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                | < = = = Cadastro de Veículos = = = > |             |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + Nome do veículo:                               |\n");
-    printf("|                    + Modelo do veículo:                             |\n");
-    printf("|                    + Placa do veículo:                              |\n");
-    printf("|                    + Data de fabricação do veículo:                 |\n");
-    printf("|                    + Número do chassi:                              |\n");
-    printf("|                    + Código da RENAVAM:                             |\n");
-    printf("|                                                                     |\n");
-    printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
