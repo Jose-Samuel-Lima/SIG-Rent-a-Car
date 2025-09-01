@@ -41,6 +41,8 @@ void modulo_relatorios(void);
 
 // void modulo_relatorio_funcionarios(void);
 
+void mensagem_manutencao(void);
+
 
 // Programa principal
 int main(void)
@@ -62,37 +64,80 @@ int main(void)
                         break;
                 case '1': cadastrar_funcionario();
                         break;
+                case '2': mensagem_manutencao();
+                        break;
+                case '3': mensagem_manutencao();
+                        break;
+                case '4': mensagem_manutencao();
+                        break;
             }
+            op = 'm';
         } else if (op == '2') {
             modulo_cliente();
             scanf(" %c", &op);
-            if (op == '0') {
-                op = 'm';
-            }
             switch (op) {
                 case '0': op = 'm';
                         break;
                 case '1': modulo_cadastrar_cliente();
                         break;
+                case '2': mensagem_manutencao();
+                        break;
+                case '3': mensagem_manutencao();
+                        break;
+                case '4': mensagem_manutencao();
+                        break;
             }
+            op = 'm';
         } else if (op == '3') {
             modulo_de_veiculos();
             scanf(" %c", &op);
-            if (op == '0') {
-                op = 'm';
+            switch (op) {
+                case '0': op = 'm';
+                        break;
+                case '1': mensagem_manutencao();
+                        break;
+                case '2': mensagem_manutencao();
+                        break;
+                case '3': mensagem_manutencao();
+                        break;
+                case '4': mensagem_manutencao();
+                        break;
             }
+            op = 'm';
         } else if (op == '4') {
             modulo_alugueis();
             scanf(" %c", &op);
-            if (op == '0') {
-                op = 'm';
+            switch (op) {
+                case '0': op = 'm';
+                        break;
+                case '1': modulo_cadastrar_cliente();
+                        break;
+                case '2': mensagem_manutencao();
+                        break;
+                case '3': mensagem_manutencao();
+                        break;
+                case '4': mensagem_manutencao();
+                        break;
             }
+            op = 'm';
         } else if (op == '5') {
             modulo_relatorios();
             scanf(" %c", &op);
-            if (op == '0') {
-                op = 'm';
+            switch (op) {
+                case '0': op = 'm';
+                        break;
+                case '1': modulo_cadastrar_cliente();
+                        break;
+                case '2': mensagem_manutencao();
+                        break;
+                case '3': mensagem_manutencao();
+                        break;
+                case '4': mensagem_manutencao();
+                        break;
+                case '5': mensagem_manutencao();
+                        break;
             }
+            op ='m';
         } else if (op == '6') {
             modulo_equipe();
             printf("Pressione Enter para voltar ao menu principal...");
@@ -610,4 +655,13 @@ void modulo_cadastrar_aluguel(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+}
+
+void mensagem_manutencao(void) {
+    system("cls||clear");
+    printf("Essa página não está disponível no momento. Aguarde futuras atualizações.\n");
+    printf("Pressione Enter para continuar...");
+    getchar();
+    getchar();
+
 }
