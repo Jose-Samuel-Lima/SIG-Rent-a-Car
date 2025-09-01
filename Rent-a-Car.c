@@ -29,7 +29,7 @@ void modulo_cadastrar_aluguel(void);
 
 // Funções Funcionário
 void modulo_funcionario(void);
-// void modulo_cadastrar_funcionario(void);
+void cadastrar_funcionario(void);
 // void modulo_dados_funcionario(void);
 // void modulo_atualizar_funcionario(void);
 // void modulo_excluir_funcionario (void);
@@ -40,6 +40,7 @@ void modulo_relatorios(void);
 // void modulo_relatorio_veiculos(void);
 
 // void modulo_relatorio_funcionarios(void);
+
 
 // Programa principal
 int main(void)
@@ -54,36 +55,45 @@ int main(void)
             menu_principal();
             scanf(" %c", &op);
         } else if (op == '1') {
+            modulo_funcionario();
+            scanf(" %c", &op);
+            switch (op) {
+                case '0': op = 'm';
+                        break;
+                case '1': cadastrar_funcionario();
+                        break;
+            }
+        } else if (op == '2') {
             modulo_cliente();
             scanf(" %c", &op);
             if (op == '0') {
                 op = 'm';
             }
-        } else if (op == '2') {
+        } else if (op == '3') {
             modulo_de_veiculos();
             scanf(" %c", &op);
             if (op == '0') {
                 op = 'm';
             }
-        } else if (op == '3') {
+        } else if (op == '4') {
             modulo_alugueis();
             scanf(" %c", &op);
             if (op == '0') {
                 op = 'm';
             }
-        } else if (op == '4') {
+        } else if (op == '5') {
             modulo_relatorios();
             scanf(" %c", &op);
             if (op == '0') {
                 op = 'm';
             }
-        } else if (op == '5') {
+        } else if (op == '6') {
             modulo_equipe();
             printf("Pressione Enter para voltar ao menu principal...");
             getchar();
             getchar();
             op = 'm';
-        } else if (op == '6') {
+        } else if (op == '7') {
             menu_sobre();
             printf("Pressione Enter para voltar ao menu principal...");
             getchar();
@@ -93,6 +103,8 @@ int main(void)
             ainda_roda = 0;
         }
     }
+
+    printf("Programa Finalizado com sucesso! Agradecemos o seu tempo.\n\n\n");
 
     return 0;
 }
@@ -120,12 +132,13 @@ void menu_principal(void)
     printf("|                                                                     |\n");
     printf("|                   < = = = Gestão Locadora = = = >                   |\n");
     printf("|                                                                     |\n");
-    printf("|                    # 1 # Módulo Clientes                            |\n");
-    printf("|                    # 2 # Módulo de Veículos                         |\n");
-    printf("|                    # 3 # Módulo de Alugueis                         |\n");
-    printf("|                    # 4 # Módulo Relatórios                          |\n");
-    printf("|                    # 5 # Informações da Equipe                      |\n");
-    printf("|                    # 6 # Sobre o Programa                           |\n");
+    printf("|                    # 1 # Módulo Funcionários                        |\n");
+    printf("|                    # 2 # Módulo Clientes                            |\n");
+    printf("|                    # 3 # Módulo de Veículos                         |\n");
+    printf("|                    # 4 # Módulo de Alugueis                         |\n");
+    printf("|                    # 5 # Módulo Relatórios                          |\n");
+    printf("|                    # 6 # Informações da Equipe                      |\n");
+    printf("|                    # 7 # Sobre o Programa                           |\n");
     printf("|                    # 0 # Finalizar Programa                         |\n");
     printf("|                                                                     |\n");
     printf("|                   Escolha uma das opções...                         |\n");
@@ -304,6 +317,34 @@ void modulo_funcionario(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+}
+
+void cadastrar_funcionario(void) {
+    char nome_funcionario[51];
+    int idade_funcionario;
+    char cpf_funcionario[12];
+    char cargo[22];
+    char email[30];
+
+    printf("Nome do funcionário: ");
+    getchar();
+    fgets(nome_funcionario, sizeof(nome_funcionario), stdin);
+    printf("Idade do funcionário: ");
+    getchar();
+    scanf("%d", &idade_funcionario);
+    printf("CPF do funcionário: ");
+    getchar();
+    fgets(cpf_funcionario, sizeof(cpf_funcionario), stdin);
+    printf("Cargo do funcionário: ");
+    getchar();
+    fgets(cargo, sizeof(cargo), stdin);
+    printf("Email do funcionário: ");
+    getchar();
+    fgets(cargo, sizeof(cargo), stdin);
+    system("cls||clear");
+    printf("Funcionário Registrado com Sucesso!\n");
+    printf("Pressione Enter para continuar...");
+    getchar();
 }
 
 void modulo_relatorios(void)
