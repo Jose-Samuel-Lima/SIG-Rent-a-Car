@@ -69,6 +69,12 @@ int main(void)
             if (op == '0') {
                 op = 'm';
             }
+            switch (op) {
+                case '0': op = 'm';
+                        break;
+                case '1': modulo_cadastrar_cliente();
+                        break;
+            }
         } else if (op == '3') {
             modulo_de_veiculos();
             scanf(" %c", &op);
@@ -241,6 +247,34 @@ void modulo_cliente(void)
     printf("\n");
 }
 
+void modulo_cadastrar_cliente(void) {
+    char nome_cliente[51];
+    int idade_cliente;
+    char cpf_cliente[12];
+    char email[30];
+    char CNH[13];
+
+    printf("Nome do cliente: ");
+    getchar();
+    fgets(nome_cliente, sizeof(nome_cliente), stdin);
+    printf("Idade do cliente: ");
+    getchar();
+    scanf("%d", &idade_cliente);
+    printf("CPF do cliente: ");
+    getchar();
+    fgets(cpf_cliente, sizeof(cpf_cliente), stdin);
+    printf("Email do cliente: ");
+    getchar();
+    fgets(email, sizeof(email), stdin);
+    printf("CNH do cliente: ");
+    getchar();
+    fgets(CNH, sizeof(CNH), stdin);
+    system("cls||clear");
+    printf("Cliente Registrado com Sucesso!\n");
+    printf("Pressione Enter para continuar...");
+    getchar();
+}
+
 void modulo_de_veiculos(void)
 {
     system("clear||cls");
@@ -340,7 +374,7 @@ void cadastrar_funcionario(void) {
     fgets(cargo, sizeof(cargo), stdin);
     printf("Email do funcionário: ");
     getchar();
-    fgets(cargo, sizeof(cargo), stdin);
+    fgets(email, sizeof(email), stdin);
     system("cls||clear");
     printf("Funcionário Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
@@ -367,36 +401,6 @@ void modulo_relatorios(void)
     printf("|                    # 4 # Relatório de aluguéis finalizados          |\n");
     printf("|                    # 5 # Relatório de funcionários                  |\n");
     printf("|                    # 0 # Voltar ao menu principal                   |\n");
-    printf("|                                                                     |\n");
-    printf("|                   Escolha uma das opções...                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
-
-void modulo_cadastrar_cliente(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                | < = = = Cadastro de Clientes = = = > |             |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + Nome do cliente:                               |\n");
-    printf("|                    + CPF do cliente:                                |\n");
-    printf("|                    + CNH do cliente:                                |\n");
-    printf("|                    + Data de Nascimento do cliente:                 |\n");
-    printf("|                    + Endereço do cliente:                           |\n");
-    printf("|                    + Telefone do cliente:                           |\n");
-    printf("|                    + Email do cliente:                              |\n");
     printf("|                                                                     |\n");
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
