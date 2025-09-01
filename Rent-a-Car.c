@@ -94,7 +94,7 @@ int main(void)
             switch (op) {
                 case '0': op = 'm';
                         break;
-                case '1': mensagem_manutencao();
+                case '1': modulo_cadastrar_veiculo();
                         break;
                 case '2': mensagem_manutencao();
                         break;
@@ -110,7 +110,7 @@ int main(void)
             switch (op) {
                 case '0': op = 'm';
                         break;
-                case '1': modulo_cadastrar_cliente();
+                case '1': modulo_cadastrar_aluguel();
                         break;
                 case '2': mensagem_manutencao();
                         break;
@@ -126,7 +126,7 @@ int main(void)
             switch (op) {
                 case '0': op = 'm';
                         break;
-                case '1': modulo_cadastrar_cliente();
+                case '1': mensagem_manutencao();
                         break;
                 case '2': mensagem_manutencao();
                         break;
@@ -346,6 +346,38 @@ void modulo_de_veiculos(void)
     printf("\n");
 }
 
+void modulo_cadastrar_veiculo(void) {
+    char nome_veiculo[51];
+    float preco_veiculo;
+    char placa_veiculo[8];
+    char marca[15];
+    char modelo[13];
+    char codigo_renavam[12];
+
+    printf("Nome do veículo: ");
+    getchar();
+    fgets(nome_veiculo, sizeof(nome_veiculo), stdin);
+    printf("Preço do veículo: ");
+    getchar();
+    scanf("%f", &preco_veiculo);
+    printf("Placa do veículo: ");
+    getchar();
+    fgets(placa_veiculo, sizeof(placa_veiculo), stdin);
+    printf("Marca do veículo: ");
+    getchar();
+    fgets(marca, sizeof(marca), stdin);
+    printf("Modelo do veículo: ");
+    getchar();
+    fgets(modelo, sizeof(modelo), stdin);
+    printf("Código RENAVAM do veículo: ");
+    getchar();
+    fgets(codigo_renavam, sizeof(codigo_renavam), stdin);
+    system("cls||clear");
+    printf("Veículo Registrado com Sucesso!\n");
+    printf("Pressione Enter para continuar...");
+    getchar();
+}
+
 void modulo_alugueis(void)
 {
     system("clear||cls");
@@ -525,35 +557,6 @@ void modulo_excluir_cliente(void)
     printf("\n");
 }
 
-void modulo_cadastrar_veiculo(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                | < = = = Cadastro de Veículos = = = > |             |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + Nome do veículo:                               |\n");
-    printf("|                    + Modelo do veículo:                             |\n");
-    printf("|                    + Placa do veículo:                              |\n");
-    printf("|                    + Data de fabricação do veículo:                 |\n");
-    printf("|                    + Número do chassi:                              |\n");
-    printf("|                    + Código da RENAVAM:                             |\n");
-    printf("|                                                                     |\n");
-    printf("|                   Escolha uma das opções...                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
-
 void modulo_dados_veiculo(void)
 {
     system("clear||cls");
@@ -631,30 +634,24 @@ void modulo_excluir_veiculo(void)
 
 void modulo_cadastrar_aluguel(void)
 {
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                | < = = = Cadastro de Aluguéis = = = > |             |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + Nome do cliente:                               |\n");
-    printf("|                    + CPF do cliente:                                |\n");
-    printf("|                    + Placa do veículo:                              |\n");
-    printf("|                    + Código da RENAVAM:                             |\n");
-    printf("|                    + Código do Aluguel:                             |\n");
-    printf("|                                                                     |\n");
-    printf("|                   Escolha uma das opções...                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
+    char nome_cliente[51];
+    char cpf_cliente[12];
+    char codigo_renavam[12];
+    // int id_aluguel;
+
+    printf("Nome do cliente: ");
+    getchar();
+    fgets(nome_cliente, sizeof(nome_cliente), stdin);
+    printf("CPF do cliente: ");
+    getchar();
+    fgets(cpf_cliente, sizeof(cpf_cliente), stdin);
+    printf("Código RENAVAM do veículo alugado: ");
+    getchar();
+    fgets(codigo_renavam, sizeof(codigo_renavam), stdin);
+    system("cls||clear");
+    printf("Aluguel Registrado com Sucesso!\n");
+    printf("Pressione Enter para continuar...");
+    getchar();
 }
 
 void mensagem_manutencao(void) {
