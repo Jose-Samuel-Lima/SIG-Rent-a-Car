@@ -38,7 +38,6 @@ void cadastrar_funcionario(void);
 void modulo_relatorios(void);
 // void modulo_relatorio_clientes(void);
 // void modulo_relatorio_veiculos(void);
-
 // void modulo_relatorio_funcionarios(void);
 
 void mensagem_manutencao(void);
@@ -343,7 +342,6 @@ void modulo_dados_cliente(void)
     printf("|                    + CPF do cliente:                                |\n");
     scanf("%14s", cpf);
     getchar();
-    getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
@@ -375,7 +373,6 @@ void modulo_atualizar_cliente(void)
     printf("|                    + CPF do cliente:                                |\n");
     scanf("%14s", cpf);
     getchar();
-    getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
@@ -406,7 +403,6 @@ void modulo_excluir_cliente(void)
     printf("|                                                                     |\n");
     printf("|                    + CPF do cliente:                                |\n");
     scanf("%14s", cpf);
-    getchar();
     getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
@@ -477,7 +473,7 @@ void modulo_cadastrar_veiculo(void) {
 
 void modulo_dados_veiculo(void)
 {
-    char codigo_renavam[12];
+    int codigo_renavam[12];
 
     system("cls||clear");
     printf("\n");
@@ -497,8 +493,7 @@ void modulo_dados_veiculo(void)
     printf("|       o veículo que deseja:                                         |\n");
     printf("|                                                                     |\n");
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
-    scanf("%[0-9]", codigo_renavam);
-    getchar();
+    scanf("%d[0-9]", codigo_renavam);
     getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
@@ -510,7 +505,7 @@ void modulo_dados_veiculo(void)
 
 void modulo_atualizar_veiculo(void)
 {
-    char codigo_renavam[12];
+    int codigo_renavam[12];
 
     system("clear||cls");
     printf("\n");
@@ -530,8 +525,7 @@ void modulo_atualizar_veiculo(void)
     printf("|       o veículo que deseja alterar:                                 |\n");
     printf("|                                                                     |\n");
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
-    scanf("%[0-9]", codigo_renavam);
-    getchar();
+    scanf("%d[0-9]", codigo_renavam);
     getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
@@ -543,7 +537,7 @@ void modulo_atualizar_veiculo(void)
 
 void modulo_excluir_veiculo(void)
 {
-    char codigo_renavam[12];
+    int codigo_renavam[12];
 
     system("clear||cls");
     printf("\n");
@@ -563,8 +557,7 @@ void modulo_excluir_veiculo(void)
     printf("|       o veículo que deseja excluir:                                 |\n");
     printf("|                                                                     |\n");
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
-    scanf("%[0-9]",codigo_renavam);
-    getchar();
+    scanf("%d[0-9]",codigo_renavam);
     getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
