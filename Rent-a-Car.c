@@ -84,7 +84,7 @@ int main(void)
                         break;
                 case '3': modulo_atualizar_cliente();
                         break;
-                case '4': mensagem_manutencao();
+                case '4': modulo_excluir_cliente();
                         break;
             }
             op = 'm';
@@ -386,6 +386,8 @@ void modulo_atualizar_cliente(void)
 
 void modulo_excluir_cliente(void)
 {
+    char cpf[15];
+
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -403,9 +405,15 @@ void modulo_excluir_cliente(void)
     printf("|        Por favor informe o CPf do cliente que deseja excluir:       |\n");
     printf("|                                                                     |\n");
     printf("|                    + CPF do cliente:                                |\n");
+    scanf("%14s", cpf);
+    getchar();
+    getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    system("cls||clear");
+    printf("Pressione Enter para continuar...");
+    getchar();
 }
 
 void modulo_de_veiculos(void)
