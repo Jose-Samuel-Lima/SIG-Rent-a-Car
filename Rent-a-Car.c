@@ -100,7 +100,7 @@ int main(void)
                         break;
                 case '3': modulo_atualizar_veiculo();
                         break;
-                case '4': mensagem_manutencao();
+                case '4': modulo_excluir_veiculo();
                         break;
             }
             op = 'm';
@@ -519,6 +519,8 @@ void modulo_atualizar_veiculo(void)
 
 void modulo_excluir_veiculo(void)
 {
+    char codigo_renavam[12];
+
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -537,9 +539,15 @@ void modulo_excluir_veiculo(void)
     printf("|       o veículo que deseja excluir:                                 |\n");
     printf("|                                                                     |\n");
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
+    scanf("%[0-9]",codigo_renavam);
+    getchar();
+    getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    system("cls||clear");
+    printf("Pressione Enter para continuar...");
+    getchar();
 }
 
 void modulo_alugueis(void)
