@@ -82,7 +82,7 @@ int main(void)
                         break;
                 case '2': modulo_dados_cliente();
                         break;
-                case '3': mensagem_manutencao();
+                case '3': modulo_atualizar_cliente();
                         break;
                 case '4': mensagem_manutencao();
                         break;
@@ -354,6 +354,8 @@ void modulo_dados_cliente(void)
 
 void modulo_atualizar_cliente(void)
 {
+    char cpf[15];
+
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -371,9 +373,15 @@ void modulo_atualizar_cliente(void)
     printf("|      Por favor informe o CPf do cliente para alterar os dados:      |\n");
     printf("|                                                                     |\n");
     printf("|                    + CPF do cliente:                                |\n");
+    scanf("%14s", cpf);
+    getchar();
+    getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    system("cls||clear");
+    printf("Pressione Enter para continuar...");
+    getchar();
 }
 
 void modulo_excluir_cliente(void)
