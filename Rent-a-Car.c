@@ -100,7 +100,7 @@ int main(void)
                         break;
                 case '3': modulo_atualizar_veiculo();
                         break;
-                case '4': mensagem_manutencao();
+                case '4': modulo_excluir_veiculo();
                         break;
             }
             op = 'm';
@@ -615,6 +615,38 @@ void modulo_atualizar_veiculo(void) {
         fgets(novo_codigo_renavam, sizeof(novo_codigo_renavam), stdin);
     }
     printf("Pressione enter para continuar...");
+    getchar();
+}
+
+void modulo_excluir_veiculo(void)
+{
+    int codigo_renavam[12];
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
+    printf("|             | < = = =  Excluir dados do Veículo  = = = > |          |\n");
+    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
+    printf("|                                                                     |\n");
+    printf("|           Por favor informe o Código da RENAVAM  para encontrar     |\n");
+    printf("|       o veículo que deseja excluir:                                 |\n");
+    printf("|                                                                     |\n");
+    printf("|                    + Código da RENAVAM do veículo:                  |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("\n");
+    scanf("%d[0-9]",codigo_renavam);
+    getchar();
+    system("cls||clear");
+    printf("Pressione Enter para continuar...");
     getchar();
 }
 
