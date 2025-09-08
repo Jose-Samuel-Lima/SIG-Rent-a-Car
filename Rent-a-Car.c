@@ -96,7 +96,7 @@ int main(void)
                         break;
                 case '1': modulo_cadastrar_veiculo();
                         break;
-                case '2': mensagem_manutencao();
+                case '2': modulo_dados_veiculo();
                         break;
                 case '3': mensagem_manutencao();
                         break;
@@ -510,6 +510,38 @@ void modulo_cadastrar_veiculo(void) {
     getchar();
 }
 
+void modulo_dados_veiculo(void)
+{
+    int codigo_renavam[12];
+
+    system("cls||clear");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("|                | < = = =  Dados dos Veículos  = = = > |             |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("|                                                                     |\n");
+    printf("|           Por favor informe o Código da RENAVAM  para encontrar     |\n");
+    printf("|       o veículo que deseja:                                         |\n");
+    printf("|                                                                     |\n");
+    printf("|                    + Código da RENAVAM do veículo:                  |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("\n");
+    scanf("%d[0-9]", codigo_renavam);
+    getchar();
+    system("cls||clear");
+    printf("Pressione Enter para continuar...");
+    getchar();
+}
+
 void modulo_alugueis(void)
 {
     system("clear||cls");
@@ -612,82 +644,6 @@ void modulo_relatorios(void)
     printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|                                                                     |\n");
     printf("|                   Escolha uma das opções...                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
-
-
-void modulo_dados_veiculo(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                | < = = =  Dados dos Veículos  = = = > |             |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                                                                     |\n");
-    printf("|           Por favor informe o Código da RENAVAM  para encontrar     |\n");
-    printf("|       o veículo que deseja:                                         |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + Código da RENAVAM do veículo:                  |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
-
-void modulo_atualizar_veiculo(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|             | < = = =  Alterar dados do Veículo  = = = > |          |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|                                                                     |\n");
-    printf("|           Por favor informe o Código da RENAVAM  para encontrar     |\n");
-    printf("|       o veículo que deseja alterar:                                 |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + Código da RENAVAM do veículo:                  |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
-
-void modulo_excluir_veiculo(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|             | < = = =  Excluir dados do Veículo  = = = > |          |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|                                                                     |\n");
-    printf("|           Por favor informe o Código da RENAVAM  para encontrar     |\n");
-    printf("|       o veículo que deseja excluir:                                 |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + Código da RENAVAM do veículo:                  |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
