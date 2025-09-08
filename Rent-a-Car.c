@@ -84,7 +84,7 @@ int main(void)
                         break;
                 case '3': modulo_atualizar_cliente();
                         break;
-                case '4': mensagem_manutencao();
+                case '4': modulo_excluir_cliente();
                         break;
             }
             op = 'm';
@@ -421,6 +421,37 @@ void modulo_atualizar_cliente(void) {
     getchar();
 }
 
+void modulo_excluir_cliente(void)
+{
+    char cpf[15];
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
+    printf("|             | < = = =  Excluir dados do Cliente  = = = > |          |\n");
+    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
+    printf("|                                                                     |\n");
+    printf("|        Por favor informe o CPf do cliente que deseja excluir:       |\n");
+    printf("|                                                                     |\n");
+    printf("|                    + CPF do cliente:                                |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("\n");
+    scanf("%14s", cpf);
+    getchar();
+    system("cls||clear");
+    printf("Pressione Enter para continuar...");
+    getchar();
+}
+
 void modulo_de_veiculos(void)
 {
     system("clear||cls");
@@ -586,30 +617,6 @@ void modulo_relatorios(void)
     printf("\n");
 }
 
-
-void modulo_excluir_cliente(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|             | < = = =  Excluir dados do Cliente  = = = > |          |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|                                                                     |\n");
-    printf("|        Por favor informe o CPf do cliente que deseja excluir:       |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + CPF do cliente:                                |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
 
 void modulo_dados_veiculo(void)
 {
