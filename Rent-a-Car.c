@@ -98,7 +98,7 @@ int main(void)
                         break;
                 case '2': modulo_dados_veiculo();
                         break;
-                case '3': mensagem_manutencao();
+                case '3': modulo_atualizar_veiculo();
                         break;
                 case '4': mensagem_manutencao();
                         break;
@@ -539,6 +539,82 @@ void modulo_dados_veiculo(void)
     getchar();
     system("cls||clear");
     printf("Pressione Enter para continuar...");
+    getchar();
+}
+
+void modulo_atualizar_veiculo(void) {
+    char codigo_renavam[13];
+    char choose;
+    char nome_veiculo[51];
+    float preco_veiculo;
+    char placa_veiculo[10];
+    char marca[20];
+    char modelo_veiculo[15];
+    char novo_codigo_renavam[13];
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("|                | < = = =  Dados dos Veículos  = = = > |             |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("|                                                                     |\n");
+    printf("|           Por favor informe o Código da RENAVAM  para encontrar     |\n");
+    printf("|       o veículo que deseja:                                         |\n");
+    printf("|                                                                     |\n");
+    printf("|                    + Código da RENAVAM do veículo:                  |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("\n");
+    scanf("%s", codigo_renavam);
+    getchar();
+
+    // fazer verificação quando fazer o armazenamento de dados
+
+    system("clear||cls");
+    printf("[1] Novo Nome\n");
+    printf("[2] Nova Valor\n");
+    printf("[3] Nova Placa\n");
+    printf("[4] Nova Marca\n");
+    printf("[5] Novo Modelo\n");
+    printf("[6] Novo Código RENAVAM\n");
+    printf("[0] Cancelar\n");
+    printf("-----------------------\n");
+    scanf(" %c", &choose);
+    system("clear||cls");
+    if (choose == '1') {
+        printf("Informe o novo do veículo: ");
+        getchar();
+        fgets(nome_veiculo, sizeof(nome_veiculo), stdin);
+    } else if (choose == '2') {
+        printf("Informe o novo valor do veículo: ");
+        scanf(" %f", &preco_veiculo);
+        getchar();
+    } else if (choose == '3') {
+        printf("Informe a nova placa do veículo:");
+        scanf(" %s", placa_veiculo);
+        getchar();
+    } else if (choose == '4') {
+        printf("Informe a nova marca do veículo: ");
+        scanf(" %s", marca);
+        getchar();
+    } else if (choose == '5') {
+        printf("Informe o novo modelo do veículo: ");
+        scanf("%s", modelo_veiculo);
+        getchar();
+    } else if (choose == '6') {
+        printf("Informe o novo código RENAVAM do veículo: ");
+        getchar();
+        fgets(novo_codigo_renavam, sizeof(novo_codigo_renavam), stdin);
+    }
+    printf("Pressione enter para continuar...");
     getchar();
 }
 
