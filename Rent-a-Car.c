@@ -82,7 +82,7 @@ int main(void)
                         break;
                 case '2': modulo_dados_cliente();
                         break;
-                case '3': mensagem_manutencao();
+                case '3': modulo_atualizar_cliente();
                         break;
                 case '4': mensagem_manutencao();
                         break;
@@ -351,6 +351,76 @@ void modulo_dados_cliente(void)
     getchar();
 }
 
+void modulo_atualizar_cliente(void) {
+    char cpf_cliente[12];
+    char choose;
+    char nome_cliente[51];
+    int idade_cliente;
+    char novo_cpf_cliente[12];
+    char email[30];
+    char CNH[13];
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                        | SIG - Rent a Car |                         |\n");
+    printf("|                        --------------------                         |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("|                                                                     |\n");
+    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
+    printf("|             | < = = =  Alterar dados do Cliente  = = = > |          |\n");
+    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
+    printf("|                                                                     |\n");
+    printf("|      Por favor informe o CPf do cliente para alterar os dados:      |\n");
+    printf("|                                                                     |\n");
+    printf("|                    + CPF do cliente:                                |\n");
+    printf("|                                                                     |\n");
+    printf("#=====================================================================#\n");
+    printf("\n");
+    scanf("%14s", cpf_cliente);
+    getchar();
+
+
+    // fazer verificação quando fazer o armazenamento de dados
+
+    system("clear||cls");
+    printf("[1] Novo Nome do Cliente\n");
+    printf("[2] Nova Idade do Cliente\n");
+    printf("[3] Novo Cpf do Cliente\n");
+    printf("[4] Novo E-mail do Cliente\n");
+    printf("[5] Novo nº CNH do Cliente\n");
+    printf("[0] Cancelar\n");
+    printf("-----------------------\n");
+    scanf(" %c", &choose);
+    system("clear||cls");
+    if (choose == '1') {
+        printf("Informe o novo nome: ");
+        getchar();
+        fgets(nome_cliente, sizeof(nome_cliente), stdin);
+    } else if (choose == '2') {
+        printf("Informe a nova idade: ");
+        scanf(" %d", &idade_cliente);
+        getchar();
+    } else if (choose == '3') {
+        printf("Informe o novo CPF: ");
+        scanf(" %s", novo_cpf_cliente);
+        getchar();
+    } else if (choose == '4') {
+        printf("Informe o novo E-mail: ");
+        scanf(" %s", email);
+        getchar();
+    } else if (choose == '5') {
+        printf("Informe o novo número da CNH: ");
+        getchar();
+        fgets(CNH, sizeof(CNH), stdin);
+    }
+    printf("Pressione enter para continuar...");
+    getchar();
+}
+
 void modulo_de_veiculos(void)
 {
     system("clear||cls");
@@ -516,30 +586,6 @@ void modulo_relatorios(void)
     printf("\n");
 }
 
-
-void modulo_atualizar_cliente(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|             | < = = =  Alterar dados do Cliente  = = = > |          |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|                                                                     |\n");
-    printf("|      Por favor informe o CPf do cliente para alterar os dados:      |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + CPF do cliente:                                |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
 
 void modulo_excluir_cliente(void)
 {
