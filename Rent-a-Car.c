@@ -10,7 +10,7 @@ void modulo_equipe(void);
 void modulo_cliente(void);
 void modulo_cadastrar_cliente(void);
 void modulo_dados_cliente(void);
-void modulo_atualizar_cliente(void);
+void modulo_atualizar_clientes(void);
 void modulo_excluir_cliente(void);
 
 // Funções Veículo
@@ -31,8 +31,8 @@ void modulo_cadastrar_aluguel(void);
 void modulo_funcionario(void);
 void cadastrar_funcionario(void);
 // void modulo_dados_funcionario(void);
-// void modulo_atualizar_funcionario(void);
-// void modulo_excluir_funcionario (void);
+void modulo_atualizar_funcionario(void);
+//void modulo_excluir_funcionario(void);
 
 // Funções Relatórios
 void modulo_relatorios(void);
@@ -54,7 +54,8 @@ int main(void)
     while (ainda_roda == 1) {
         if (op == 'm') {
             menu_principal();
-            scanf(" %c", &op);
+            scanf("%c", &op);
+            getchar();
         } else if (op == '1') {
             modulo_funcionario();
             scanf(" %c", &op);
@@ -65,7 +66,7 @@ int main(void)
                         break;
                 case '2': mensagem_manutencao();
                         break;
-                case '3': mensagem_manutencao();
+                case '3': modulo_atualizar_funcionario();
                         break;
                 case '4': mensagem_manutencao();
                         break;
@@ -81,7 +82,7 @@ int main(void)
                         break;
                 case '2': modulo_dados_cliente();
                         break;
-                case '3': modulo_atualizar_cliente();
+                case '3': modulo_atualizar_clientes();
                         break;
                 case '4': modulo_excluir_cliente();
                         break;
@@ -340,19 +341,24 @@ void modulo_dados_cliente(void)
     printf("|       Por favor informe o CPf do cliente que deseja encontrar:      |\n");
     printf("|                                                                     |\n");
     printf("|                    + CPF do cliente:                                |\n");
-    scanf("%14s", cpf);
-    getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    scanf("%14s", cpf);
+    getchar();
     system("cls||clear");
     printf("Pressione Enter para continuar...");
     getchar();
 }
-
-void modulo_atualizar_cliente(void)
-{
-    char cpf[15];
+  
+void modulo_atualizar_clientes(void) {
+    char cpf_cliente[12];
+    char choose;
+    char nome_cliente[51];
+    int idade_cliente;
+    char novo_cpf_cliente[12];
+    char email[30];
+    char CNH[13];
 
     system("clear||cls");
     printf("\n");
@@ -371,13 +377,47 @@ void modulo_atualizar_cliente(void)
     printf("|      Por favor informe o CPf do cliente para alterar os dados:      |\n");
     printf("|                                                                     |\n");
     printf("|                    + CPF do cliente:                                |\n");
-    scanf("%14s", cpf);
-    getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    system("cls||clear");
-    printf("Pressione Enter para continuar...");
+    scanf("%14s", cpf_cliente);
+    getchar();
+
+
+    // fazer verificação quando fazer o armazenamento de dados
+
+    system("clear||cls");
+    printf("[1] Novo Nome\n");
+    printf("[2] Nova Idade\n");
+    printf("[3] Novo Cpf\n");
+    printf("[4] Novo E-mail\n");
+    printf("[5] Novo nº CNH");
+    printf("[0] Cancelar\n");
+    printf("-----------------------\n");
+    scanf(" %c", &choose);
+    system("clear||cls");
+    if (choose == '1') {
+        printf("Informe o novo nome: ");
+        getchar();
+        fgets(nome_cliente, sizeof(nome_cliente), stdin);
+    } else if (choose == '2') {
+        printf("Informe a nova idade: ");
+        scanf(" %d", &idade_cliente);
+        getchar();
+    } else if (choose == '3') {
+        printf("Informe o novo CPF: ");
+        scanf(" %s", novo_cpf_cliente);
+        getchar();
+    } else if (choose == '4') {
+        printf("Informe o novo E-mail: ");
+        scanf(" %s", email);
+        getchar();
+    } else if (choose == '5') {
+        printf("Informe o novo número da CNH: ");
+        getchar();
+        fgets(CNH, sizeof(CNH), stdin);
+    }
+    printf("Pressione enter para continuar...");
     getchar();
 }
 
@@ -402,11 +442,11 @@ void modulo_excluir_cliente(void)
     printf("|        Por favor informe o CPf do cliente que deseja excluir:       |\n");
     printf("|                                                                     |\n");
     printf("|                    + CPF do cliente:                                |\n");
-    scanf("%14s", cpf);
-    getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    scanf("%14s", cpf);
+    getchar();
     system("cls||clear");
     printf("Pressione Enter para continuar...");
     getchar();
@@ -493,19 +533,25 @@ void modulo_dados_veiculo(void)
     printf("|       o veículo que deseja:                                         |\n");
     printf("|                                                                     |\n");
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
-    scanf("%d[0-9]", codigo_renavam);
-    getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    scanf("%d[0-9]", codigo_renavam);
+    getchar();
     system("cls||clear");
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_atualizar_veiculo(void)
-{
-    int codigo_renavam[12];
+void modulo_atualizar_veiculo(void) {
+    char codigo_renavam[13];
+    char choose;
+    char nome_veiculo[51];
+    float preco_veiculo;
+    char placa_veiculo[10];
+    char marca[20];
+    char modelo_veiculo[15];
+    char novo_codigo_renavam[13];
 
     system("clear||cls");
     printf("\n");
@@ -517,21 +563,59 @@ void modulo_atualizar_veiculo(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|             | < = = =  Alterar dados do Veículo  = = = > |          |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("|                | < = = =  Dados dos Veículos  = = = > |             |\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
     printf("|                                                                     |\n");
     printf("|           Por favor informe o Código da RENAVAM  para encontrar     |\n");
-    printf("|       o veículo que deseja alterar:                                 |\n");
+    printf("|       o veículo que deseja:                                         |\n");
     printf("|                                                                     |\n");
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
-    scanf("%d[0-9]", codigo_renavam);
-    getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    system("cls||clear");
-    printf("Pressione Enter para continuar...");
+    scanf("%s", codigo_renavam);
+    getchar();
+
+    // fazer verificação quando fazer o armazenamento de dados
+
+    system("clear||cls");
+    printf("[1] Novo Nome\n");
+    printf("[2] Nova Valor\n");
+    printf("[3] Nova Placa\n");
+    printf("[4] Nova Marca\n");
+    printf("[5] Novo Modelo\n");
+    printf("[6] Novo Código RENAVAM\n");
+    printf("[0] Cancelar\n");
+    printf("-----------------------\n");
+    scanf(" %c", &choose);
+    system("clear||cls");
+    if (choose == '1') {
+        printf("Informe o novo do veículo: ");
+        getchar();
+        fgets(nome_veiculo, sizeof(nome_veiculo), stdin);
+    } else if (choose == '2') {
+        printf("Informe o novo valor do veículo: ");
+        scanf(" %f", &preco_veiculo);
+        getchar();
+    } else if (choose == '3') {
+        printf("Informe a nova placa do veículo:");
+        scanf(" %s", placa_veiculo);
+        getchar();
+    } else if (choose == '4') {
+        printf("Informe a nova marca do veículo: ");
+        scanf(" %s", marca);
+        getchar();
+    } else if (choose == '5') {
+        printf("Informe o novo modelo do veículo: ");
+        scanf("%s", modelo_veiculo);
+        getchar();
+    } else if (choose == '6') {
+        printf("Informe o novo código RENAVAM do veículo: ");
+        getchar();
+        fgets(novo_codigo_renavam, sizeof(novo_codigo_renavam), stdin);
+    }
+    printf("Pressione enter para continuar...");
     getchar();
 }
 
@@ -557,11 +641,11 @@ void modulo_excluir_veiculo(void)
     printf("|       o veículo que deseja excluir:                                 |\n");
     printf("|                                                                     |\n");
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
-    scanf("%d[0-9]",codigo_renavam);
-    getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    scanf("%d[0-9]",codigo_renavam);
+    getchar();
     system("cls||clear");
     printf("Pressione Enter para continuar...");
     getchar();
@@ -679,6 +763,56 @@ void cadastrar_funcionario(void) {
     system("cls||clear");
     printf("Funcionário Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
+    getchar();
+}
+
+void modulo_atualizar_funcionario(void) {
+    char cpf[12];
+    char choose;
+    char nome_funcionario[51];
+    char novo_cpf[12];
+    char cargo[22];
+    char email[30];
+    int idade;
+
+    printf("Digite o CPF do funcionário que deseja atualizar os dados: ");
+    getchar();
+    scanf(" %s", cpf);
+
+    // fazer verificação quando fazer o armazenamento de dados
+
+    system("clear||cls");
+    printf("[1] Nome\n");
+    printf("[2] Idade\n");
+    printf("[3] Cpf\n");
+    printf("[4] Cargo\n");
+    printf("[5] E-mail\n");
+    printf("[0] Cancelar\n");
+    printf("-----------------------\n");
+    scanf(" %c", &choose);
+    system("clear||cls");
+    if (choose == '1') {
+        printf("Selecione o novo nome: ");
+        getchar();
+        fgets(nome_funcionario, sizeof(nome_funcionario), stdin);
+    } else if (choose == '2') {
+        printf("Selecione a nova idade: ");
+        scanf(" %d", &idade);
+        getchar();
+    } else if (choose == '3') {
+        printf("Selecione o novo CPF: ");
+        scanf(" %s", novo_cpf);
+        getchar();
+    } else if (choose == '4') {
+        printf("Selecione o novo cargo: ");
+        getchar();
+        fgets(cargo, sizeof(cargo), stdin);
+    } else if (choose == '5') {
+        printf("Selecione o novo E-mail: ");
+        scanf(" %s", email);
+        getchar();
+    }
+    printf("Pressione enter para continuar...");
     getchar();
 }
 
