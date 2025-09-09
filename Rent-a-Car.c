@@ -25,7 +25,6 @@ void modulo_alugueis(void);
 void modulo_cadastrar_aluguel(void);
 // void modulo_dados_aluguel(void);
 void modulo_alterar_aluguel(void);
-// void modulo_finalizar_aluguel(void);
 void modulo_finalizar_aluguel(void);
 
 // Funções Funcionário
@@ -117,7 +116,6 @@ int main(void)
                         break;
                 case '3': modulo_alterar_aluguel();
                         break;
-                case '4': mensagem_manutencao();
                 case '4': modulo_finalizar_aluguel();
                         break;
             }
@@ -198,7 +196,7 @@ void menu_principal(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-
+    
 }
 
 void menu_sobre(void)
@@ -781,7 +779,7 @@ void modulo_atualizar_funcionario(void) {
 
 void modulo_excluir_funcionario(void) {
     char cpf[12];
-
+    
     printf("Selecione o CPF do funcionário que você deseja excluir: ");
     getchar();
     scanf(" %s", cpf);
@@ -789,7 +787,7 @@ void modulo_excluir_funcionario(void) {
     printf("Pressione enter para continuar..");
     getchar();
     getchar();
-
+    
 }
 
 void modulo_relatorios(void)
@@ -817,3 +815,4 @@ void modulo_relatorios(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+}
