@@ -24,9 +24,9 @@ void modulo_excluir_veiculo(void);
 void modulo_alugueis(void);
 void modulo_cadastrar_aluguel(void);
 // void modulo_dados_aluguel(void);
-// void modulo_alterar_aluguel(void);
 void modulo_alterar_aluguel(void);
 // void modulo_finalizar_aluguel(void);
+void modulo_finalizar_aluguel(void);
 
 // Funções Funcionário
 void modulo_funcionario(void);
@@ -69,7 +69,6 @@ int main(void)
                         break;
                 case '3': modulo_atualizar_funcionario();
                         break;
-                case '4': mensagem_manutencao();
                 case '4': modulo_excluir_funcionario();
                         break;
             }
@@ -116,10 +115,10 @@ int main(void)
                         break;
                 case '2': mensagem_manutencao();
                         break;
-                case '3': mensagem_manutencao();
                 case '3': modulo_alterar_aluguel();
                         break;
                 case '4': mensagem_manutencao();
+                case '4': modulo_finalizar_aluguel();
                         break;
             }
             op = 'm';
@@ -653,6 +652,18 @@ void modulo_alterar_aluguel(void) {
     getchar();
 }
 
+void modulo_finalizar_aluguel(void) {
+    int id_aluguel;
+    
+    printf("Selecione o ID do alguel que você deseja excluir: ");
+    getchar();
+    scanf(" %d", &id_aluguel);
+    system("cls||clear");
+    printf("Pressione enter para continuar..");
+    getchar();
+    getchar();
+}
+
 void mensagem_manutencao(void) {
     system("cls||clear");
     printf("Essa página não está disponível no momento. Aguarde futuras atualizações.\n");
@@ -770,7 +781,7 @@ void modulo_atualizar_funcionario(void) {
 
 void modulo_excluir_funcionario(void) {
     char cpf[12];
-    
+
     printf("Selecione o CPF do funcionário que você deseja excluir: ");
     getchar();
     scanf(" %s", cpf);
@@ -778,7 +789,7 @@ void modulo_excluir_funcionario(void) {
     printf("Pressione enter para continuar..");
     getchar();
     getchar();
-    
+
 }
 
 void modulo_relatorios(void)
