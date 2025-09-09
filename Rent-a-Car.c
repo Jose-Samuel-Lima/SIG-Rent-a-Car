@@ -25,7 +25,7 @@ void modulo_alugueis(void);
 void modulo_cadastrar_aluguel(void);
 // void modulo_dados_aluguel(void);
 void modulo_alterar_aluguel(void);
-// void modulo_finalizar_aluguel(void);
+void modulo_finalizar_aluguel(void);
 
 // Funções Funcionário
 void modulo_funcionario(void);
@@ -116,7 +116,7 @@ int main(void)
                         break;
                 case '3': modulo_alterar_aluguel();
                         break;
-                case '4': mensagem_manutencao();
+                case '4': modulo_finalizar_aluguel();
                         break;
             }
             op = 'm';
@@ -647,6 +647,18 @@ void modulo_alterar_aluguel(void) {
         getchar();
     }
     printf("Pressione enter para continuar...");
+    getchar();
+}
+
+void modulo_finalizar_aluguel(void) {
+    int id_aluguel;
+    
+    printf("Selecione o ID do alguel que você deseja excluir: ");
+    getchar();
+    scanf(" %d", &id_aluguel);
+    system("cls||clear");
+    printf("Pressione enter para continuar..");
+    getchar();
     getchar();
 }
 
