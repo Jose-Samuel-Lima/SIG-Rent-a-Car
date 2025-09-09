@@ -24,7 +24,7 @@ void modulo_excluir_veiculo(void);
 void modulo_alugueis(void);
 void modulo_cadastrar_aluguel(void);
 // void modulo_dados_aluguel(void);
-// void modulo_alterar_aluguel(void);
+void modulo_alterar_aluguel(void);
 // void modulo_finalizar_aluguel(void);
 
 // Funções Funcionário
@@ -68,7 +68,7 @@ int main(void)
                         break;
                 case '3': modulo_atualizar_funcionario();
                         break;
-                case '4': mensagem_manutencao();
+                case '4': modulo_excluir_funcionario();
                         break;
             }
             op = 'm';
@@ -114,7 +114,7 @@ int main(void)
                         break;
                 case '2': mensagem_manutencao();
                         break;
-                case '3': mensagem_manutencao();
+                case '3': modulo_alterar_aluguel();
                         break;
                 case '4': mensagem_manutencao();
                         break;
@@ -618,6 +618,38 @@ void modulo_cadastrar_aluguel(void)
     getchar();
 }
 
+void modulo_alterar_aluguel(void) {
+    char cpf_cliente[12];
+    char codigo_renavam[12];
+    int id_aluguel;
+    char choose;
+
+    printf("Digite o ID do aluguel para modificar: ");
+    getchar();
+    scanf(" %d", &id_aluguel);
+
+    // fazer verificação quando fazer o armazenamento de dados
+
+    system("clear||cls");
+    printf("[1] Cpf\n");
+    printf("[2] Código RENAVAM\n");
+    printf("[0] Cancelar\n");
+    printf("-----------------------\n");
+    scanf(" %c", &choose);
+    system("clear||cls");
+    if (choose == '1') {
+        printf("Selecione o novo CPF: ");
+        getchar();
+        fgets(cpf_cliente, sizeof(cpf_cliente), stdin);
+    } else if (choose == '2') {
+        printf("Selecione o novo código RENAVAM: ");
+        scanf(" %s", codigo_renavam);
+        getchar();
+    }
+    printf("Pressione enter para continuar...");
+    getchar();
+}
+
 void mensagem_manutencao(void) {
     system("cls||clear");
     printf("Essa página não está disponível no momento. Aguarde futuras atualizações.\n");
@@ -731,6 +763,19 @@ void modulo_atualizar_funcionario(void) {
     }
     printf("Pressione enter para continuar...");
     getchar();
+}
+
+void modulo_excluir_funcionario(void) {
+    char cpf[12];
+    
+    printf("Selecione o CPF do funcionário que você deseja excluir: ");
+    getchar();
+    scanf(" %s", cpf);
+    system("cls||clear");
+    printf("Pressione enter para continuar..");
+    getchar();
+    getchar();
+    
 }
 
 void modulo_relatorios(void)
