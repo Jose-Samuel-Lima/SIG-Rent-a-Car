@@ -25,14 +25,13 @@ void modulo_alugueis(void);
 void modulo_cadastrar_aluguel(void);
 // void modulo_dados_aluguel(void);
 // void modulo_alterar_aluguel(void);
+void modulo_alterar_aluguel(void);
 // void modulo_finalizar_aluguel(void);
 
 // Funções Funcionário
 void modulo_funcionario(void);
 void cadastrar_funcionario(void);
 // void modulo_dados_funcionario(void);
-// void modulo_atualizar_funcionario(void);
-// void modulo_excluir_funcionario (void);
 void modulo_atualizar_funcionario(void);
 void modulo_excluir_funcionario (void);
 
@@ -40,7 +39,6 @@ void modulo_excluir_funcionario (void);
 void modulo_relatorios(void);
 // void modulo_relatorio_clientes(void);
 // void modulo_relatorio_veiculos(void);
-
 // void modulo_relatorio_funcionarios(void);
 
 void mensagem_manutencao(void);
@@ -57,7 +55,6 @@ int main(void)
     while (ainda_roda == 1) {
         if (op == 'm') {
             menu_principal();
-            scanf(" %c", &op);
             scanf("%c", &op);
             getchar();
         } else if (op == '1') {
@@ -70,10 +67,10 @@ int main(void)
                         break;
                 case '2': mensagem_manutencao();
                         break;
-                case '3': mensagem_manutencao();
                 case '3': modulo_atualizar_funcionario();
                         break;
                 case '4': mensagem_manutencao();
+                case '4': modulo_excluir_funcionario();
                         break;
             }
             op = 'm';
@@ -85,13 +82,10 @@ int main(void)
                         break;
                 case '1': modulo_cadastrar_cliente();
                         break;
-                case '2': mensagem_manutencao();
                 case '2': modulo_dados_cliente();
                         break;
-                case '3': mensagem_manutencao();
                 case '3': modulo_atualizar_cliente();
                         break;
-                case '4': mensagem_manutencao();
                 case '4': modulo_excluir_cliente();
                         break;
             }
@@ -104,13 +98,10 @@ int main(void)
                         break;
                 case '1': modulo_cadastrar_veiculo();
                         break;
-                case '2': mensagem_manutencao();
                 case '2': modulo_dados_veiculo();
                         break;
-                case '3': mensagem_manutencao();
                 case '3': modulo_atualizar_veiculo();
                         break;
-                case '4': mensagem_manutencao();
                 case '4': modulo_excluir_veiculo();
                         break;
             }
@@ -126,6 +117,7 @@ int main(void)
                 case '2': mensagem_manutencao();
                         break;
                 case '3': mensagem_manutencao();
+                case '3': modulo_alterar_aluguel();
                         break;
                 case '4': mensagem_manutencao();
                         break;
@@ -331,7 +323,6 @@ void modulo_cadastrar_cliente(void) {
     getchar();
 }
 
-void modulo_de_veiculos(void)
 void modulo_dados_cliente(void)
 {
     char cpf[15];
@@ -346,59 +337,23 @@ void modulo_dados_cliente(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
-    printf("|                   < = = = Módulo de Veículos = = = >                |\n");
     printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
     printf("|                | < = = =  Dados dos Clientes  = = = > |             |\n");
     printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
     printf("|                                                                     |\n");
-    printf("|                    # 1 # Cadastrar novo veículo                     |\n");
-    printf("|                    # 2 # Dados do veículo                           |\n");
-    printf("|                    # 3 # Alterar dados do veículo                   |\n");
-    printf("|                    # 4 # Excluir um veículo                         |\n");
-    printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|       Por favor informe o CPf do cliente que deseja encontrar:      |\n");
     printf("|                                                                     |\n");
-    printf("|                   Escolha uma das opções...                         |\n");
     printf("|                    + CPF do cliente:                                |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-}
-
-void modulo_cadastrar_veiculo(void) {
-    char nome_veiculo[51];
-    float preco_veiculo;
-    char placa_veiculo[8];
-    char marca[15];
-    char modelo[13];
-    char codigo_renavam[12];
-
-    printf("Nome do veículo: ");
-    getchar();
-    fgets(nome_veiculo, sizeof(nome_veiculo), stdin);
-    printf("Preço do veículo: ");
-    getchar();
-    scanf("%f", &preco_veiculo);
-    printf("Placa do veículo: ");
-    getchar();
-    fgets(placa_veiculo, sizeof(placa_veiculo), stdin);
-    printf("Marca do veículo: ");
     scanf("%14s", cpf);
     getchar();
-    fgets(marca, sizeof(marca), stdin);
-    printf("Modelo do veículo: ");
-    getchar();
-    fgets(modelo, sizeof(modelo), stdin);
-    printf("Código RENAVAM do veículo: ");
-    getchar();
-    fgets(codigo_renavam, sizeof(codigo_renavam), stdin);
     system("cls||clear");
-    printf("Veículo Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_alugueis(void)
 void modulo_atualizar_cliente(void)
 {
     char cpf[15];
@@ -413,19 +368,12 @@ void modulo_atualizar_cliente(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
-    printf("|                   < = = = Módulo de Aluguéis = = = >                |\n");
     printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
     printf("|             | < = = =  Alterar dados do Cliente  = = = > |          |\n");
     printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
     printf("|                                                                     |\n");
-    printf("|                    # 1 # Cadastrar novo aluguel                     |\n");
-    printf("|                    # 2 # Dados do aluguel                           |\n");
-    printf("|                    # 3 # Alterar dados do aluguel                   |\n");
-    printf("|                    # 4 # Finalizar aluguel                          |\n");
-    printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|      Por favor informe o CPf do cliente para alterar os dados:      |\n");
     printf("|                                                                     |\n");
-    printf("|                   Escolha uma das opções...                         |\n");
     printf("|                    + CPF do cliente:                                |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
@@ -437,7 +385,6 @@ void modulo_atualizar_cliente(void)
     getchar();
 }
 
-void modulo_funcionario(void)
 void modulo_excluir_cliente(void)
 {
     char cpf[15];
@@ -452,56 +399,23 @@ void modulo_excluir_cliente(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
-    printf("|                 < = = = Módulo de Funcionários = = = >              |\n");
     printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
     printf("|             | < = = =  Excluir dados do Cliente  = = = > |          |\n");
     printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
     printf("|                                                                     |\n");
-    printf("|                    # 1 # Cadastrar novo funcionário                 |\n");
-    printf("|                    # 2 # Dados do funcionário                       |\n");
-    printf("|                    # 3 # Alterar dados do funcionário               |\n");
-    printf("|                    # 4 # Excluir um funcionário                     |\n");
-    printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|        Por favor informe o CPf do cliente que deseja excluir:       |\n");
     printf("|                                                                     |\n");
-    printf("|                   Escolha uma das opções...                         |\n");
     printf("|                    + CPF do cliente:                                |\n");
     scanf("%14s", cpf);
     getchar();
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-}
-
-void cadastrar_funcionario(void) {
-    char nome_funcionario[51];
-    int idade_funcionario;
-    char cpf_funcionario[12];
-    char cargo[22];
-    char email[30];
-
-    printf("Nome do funcionário: ");
-    getchar();
-    fgets(nome_funcionario, sizeof(nome_funcionario), stdin);
-    printf("Idade do funcionário: ");
-    getchar();
-    scanf("%d", &idade_funcionario);
-    printf("CPF do funcionário: ");
-    getchar();
-    fgets(cpf_funcionario, sizeof(cpf_funcionario), stdin);
-    printf("Cargo do funcionário: ");
-    getchar();
-    fgets(cargo, sizeof(cargo), stdin);
-    printf("Email do funcionário: ");
-    getchar();
-    fgets(email, sizeof(email), stdin);
     system("cls||clear");
-    printf("Funcionário Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_relatorios(void)
 void modulo_de_veiculos(void)
 {
     system("clear||cls");
@@ -514,14 +428,8 @@ void modulo_de_veiculos(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
-    printf("|                 < = = = Módulo de Relatórios = = = >                |\n");
     printf("|                   < = = = Módulo de Veículos = = = >                |\n");
     printf("|                                                                     |\n");
-    printf("|                    # 1 # Relatório de clientes                      |\n");
-    printf("|                    # 2 # Relatório de veículos                      |\n");
-    printf("|                    # 3 # Relatório de aluguéis ativos               |\n");
-    printf("|                    # 4 # Relatório de aluguéis finalizados          |\n");
-    printf("|                    # 5 # Relatório de funcionários                  |\n");
     printf("|                    # 1 # Cadastrar novo veículo                     |\n");
     printf("|                    # 2 # Dados do veículo                           |\n");
     printf("|                    # 3 # Alterar dados do veículo                   |\n");
@@ -534,7 +442,6 @@ void modulo_de_veiculos(void)
     printf("\n");
 }
 
-void modulo_dados_cliente(void)
 void modulo_cadastrar_veiculo(void) {
     char nome_veiculo[51];
     float preco_veiculo;
@@ -570,7 +477,6 @@ void modulo_cadastrar_veiculo(void) {
 
 void modulo_dados_veiculo(void)
 {
-    system("clear||cls");
     int codigo_renavam[12];
 
     system("cls||clear");
@@ -584,15 +490,12 @@ void modulo_dados_veiculo(void)
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
     printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                | < = = =  Dados dos Clientes  = = = > |             |\n");
     printf("|                | < = = =  Dados dos Veículos  = = = > |             |\n");
     printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
     printf("|                                                                     |\n");
-    printf("|       Por favor informe o CPf do cliente que deseja encontrar:      |\n");
     printf("|           Por favor informe o Código da RENAVAM  para encontrar     |\n");
     printf("|       o veículo que deseja:                                         |\n");
     printf("|                                                                     |\n");
-    printf("|                    + CPF do cliente:                                |\n");
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
     scanf("%d[0-9]", codigo_renavam);
     getchar();
@@ -604,34 +507,10 @@ void modulo_dados_veiculo(void)
     getchar();
 }
 
-void modulo_atualizar_cliente(void)
 void modulo_atualizar_veiculo(void)
 {
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|             | < = = =  Alterar dados do Cliente  = = = > |          |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|                                                                     |\n");
-    printf("|      Por favor informe o CPf do cliente para alterar os dados:      |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + CPF do cliente:                                |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
     int codigo_renavam[12];
 
-void modulo_excluir_cliente(void)
-{
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -643,36 +522,10 @@ void modulo_excluir_cliente(void)
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
     printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|             | < = = =  Excluir dados do Cliente  = = = > |          |\n");
     printf("|             | < = = =  Alterar dados do Veículo  = = = > |          |\n");
     printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
     printf("|                                                                     |\n");
-    printf("|        Por favor informe o CPf do cliente que deseja excluir:       |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + CPF do cliente:                                |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
-
-void modulo_dados_veiculo(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                | < = = =  Dados dos Veículos  = = = > |             |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                                                                     |\n");
     printf("|           Por favor informe o Código da RENAVAM  para encontrar     |\n");
-    printf("|       o veículo que deseja:                                         |\n");
     printf("|       o veículo que deseja alterar:                                 |\n");
     printf("|                                                                     |\n");
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
@@ -686,7 +539,6 @@ void modulo_dados_veiculo(void)
     getchar();
 }
 
-void modulo_atualizar_veiculo(void)
 void modulo_excluir_veiculo(void)
 {
     int codigo_renavam[12];
@@ -702,12 +554,10 @@ void modulo_excluir_veiculo(void)
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
     printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|             | < = = =  Alterar dados do Veículo  = = = > |          |\n");
     printf("|             | < = = =  Excluir dados do Veículo  = = = > |          |\n");
     printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
     printf("|                                                                     |\n");
     printf("|           Por favor informe o Código da RENAVAM  para encontrar     |\n");
-    printf("|       o veículo que deseja alterar:                                 |\n");
     printf("|       o veículo que deseja excluir:                                 |\n");
     printf("|                                                                     |\n");
     printf("|                    + Código da RENAVAM do veículo:                  |\n");
@@ -721,7 +571,6 @@ void modulo_excluir_veiculo(void)
     getchar();
 }
 
-void modulo_excluir_veiculo(void)
 void modulo_alugueis(void)
 {
     system("clear||cls");
@@ -734,20 +583,14 @@ void modulo_alugueis(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
-    printf("|             | < = = =  Excluir dados do Veículo  = = = > |          |\n");
-    printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
     printf("|                   < = = = Módulo de Aluguéis = = = >                |\n");
     printf("|                                                                     |\n");
-    printf("|           Por favor informe o Código da RENAVAM  para encontrar     |\n");
-    printf("|       o veículo que deseja excluir:                                 |\n");
     printf("|                    # 1 # Cadastrar novo aluguel                     |\n");
     printf("|                    # 2 # Dados do aluguel                           |\n");
     printf("|                    # 3 # Alterar dados do aluguel                   |\n");
     printf("|                    # 4 # Finalizar aluguel                          |\n");
     printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|                                                                     |\n");
-    printf("|                    + Código da RENAVAM do veículo:                  |\n");
     printf("|                   Escolha uma das opções...                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
@@ -775,6 +618,38 @@ void modulo_cadastrar_aluguel(void)
     system("cls||clear");
     printf("Aluguel Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
+    getchar();
+}
+
+void modulo_alterar_aluguel(void) {
+    char cpf_cliente[12];
+    char codigo_renavam[12];
+    int id_aluguel;
+    char choose;
+
+    printf("Digite o ID do aluguel para modificar: ");
+    getchar();
+    scanf(" %d", &id_aluguel);
+
+    // fazer verificação quando fazer o armazenamento de dados
+
+    system("clear||cls");
+    printf("[1] Cpf\n");
+    printf("[2] Código RENAVAM\n");
+    printf("[0] Cancelar\n");
+    printf("-----------------------\n");
+    scanf(" %c", &choose);
+    system("clear||cls");
+    if (choose == '1') {
+        printf("Selecione o novo CPF: ");
+        getchar();
+        fgets(cpf_cliente, sizeof(cpf_cliente), stdin);
+    } else if (choose == '2') {
+        printf("Selecione o novo código RENAVAM: ");
+        scanf(" %s", codigo_renavam);
+        getchar();
+    }
+    printf("Pressione enter para continuar...");
     getchar();
 }
 
@@ -893,6 +768,19 @@ void modulo_atualizar_funcionario(void) {
     getchar();
 }
 
+void modulo_excluir_funcionario(void) {
+    char cpf[12];
+    
+    printf("Selecione o CPF do funcionário que você deseja excluir: ");
+    getchar();
+    scanf(" %s", cpf);
+    system("cls||clear");
+    printf("Pressione enter para continuar..");
+    getchar();
+    getchar();
+    
+}
+
 void modulo_relatorios(void)
 {
     system("clear||cls");
@@ -918,4 +806,3 @@ void modulo_relatorios(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-}
