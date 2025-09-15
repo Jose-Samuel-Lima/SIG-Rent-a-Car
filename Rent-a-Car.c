@@ -67,21 +67,13 @@ int main(void)
             }
             op = 'm';
         } else if (op == '2') {
-            modulo_cliente();
-            scanf(" %c", &op);
-            switch (op) {
-                case '0': op = 'm';
-                        break;
-                case '1': modulo_cadastrar_cliente();
-                        break;
-                case '2': modulo_dados_cliente();
-                        break;
-                case '3': modulo_atualizar_clientes();
-                        break;
-                case '4': modulo_excluir_cliente();
-                        break;
+            char resultado;
+            resultado = modulo_cliente();
+            if (resultado == '0') {
+                op = 'm';
+            } else {
+                op = resultado;
             }
-            op = 'm';
         } else if (op == '3') {
             modulo_de_veiculos();
             scanf(" %c", &op);
@@ -344,7 +336,7 @@ void modulo_dados_veiculo(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    scanf("%d[0-9]", codigo_renavam);
+    scanf("%d", codigo_renavam);
     getchar();
     system("cls||clear");
     printf("Pressione Enter para continuar...");

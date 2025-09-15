@@ -1,11 +1,30 @@
 #include <stdlib.h>
-#include <studio.h>
+#include <stdio.h>
+#include <unistd.h>
 #include "clientes.h"
  
+char modulo_cliente(void){
+    char esc;
+    do {
+        esc = modulo_tela_cliente();
+        switch (esc) {
+            case '1': modulo_cadastrar_cliente();
+                    break;
+            case '2': modulo_dados_cliente();
+                    break;
+            case '3': modulo_atualizar_clientes();
+                    break;
+            case '4': modulo_excluir_cliente();
+                    break;
+        }
+    
+    }while (esc != '0');
+    return esc;
+}
 
+char modulo_tela_cliente(void) {
 
-void modulo_cliente(void)
-{
+    char op;
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -28,6 +47,11 @@ void modulo_cliente(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    scanf(" %c", &op);
+    printf("\n");
+    printf("\t\t\tProcessando...\n");
+    //sleep(1);
+    return op;
 }
 
 void modulo_cadastrar_cliente(void) {
@@ -129,7 +153,7 @@ void modulo_atualizar_clientes(void) {
     printf("[2] Nova Idade\n");
     printf("[3] Novo Cpf\n");
     printf("[4] Novo E-mail\n");
-    printf("[5] Novo nº CNH");
+    printf("[5] Novo nº CNH\n");
     printf("[0] Cancelar\n");
     printf("-----------------------\n");
     scanf(" %c", &choose);
