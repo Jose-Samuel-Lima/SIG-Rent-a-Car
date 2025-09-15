@@ -2,29 +2,41 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "clientes.h"
- 
-char modulo_cliente(void){
-    char esc;
-    do {
+
+int modulo_cliente(void)
+{
+    int esc;
+    do
+    {
         esc = modulo_tela_cliente();
-        switch (esc) {
-            case '1': modulo_cadastrar_cliente();
-                    break;
-            case '2': modulo_dados_cliente();
-                    break;
-            case '3': modulo_atualizar_clientes();
-                    break;
-            case '4': modulo_excluir_cliente();
-                    break;
+        switch (esc)
+        {
+        case 1:
+            modulo_cadastrar_cliente();
+            break;
+        case 2:
+            modulo_dados_cliente();
+            break;
+        case 3:
+            modulo_atualizar_clientes();
+            break;
+        case 4:
+            modulo_excluir_cliente();
+            break;
+        case 0:
+            return -1;
         }
-    
-    }while (esc != '0');
-    return esc;
+
+    } while (esc != 0);
+    return -1;
 }
 
-char modulo_tela_cliente(void) {
+int modulo_tela_cliente(void)
+{
 
-    char op;
+    int op;
+    int c;
+
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -43,39 +55,43 @@ char modulo_tela_cliente(void) {
     printf("|                    # 4 # Excluir um cliente                         |\n");
     printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|                                                                     |\n");
-    printf("|                   Escolha uma das opções...                         |\n");
-    printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    scanf(" %c", &op);
+    printf("Escolha uma das opções acima: \n");
+    scanf(" %d", &op);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     printf("\n");
-    printf("\t\t\tProcessando...\n");
-    //sleep(1);
+    printf("Processando...\n");
+    // sleep(1);
     return op;
 }
 
-void modulo_cadastrar_cliente(void) {
+void modulo_cadastrar_cliente(void)
+{
     char nome_cliente[51];
     int idade_cliente;
     char cpf_cliente[12];
     char email[30];
     char CNH[13];
+    int c;
 
     printf("Nome do cliente: ");
-    getchar();
     fgets(nome_cliente, sizeof(nome_cliente), stdin);
+
     printf("Idade do cliente: ");
-    getchar();
     scanf("%d", &idade_cliente);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     printf("CPF do cliente: ");
-    getchar();
     fgets(cpf_cliente, sizeof(cpf_cliente), stdin);
+
     printf("Email do cliente: ");
-    getchar();
     fgets(email, sizeof(email), stdin);
+
     printf("CNH do cliente: ");
-    getchar();
     fgets(CNH, sizeof(CNH), stdin);
+
     system("cls||clear");
     printf("Cliente Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
@@ -85,6 +101,7 @@ void modulo_cadastrar_cliente(void) {
 void modulo_dados_cliente(void)
 {
     char cpf[15];
+    int c;
 
     system("clear||cls");
     printf("\n");
@@ -100,20 +117,19 @@ void modulo_dados_cliente(void)
     printf("|                | < = = =  Dados dos Clientes  = = = > |             |\n");
     printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
     printf("|                                                                     |\n");
-    printf("|       Por favor informe o CPf do cliente que deseja encontrar:      |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + CPF do cliente:                                |\n");
-    printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    printf("Informe o CPf do cliente que deseja encontrar: \n");
     scanf("%14s", cpf);
-    getchar();
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     system("cls||clear");
     printf("Pressione Enter para continuar...");
     getchar();
 }
-  
-void modulo_atualizar_clientes(void) {
+
+void modulo_atualizar_clientes(void)
+{
     char cpf_cliente[12];
     char choose;
     char nome_cliente[51];
@@ -121,6 +137,7 @@ void modulo_atualizar_clientes(void) {
     char novo_cpf_cliente[12];
     char email[30];
     char CNH[13];
+    int c;
 
     system("clear||cls");
     printf("\n");
@@ -136,15 +153,12 @@ void modulo_atualizar_clientes(void) {
     printf("|             | < = = =  Alterar dados do Cliente  = = = > |          |\n");
     printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
     printf("|                                                                     |\n");
-    printf("|      Por favor informe o CPf do cliente para alterar os dados:      |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + CPF do cliente:                                |\n");
-    printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    printf("Informe o CPf do cliente para alterar os dados: \n");
     scanf("%14s", cpf_cliente);
-    getchar();
-
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
 
     // fazer verificação quando fazer o armazenamento de dados
 
@@ -157,26 +171,38 @@ void modulo_atualizar_clientes(void) {
     printf("[0] Cancelar\n");
     printf("-----------------------\n");
     scanf(" %c", &choose);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     system("clear||cls");
-    if (choose == '1') {
+    if (choose == '1')
+    {
         printf("Informe o novo nome: ");
-        getchar();
         fgets(nome_cliente, sizeof(nome_cliente), stdin);
-    } else if (choose == '2') {
+    }
+    else if (choose == '2')
+    {
         printf("Informe a nova idade: ");
         scanf(" %d", &idade_cliente);
-        getchar();
-    } else if (choose == '3') {
+        while ((c = getchar()) != '\n' && c != EOF)
+            ;
+    }
+    else if (choose == '3')
+    {
         printf("Informe o novo CPF: ");
         scanf(" %s", novo_cpf_cliente);
-        getchar();
-    } else if (choose == '4') {
+        while ((c = getchar()) != '\n' && c != EOF)
+            ;
+    }
+    else if (choose == '4')
+    {
         printf("Informe o novo E-mail: ");
         scanf(" %s", email);
-        getchar();
-    } else if (choose == '5') {
+        while ((c = getchar()) != '\n' && c != EOF)
+            ;
+    }
+    else if (choose == '5')
+    {
         printf("Informe o novo número da CNH: ");
-        getchar();
         fgets(CNH, sizeof(CNH), stdin);
     }
     printf("Pressione enter para continuar...");
@@ -186,6 +212,7 @@ void modulo_atualizar_clientes(void) {
 void modulo_excluir_cliente(void)
 {
     char cpf[15];
+    int c;
 
     system("clear||cls");
     printf("\n");
@@ -201,14 +228,12 @@ void modulo_excluir_cliente(void)
     printf("|             | < = = =  Excluir dados do Cliente  = = = > |          |\n");
     printf("|             T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T          |\n");
     printf("|                                                                     |\n");
-    printf("|        Por favor informe o CPf do cliente que deseja excluir:       |\n");
-    printf("|                                                                     |\n");
-    printf("|                    + CPF do cliente:                                |\n");
-    printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    printf("Informe o CPf do cliente que deseja excluir: \n");
     scanf("%14s", cpf);
-    getchar();
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     system("cls||clear");
     printf("Pressione Enter para continuar...");
     getchar();

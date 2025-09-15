@@ -26,7 +26,7 @@ void modulo_funcionario(void);
 void cadastrar_funcionario(void);
 // void modulo_dados_funcionario(void);
 void modulo_atualizar_funcionario(void);
-//void modulo_excluir_funcionario(void);
+// void modulo_excluir_funcionario(void);
 
 // Funções Relatórios
 void modulo_relatorios(void);
@@ -36,7 +36,6 @@ void modulo_relatorios(void);
 
 void mensagem_manutencao(void);
 
-
 // Programa principal
 int main(void)
 {
@@ -45,98 +44,144 @@ int main(void)
     int ainda_roda;
     ainda_roda = 1;
 
-    while (ainda_roda == 1) {
-        if (op == 'm') {
+    while (ainda_roda == 1)
+    {
+        if (op == 'm')
+        {
             menu_principal();
             scanf("%c", &op);
             getchar();
-        } else if (op == '1') {
+        }
+        else if (op == '1')
+        {
             modulo_funcionario();
             scanf(" %c", &op);
-            switch (op) {
-                case '0': op = 'm';
-                        break;
-                case '1': cadastrar_funcionario();
-                        break;
-                case '2': mensagem_manutencao();
-                        break;
-                case '3': modulo_atualizar_funcionario();
-                        break;
-                case '4': mensagem_manutencao();
-                        break;
+            switch (op)
+            {
+            case '0':
+                op = 'm';
+                break;
+            case '1':
+                cadastrar_funcionario();
+                break;
+            case '2':
+                mensagem_manutencao();
+                break;
+            case '3':
+                modulo_atualizar_funcionario();
+                break;
+            case '4':
+                mensagem_manutencao();
+                break;
             }
             op = 'm';
-        } else if (op == '2') {
-            char resultado;
+        }
+        else if (op == '2')
+        {
+            int resultado;
             resultado = modulo_cliente();
-            if (resultado == '0') {
+            if (resultado == -1)
+            {
                 op = 'm';
-            } else {
+            }
+            else
+            {
                 op = resultado;
             }
-        } else if (op == '3') {
+        }
+        else if (op == '3')
+        {
             modulo_de_veiculos();
             scanf(" %c", &op);
-            switch (op) {
-                case '0': op = 'm';
-                        break;
-                case '1': modulo_cadastrar_veiculo();
-                        break;
-                case '2': modulo_dados_veiculo();
-                        break;
-                case '3': modulo_atualizar_veiculo();
-                        break;
-                case '4': modulo_excluir_veiculo();
-                        break;
+            switch (op)
+            {
+            case '0':
+                op = 'm';
+                break;
+            case '1':
+                modulo_cadastrar_veiculo();
+                break;
+            case '2':
+                modulo_dados_veiculo();
+                break;
+            case '3':
+                modulo_atualizar_veiculo();
+                break;
+            case '4':
+                modulo_excluir_veiculo();
+                break;
             }
             op = 'm';
-        } else if (op == '4') {
+        }
+        else if (op == '4')
+        {
             modulo_alugueis();
             scanf(" %c", &op);
-            switch (op) {
-                case '0': op = 'm';
-                        break;
-                case '1': modulo_cadastrar_aluguel();
-                        break;
-                case '2': mensagem_manutencao();
-                        break;
-                case '3': mensagem_manutencao();
-                        break;
-                case '4': mensagem_manutencao();
-                        break;
+            switch (op)
+            {
+            case '0':
+                op = 'm';
+                break;
+            case '1':
+                modulo_cadastrar_aluguel();
+                break;
+            case '2':
+                mensagem_manutencao();
+                break;
+            case '3':
+                mensagem_manutencao();
+                break;
+            case '4':
+                mensagem_manutencao();
+                break;
             }
             op = 'm';
-        } else if (op == '5') {
+        }
+        else if (op == '5')
+        {
             modulo_relatorios();
             scanf(" %c", &op);
-            switch (op) {
-                case '0': op = 'm';
-                        break;
-                case '1': mensagem_manutencao();
-                        break;
-                case '2': mensagem_manutencao();
-                        break;
-                case '3': mensagem_manutencao();
-                        break;
-                case '4': mensagem_manutencao();
-                        break;
-                case '5': mensagem_manutencao();
-                        break;
+            switch (op)
+            {
+            case '0':
+                op = 'm';
+                break;
+            case '1':
+                mensagem_manutencao();
+                break;
+            case '2':
+                mensagem_manutencao();
+                break;
+            case '3':
+                mensagem_manutencao();
+                break;
+            case '4':
+                mensagem_manutencao();
+                break;
+            case '5':
+                mensagem_manutencao();
+                break;
             }
-            op ='m';
-        } else if (op == '6') {
+            op = 'm';
+        }
+        else if (op == '6')
+        {
             modulo_equipe();
             printf("Pressione Enter para voltar ao menu principal...");
             getchar();
             getchar();
             op = 'm';
-        } else if (op == '7') {
+        }
+        else if (op == '7')
+        {
             menu_sobre();
             printf("Pressione Enter para voltar ao menu principal...");
             getchar();
             getchar();
             op = 'm';
-        } else if (op == '0') {
+        }
+        else if (op == '0')
+        {
             ainda_roda = 0;
         }
     }
@@ -182,7 +227,6 @@ void menu_principal(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    
 }
 
 void menu_sobre(void)
@@ -278,7 +322,8 @@ void modulo_de_veiculos(void)
     printf("\n");
 }
 
-void modulo_cadastrar_veiculo(void) {
+void modulo_cadastrar_veiculo(void)
+{
     char nome_veiculo[51];
     float preco_veiculo;
     char placa_veiculo[8];
@@ -343,7 +388,8 @@ void modulo_dados_veiculo(void)
     getchar();
 }
 
-void modulo_atualizar_veiculo(void) {
+void modulo_atualizar_veiculo(void)
+{
     char codigo_renavam[13];
     char choose;
     char nome_veiculo[51];
@@ -390,27 +436,38 @@ void modulo_atualizar_veiculo(void) {
     printf("-----------------------\n");
     scanf(" %c", &choose);
     system("clear||cls");
-    if (choose == '1') {
+    if (choose == '1')
+    {
         printf("Informe o novo do veículo: ");
         getchar();
         fgets(nome_veiculo, sizeof(nome_veiculo), stdin);
-    } else if (choose == '2') {
+    }
+    else if (choose == '2')
+    {
         printf("Informe o novo valor do veículo: ");
         scanf(" %f", &preco_veiculo);
         getchar();
-    } else if (choose == '3') {
+    }
+    else if (choose == '3')
+    {
         printf("Informe a nova placa do veículo:");
         scanf(" %s", placa_veiculo);
         getchar();
-    } else if (choose == '4') {
+    }
+    else if (choose == '4')
+    {
         printf("Informe a nova marca do veículo: ");
         scanf(" %s", marca);
         getchar();
-    } else if (choose == '5') {
+    }
+    else if (choose == '5')
+    {
         printf("Informe o novo modelo do veículo: ");
         scanf("%s", modelo_veiculo);
         getchar();
-    } else if (choose == '6') {
+    }
+    else if (choose == '6')
+    {
         printf("Informe o novo código RENAVAM do veículo: ");
         getchar();
         fgets(novo_codigo_renavam, sizeof(novo_codigo_renavam), stdin);
@@ -444,7 +501,7 @@ void modulo_excluir_veiculo(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    scanf("%d[0-9]",codigo_renavam);
+    scanf("%d[0-9]", codigo_renavam);
     getchar();
     system("cls||clear");
     printf("Pressione Enter para continuar...");
@@ -477,8 +534,6 @@ void modulo_alugueis(void)
     printf("\n");
 }
 
-
-
 void modulo_cadastrar_aluguel(void)
 {
     char nome_cliente[51];
@@ -501,16 +556,14 @@ void modulo_cadastrar_aluguel(void)
     getchar();
 }
 
-void mensagem_manutencao(void) {
+void mensagem_manutencao(void)
+{
     system("cls||clear");
     printf("Essa página não está disponível no momento. Aguarde futuras atualizações.\n");
     printf("Pressione Enter para continuar...");
     getchar();
     getchar();
-
 }
-
-
 
 void modulo_funcionario(void)
 {
@@ -538,7 +591,8 @@ void modulo_funcionario(void)
     printf("\n");
 }
 
-void cadastrar_funcionario(void) {
+void cadastrar_funcionario(void)
+{
     char nome_funcionario[51];
     int idade_funcionario;
     char cpf_funcionario[12];
@@ -566,7 +620,8 @@ void cadastrar_funcionario(void) {
     getchar();
 }
 
-void modulo_atualizar_funcionario(void) {
+void modulo_atualizar_funcionario(void)
+{
     char cpf[12];
     char choose;
     char nome_funcionario[51];
@@ -591,23 +646,32 @@ void modulo_atualizar_funcionario(void) {
     printf("-----------------------\n");
     scanf(" %c", &choose);
     system("clear||cls");
-    if (choose == '1') {
+    if (choose == '1')
+    {
         printf("Selecione o novo nome: ");
         getchar();
         fgets(nome_funcionario, sizeof(nome_funcionario), stdin);
-    } else if (choose == '2') {
+    }
+    else if (choose == '2')
+    {
         printf("Selecione a nova idade: ");
         scanf(" %d", &idade);
         getchar();
-    } else if (choose == '3') {
+    }
+    else if (choose == '3')
+    {
         printf("Selecione o novo CPF: ");
         scanf(" %s", novo_cpf);
         getchar();
-    } else if (choose == '4') {
+    }
+    else if (choose == '4')
+    {
         printf("Selecione o novo cargo: ");
         getchar();
         fgets(cargo, sizeof(cargo), stdin);
-    } else if (choose == '5') {
+    }
+    else if (choose == '5')
+    {
         printf("Selecione o novo E-mail: ");
         scanf(" %s", email);
         getchar();
