@@ -3,7 +3,7 @@
 #include "clientes.h"
 // #include "veiculos.h"
 // #include "alugueis.h"
-// #include "funcionarios.h"
+#include "funcionarios.h"
 // #include "relatorios.h"
 
 // Assinatura das funções
@@ -30,16 +30,16 @@ int main(void)
         }
         else if (op == '1')
         {
-            // int resulFunc;
-            // resulFunc = modulo_funcionario();
-            // if (resulFunc == -1)
-            // {
-            //     op = 'm';
-            // }
-            // else
-            // {
-            //     op = resulFunc;
-            // }
+            int resulFunc;
+            resulFunc = modulo_funcionario();
+            if (resulFunc == -1)
+            {
+                op = 'm';
+            }
+            else
+            {
+                op = resulFunc;
+            }
         }
         else if (op == '2')
         {
