@@ -3,18 +3,14 @@
 #include "clientes.h"
 #include "veiculos.h"
 #include "alugueis.h"
+#include "funcionarios.h"
 
 // Assinatura das funções
 void menu_principal(void);
 void menu_sobre(void);
 void modulo_equipe(void);
 
-// Funções Funcionário
-void modulo_funcionario(void);
-void cadastrar_funcionario(void);
-// void modulo_dados_funcionario(void);
-void modulo_atualizar_funcionario(void);
-// void modulo_excluir_funcionario(void);
+
 
 // Funções Relatórios
 void modulo_relatorios(void);
@@ -42,27 +38,16 @@ int main(void)
         }
         else if (op == '1')
         {
-            modulo_funcionario();
-            scanf(" %c", &op);
-            switch (op)
+            int resulFunc;
+            resulFunc = modulo_funcionario();
+            if (resulFunc == -1)
             {
-            case '0':
                 op = 'm';
-                break;
-            case '1':
-                cadastrar_funcionario();
-                break;
-            case '2':
-                mensagem_manutencao();
-                break;
-            case '3':
-                modulo_atualizar_funcionario();
-                break;
-            case '4':
-                mensagem_manutencao();
-                break;
             }
-            op = 'm';
+            else
+            {
+                op = resulFunc;
+            }
         }
         else if (op == '2')
         {
@@ -271,120 +256,7 @@ void mensagem_manutencao(void)
     getchar();
 }
 
-void modulo_funcionario(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                 < = = = Módulo de Funcionários = = = >              |\n");
-    printf("|                                                                     |\n");
-    printf("|                    # 1 # Cadastrar novo funcionário                 |\n");
-    printf("|                    # 2 # Dados do funcionário                       |\n");
-    printf("|                    # 3 # Alterar dados do funcionário               |\n");
-    printf("|                    # 4 # Excluir um funcionário                     |\n");
-    printf("|                    # 0 # Voltar ao menu principal                   |\n");
-    printf("|                                                                     |\n");
-    printf("|                   Escolha uma das opções...                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
 
-void cadastrar_funcionario(void)
-{
-    char nome_funcionario[51];
-    int idade_funcionario;
-    char cpf_funcionario[12];
-    char cargo[22];
-    char email[30];
-
-    printf("Nome do funcionário: ");
-    getchar();
-    fgets(nome_funcionario, sizeof(nome_funcionario), stdin);
-    printf("Idade do funcionário: ");
-    getchar();
-    scanf("%d", &idade_funcionario);
-    printf("CPF do funcionário: ");
-    getchar();
-    fgets(cpf_funcionario, sizeof(cpf_funcionario), stdin);
-    printf("Cargo do funcionário: ");
-    getchar();
-    fgets(cargo, sizeof(cargo), stdin);
-    printf("Email do funcionário: ");
-    getchar();
-    fgets(email, sizeof(email), stdin);
-    system("cls||clear");
-    printf("Funcionário Registrado com Sucesso!\n");
-    printf("Pressione Enter para continuar...");
-    getchar();
-}
-
-void modulo_atualizar_funcionario(void)
-{
-    char cpf[12];
-    char choose;
-    char nome_funcionario[51];
-    char novo_cpf[12];
-    char cargo[22];
-    char email[30];
-    int idade;
-
-    printf("Digite o CPF do funcionário que deseja atualizar os dados: ");
-    getchar();
-    scanf(" %s", cpf);
-
-    // fazer verificação quando fazer o armazenamento de dados
-
-    system("clear||cls");
-    printf("[1] Nome\n");
-    printf("[2] Idade\n");
-    printf("[3] Cpf\n");
-    printf("[4] Cargo\n");
-    printf("[5] E-mail\n");
-    printf("[0] Cancelar\n");
-    printf("-----------------------\n");
-    scanf(" %c", &choose);
-    system("clear||cls");
-    if (choose == '1')
-    {
-        printf("Selecione o novo nome: ");
-        getchar();
-        fgets(nome_funcionario, sizeof(nome_funcionario), stdin);
-    }
-    else if (choose == '2')
-    {
-        printf("Selecione a nova idade: ");
-        scanf(" %d", &idade);
-        getchar();
-    }
-    else if (choose == '3')
-    {
-        printf("Selecione o novo CPF: ");
-        scanf(" %s", novo_cpf);
-        getchar();
-    }
-    else if (choose == '4')
-    {
-        printf("Selecione o novo cargo: ");
-        getchar();
-        fgets(cargo, sizeof(cargo), stdin);
-    }
-    else if (choose == '5')
-    {
-        printf("Selecione o novo E-mail: ");
-        scanf(" %s", email);
-        getchar();
-    }
-    printf("Pressione enter para continuar...");
-    getchar();
-}
 
 void modulo_relatorios(void)
 {
