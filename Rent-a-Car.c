@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "clientes.h"
-// #include "veiculos.h"
+#include "veiculos.h"
 // #include "alugueis.h"
 #include "funcionarios.h"
 // #include "relatorios.h"
@@ -56,16 +56,16 @@ int main(void)
         }
         else if (op == '3')
         {
-            // int resulVeiculo;
-            // resulVeiculo = modulo_veiculo();
-            // if (resulVeiculo == -1)
-            // {
-            //     op = 'm';
-            // }
-            // else
-            // {
-            //     op = resulVeiculo;
-            // }
+            int resulVeiculo;
+            resulVeiculo = modulo_veiculo();
+            if (resulVeiculo == -1)
+            {
+                op = 'm';
+            }
+            else
+            {
+                op = resulVeiculo;
+            }
         }
         else if (op == '4')
         {
