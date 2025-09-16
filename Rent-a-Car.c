@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "clientes.h"
 #include "veiculos.h"
-// #include "alugueis.h"
+#include "alugueis.h"
 #include "funcionarios.h"
 // #include "relatorios.h"
 
@@ -69,16 +69,16 @@ int main(void)
         }
         else if (op == '4')
         {
-            // int resulAluguel;
-            // resulAluguel = modulo_aluguel();
-            // if (resulAluguel == -1)
-            // {
-            //     op = 'm';
-            // }
-            // else
-            // {
-            //     op = resulAluguel;
-            // }
+            int resulAluguel;
+            resulAluguel = modulo_aluguel();
+            if (resulAluguel == -1)
+            {
+                op = 'm';
+            }
+            else
+            {
+                op = resulAluguel;
+            }
         }
         else if (op == '5')
         {
