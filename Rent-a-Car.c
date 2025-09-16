@@ -2,18 +2,12 @@
 #include <stdio.h>
 #include "clientes.h"
 #include "veiculos.h"
+#include "alugueis.h"
 
 // Assinatura das funções
 void menu_principal(void);
 void menu_sobre(void);
 void modulo_equipe(void);
-
-// Funções Aluguel
-void modulo_alugueis(void);
-void modulo_cadastrar_aluguel(void);
-// void modulo_dados_aluguel(void);
-// void modulo_alterar_aluguel(void);
-// void modulo_finalizar_aluguel(void);
 
 // Funções Funcionário
 void modulo_funcionario(void);
@@ -98,27 +92,16 @@ int main(void)
         }
         else if (op == '4')
         {
-            modulo_alugueis();
-            scanf(" %c", &op);
-            switch (op)
+            int resulAluguel;
+            resulAluguel = modulo_aluguel();
+            if (resulAluguel == -1)
             {
-            case '0':
                 op = 'm';
-                break;
-            case '1':
-                modulo_cadastrar_aluguel();
-                break;
-            case '2':
-                mensagem_manutencao();
-                break;
-            case '3':
-                mensagem_manutencao();
-                break;
-            case '4':
-                mensagem_manutencao();
-                break;
             }
-            op = 'm';
+            else
+            {
+                op = resulAluguel;
+            }
         }
         else if (op == '5')
         {
@@ -277,54 +260,6 @@ void modulo_equipe(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-}
-
-void modulo_alugueis(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                   < = = = Módulo de Aluguéis = = = >                |\n");
-    printf("|                                                                     |\n");
-    printf("|                    # 1 # Cadastrar novo aluguel                     |\n");
-    printf("|                    # 2 # Dados do aluguel                           |\n");
-    printf("|                    # 3 # Alterar dados do aluguel                   |\n");
-    printf("|                    # 4 # Finalizar aluguel                          |\n");
-    printf("|                    # 0 # Voltar ao menu principal                   |\n");
-    printf("|                                                                     |\n");
-    printf("|                   Escolha uma das opções...                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-}
-
-void modulo_cadastrar_aluguel(void)
-{
-    char nome_cliente[51];
-    char cpf_cliente[12];
-    char codigo_renavam[12];
-    // int id_aluguel;
-
-    printf("Nome do cliente: ");
-    getchar();
-    fgets(nome_cliente, sizeof(nome_cliente), stdin);
-    printf("CPF do cliente: ");
-    getchar();
-    fgets(cpf_cliente, sizeof(cpf_cliente), stdin);
-    printf("Código RENAVAM do veículo alugado: ");
-    getchar();
-    fgets(codigo_renavam, sizeof(codigo_renavam), stdin);
-    system("cls||clear");
-    printf("Aluguel Registrado com Sucesso!\n");
-    printf("Pressione Enter para continuar...");
-    getchar();
 }
 
 void mensagem_manutencao(void)
