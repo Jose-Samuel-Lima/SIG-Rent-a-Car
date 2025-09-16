@@ -4,7 +4,7 @@
 #include "veiculos.h"
 #include "alugueis.h"
 #include "funcionarios.h"
-// #include "relatorios.h"
+#include "relatorios.h"
 
 // Assinatura das funções
 void menu_principal(void);
@@ -82,16 +82,16 @@ int main(void)
         }
         else if (op == '5')
         {
-            // int resulRelat;
-            // resulRelat = modulo_relatorio();
-            // if (resulRelat == -1)
-            // {
-            //     op = 'm';
-            // }
-            // else
-            // {
-            //     op = resulRelat;
-            // }
+            int resulRelat;
+            resulRelat = modulo_relatorio();
+            if (resulRelat == -1)
+            {
+                op = 'm';
+            }
+            else
+            {
+                op = resulRelat;
+            }
         }
         else if (op == '6')
         {
