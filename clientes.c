@@ -63,18 +63,17 @@ int modulo_tela_cliente(void)
         ;
     printf("\n");
     printf("Processando...\n");
-    // sleep(1);
     return op;
 }
 
 void modulo_cadastrar_cliente(void)
 {
     char nome_cliente[51];
-    int idade_cliente;
+    char data_nascimento[12];
     char cpf_cliente[12];
     char email[30];
     char CNH[13];
-    int c;
+    
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -95,10 +94,9 @@ void modulo_cadastrar_cliente(void)
     printf("Nome do cliente: ");
     fgets(nome_cliente, sizeof(nome_cliente), stdin);
 
-    printf("Idade do cliente: ");
-    scanf("%d", &idade_cliente);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    printf("Data de Nascimento do cliente: ");
+    fgets(data_nascimento, sizeof(data_nascimento), stdin);
+
     printf("CPF do cliente: ");
     fgets(cpf_cliente, sizeof(cpf_cliente), stdin);
 
@@ -108,8 +106,6 @@ void modulo_cadastrar_cliente(void)
     printf("CNH do cliente: ");
     fgets(CNH, sizeof(CNH), stdin);
 
-    while ((c = getchar()) != '\n' && c != EOF)
-    system("cls||clear");
     printf("Cliente Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
@@ -150,7 +146,7 @@ void modulo_atualizar_clientes(void)
     char cpf_cliente[12];
     char choose;
     char nome_cliente[51];
-    int idade_cliente;
+    char data_nascimento[12];
     char novo_cpf_cliente[12];
     char email[30];
     char CNH[13];
@@ -181,7 +177,7 @@ void modulo_atualizar_clientes(void)
 
     system("clear||cls");
     printf("[1] Novo Nome\n");
-    printf("[2] Nova Idade\n");
+    printf("[2] Nova Data de Nascimento\n");
     printf("[3] Novo Cpf\n");
     printf("[4] Novo E-mail\n");
     printf("[5] Novo nº CNH\n");
@@ -198,10 +194,8 @@ void modulo_atualizar_clientes(void)
     }
     else if (choose == '2')
     {
-        printf("Informe a nova idade: ");
-        scanf(" %d", &idade_cliente);
-        while ((c = getchar()) != '\n' && c != EOF)
-            ;
+        printf("Informe a nova data de nascimento: ");
+        fgets(data_nascimento, sizeof(data_nascimento), stdin);
     }
     else if (choose == '3')
     {
