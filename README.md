@@ -1,9 +1,12 @@
 # SIG-Rent-a-Car 
 
-Projeto de locadora de veículos Universidade do Rio Grande do Norte 
+Projeto de locadora de veículos 
+
+Universidade do Rio Grande do Norte 
 Centro de Ensino Superior do Seridó 
 Departamento de Computação e Tecnologia 
-Bacharelado em Sistemas de Informação Disciplina DCT1106 - Programação
+Bacharelado em Sistemas de Informação 
+Disciplina DCT1106 - Programação
 Developed by @j.samuel007 & @icarononato23 - since Aug/2025
 
 ## Sobre o Projeto
@@ -63,4 +66,10 @@ O projeto inclui um **Makefile** para facilitar:
    make clean
    ```
 
+---
 
+## Atualizações Futuras
+
+Este projeto está em desenvolvimento contínuo. Novas funcionalidades e melhorias serão adicionadas conforme o avanço da disciplina e o aprofundamento no aprendizado da linguagem C. Fique atento às próximas versões para acompanhar as melhorias e novas funcionalidades do SIG-Rent-a-Car!
+
+---
