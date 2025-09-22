@@ -2,9 +2,7 @@
 
 Projeto de locadora de veículos 
 
-Universidade do Rio Grande do Norte
-
-Centro de Ensino Superior do Seridó
+Universidade do Rio Grande do Norte Centro de Ensino Superior do Seridó
 
 Departamento de Computação e Tecnologia
 
