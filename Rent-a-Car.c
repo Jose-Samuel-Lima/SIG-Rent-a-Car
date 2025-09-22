@@ -152,7 +152,6 @@ void modulo_equipe(void)
     printf("\n");
     printf("Precione Enter para continuar..");
     getchar();
-    getchar();
 }
 
 void mensagem_manutencao(void)
