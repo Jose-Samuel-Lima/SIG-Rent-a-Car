@@ -61,7 +61,7 @@ CMakeCache.txt
 Arquivos CMake
 CMakeScripts
 Teste
-Makefile
+* Makefile
 cmake_install.cmake
 install_manifest.txt
 compile_commands.json
