@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "clientes.h"
 #include "veiculos.h"
 #include "alugueis.h"
@@ -7,121 +8,43 @@
 #include "relatorios.h"
 
 // Assinatura das funções
-void menu_principal(void);
+char menu_principal(void);
 void menu_sobre(void);
 void modulo_equipe(void);
 void mensagem_manutencao(void);
 
 // Programa principal
+
 int main(void)
-{
+ {
     char op;
-    op = 'm';
-    int ainda_roda;
-    ainda_roda = 1;
 
-    while (ainda_roda == 1)
-    {
-        if (op == 'm')
-        {
-            menu_principal();
-            scanf("%c", &op);
-            getchar();
+    do {
+        op = menu_principal();
+        switch(op) {
+            case '1': modulo_funcionario();
+                    break;
+            case '2': modulo_cliente();
+                    break;
+            case '3': modulo_veiculo();
+                    break;
+            case '4': modulo_aluguel();
+                    break;
+            case '5': modulo_relatorio();
+                    break;
+            case '6': modulo_equipe();
+                    break;
+            case '7': menu_sobre();
+                    break;
         }
-        else if (op == '1')
-        {
-            int resulFunc;
-            resulFunc = modulo_funcionario();
-            if (resulFunc == -1)
-            {
-                op = 'm';
-            }
-            else
-            {
-                op = resulFunc;
-            }
-        }
-        else if (op == '2')
-        {
-            int resulCliente;
-            resulCliente = modulo_cliente();
-            if (resulCliente == -1)
-            {
-                op = 'm';
-            }
-            else
-            {
-                op = resulCliente;
-            }
-        }
-        else if (op == '3')
-        {
-            int resulVeiculo;
-            resulVeiculo = modulo_veiculo();
-            if (resulVeiculo == -1)
-            {
-                op = 'm';
-            }
-            else
-            {
-                op = resulVeiculo;
-            }
-        }
-        else if (op == '4')
-        {
-            int resulAluguel;
-            resulAluguel = modulo_aluguel();
-            if (resulAluguel == -1)
-            {
-                op = 'm';
-            }
-            else
-            {
-                op = resulAluguel;
-            }
-        }
-        else if (op == '5')
-        {
-            int resulRelat;
-            resulRelat = modulo_relatorio();
-            if (resulRelat == -1)
-            {
-                op = 'm';
-            }
-            else
-            {
-                op = resulRelat;
-            }
-        }
-        else if (op == '6')
-        {
-            modulo_equipe();
-            printf("Pressione Enter para voltar ao menu principal...");
-            getchar();
-            getchar();
-            op = 'm';
-        }
-        else if (op == '7')
-        {
-            menu_sobre();
-            printf("Pressione Enter para voltar ao menu principal...");
-            getchar();
-            getchar();
-            op = 'm';
-        }
-        else if (op == '0')
-        {
-            ainda_roda = 0;
-        }
-    }
+    } while (op != '0');
+ }
 
-    printf("Programa Finalizado com sucesso! Agradecemos o seu tempo.\n\n\n");
+char menu_principal(void)
+{   
+    char op;
+    int c;
 
-    return 0;
-}
-
-void menu_principal(void)
-{
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -152,10 +75,12 @@ void menu_principal(void)
     printf("|                    # 7 # Sobre o Programa                           |\n");
     printf("|                    # 0 # Finalizar Programa                         |\n");
     printf("|                                                                     |\n");
-    printf("|                   Escolha uma das opções...                         |\n");
-    printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    printf("Escolha uma das opções acima:");
+    scanf("%c", &op);
+    while ((c = getchar()) != '\n' && c != EOF);
+    return op;
 }
 
 void menu_sobre(void)
@@ -180,15 +105,17 @@ void menu_sobre(void)
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
     printf("|       O sistema de gestão da locadora de veículos Rent a Car        |\n");
-    printf("|   é um ferramenta desenvolvida para organizar e automatizar         |\n");
+    printf("|   é um ferramenta desenvolvida para organizar e automatizar        |\n");
     printf("|   os processos administrativos e operacionais da empresa.           |\n");
     printf("|   Seu principal objetivo é facilitar o controle das atividades      |\n");
     printf("|   relacionadas à frota de veículos, aos clientes e às locações      |\n");
     printf("|   realizadas, garantindo maior eficiência, segurança e              |\n");
-    printf("|   agilidade no atendimento.                                         |\n");
+    printf("|   agilidade no atendimento.    a                                     |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    printf("Precione Enter para continuar..");
+    getchar();
 }
 
 void modulo_equipe(void)
@@ -223,6 +150,8 @@ void modulo_equipe(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
+    printf("Precione Enter para continuar..");
+    getchar();
 }
 
 void mensagem_manutencao(void)
