@@ -1,18 +1,14 @@
-Claro! Vou deixar o README mais compacto, direto ao ponto, mas mantendo as informações essenciais e explicativas. Aqui está uma versão mais enxuta e objetiva:
+# SIG-Rent-a-Car 
 
----
-
-# SIG-Rent-a-Car
-
-**Projeto de locadora de veículos desenvolvido para fins didáticos**
-Universidade Federal do Rio Grande do Norte – Curso de Sistemas de Informação
-Disciplina DCT1106 - Programação
-Autores: Ícaro Nonato (@icarononato23) & José Samuel (@j.samuel007) — desde Ago/2025
-
----
+Projeto de locadora de veículos Universidade do Rio Grande do Norte \ 
+Centro de Ensino Superior do Seridó \ 
+Departamento de Computação e Tecnologia \ 
+Bacharelado em Sistemas de Informação Disciplina DCT1106 - Programação \ 
+Developed by @j.samuel007 & @icarononato23 - since Aug/2025
 
 ## Sobre o Projeto
 
+Programa para fins didáticos, feito por Ícaro Nonato e José Samuel durante a disciplina DCT1106 - Programação do curso de Bacharelado em Sistemas de Informação da Universidade Federal do Rio Grande do Norte.
 SIG-Rent-a-Car é um sistema simples, desenvolvido em **C**, que simula o gerenciamento de uma locadora de veículos. O projeto inclui os principais módulos para controlar clientes, funcionários, veículos, aluguéis e relatórios, com foco em operações básicas de cadastro, pesquisa, alteração e exclusão de dados.
 
 **Atenção:**
@@ -66,25 +62,4 @@ O projeto inclui um **Makefile** para facilitar:
    make clean
    ```
 
----
 
-## Futuras Melhorias
-
-* Integração com banco de dados real (MySQL, SQLite).
-* Interface gráfica (GTK, ncurses).
-* Sistema de autenticação e permissões.
-* Relatórios mais detalhados (manutenção, histórico).
-
----
-
-## Licença
-
-Projeto sob **Licença MIT**. Consulte o arquivo `LICENSE` para detalhes.
-
----
-
-Qualquer dúvida ou sugestão, estamos à disposição!
-
----
-
-Quer que eu ajude a montar o conteúdo do Makefile também? Ou algum outro ajuste?
