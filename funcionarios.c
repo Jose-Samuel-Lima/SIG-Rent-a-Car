@@ -62,18 +62,17 @@ int modulo_tela_funcionario(void)
         ;
     printf("\n");
     printf("Processando...\n");
-    // sleep(1);
     return op;
 }
 
 void modulo_cadastrar_funcionario(void)
 {
     char nome_funcionario[51];
-    int idade_funcionario;
+    char dt_nascimento_fun[12];
     char cpf_funcionario[12];
     char cargo[22];
     char email[30];
-     int c;
+
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
@@ -94,8 +93,8 @@ void modulo_cadastrar_funcionario(void)
     printf("Nome do funcionário: ");
     fgets(nome_funcionario, sizeof(nome_funcionario), stdin);
 
-    printf("Idade do funcionário: ");
-    scanf("%d", &idade_funcionario);
+    printf("Data de nascimento do funcionário: ");
+    fgets(dt_nascimento_fun, sizeof(dt_nascimento_fun), stdin);
 
     printf("CPF do funcionário: ");
     fgets(cpf_funcionario, sizeof(cpf_funcionario), stdin);
@@ -106,8 +105,6 @@ void modulo_cadastrar_funcionario(void)
     printf("Email do funcionário: ");
     fgets(email, sizeof(email), stdin);
 
-    while ((c = getchar()) != '\n' && c != EOF)
-    system("cls||clear");
     printf("Funcionário Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
@@ -148,10 +145,10 @@ void modulo_atualizar_funcionario(void)
     char cpf[12];
     char choose;
     char nome_funcionario[51];
+    char dt_nascimento_fun[12];
     char novo_cpf[12];
     char cargo[22];
     char email[30];
-    int idade;
     int c;
 
     system("clear||cls");
@@ -179,14 +176,17 @@ void modulo_atualizar_funcionario(void)
 
     system("clear||cls");
     printf("[1] Novo Nome\n");
-    printf("[2] Nova Idade\n");
+    printf("[2] Nova Data de Nascimento\n");
     printf("[3] Novo Cpf\n");
     printf("[4] Novo Cargo\n");
     printf("[5] Novo E-mail\n");
     printf("[0] Cancelar\n");
     printf("-----------------------\n");
     scanf(" %c", &choose);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     system("clear||cls");
+
     if (choose == '1')
     {
         printf("Selecione o novo nome do funcionário: ");
@@ -194,10 +194,8 @@ void modulo_atualizar_funcionario(void)
     }
     else if (choose == '2')
     {
-        printf("Selecione a nova idade do funcionário: ");
-        scanf(" %d", &idade);
-        while ((c = getchar()) != '\n' && c != EOF)
-        ;
+        printf("Selecione a nova data de nascimento do funcionário: ");
+        fgets(dt_nascimento_fun, sizeof(dt_nascimento_fun), stdin);
     }
     else if (choose == '3')
     {
@@ -215,7 +213,7 @@ void modulo_atualizar_funcionario(void)
         fgets(email, sizeof(email), stdin);
         
     }
-    printf("Pressione enter para continuar...");
+    printf("Pressione Enter para continuar...");
     getchar();
 }
 
