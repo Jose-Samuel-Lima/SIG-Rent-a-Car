@@ -2,11 +2,16 @@
 
 Projeto de locadora de veículos 
 
-Universidade do Rio Grande do Norte 
-Centro de Ensino Superior do Seridó 
-Departamento de Computação e Tecnologia 
-Bacharelado em Sistemas de Informação 
+Universidade do Rio Grande do Norte
+
+Centro de Ensino Superior do Seridó
+
+Departamento de Computação e Tecnologia
+
+Bacharelado em Sistemas de Informação
+
 Disciplina DCT1106 - Programação
+
 Developed by @j.samuel007 & @icarononato23 - since Aug/2025
 
 ## Sobre o Projeto
