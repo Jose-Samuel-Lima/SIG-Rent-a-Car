@@ -68,11 +68,12 @@ int modulo_tela_cliente(void)
 
 void modulo_cadastrar_cliente(void)
 {
-    char nome_cliente[51];
-    char data_nascimento[12];
-    char cpf_cliente[12];
-    char email[30];
-    char CNH[13];
+    FILE *arq_cliente;
+    char nome_cliente[52];
+    char data_nascimento[15];
+    char cpf_cliente[14];
+    char email[52];
+    char CNH[14];
     
     system("clear||cls");
     printf("\n");
@@ -92,20 +93,34 @@ void modulo_cadastrar_cliente(void)
     printf("\n");
 
     printf("Nome do cliente: ");
-    fgets(nome_cliente, sizeof(nome_cliente), stdin);
-
+    scanf("%s[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_cliente);
+    getchar();
     printf("Data de Nascimento do cliente: ");
-    fgets(data_nascimento, sizeof(data_nascimento), stdin);
-
+    scanf("%s0-9/", data_nascimento);
+    getchar();
     printf("CPF do cliente: ");
-    fgets(cpf_cliente, sizeof(cpf_cliente), stdin);
-
+    scanf("%s[0-9.-]", cpf_cliente);
+    getchar();
     printf("Email do cliente: ");
-    fgets(email, sizeof(email), stdin);
-
+    scanf("%s[A-Za-z-z0-9@._]", email);
+    getchar();
     printf("CNH do cliente: ");
-    fgets(CNH, sizeof(CNH), stdin);
+    scanf("%s0-9", CNH);
+    getchar();
+    arq_cliente = fopen("cliente.txt","at");
 
+    if (arq_cliente == NULL){
+        printf("Erro na criação do arquivo!");
+        printf("Precione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+    fprintf(arq_cliente,"%s;", nome_cliente);
+    fprintf(arq_cliente,"%s;", data_nascimento);
+    fprintf(arq_cliente,"%s;", cpf_cliente);
+    fprintf(arq_cliente,"%s;", email);
+    fprintf(arq_cliente,"%s\n", CNH);
+    fclose(arq_cliente);
     printf("Cliente Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
@@ -133,7 +148,7 @@ void modulo_dados_cliente(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o CPf do cliente que deseja encontrar: \n");
-    scanf("%14s", cpf);
+    scanf("%15s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     system("cls||clear");
