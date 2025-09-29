@@ -71,6 +71,7 @@ void modulo_cadastrar_aluguel(void)
     char cpf_cliente[12];
     char codigo_renavam[12];
     char modelo_veiculo[15];
+    char data_aluguel[15];
     char id_aluguel[11];
     int c;
 
@@ -107,6 +108,10 @@ void modulo_cadastrar_aluguel(void)
     scanf("%[0-9 A-Za-z]", modelo_veiculo);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
+    printf("Data do Fim do aluguel: ");
+    scanf("%[0-9/]", data_aluguel);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     printf("ID de identificação do aluguel: ");
     scanf("%[0-9]", id_aluguel);
     while ((c = getchar()) != '\n' && c != EOF)
@@ -124,6 +129,7 @@ void modulo_cadastrar_aluguel(void)
     fprintf(arq_aluguel,"%s;", cpf_cliente);
     fprintf(arq_aluguel,"%s;", codigo_renavam);
     fprintf(arq_aluguel,"%s;", modelo_veiculo);
+    fprintf(arq_aluguel,"%s;", data_aluguel);
     fprintf(arq_aluguel,"%s\n", id_aluguel);
     fclose(arq_aluguel);
     printf("Aluguel Registrado com Sucesso!\n");
@@ -140,6 +146,7 @@ void modulo_dados_aluguel(void)
     char cpf_cliente[12];
     char codigo_renavam[12];
     char modelo_veiculo[15];
+    char data_aluguel[15];
     char id_aluguel[11];
     char id_aluguel_ler[11];
     int c;
@@ -196,10 +203,14 @@ void modulo_dados_aluguel(void)
         }
         fgetc(arq_aluguel);
 
-        if (fscanf(arq_aluguel,"%[^\n]", id_aluguel) != 1){
+        if (fscanf(arq_aluguel,"%[^;]", data_aluguel) != 1) {
             break;
         }
         fgetc(arq_aluguel);
+
+        if (fscanf(arq_aluguel,"%[^\n]", id_aluguel) != 1){
+            break;
+        }
 
         if (strcmp(id_aluguel_ler,id_aluguel) == 0) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
@@ -207,9 +218,10 @@ void modulo_dados_aluguel(void)
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t Nome: %s\n", nome_cliente);
             printf("\t\t CPF: %s\n", cpf_cliente);
-            printf("\t\t Data Nasci.: %s\n", codigo_renavam);
-            printf("\t\t Email: %s\n", modelo_veiculo);
-            printf("\t\t CNH: %s\n", id_aluguel);
+            printf("\t\t Código RENAVAM: %s\n", codigo_renavam);
+            printf("\t\t Modelo do Veículo: %s\n", modelo_veiculo);
+            printf("\t\t Data de Finalização: %s\n", data_aluguel);
+            printf("\t\t ID do Aluguel: %s\n", id_aluguel);
             printf("\n");
             printf("\t\t Pressione Enter para continuar...");
             getchar();
