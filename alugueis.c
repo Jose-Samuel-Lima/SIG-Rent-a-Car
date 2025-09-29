@@ -132,10 +132,16 @@ void modulo_cadastrar_aluguel(void)
     
 }
 
-
 void modulo_dados_aluguel(void)
 {
-    int id_aluguel;
+    FILE *arq_aluguel;
+    
+    char nome_cliente[51];
+    char cpf_cliente[12];
+    char codigo_renavam[12];
+    char modelo_veiculo[15];
+    char id_aluguel[11];
+    char id_aluguel_ler[11];
     int c;
 
     system("clear||cls");
@@ -155,12 +161,67 @@ void modulo_dados_aluguel(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o Id do aluguel que deseja encontrar: \n");
-    scanf("%d", &id_aluguel);
+    scanf("%11s", id_aluguel_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    system("cls||clear");
+
+    arq_aluguel = fopen("aluguel.csv","rt");
+
+    if (arq_aluguel == NULL){
+        printf("Erro na criação do arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    while (!feof(arq_aluguel)) {
+
+        if (fscanf(arq_aluguel,"%[^;]", nome_cliente) != 1){
+            break;
+        }
+        fgetc(arq_aluguel);
+
+        if (fscanf(arq_aluguel,"%[^;]", cpf_cliente) != 1) {
+            break;
+        }
+        fgetc(arq_aluguel);
+
+        if (fscanf(arq_aluguel,"%[^;]", codigo_renavam) != 1) {
+            break;
+        }
+        fgetc(arq_aluguel);
+
+        if (fscanf(arq_aluguel,"%[^;]", modelo_veiculo) != 1) {
+            break;
+        }
+        fgetc(arq_aluguel);
+
+        if (fscanf(arq_aluguel,"%[^\n]", id_aluguel) != 1){
+            break;
+        }
+        fgetc(arq_aluguel);
+
+        if (strcmp(id_aluguel_ler,id_aluguel) == 0) {
+            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("\t\t < = = Aluguel Encontrado! = = >\n");
+            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("\t\t Nome: %s\n", nome_cliente);
+            printf("\t\t CPF: %s\n", cpf_cliente);
+            printf("\t\t Data Nasci.: %s\n", codigo_renavam);
+            printf("\t\t Email: %s\n", modelo_veiculo);
+            printf("\t\t CNH: %s\n", id_aluguel);
+            printf("\n");
+            printf("\t\t Pressione Enter para continuar...");
+            getchar();
+            fclose(arq_aluguel);
+            return;
+        }
+        
+    }
+    printf("Aluguel não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
+    fclose(arq_aluguel);
 }
 
 void modulo_atualizar_aluguel(void)
