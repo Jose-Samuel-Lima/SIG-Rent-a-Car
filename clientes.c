@@ -71,18 +71,11 @@ void modulo_cadastrar_cliente(void)
 {
     FILE *arq_cliente;
     char nome_cliente[52];
-<<<<<<< HEAD
     char cpf_cliente[14];
     char data_nascimento[15];
     char email[52];
     char cnh[14];
     int c;
-=======
-    char data_nascimento[15];
-    char cpf_cliente[14];
-    char email[52];
-    char CNH[14];
->>>>>>> 4c2dc3ef91cdcfd41ebe880ca2d0eb5d5dc5194e
     
     system("clear||cls");
     printf("\n");
@@ -102,7 +95,6 @@ void modulo_cadastrar_cliente(void)
     printf("\n");
 
     printf("Nome do cliente: ");
-<<<<<<< HEAD
     scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -111,7 +103,7 @@ void modulo_cadastrar_cliente(void)
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Data de Nascimento do cliente: ");
-    scanf("%[0-9]/", data_nascimento);
+    scanf("%[0-9/]", data_nascimento);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Email do cliente: ");
@@ -125,24 +117,6 @@ void modulo_cadastrar_cliente(void)
 
     arq_cliente = fopen("cliente.csv","at");
 
-=======
-    scanf("%s[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_cliente);
-    getchar();
-    printf("Data de Nascimento do cliente: ");
-    scanf("%s0-9/", data_nascimento);
-    getchar();
-    printf("CPF do cliente: ");
-    scanf("%s[0-9.-]", cpf_cliente);
-    getchar();
-    printf("Email do cliente: ");
-    scanf("%s[A-Za-z-z0-9@._]", email);
-    getchar();
-    printf("CNH do cliente: ");
-    scanf("%s0-9", CNH);
-    getchar();
-    arq_cliente = fopen("cliente.txt","at");
-
->>>>>>> 4c2dc3ef91cdcfd41ebe880ca2d0eb5d5dc5194e
     if (arq_cliente == NULL){
         printf("Erro na criação do arquivo!");
         printf("Precione Enter para continuar...");
@@ -150,17 +124,10 @@ void modulo_cadastrar_cliente(void)
         exit(1);
     }
     fprintf(arq_cliente,"%s;", nome_cliente);
-<<<<<<< HEAD
     fprintf(arq_cliente,"%s;", cpf_cliente);
     fprintf(arq_cliente,"%s;", data_nascimento);
     fprintf(arq_cliente,"%s;", email);
     fprintf(arq_cliente,"%s\n", cnh);
-=======
-    fprintf(arq_cliente,"%s;", data_nascimento);
-    fprintf(arq_cliente,"%s;", cpf_cliente);
-    fprintf(arq_cliente,"%s;", email);
-    fprintf(arq_cliente,"%s\n", CNH);
->>>>>>> 4c2dc3ef91cdcfd41ebe880ca2d0eb5d5dc5194e
     fclose(arq_cliente);
     printf("Cliente Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
@@ -203,15 +170,11 @@ void modulo_dados_cliente(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-<<<<<<< HEAD
     printf("\t\tInforme o CPf do cliente que deseja encontrar: \n");
     scanf("%15s", cpf_cliente);
-=======
-    printf("Informe o CPf do cliente que deseja encontrar: \n");
-    scanf("%15s", cpf);
->>>>>>> 4c2dc3ef91cdcfd41ebe880ca2d0eb5d5dc5194e
     while ((c = getchar()) != '\n' && c != EOF)
-        ;
+        ;fopen("cliente.csv","at");
+
     while (!feof(arq_cliente)) {
 
         if (fscanf(arq_cliente,"%[^;]", nome_cliente) != 1){
@@ -343,6 +306,16 @@ void modulo_atualizar_clientes(void)
 
 void modulo_excluir_cliente(void)
 {
+    FILE *arq_cliente;
+    arq_cliente = fopen("cliente.csv","rt");
+
+    if (arq_cliente == NULL){
+        printf("Erro na criação do arquivo!");
+        printf("Precione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
     char cpf[15];
     int c;
 
@@ -369,4 +342,5 @@ void modulo_excluir_cliente(void)
     system("cls||clear");
     printf("Pressione Enter para continuar...");
     getchar();
+    fclose(arq_cliente);
 }
