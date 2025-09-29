@@ -119,7 +119,7 @@ void modulo_cadastrar_cliente(void)
 
     if (arq_cliente == NULL){
         printf("Erro na criação do arquivo!");
-        printf("Precione Enter para continuar...");
+        printf("Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -141,7 +141,7 @@ void modulo_dados_cliente(void)
 
     if (arq_cliente == NULL){
         printf("Erro na criação do arquivo!");
-        printf("Precione Enter para continuar...");
+        printf("Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -212,7 +212,7 @@ void modulo_dados_cliente(void)
             printf("\t\t Email: %s\n", email);
             printf("\t\t CNH: %s\n", cnh);
             printf("\n");
-            printf("\t\t Precione Enter para continuar...");
+            printf("\t\t Pressione Enter para continuar...");
             getchar();
             fclose(arq_cliente);
             return;
@@ -311,7 +311,7 @@ void modulo_excluir_cliente(void)
 
     if (arq_cliente == NULL){
         printf("Erro ao entrar no arquivo!");
-        printf("Precione Enter para continuar...");
+        printf("Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -321,7 +321,7 @@ void modulo_excluir_cliente(void)
 
     if (arq_temp== NULL){
         printf("Erro na criação do arquivo Temporário!\n");
-        printf("Precione Enter para continuar...");
+        printf("Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
