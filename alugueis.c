@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 #include "alugueis.h"
 
 int modulo_aluguel(void)
@@ -65,11 +66,12 @@ int modulo_tela_alugueis(void)
 
 void modulo_cadastrar_aluguel(void)
 {
+    FILE *arq_aluguel;
     char nome_cliente[51];
     char cpf_cliente[12];
     char codigo_renavam[12];
     char modelo_veiculo[15];
-    int id_aluguel;
+    char id_aluguel[11];
     int c;
 
     system("clear||cls");
@@ -90,26 +92,46 @@ void modulo_cadastrar_aluguel(void)
     printf("\n");
 
     printf("Nome do cliente: ");
-    fgets(nome_cliente, sizeof(nome_cliente), stdin);
-
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_cliente);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     printf("CPF do cliente: ");
-    fgets(cpf_cliente, sizeof(cpf_cliente), stdin);
+    scanf("%[0-9.-]", cpf_cliente);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    printf("Código RENAVAM do veículo: ");
+    scanf("%[0-9]", codigo_renavam);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    printf("Modelo do veículo: ");
+    scanf("%[0-9 A-Za-z]", modelo_veiculo);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    printf("ID de identificação do aluguel: ");
+    scanf("%[0-9]", id_aluguel);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
 
-    printf("Modelo do veículo alugado: ");
-    fgets(modelo_veiculo, sizeof(modelo_veiculo), stdin);
+    arq_aluguel = fopen("aluguel.csv","at");
 
-    printf("Código RENAVAM do veículo alugado: ");
-    fgets(codigo_renavam, sizeof(codigo_renavam), stdin);
-
-    printf("Id do aluguel: ");
-    scanf("%d", &id_aluguel);
-    while ((c = getchar()) != '\n' && c != EOF);
-
-    system("cls||clear");
+    if (arq_aluguel == NULL){
+        printf("Erro na criação do arquivo!\n");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+    fprintf(arq_aluguel,"%s;", nome_cliente);
+    fprintf(arq_aluguel,"%s;", cpf_cliente);
+    fprintf(arq_aluguel,"%s;", codigo_renavam);
+    fprintf(arq_aluguel,"%s;", modelo_veiculo);
+    fprintf(arq_aluguel,"%s\n", id_aluguel);
+    fclose(arq_aluguel);
     printf("Aluguel Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
+    
 }
+
 
 void modulo_dados_aluguel(void)
 {
