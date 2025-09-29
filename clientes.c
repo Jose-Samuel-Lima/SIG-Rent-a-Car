@@ -173,7 +173,7 @@ void modulo_dados_cliente(void)
     printf("\t\tInforme o CPf do cliente que deseja encontrar: \n");
     scanf("%15s", cpf_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
-        ;fopen("cliente.csv","at");
+        ;
 
     while (!feof(arq_cliente)) {
 
@@ -310,13 +310,28 @@ void modulo_excluir_cliente(void)
     arq_cliente = fopen("cliente.csv","rt");
 
     if (arq_cliente == NULL){
-        printf("Erro na criação do arquivo!");
+        printf("Erro ao entrar no arquivo!");
+        printf("Precione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    FILE *arq_temp;
+    arq_temp = fopen("cliente_temp.csv","wt");
+
+    if (arq_temp== NULL){
+        printf("Erro na criação do arquivo Temporário!\n");
         printf("Precione Enter para continuar...");
         getchar();
         exit(1);
     }
 
     char cpf[15];
+    char nome_cliente[52];
+    char cpf_cliente[15];
+    char data_nascimento[15];
+    char email[52];
+    char cnh[14];
     int c;
 
     system("clear||cls");
@@ -336,11 +351,57 @@ void modulo_excluir_cliente(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o CPf do cliente que deseja excluir: \n");
-    scanf("%14s", cpf);
+    scanf("%15s", cpf_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    system("cls||clear");
+    while (!feof(arq_cliente)) {
+
+        if (fscanf(arq_cliente,"%[^;]", nome_cliente) != 1){
+            break;
+        }
+        fgetc(arq_cliente);
+
+        if (fscanf(arq_cliente,"%[^;]", cpf) != 1) {
+            break;
+        }
+        fgetc(arq_cliente);
+
+        if (fscanf(arq_cliente,"%[^;]", data_nascimento) != 1) {
+            break;
+        }
+        fgetc(arq_cliente);
+
+        if (fscanf(arq_cliente,"%[^;]", email) != 1) {
+            break;
+        }
+        fgetc(arq_cliente);
+
+        if (fscanf(arq_cliente,"%[^\n]", cnh) != 1){
+            break;
+        }
+        fgetc(arq_cliente);
+
+        if (strcmp(cpf_cliente,cpf) != 0){
+            fprintf(arq_temp,"%s;", nome_cliente);
+            fprintf(arq_temp,"%s;", cpf);
+            fprintf(arq_temp,"%s;", data_nascimento);
+            fprintf(arq_temp,"%s;", nome_cliente);
+            fprintf(arq_temp,"%s;", email);
+            fprintf(arq_temp,"%s\n", cnh);
+        }
+    }
+
+    fclose(arq_cliente);
+    fclose(arq_temp);
+
+    if (strcmp(cpf_cliente,cpf) == 0){
+            remove("cliente.csv");
+            rename("cliente_temp.csv","cliente.csv");
+            printf("Cliente excluido com sucesso!\n");
+        }
+
+    printf("Cliente não encontrado..\n");
     printf("Pressione Enter para continuar...");
     getchar();
-    fclose(arq_cliente);
+    
 }
