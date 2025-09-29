@@ -136,7 +136,13 @@ void modulo_cadastrar_cliente(void)
 
 void modulo_dados_cliente(void)
 {
+    FILE *arq_cliente;
     char cpf[15];
+    char nome_cliente[52];
+    char cpf_cliente[15];
+    char data_nascimento[15];
+    char email[52];
+    char cnh[14];
     int c;
 
     system("clear||cls");
@@ -155,13 +161,68 @@ void modulo_dados_cliente(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o CPf do cliente que deseja encontrar: \n");
-    scanf("%14s", cpf);
+    printf("\t\tInforme o CPf do cliente que deseja encontrar: \n");
+    scanf("%15s", cpf_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    system("cls||clear");
+         
+    arq_cliente = fopen("cliente.csv","rt");
+
+    if (arq_cliente == NULL){
+        printf("Erro na criação do arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    while (!feof(arq_cliente)) {
+
+        if (fscanf(arq_cliente,"%[^;]", nome_cliente) != 1){
+            break;
+        }
+        fgetc(arq_cliente);
+
+        if (fscanf(arq_cliente,"%[^;]", cpf) != 1) {
+            break;
+        }
+        fgetc(arq_cliente);
+
+        if (fscanf(arq_cliente,"%[^;]", data_nascimento) != 1) {
+            break;
+        }
+        fgetc(arq_cliente);
+
+        if (fscanf(arq_cliente,"%[^;]", email) != 1) {
+            break;
+        }
+        fgetc(arq_cliente);
+
+        if (fscanf(arq_cliente,"%[^\n]", cnh) != 1){
+            break;
+        }
+        fgetc(arq_cliente);
+
+        if (strcmp(cpf,cpf_cliente) == 0) {
+            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("\t\t < = = Cliente Encontrado! = = >\n");
+            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("\t\t Nome: %s\n", nome_cliente);
+            printf("\t\t CPF: %s\n", cpf);
+            printf("\t\t Data Nasci.: %s\n", data_nascimento);
+            printf("\t\t Email: %s\n", email);
+            printf("\t\t CNH: %s\n", cnh);
+            printf("\n");
+            printf("\t\t Pressione Enter para continuar...");
+            getchar();
+            fclose(arq_cliente);
+            return;
+        }
+        
+    }
+    printf("Cliente não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
+    fclose(arq_cliente);
 }
 
 void modulo_atualizar_clientes(void)
