@@ -333,6 +333,7 @@ void modulo_excluir_cliente(void)
     char email[52];
     char cnh[14];
     int c;
+    int encontrado;
 
     system("clear||cls");
     printf("\n");
@@ -385,22 +386,27 @@ void modulo_excluir_cliente(void)
             fprintf(arq_temp,"%s;", nome_cliente);
             fprintf(arq_temp,"%s;", cpf);
             fprintf(arq_temp,"%s;", data_nascimento);
-            fprintf(arq_temp,"%s;", nome_cliente);
             fprintf(arq_temp,"%s;", email);
             fprintf(arq_temp,"%s\n", cnh);
+        }
+        else {
+            encontrado = 1;
         }
     }
 
     fclose(arq_cliente);
     fclose(arq_temp);
 
-    if (strcmp(cpf_cliente,cpf) == 0){
+    if (encontrado){
             remove("cliente.csv");
             rename("cliente_temp.csv","cliente.csv");
-            printf("Cliente excluido com sucesso!\n");
+            printf("Cliente excluído com sucesso!\n");
         }
+    else {
+        remove("cliente_temp.csv");
+        printf("Cliente não encontrado..\n");
+    }
 
-    printf("Cliente não encontrado..\n");
     printf("Pressione Enter para continuar...");
     getchar();
     
