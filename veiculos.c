@@ -135,6 +135,7 @@ void modulo_cadastrar_veiculo(void)
         ;
 
     arq_veiculo = fopen("veiculo.csv", "at");
+
     if (arq_veiculo == NULL)
     {
         printf("Erro na criação do arquivo!");
@@ -161,7 +162,17 @@ void modulo_cadastrar_veiculo(void)
 
 void modulo_dados_veiculo(void)
 {
-    int codigo_renavam[12];
+    FILE *arq_veiculo;
+    char cod_ler[7];
+    char placa[8];
+    char chassi[18];
+    char renavam[12];
+    char categoria[7];
+    char modelo[31];
+    char marca[16];
+    char ano[5];
+    char codigo_interno[7];
+    float preco;
     int c;
 
     system("cls||clear");
@@ -180,13 +191,91 @@ void modulo_dados_veiculo(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o Código da RENAVAM  para encontrar o veículo desejado: \n");
-    scanf("%d", codigo_renavam);
+    printf("Informe o Código interno para encontrar o veículo desejado: \n");
+    scanf("%7s", cod_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    system("cls||clear");
+
+    arq_veiculo = fopen("veiculo.csv","rt");
+
+    if (arq_veiculo == NULL){
+        printf("Erro na leitura do arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    while (!feof(arq_veiculo)) {
+
+        if (fscanf(arq_veiculo,"%[^;]", placa) != 1){
+            break;
+        }
+        fgetc(arq_veiculo);
+
+        if (fscanf(arq_veiculo,"%[^;]", chassi) != 1) {
+            break;
+        }
+        fgetc(arq_veiculo);
+
+        if (fscanf(arq_veiculo,"%[^;]", renavam) != 1) {
+            break;
+        }
+        fgetc(arq_veiculo);
+
+        if (fscanf(arq_veiculo,"%[^;]", categoria) != 1) {
+            break;
+        }
+        fgetc(arq_veiculo);
+
+        if (fscanf(arq_veiculo,"%[^;]", modelo) != 1){
+            break;
+        }
+        fgetc(arq_veiculo);
+
+        if (fscanf(arq_veiculo,"%[^;]", marca) != 1){
+            break;
+        }
+        fgetc(arq_veiculo);
+
+        if (fscanf(arq_veiculo,"%[^;]", ano) != 1){
+            break;
+        }
+        fgetc(arq_veiculo);
+
+        if (fscanf(arq_veiculo,"%[^;]", codigo_interno) != 1){
+            break;
+        }
+        fgetc(arq_veiculo);
+
+        if (fscanf(arq_veiculo,"%f\n", &preco) != 1){
+            break;
+        }
+        fgetc(arq_veiculo);
+
+        if (strcmp(codigo_interno,cod_ler) == 0) {
+            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("\t\t < = = Veículo Encontrado! = = >\n");
+            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("\t\t Placa: %s\n", placa);
+            printf("\t\t Chassi: %s\n", chassi);
+            printf("\t\t Renavam.: %s\n", renavam);
+            printf("\t\t Categoria: %s\n", categoria);
+            printf("\t\t Modelo: %s\n", modelo);
+            printf("\t\t Marca: %s\n", marca);
+            printf("\t\t Ano: %s\n", ano);
+            printf("\t\t Código Interno: %s\n", codigo_interno);
+            printf("\t\t Preço: %f\n", preco);
+            printf("\n");
+            printf("\t\t Pressione Enter para continuar...");
+            getchar();
+            fclose(arq_veiculo);
+            return;
+        }
+    }
+    printf("Veículo não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
+    fclose(arq_veiculo);
 }
 
 void modulo_atualizar_veiculo(void)
