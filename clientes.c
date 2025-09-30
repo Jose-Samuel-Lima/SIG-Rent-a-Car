@@ -227,14 +227,35 @@ void modulo_dados_cliente(void)
 
 void modulo_atualizar_clientes(void)
 {
-    char cpf_cliente[12];
-    char choose;
-    char nome_cliente[51];
-    char data_nascimento[12];
-    char novo_cpf_cliente[12];
-    char email[30];
-    char CNH[13];
+    FILE *arq_cliente;
+    arq_cliente = fopen("cliente.csv","rt");
+
+    if (arq_cliente == NULL){
+        printf("Erro ao entrar no arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    FILE *arq_temp;
+    arq_temp = fopen("cliente_temp.csv","wt");
+
+    if (arq_temp== NULL){
+        printf("Erro na criação do arquivo Temporário!\n");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    char cpf[15];
+    char nome_cliente[52];
+    char cpf_cliente[15];
+    char data_nascimento[15];
+    char email[52];
+    char cnh[14];
+    char opcao;
     int c;
+    int encontrado = 0;
 
     system("clear||cls");
     printf("\n");
@@ -253,54 +274,101 @@ void modulo_atualizar_clientes(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o CPf do cliente para alterar os dados: \n");
-    scanf("%14s", cpf_cliente);
+    scanf("%15s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
-    // fazer verificação quando fazer o armazenamento de dados
+    while (fscanf(arq_cliente, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, data_nascimento, email, cnh) == 5) {
+        if (strcmp(cpf, cpf_cliente) == 0) {
+            
+            encontrado = 1;
 
-    system("clear||cls");
-    printf("[1] Novo Nome\n");
-    printf("[2] Nova Data de Nascimento\n");
-    printf("[3] Novo Cpf\n");
-    printf("[4] Novo E-mail\n");
-    printf("[5] Novo nº CNH\n");
-    printf("[0] Cancelar\n");
-    printf("-----------------------\n");
-    scanf(" %c", &choose);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    system("clear||cls");
-    if (choose == '1')
-    {
-        printf("Informe o novo nome: ");
-        fgets(nome_cliente, sizeof(nome_cliente), stdin);
+            system("clear||cls");
+            printf("Cliente encontrado!\n");
+            printf("Informe qual informação deseja alterar:\n");
+            printf("\n");
+            printf("---------------------------\n");
+            printf("[1] Novo Nome\n");
+            printf("[2] Nova Data de Nascimento\n");
+            printf("[3] Novo Cpf\n");
+            printf("[4] Novo E-mail\n");
+            printf("[5] Nova CNH\n");
+            printf("[0] Cancelar\n");
+            printf("---------------------------\n");
+            scanf(" %c", &opcao);
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
+
+            switch(opcao){
+                case '1':
+                    printf("Novo nome do cliente: ");
+                    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_cliente);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '2':
+                    printf("Novo CPF do cliente: ");
+                    scanf("%[0-9.-]", cpf_cliente);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '3':
+                    printf("Nova Data de Nasc. do cliente: ");
+                    scanf("%[0-9/]", data_nascimento);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '4':
+                    printf("Novo email do cliente: ");
+                    scanf("%[A-Za-z-z0-9@._]", email);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '5':
+                    printf("Nova CNH do cliente: ");
+                    scanf("%[0-9]", cnh);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '0':
+                    printf("Voltando ao menu clientes.");
+                    break;
+
+                default:
+                    printf("Opção inválida. Nenhum dado alterado.\n");
+                    break;
+
+            }
+
+        }
+
+        fprintf(arq_temp,"%s;", nome_cliente);
+        fprintf(arq_temp,"%s;", cpf_cliente);
+        fprintf(arq_temp,"%s;", data_nascimento);
+        fprintf(arq_temp,"%s;", email);
+        fprintf(arq_temp,"%s\n", cnh);
+
     }
-    else if (choose == '2')
-    {
-        printf("Informe a nova data de nascimento: ");
-        fgets(data_nascimento, sizeof(data_nascimento), stdin);
+
+    fclose(arq_cliente);
+    fclose(arq_temp);
+
+    if (encontrado){
+            remove("cliente.csv");
+            rename("cliente_temp.csv","cliente.csv");
+            printf("Dado(s) do cliente alterado(s) com sucesso!\n");
+        }
+    else {
+        remove("cliente_temp.csv");
+        printf("Cliente não encontrado..\n");
     }
-    else if (choose == '3')
-    {
-        printf("Informe o novo CPF: ");
-        scanf(" %s", novo_cpf_cliente);
-        while ((c = getchar()) != '\n' && c != EOF)
-            ;
-    }
-    else if (choose == '4')
-    {
-        printf("Informe o novo E-mail: ");
-        scanf(" %s", email);
-        while ((c = getchar()) != '\n' && c != EOF)
-            ;
-    }
-    else if (choose == '5')
-    {
-        printf("Informe o novo número da CNH: ");
-        fgets(CNH, sizeof(CNH), stdin);
-    }
-    printf("Pressione enter para continuar...");
+
+    printf("Pressione Enter para continuar...");
     getchar();
 }
 
@@ -358,36 +426,37 @@ void modulo_excluir_cliente(void)
     while (!feof(arq_cliente)) {
 
         if (fscanf(arq_cliente,"%[^;]", nome_cliente) != 1){
+            printf("Algo deu errado!");
             break;
         }
         fgetc(arq_cliente);
 
         if (fscanf(arq_cliente,"%[^;]", cpf) != 1) {
+            printf("Algo deu errado!");
             break;
         }
         fgetc(arq_cliente);
 
         if (fscanf(arq_cliente,"%[^;]", data_nascimento) != 1) {
+            printf("Algo deu errado!");
             break;
         }
         fgetc(arq_cliente);
 
         if (fscanf(arq_cliente,"%[^;]", email) != 1) {
+            printf("Algo deu errado!");
             break;
         }
         fgetc(arq_cliente);
 
         if (fscanf(arq_cliente,"%[^\n]", cnh) != 1){
+            printf("Algo deu errado!");
             break;
         }
         fgetc(arq_cliente);
 
         if (strcmp(cpf_cliente,cpf) != 0){
-            fprintf(arq_temp,"%s;", nome_cliente);
-            fprintf(arq_temp,"%s;", cpf);
-            fprintf(arq_temp,"%s;", data_nascimento);
-            fprintf(arq_temp,"%s;", email);
-            fprintf(arq_temp,"%s\n", cnh);
+
         }
         else {
             encontrado = 1;
