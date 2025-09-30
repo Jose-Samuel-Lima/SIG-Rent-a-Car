@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 #include "funcionarios.h"
 
 int modulo_funcionario(void)
@@ -67,11 +68,13 @@ int modulo_tela_funcionario(void)
 
 void modulo_cadastrar_funcionario(void)
 {
+    FILE *arq_funcionario;
     char nome_funcionario[51];
     char dt_nascimento_fun[12];
     char cpf_funcionario[12];
     char cargo[22];
     char email[30];
+    int c;
 
     system("clear||cls");
     printf("\n");
@@ -91,20 +94,40 @@ void modulo_cadastrar_funcionario(void)
     printf("\n");
 
     printf("Nome do funcionário: ");
-    fgets(nome_funcionario, sizeof(nome_funcionario), stdin);
-
-    printf("Data de nascimento do funcionário: ");
-    fgets(dt_nascimento_fun, sizeof(dt_nascimento_fun), stdin);
-
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_funcionario);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     printf("CPF do funcionário: ");
-    fgets(cpf_funcionario, sizeof(cpf_funcionario), stdin);
-
-    printf("Cargo do funcionário: ");
-    fgets(cargo, sizeof(cargo), stdin);
-
+    scanf("%[0-9.-]", cpf_funcionario);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    printf("Data de Nascimento do funcionário: ");
+    scanf("%[0-9/]", dt_nascimento_fun);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     printf("Email do funcionário: ");
-    fgets(email, sizeof(email), stdin);
+    scanf("%[A-Za-z-z0-9@._]", email);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    printf("Cargo do funcionário: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", cargo);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
 
+    arq_funcionario = fopen("funcionario.csv","at");
+
+    if (arq_funcionario == NULL){
+        printf("Erro na criação do arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+    fprintf(arq_funcionario,"%s;", nome_funcionario);
+    fprintf(arq_funcionario,"%s;", cpf_funcionario);
+    fprintf(arq_funcionario,"%s;", dt_nascimento_fun);
+    fprintf(arq_funcionario,"%s;", email);
+    fprintf(arq_funcionario,"%s\n", cargo);
+    fclose(arq_funcionario);
     printf("Funcionário Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
