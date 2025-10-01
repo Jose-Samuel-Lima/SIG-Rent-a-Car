@@ -4,6 +4,8 @@
 #include <string.h>
 #include "clientes.h"
 
+typedef struct cliente Cliente;
+
 int modulo_cliente(void)
 {
     int esc;
@@ -67,14 +69,10 @@ int modulo_tela_cliente(void)
     return op;
 }
 
-void modulo_cadastrar_cliente(void)
+void modulo_cadastrar_cliente(Cliente)
 {
     FILE *arq_cliente;
-    char nome_cliente[52];
-    char cpf_cliente[14];
-    char data_nascimento[15];
-    char email[52];
-    char cnh[14];
+    Cliente clt;
     int c;
     
     system("clear||cls");
@@ -95,23 +93,23 @@ void modulo_cadastrar_cliente(void)
     printf("\n");
 
     printf("Nome do cliente: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_cliente);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", clt.nome_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("CPF do cliente: ");
-    scanf("%[0-9.-]", cpf_cliente);
+    scanf("%[0-9.-]", clt.cpf_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Data de Nascimento do cliente: ");
-    scanf("%[0-9/]", data_nascimento);
+    scanf("%[0-9/]", clt.data_nascimento);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Email do cliente: ");
-    scanf("%[A-Za-z-z0-9@._]", email);
+    scanf("%[A-Za-z-z0-9@._]", clt.email_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("CNH do cliente: ");
-    scanf("%[0-9]", cnh);
+    scanf("%[0-9]", clt.cnh);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
@@ -123,18 +121,18 @@ void modulo_cadastrar_cliente(void)
         getchar();
         exit(1);
     }
-    fprintf(arq_cliente,"%s;", nome_cliente);
-    fprintf(arq_cliente,"%s;", cpf_cliente);
-    fprintf(arq_cliente,"%s;", data_nascimento);
-    fprintf(arq_cliente,"%s;", email);
-    fprintf(arq_cliente,"%s\n", cnh);
+    fprintf(arq_cliente,"%s;", clt.nome_cliente);
+    fprintf(arq_cliente,"%s;", clt.cpf_cliente);
+    fprintf(arq_cliente,"%s;", clt.data_nascimento);
+    fprintf(arq_cliente,"%s;", clt.email_cliente);
+    fprintf(arq_cliente,"%s\n", clt.cnh);
     fclose(arq_cliente);
     printf("Cliente Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_dados_cliente(void)
+void modulo_dados_cliente(comst Cliente)
 {
     FILE *arq_cliente;
     arq_cliente = fopen("cliente.csv","rt");
@@ -147,11 +145,7 @@ void modulo_dados_cliente(void)
     }
 
     char cpf[15];
-    char nome_cliente[52];
-    char cpf_cliente[15];
-    char data_nascimento[15];
-    char email[52];
-    char cnh[14];
+    Cliente clt;
     int c;
 
     system("clear||cls");
@@ -175,17 +169,17 @@ void modulo_dados_cliente(void)
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
-    while (fscanf(arq_cliente, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, data_nascimento, email, cnh) == 5) {
+    while (fscanf(arq_cliente, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", clt.nome_cliente, clt.cpf_cliente, clt.data_nascimento, clt.email_cliente, clt.cnh) == 5) {
 
-        if (strcmp(cpf,cpf_cliente) == 0) {
+        if (strcmp(cpf,clt.cpf_cliente) == 0) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Cliente Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Nome: %s\n", nome_cliente);
-            printf("\t\t CPF: %s\n", cpf_cliente);
-            printf("\t\t Data Nasci.: %s\n", data_nascimento);
-            printf("\t\t Email: %s\n", email);
-            printf("\t\t CNH: %s\n", cnh);
+            printf("\t\t Nome: %s\n", clt.nome_cliente);
+            printf("\t\t CPF: %s\n", clt.cpf_cliente);
+            printf("\t\t Data Nasci.: %s\n", clt.data_nascimento);
+            printf("\t\t Email: %s\n", clt.email_cliente);
+            printf("\t\t CNH: %s\n", clt.cnh);
             printf("\n");
             printf("\t\t Pressione Enter para continuar...");
             getchar();
