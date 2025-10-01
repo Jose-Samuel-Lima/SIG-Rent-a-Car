@@ -137,6 +137,15 @@ void modulo_cadastrar_cliente(void)
 void modulo_dados_cliente(void)
 {
     FILE *arq_cliente;
+    arq_cliente = fopen("cliente.csv","rt");
+
+    if (arq_cliente == NULL){
+        printf("Erro na criação do arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
     char cpf[15];
     char nome_cliente[52];
     char cpf_cliente[15];
@@ -162,52 +171,18 @@ void modulo_dados_cliente(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("\t\tInforme o CPf do cliente que deseja encontrar: \n");
-    scanf("%15s", cpf_cliente);
+    scanf("%15s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-         
-    arq_cliente = fopen("cliente.csv","rt");
 
-    if (arq_cliente == NULL){
-        printf("Erro na criação do arquivo!");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-
-    while (!feof(arq_cliente)) {
-
-        if (fscanf(arq_cliente,"%[^;]", nome_cliente) != 1){
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^;]", cpf) != 1) {
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^;]", data_nascimento) != 1) {
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^;]", email) != 1) {
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^\n]", cnh) != 1){
-            break;
-        }
-        fgetc(arq_cliente);
+    while (fscanf(arq_cliente, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, data_nascimento, email, cnh) == 5) {
 
         if (strcmp(cpf,cpf_cliente) == 0) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Cliente Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t Nome: %s\n", nome_cliente);
-            printf("\t\t CPF: %s\n", cpf);
+            printf("\t\t CPF: %s\n", cpf_cliente);
             printf("\t\t Data Nasci.: %s\n", data_nascimento);
             printf("\t\t Email: %s\n", email);
             printf("\t\t CNH: %s\n", cnh);
