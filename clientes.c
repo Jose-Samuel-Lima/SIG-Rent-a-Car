@@ -374,8 +374,34 @@ void modulo_atualizar_clientes(void)
 
 void modulo_excluir_cliente(void)
 {
+    FILE *arq_cliente;
+    arq_cliente = fopen("cliente.csv","rt");
+
+    if (arq_cliente == NULL){
+        printf("Erro ao entrar no arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    FILE *arq_temp;
+    arq_temp = fopen("cliente_temp.csv","wt");
+
+    if (arq_temp== NULL){
+        printf("Erro na criação do arquivo Temporário!\n");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
     char cpf[15];
+    char nome_cliente[52];
+    char cpf_cliente[15];
+    char data_nascimento[15];
+    char email[52];
+    char cnh[14];
     int c;
+    int encontrado = 0;
 
     system("clear||cls");
     printf("\n");
@@ -394,10 +420,39 @@ void modulo_excluir_cliente(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o CPf do cliente que deseja excluir: \n");
-    scanf("%14s", cpf);
+    scanf("%15s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    system("cls||clear");
+    while (fscanf(arq_cliente, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, data_nascimento, email, cnh) == 5) {
+
+        if (strcmp(cpf_cliente,cpf) != 0){
+
+            fprintf(arq_temp,"%s;", nome_cliente);
+            fprintf(arq_temp,"%s;", cpf_cliente);
+            fprintf(arq_temp,"%s;", data_nascimento);
+            fprintf(arq_temp,"%s;", email);
+            fprintf(arq_temp,"%s\n", cnh);
+
+        }
+        else {
+            encontrado = 1;
+        }
+    }
+
+    fclose(arq_cliente);
+    fclose(arq_temp);
+
+    if (encontrado){
+            remove("cliente.csv");
+            rename("cliente_temp.csv","cliente.csv");
+            printf("Cliente excluído com sucesso!\n");
+        }
+    else {
+        remove("cliente_temp.csv");
+        printf("Cliente não encontrado..\n");
+    }
+
     printf("Pressione Enter para continuar...");
     getchar();
+    
 }
