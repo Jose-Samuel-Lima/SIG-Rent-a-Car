@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 #include "funcionarios.h"
 
 int modulo_funcionario(void)
@@ -67,11 +68,13 @@ int modulo_tela_funcionario(void)
 
 void modulo_cadastrar_funcionario(void)
 {
+    FILE *arq_funcionario;
     char nome_funcionario[51];
     char dt_nascimento_fun[12];
     char cpf_funcionario[12];
     char cargo[22];
     char email[30];
+    int c;
 
     system("clear||cls");
     printf("\n");
@@ -91,20 +94,41 @@ void modulo_cadastrar_funcionario(void)
     printf("\n");
 
     printf("Nome do funcionário: ");
-    fgets(nome_funcionario, sizeof(nome_funcionario), stdin);
-
-    printf("Data de nascimento do funcionário: ");
-    fgets(dt_nascimento_fun, sizeof(dt_nascimento_fun), stdin);
-
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_funcionario);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     printf("CPF do funcionário: ");
-    fgets(cpf_funcionario, sizeof(cpf_funcionario), stdin);
-
-    printf("Cargo do funcionário: ");
-    fgets(cargo, sizeof(cargo), stdin);
-
+    scanf("%[0-9.-]", cpf_funcionario);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    printf("Data de Nascimento do funcionário: ");
+    scanf("%[0-9/]", dt_nascimento_fun);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     printf("Email do funcionário: ");
-    fgets(email, sizeof(email), stdin);
+    scanf("%[A-Za-z-z0-9@._]", email);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    printf("Cargo do funcionário: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", cargo);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
 
+    arq_funcionario = fopen("funcionario.csv","at");
+
+    if (arq_funcionario == NULL){
+        printf("Erro na criação do arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    fprintf(arq_funcionario,"%s;", nome_funcionario);
+    fprintf(arq_funcionario,"%s;", cpf_funcionario);
+    fprintf(arq_funcionario,"%s;", dt_nascimento_fun);
+    fprintf(arq_funcionario,"%s;", email);
+    fprintf(arq_funcionario,"%s\n", cargo);
+    fclose(arq_funcionario);
     printf("Funcionário Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
@@ -112,7 +136,13 @@ void modulo_cadastrar_funcionario(void)
 
 void modulo_dados_funcionario(void)
 {
+    FILE *arq_funcionario;
     char cpf[15];
+    char nome_funcionario[51];
+    char dt_nascimento_fun[12];
+    char cpf_funcionario[12];
+    char cargo[30];
+    char email[30];
     int c;
 
     system("clear||cls");
@@ -132,12 +162,66 @@ void modulo_dados_funcionario(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o CPf do funcionário que deseja encontrar: \n");
-    scanf("%14s", cpf);
+    scanf("%15s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    system("cls||clear");
+
+    arq_funcionario = fopen("funcionario.csv","rt");
+
+    if (arq_funcionario == NULL){
+        printf("Erro na criação do arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+    while (!feof(arq_funcionario)) {
+
+        if (fscanf(arq_funcionario,"%[^;]", nome_funcionario) != 1){
+            break;
+        }
+        fgetc(arq_funcionario);
+
+        if (fscanf(arq_funcionario,"%[^;]", cpf_funcionario) != 1) {
+            break;
+        }
+        fgetc(arq_funcionario);
+
+        if (fscanf(arq_funcionario,"%[^;]", dt_nascimento_fun) != 1) {
+            break;
+        }
+        fgetc(arq_funcionario);
+
+        if (fscanf(arq_funcionario,"%[^;]", email) != 1) {
+            break;
+        }
+        fgetc(arq_funcionario);
+
+        if (fscanf(arq_funcionario,"%[^\n]", cargo) != 1) {
+            break;
+        }
+        fgetc(arq_funcionario);
+
+        if (strcmp(cpf,cpf_funcionario) == 0) {
+            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("\t\t < = = Funcionário Encontrado! = = >\n");
+            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("\t\t Nome: %s\n", nome_funcionario);
+            printf("\t\t CPF: %s\n", cpf_funcionario);
+            printf("\t\t Data Nasci.: %s\n", dt_nascimento_fun);
+            printf("\t\t Email: %s\n", email);
+            printf("\t\t CNH: %s\n", cargo);
+            printf("\n");
+            printf("\t\t Pressione Enter para continuar...");
+            getchar();
+            fclose(arq_funcionario);
+            return;
+        }
+        
+    }
+    printf("Funcionário não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
+    fclose(arq_funcionario);
 }
 
 void modulo_atualizar_funcionario(void)
