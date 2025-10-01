@@ -137,6 +137,15 @@ void modulo_cadastrar_funcionario(void)
 void modulo_dados_funcionario(void)
 {
     FILE *arq_funcionario;
+    arq_funcionario = fopen("funcionario.csv","rt");
+
+    if (arq_funcionario == NULL){
+        printf("Erro na criação do arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
     char cpf[15];
     char nome_funcionario[51];
     char dt_nascimento_fun[12];
@@ -165,41 +174,7 @@ void modulo_dados_funcionario(void)
     scanf("%15s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-
-    arq_funcionario = fopen("funcionario.csv","rt");
-
-    if (arq_funcionario == NULL){
-        printf("Erro na criação do arquivo!");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-    while (!feof(arq_funcionario)) {
-
-        if (fscanf(arq_funcionario,"%[^;]", nome_funcionario) != 1){
-            break;
-        }
-        fgetc(arq_funcionario);
-
-        if (fscanf(arq_funcionario,"%[^;]", cpf_funcionario) != 1) {
-            break;
-        }
-        fgetc(arq_funcionario);
-
-        if (fscanf(arq_funcionario,"%[^;]", dt_nascimento_fun) != 1) {
-            break;
-        }
-        fgetc(arq_funcionario);
-
-        if (fscanf(arq_funcionario,"%[^;]", email_funcionario) != 1) {
-            break;
-        }
-        fgetc(arq_funcionario);
-
-        if (fscanf(arq_funcionario,"%[^\n]", cargo) != 1) {
-            break;
-        }
-        fgetc(arq_funcionario);
+    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_funcionario, cpf_funcionario, dt_nascimento_fun, email_funcionario, cargo) == 5) {
 
         if (strcmp(cpf,cpf_funcionario) == 0) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
