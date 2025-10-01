@@ -289,8 +289,8 @@ void modulo_atualizar_clientes(void)
             printf("\n");
             printf("---------------------------\n");
             printf("[1] Novo Nome\n");
-            printf("[2] Nova Data de Nascimento\n");
-            printf("[3] Novo Cpf\n");
+            printf("[2] Novo Cpf\n");
+            printf("[3] Nova Data de Nascimento\n");
             printf("[4] Novo E-mail\n");
             printf("[5] Nova CNH\n");
             printf("[0] Cancelar\n");
@@ -401,7 +401,7 @@ void modulo_excluir_cliente(void)
     char email[52];
     char cnh[14];
     int c;
-    int encontrado;
+    int encontrado = 0;
 
     system("clear||cls");
     printf("\n");
@@ -420,42 +420,18 @@ void modulo_excluir_cliente(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o CPf do cliente que deseja excluir: \n");
-    scanf("%15s", cpf_cliente);
+    scanf("%15s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (!feof(arq_cliente)) {
-
-        if (fscanf(arq_cliente,"%[^;]", nome_cliente) != 1){
-            printf("Algo deu errado!");
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^;]", cpf) != 1) {
-            printf("Algo deu errado!");
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^;]", data_nascimento) != 1) {
-            printf("Algo deu errado!");
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^;]", email) != 1) {
-            printf("Algo deu errado!");
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^\n]", cnh) != 1){
-            printf("Algo deu errado!");
-            break;
-        }
-        fgetc(arq_cliente);
+    while (fscanf(arq_cliente, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, data_nascimento, email, cnh) == 5) {
 
         if (strcmp(cpf_cliente,cpf) != 0){
+
+            fprintf(arq_temp,"%s;", nome_cliente);
+            fprintf(arq_temp,"%s;", cpf_cliente);
+            fprintf(arq_temp,"%s;", data_nascimento);
+            fprintf(arq_temp,"%s;", email);
+            fprintf(arq_temp,"%s\n", cnh);
 
         }
         else {
