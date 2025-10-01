@@ -171,35 +171,12 @@ void modulo_dados_cliente(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("\t\tInforme o CPf do cliente que deseja encontrar: \n");
-    scanf("%15s", cpf_cliente);
+    scanf("%15s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
-    while (!feof(arq_cliente)) {
+    while (fscanf(arq_cliente, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, data_nascimento, email, cnh) == 5) {
 
-        if (fscanf(arq_cliente,"%[^;]", nome_cliente) != 1){
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^;]", cpf) != 1) {
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^;]", data_nascimento) != 1) {
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^;]", email) != 1) {
-            break;
-        }
-        fgetc(arq_cliente);
-
-        if (fscanf(arq_cliente,"%[^\n]", cnh) != 1){
-            break;
-        }
         fgetc(arq_cliente);
 
         if (strcmp(cpf,cpf_cliente) == 0) {
@@ -207,7 +184,7 @@ void modulo_dados_cliente(void)
             printf("\t\t < = = Cliente Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t Nome: %s\n", nome_cliente);
-            printf("\t\t CPF: %s\n", cpf);
+            printf("\t\t CPF: %s\n", cpf_cliente);
             printf("\t\t Data Nasci.: %s\n", data_nascimento);
             printf("\t\t Email: %s\n", email);
             printf("\t\t CNH: %s\n", cnh);
