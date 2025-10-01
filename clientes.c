@@ -177,8 +177,6 @@ void modulo_dados_cliente(void)
 
     while (fscanf(arq_cliente, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, data_nascimento, email, cnh) == 5) {
 
-        fgetc(arq_cliente);
-
         if (strcmp(cpf,cpf_cliente) == 0) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Cliente Encontrado! = = >\n");
