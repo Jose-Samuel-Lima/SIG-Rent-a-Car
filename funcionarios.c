@@ -212,7 +212,7 @@ void modulo_atualizar_funcionario(void)
     }
 
     FILE *arq_temp_funcionario;
-    arq_temp_funcionario = fopen("funcionario_temp.cs","wt");
+    arq_temp_funcionario = fopen("funcionario_temp.csv","wt");
 
     if (arq_temp_funcionario == NULL){
         printf("Erro na criação do arquivo temporário!\n");
@@ -261,8 +261,8 @@ void modulo_atualizar_funcionario(void)
             printf("Funcionário encontrado!\n");
             printf("Informe qual informação deseja alterar: \n");
             printf("[1] Novo Nome\n");
-            printf("[2] Nova Data de Nascimento\n");
-            printf("[3] Novo Cpf\n");
+            printf("[2] Novo Cpf\n");
+            printf("[3] Nova Data de Nascimento\n");
             printf("[4] Novo E-mail\n");
             printf("[5] Novo cargo\n");
             printf("[0] Cancelar\n");
@@ -279,15 +279,16 @@ void modulo_atualizar_funcionario(void)
                     break;
 
                 case '2':
-                    printf("Nova Data de Nasc. do funcionário: ");
-                    scanf("%[0-9/]", dt_nascimento_fun);
+                    printf("Novo CPF do funcionário: ");
+                    scanf("%[0-9.-]", cpf_funcionario);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
-
+                    
                 case '3':
-                    printf("Novo CPF do funcionário: ");
-                    scanf("%[0-9.-]", cpf_funcionario);
+                    
+                    printf("Nova Data de Nasc. do funcionário: ");
+                    scanf("%[0-9/]", dt_nascimento_fun);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
@@ -319,8 +320,8 @@ void modulo_atualizar_funcionario(void)
         }
 
         fprintf(arq_temp_funcionario,"%s;", nome_funcionario);
-        fprintf(arq_temp_funcionario,"%s;", dt_nascimento_fun);
         fprintf(arq_temp_funcionario,"%s;", cpf_funcionario);
+        fprintf(arq_temp_funcionario,"%s;", dt_nascimento_fun);
         fprintf(arq_temp_funcionario,"%s;", email_funcionario);
         fprintf(arq_temp_funcionario,"%s\n", cargo);
     }
