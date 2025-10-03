@@ -141,13 +141,13 @@ void modulo_cadastrar_aluguel(void)
 void modulo_dados_aluguel(void)
 {
     FILE *arq_aluguel;
-    arq_aluguel = fopen("alugel.csv","rt");
+    arq_aluguel = fopen("aluguel.csv","rt");
 
     if (arq_aluguel == NULL){
-        printf("Erro na criação do arquivo!");
+        printf("Erro na criação do arquivo!\n");
         printf("Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
 
     char nome_cliente[51];
