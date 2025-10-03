@@ -215,7 +215,7 @@ void modulo_atualizar_clientes(void)
     FILE *arq_temp;
     arq_temp = fopen("cliente_temp.csv","wt");
 
-    if (arq_temp == NULL){
+    if (arq_temp== NULL){
         printf("Erro na criação do arquivo Temporário!\n");
         printf("Pressione Enter para continuar...");
         getchar();

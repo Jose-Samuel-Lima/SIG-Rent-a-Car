@@ -344,8 +344,34 @@ void modulo_atualizar_funcionario(void)
 
 void modulo_excluir_funcionario(void)
 {
+    FILE *arq_funcionario; 
+    arq_funcionario = fopen("funcionario.csv","rt");
+
+    if (arq_funcionario == NULL){
+        printf("Erro ao entrar no arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    FILE *arq_temp_funcionario;
+    arq_temp_funcionario = fopen("funcionario_temp.csv","wt");
+
+    if (arq_temp_funcionario== NULL){
+        printf("Erro na criação do arquivo Temporário!\n");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
     char cpf[15];
+    char nome_funcionario[51];
+    char dt_nascimento_fun[12];
+    char cpf_funcionario[12];
+    char cargo[22];
+    char email_funcionario[30];
     int c;
+    int func_encontrado = 0;
 
     system("clear||cls");
     printf("\n");
@@ -367,7 +393,36 @@ void modulo_excluir_funcionario(void)
     scanf("%14s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    system("cls||clear");
+    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_funcionario, cpf_funcionario, dt_nascimento_fun, email_funcionario, cargo) == 5) {
+    
+        if (strcmp(cpf_funcionario,cpf) != 0){
+
+            fprintf(arq_temp_funcionario,"%s;", nome_funcionario);
+            fprintf(arq_temp_funcionario,"%s;", cpf_funcionario);
+            fprintf(arq_temp_funcionario,"%s;", dt_nascimento_fun);
+            fprintf(arq_temp_funcionario,"%s;", email_funcionario);
+            fprintf(arq_temp_funcionario,"%s\n", cargo);
+
+        }
+        else {
+            func_encontrado = 1;
+        }
+    }
+
+    fclose(arq_funcionario);
+    fclose(arq_temp_funcionario);
+
+    if (func_encontrado){
+            remove("funcionario.csv");
+            rename("funcionario_temp.csv","funcionario.csv");
+            printf("funcionario excluído com sucesso!\n");
+        }
+    else {
+        remove("funcionario_temp.csv");
+        printf("funcionario não encontrado..\n");
+    }
+
     printf("Pressione Enter para continuar...");
     getchar();
+    
 }
