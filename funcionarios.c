@@ -201,14 +201,35 @@ void modulo_dados_funcionario(void)
 
 void modulo_atualizar_funcionario(void)
 {
+    FILE *arq_funcionario;
+    arq_funcionario = fopen("funcionario.csv", "rt");
+
+    if (arq_funcionario == NULL){
+        printf("Erro ao entrar no arquivo!");
+        printf("Pressioner <ENTER> para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    FILE *arq_temp_funcionario;
+    arq_temp_funcionario = fopen("funcionario_temp.cs","wt");
+
+    if (arq_temp_funcionario == NULL){
+        printf("Erro na criação do arquivo temporário!\n");
+        printf("Pressione <ENTER> para continuar...");
+        getchar();
+        exit(1);
+    }
+
     char cpf[12];
-    char choose;
     char nome_funcionario[51];
+    char cpf_funcionario[15];
     char dt_nascimento_fun[12];
-    char novo_cpf[12];
     char cargo[22];
     char email_funcionario[30];
+    char op_funcionario;
     int c;
+    int func_encontrado = 0;
 
     system("clear||cls");
     printf("\n");
@@ -230,48 +251,93 @@ void modulo_atualizar_funcionario(void)
     scanf("%14s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
+    
+    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_funcionario, cpf_funcionario, dt_nascimento_fun, email_funcionario, cargo) == 5) {
+        if (strcmp(cpf, cpf_funcionario) == 0) {
 
-    // fazer verificação quando fazer o armazenamento de dados
-
-    system("clear||cls");
-    printf("[1] Novo Nome\n");
-    printf("[2] Nova Data de Nascimento\n");
-    printf("[3] Novo Cpf\n");
-    printf("[4] Novo Cargo\n");
-    printf("[5] Novo E-mail\n");
-    printf("[0] Cancelar\n");
-    printf("-----------------------\n");
-    scanf(" %c", &choose);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    system("clear||cls");
-
-    if (choose == '1')
-    {
-        printf("Selecione o novo nome do funcionário: ");
-        fgets(nome_funcionario, sizeof(nome_funcionario), stdin);
-    }
-    else if (choose == '2')
-    {
-        printf("Selecione a nova data de nascimento do funcionário: ");
-        fgets(dt_nascimento_fun, sizeof(dt_nascimento_fun), stdin);
-    }
-    else if (choose == '3')
-    {
-        printf("Selecione o novo CPF do funcionário: ");
-        fgets(novo_cpf,sizeof(novo_cpf), stdin);
-    }
-    else if (choose == '4')
-    {
-        printf("Selecione o novo cargo do funcionário: ");
-        fgets(cargo, sizeof(cargo), stdin);
-    }
-    else if (choose == '5')
-    {
-        printf("Selecione o novo E-mail do funcionário: ");
-        fgets(email_funcionario, sizeof(email_funcionario), stdin);
+            func_encontrado = 1;
         
+            system("clear||cls");
+            printf("Funcionário encontrado!\n");
+            printf("Informe qual informação deseja alterar: \n");
+            printf("[1] Novo Nome\n");
+            printf("[2] Nova Data de Nascimento\n");
+            printf("[3] Novo Cpf\n");
+            printf("[4] Novo E-mail\n");
+            printf("[5] Novo cargo\n");
+            printf("[0] Cancelar\n");
+            printf("-----------------------\n");
+            scanf(" %c", &op_funcionario);
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
+             switch(op_funcionario){
+                case '1':
+                    printf("Novo nome do funcionário: ");
+                    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_funcionario);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '2':
+                    printf("Nova Data de Nasc. do funcionário: ");
+                    scanf("%[0-9/]", dt_nascimento_fun);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '3':
+                    printf("Novo CPF do funcionário: ");
+                    scanf("%[0-9.-]", cpf_funcionario);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '4':
+                    printf("Novo email do funcionário: ");
+                    scanf("%[A-Za-z-z0-9@._]", email_funcionario);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '5':
+                    printf("Nova cargo do funcionário: ");
+                    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", cargo);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '0':
+                    printf("Voltando ao menu funcionários.");
+                    break;
+
+                default:
+                    printf("Opção inválida. Nenhum dado alterado.\n");
+                    break;
+
+            }
+
+        }
+
+        fprintf(arq_temp_funcionario,"%s;", nome_funcionario);
+        fprintf(arq_temp_funcionario,"%s;", dt_nascimento_fun);
+        fprintf(arq_temp_funcionario,"%s;", cpf_funcionario);
+        fprintf(arq_temp_funcionario,"%s;", email_funcionario);
+        fprintf(arq_temp_funcionario,"%s\n", cargo);
     }
+
+    fclose(arq_funcionario);
+    fclose(arq_temp_funcionario);
+
+     if (func_encontrado){
+            remove("funcionario.csv");
+            rename("funcionario_temp.csv","funcionario.csv");
+            printf("Dado(s) do funcionário alterado(s) com sucesso!\n");
+        }
+    else {
+        remove("funcionario_temp.csv");
+        printf("Funcionário não encontrado..\n");
+    }
+
     printf("Pressione Enter para continuar...");
     getchar();
 }
