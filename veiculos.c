@@ -319,8 +319,38 @@ void modulo_atualizar_veiculo(void)
 
 void modulo_excluir_veiculo(void)
 {
-    char codigo_renavam[12];
+    FILE *arq_veiculo;
+    arq_veiculo = fopen("veiculo.csv","rt");
+
+    if (arq_veiculo== NULL){
+        printf("Erro na criação do arquivo Temporário!\n");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    FILE *arq_veiculo_temp;
+    arq_veiculo_temp = fopen("veiculo_temp.csv","wt");
+
+    if (arq_veiculo_temp== NULL){
+        printf("Erro na criação do arquivo Temporário!\n");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    char cod_ler[7];
+    char placa[8];
+    char chassi[18];
+    char renavam[12];
+    char categoria[7];
+    char modelo[31];
+    char marca[16];
+    char ano[5];
+    char codigo_interno[7];
+    float preco;
     int c;
+    int veiculo_encontrado = 0;
 
     system("clear||cls");
     printf("\n");
@@ -338,11 +368,44 @@ void modulo_excluir_veiculo(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o Código da RENAVAM  para encontrar o veículo que deseja excluir: \n");
-    scanf("%c", codigo_renavam);
+    printf("Informe o Código Interno  para encontrar o veículo que deseja excluir: \n");
+    scanf("%7s", cod_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    system("cls||clear");
+    while (fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", placa, chassi, renavam, categoria, modelo, marca, ano, codigo_interno, &preco) == 9) {
+    
+        if (strcmp(codigo_interno, cod_ler) == 0){
+
+            fprintf(arq_veiculo_temp,"%s;", placa);
+            fprintf(arq_veiculo_temp,"%s;", chassi);
+            fprintf(arq_veiculo_temp,"%s;", renavam);
+            fprintf(arq_veiculo_temp,"%s;", categoria);
+            fprintf(arq_veiculo_temp,"%s;", modelo);
+            fprintf(arq_veiculo_temp,"%s;", marca);
+            fprintf(arq_veiculo_temp,"%s;", ano);
+            fprintf(arq_veiculo_temp,"%s;", codigo_interno);
+            fprintf(arq_veiculo_temp,"%f\n", preco);
+
+        }
+        else {
+            veiculo_encontrado = 1;
+        }
+    }
+
+    fclose(arq_veiculo);
+    fclose(arq_veiculo_temp);
+
+    if (veiculo_encontrado){
+            remove("veiculo.csv");
+            rename("veiculo_temp.csv","veiculo.csv");
+            printf("Veículo excluído com sucesso!\n");
+        }
+    else {
+        remove("veiculo_temp.csv");
+        printf("Veículo não encontrado...\n");
+    }
+
     printf("Pressione Enter para continuar...");
     getchar();
+
 }
