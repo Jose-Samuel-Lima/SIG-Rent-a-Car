@@ -73,7 +73,7 @@ void modulo_cadastrar_funcionario(void)
     char dt_nascimento_fun[12];
     char cpf_funcionario[12];
     char cargo[22];
-    char email[30];
+    char email_funcionario[30];
     int c;
 
     system("clear||cls");
@@ -106,7 +106,7 @@ void modulo_cadastrar_funcionario(void)
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Email do funcionário: ");
-    scanf("%[A-Za-z-z0-9@._]", email);
+    scanf("%[A-Za-z-z0-9@._]", email_funcionario);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Cargo do funcionário: ");
@@ -126,7 +126,7 @@ void modulo_cadastrar_funcionario(void)
     fprintf(arq_funcionario,"%s;", nome_funcionario);
     fprintf(arq_funcionario,"%s;", cpf_funcionario);
     fprintf(arq_funcionario,"%s;", dt_nascimento_fun);
-    fprintf(arq_funcionario,"%s;", email);
+    fprintf(arq_funcionario,"%s;", email_funcionario);
     fprintf(arq_funcionario,"%s\n", cargo);
     fclose(arq_funcionario);
     printf("Funcionário Registrado com Sucesso!\n");
@@ -137,12 +137,21 @@ void modulo_cadastrar_funcionario(void)
 void modulo_dados_funcionario(void)
 {
     FILE *arq_funcionario;
+    arq_funcionario = fopen("funcionario.csv","rt");
+
+    if (arq_funcionario == NULL){
+        printf("Erro na criação do arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
     char cpf[15];
     char nome_funcionario[51];
     char dt_nascimento_fun[12];
     char cpf_funcionario[12];
     char cargo[30];
-    char email[30];
+    char email_funcionario[30];
     int c;
 
     system("clear||cls");
@@ -165,41 +174,7 @@ void modulo_dados_funcionario(void)
     scanf("%15s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-
-    arq_funcionario = fopen("funcionario.csv","rt");
-
-    if (arq_funcionario == NULL){
-        printf("Erro na criação do arquivo!");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-    while (!feof(arq_funcionario)) {
-
-        if (fscanf(arq_funcionario,"%[^;]", nome_funcionario) != 1){
-            break;
-        }
-        fgetc(arq_funcionario);
-
-        if (fscanf(arq_funcionario,"%[^;]", cpf_funcionario) != 1) {
-            break;
-        }
-        fgetc(arq_funcionario);
-
-        if (fscanf(arq_funcionario,"%[^;]", dt_nascimento_fun) != 1) {
-            break;
-        }
-        fgetc(arq_funcionario);
-
-        if (fscanf(arq_funcionario,"%[^;]", email) != 1) {
-            break;
-        }
-        fgetc(arq_funcionario);
-
-        if (fscanf(arq_funcionario,"%[^\n]", cargo) != 1) {
-            break;
-        }
-        fgetc(arq_funcionario);
+    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_funcionario, cpf_funcionario, dt_nascimento_fun, email_funcionario, cargo) == 5) {
 
         if (strcmp(cpf,cpf_funcionario) == 0) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
@@ -208,7 +183,7 @@ void modulo_dados_funcionario(void)
             printf("\t\t Nome: %s\n", nome_funcionario);
             printf("\t\t CPF: %s\n", cpf_funcionario);
             printf("\t\t Data Nasci.: %s\n", dt_nascimento_fun);
-            printf("\t\t Email: %s\n", email);
+            printf("\t\t Email: %s\n", email_funcionario);
             printf("\t\t CNH: %s\n", cargo);
             printf("\n");
             printf("\t\t Pressione Enter para continuar...");
