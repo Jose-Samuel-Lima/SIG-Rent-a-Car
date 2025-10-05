@@ -115,6 +115,14 @@ void modulo_cadastrar_aluguel(void)
     printf("ID de identificação do aluguel: ");
     scanf("%[0-9]", id_aluguel);
     while ((c = getchar()) != '\n' && c != EOF)
+        ; 
+    printf("Data do Fim do aluguel: ");
+    scanf("%[0-9/]", data_aluguel);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    printf("ID de identificação do aluguel: ");
+    scanf("%[0-9]", id_aluguel);
+    while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     arq_aluguel = fopen("aluguel.csv","at");
@@ -207,13 +215,36 @@ void modulo_dados_aluguel(void)
 
 void modulo_atualizar_aluguel(void)
 {
-    int id_aluguel;
-    char choose;
+    FILE *arq_aluguel;
+    arq_aluguel = fopen("aluguel.csv","rt");
+
+    if (arq_aluguel == NULL){
+        printf("Erro ao entrar no arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    FILE *arq_aluguel_temp;
+    arq_aluguel_temp = fopen("aluguel_temp.csv","wt");
+
+    if (arq_aluguel_temp== NULL){
+        printf("Erro na criação do arquivo temporário!\n");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
     char nome_cliente[51];
-    char novo_cpf_cliente[12];
-    char modelo_veiculo[15];
+    char cpf_cliente[12];
     char codigo_renavam[12];
-    int c;
+    char modelo_veiculo[15];
+    char data_aluguel[15];
+    char id_aluguel[11];
+    char aluguel[11];
+    char op_aluguel;
+    int c; 
+    int aluguel_encontrado = 0;
 
     system("clear||cls");
     printf("\n");
@@ -232,46 +263,97 @@ void modulo_atualizar_aluguel(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o Id do aluguel para alterar os dados: \n");
-    scanf("%d", &id_aluguel);
+    scanf("%11s", aluguel);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
+    while (fscanf(arq_aluguel, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, codigo_renavam, modelo_veiculo, data_aluguel, id_aluguel) == 6) {
+        if (strcmp(aluguel, id_aluguel) == 0) {
 
-    // fazer verificação quando fazer o armazenamento de dados
+            aluguel_encontrado = 1;
 
-    system("clear||cls");
-    printf("[1] Novo Nome: \n");
-    printf("[2] Novo CPF: \n");
-    printf("[3] Novo Modelo: \n");
-    printf("[4] Novo Código RENAVAM: \n");
-    printf("[0] Cancelar\n");
-    printf("-----------------------\n");
-    scanf(" %c", &choose);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    system("clear||cls");
-    if (choose == '1')
-    {
-        printf("Informe o novo nome do cliente: ");
-        fgets(nome_cliente, sizeof(nome_cliente), stdin);
+            system("clear||cls");
+            printf("Aluguel encontrado!\n");
+            printf("Informe qual informação deseja alterar:\n");
+            printf("\n");
+            printf("---------------------------\n");
+            printf("[1] Novo Nome: \n");
+            printf("[2] Novo CPF: \n");
+            printf("[3] Novo Modelo: \n");
+            printf("[4] Novo Código RENAVAM: \n");
+            printf("[0] Cancelar\n");
+            printf("---------------------------\n");
+            scanf(" %c", &op_aluguel);
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
+            switch (op_aluguel){
+                case '1':
+                    printf("Novo nome do cliente: ");
+                    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_cliente);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '2':
+                    printf("Novo CPF do cliente: ");
+                    scanf("%[0-9.-]", cpf_cliente);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+                
+                case '3':
+                    printf("Novo Renavam: ");
+                    scanf("%11[0-9]",codigo_renavam);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                    ;
+                    break;
+
+                case '4':
+                    printf("Novo data: ");
+                    scanf("%[0-9/]", data_aluguel);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                    ;
+                    break;
+
+                case '5':
+                    printf("Novo ID de identificação do aluguel: ");
+                    scanf("%[0-9]", id_aluguel);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                    ;
+                    break;
+
+                case '0':
+                    printf("Voltando ao menu alugueis");
+                    break;
+                
+                default:
+                    printf("Opção inválida. Nenhum dado alterado.\n");
+                    break;
+            }
+        
+        }
+            
+        fprintf(arq_aluguel_temp,"%s;", nome_cliente);
+        fprintf(arq_aluguel_temp,"%s;", cpf_cliente);
+        fprintf(arq_aluguel_temp,"%s;", codigo_renavam);
+        fprintf(arq_aluguel_temp,"%s;", modelo_veiculo);
+        fprintf(arq_aluguel_temp,"%s;", data_aluguel);
+        fprintf(arq_aluguel_temp,"%s;", id_aluguel);
+
     }
-    else if (choose == '2')
-    {
-        printf("Informe o novo CPF do cliente: ");
-        scanf(" %s", novo_cpf_cliente);
-        while ((c = getchar()) != '\n' && c != EOF)
-            ;
+
+    fclose(arq_aluguel);
+    fclose(arq_aluguel_temp);
+
+    if (aluguel_encontrado){
+            remove("aluguel.csv");
+            rename("aluguel_temp.csv","aluguel.csv");
+        }
+    else {
+        remove("aluguel_temp.csv");
+        printf("Aluguel não encontrado...\n");
     }
-    else if (choose == '3')
-    {
-        printf("Informe o novo modelo do veículo: ");
-        fgets(modelo_veiculo, sizeof(modelo_veiculo), stdin);
-    }
-    else if (choose == '4')
-    {
-        printf("Informe o novo código RENAVAM do veículo: ");
-        fgets(codigo_renavam,sizeof(codigo_renavam), stdin);
-    }
-    printf("Pressione enter para continuar...");
+
+    printf("Pressione Enter para continuar...");
     getchar();
 }
 

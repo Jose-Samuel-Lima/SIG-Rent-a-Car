@@ -389,15 +389,15 @@ void modulo_atualizar_veiculo(void)
     
         }
 
-        fprintf(arq_veiculo, "%s;", placa);
-        fprintf(arq_veiculo, "%s;", chassi);
-        fprintf(arq_veiculo, "%s;", renavam);
-        fprintf(arq_veiculo, "%s;", categoria);
-        fprintf(arq_veiculo, "%s;", modelo);
-        fprintf(arq_veiculo, "%s;", marca);
-        fprintf(arq_veiculo, "%s;", ano);
-        fprintf(arq_veiculo, "%s;", codigo_interno);
-        fprintf(arq_veiculo, "%f\n", preco);
+        fprintf(arq_veiculo_temp, "%s;", placa);
+        fprintf(arq_veiculo_temp, "%s;", chassi);
+        fprintf(arq_veiculo_temp, "%s;", renavam);
+        fprintf(arq_veiculo_temp, "%s;", categoria);
+        fprintf(arq_veiculo_temp, "%s;", modelo);
+        fprintf(arq_veiculo_temp, "%s;", marca);
+        fprintf(arq_veiculo_temp, "%s;", ano);
+        fprintf(arq_veiculo_temp, "%s;", codigo_interno);
+        fprintf(arq_veiculo_temp, "%f\n", preco);
 
     }
 
