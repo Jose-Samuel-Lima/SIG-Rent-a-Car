@@ -166,7 +166,7 @@ void modulo_dados_veiculo(void)
     arq_veiculo = fopen("veiculo.csv","rt");
 
     if (arq_veiculo == NULL){
-        printf("Erro na criação do arquivo!");
+        printf("Erro ao abrir o arquivo!");
         printf("Pressione Enter para continuar...");
         getchar();
         exit(1);
@@ -238,7 +238,7 @@ void modulo_atualizar_veiculo(void)
     arq_veiculo = fopen("veiculo.csv","rt");
 
     if (arq_veiculo == NULL){
-        printf("Erro ao entrar no arquivo!");
+        printf("Erro ao abrir o arquivo!");
         printf("Pressione Enter para continuar...");
         getchar();
         exit(1);
@@ -285,12 +285,12 @@ void modulo_atualizar_veiculo(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o Código da RENAVAM para encontrar o veículo e atualizar seus dados: \n");
-    scanf("%s", cod_ler);
+    printf("Informe o Código Interno para encontrar o veículo e atualizar seus dados: \n");
+    scanf("%7s", cod_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while(fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;]%[^;]%[^;];%f\n", placa, chassi, renavam, categoria, modelo, marca, ano, codigo_interno, &preco) == 9){
-        if (strcmp(cod_ler, codigo_interno) == 0) {
+    while(fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", placa, chassi, renavam, categoria, modelo, marca, ano, codigo_interno, &preco) == 9){
+        if (strcmp(codigo_interno, cod_ler) == 0) {
     
             veiculo_encontrado = 1;
 
@@ -424,7 +424,7 @@ void modulo_excluir_veiculo(void)
     arq_veiculo = fopen("veiculo.csv","rt");
 
     if (arq_veiculo== NULL){
-        printf("Erro na criação do arquivo Temporário!\n");
+        printf("Erro ao abrir o arquivo!\n");
         printf("Pressione Enter para continuar...");
         getchar();
         exit(1);
@@ -475,7 +475,7 @@ void modulo_excluir_veiculo(void)
         ;
     while (fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", placa, chassi, renavam, categoria, modelo, marca, ano, codigo_interno, &preco) == 9) {
     
-        if (strcmp(codigo_interno, cod_ler) == 0){
+        if (strcmp(codigo_interno, cod_ler) != 0){
 
             fprintf(arq_veiculo_temp,"%s;", placa);
             fprintf(arq_veiculo_temp,"%s;", chassi);
