@@ -418,7 +418,7 @@ void modulo_finalizar_aluguel(void)
             fprintf(arq_aluguel_temp, "%s", codigo_renavam);
             fprintf(arq_aluguel_temp, "%s", modelo_veiculo);
             fprintf(arq_aluguel_temp, "%s", data_aluguel);
-            fprintf(arq_aluguel_temp, "%s", id_aluguel);
+            fprintf(arq_aluguel_temp, "%s\n", id_aluguel);
 
         }
         else {
