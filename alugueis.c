@@ -141,7 +141,15 @@ void modulo_cadastrar_aluguel(void)
 void modulo_dados_aluguel(void)
 {
     FILE *arq_aluguel;
-    
+    arq_aluguel = fopen("aluguel.csv","rt");
+
+    if (arq_aluguel == NULL){
+        printf("Erro na criação do arquivo!\n");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        return;
+    }
+
     char nome_cliente[51];
     char cpf_cliente[12];
     char codigo_renavam[12];
@@ -171,46 +179,7 @@ void modulo_dados_aluguel(void)
     scanf("%11s", id_aluguel_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-
-    arq_aluguel = fopen("aluguel.csv","rt");
-
-    if (arq_aluguel == NULL){
-        printf("Erro na criação do arquivo!");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-
-    while (!feof(arq_aluguel)) {
-
-        if (fscanf(arq_aluguel,"%[^;]", nome_cliente) != 1){
-            break;
-        }
-        fgetc(arq_aluguel);
-
-        if (fscanf(arq_aluguel,"%[^;]", cpf_cliente) != 1) {
-            break;
-        }
-        fgetc(arq_aluguel);
-
-        if (fscanf(arq_aluguel,"%[^;]", codigo_renavam) != 1) {
-            break;
-        }
-        fgetc(arq_aluguel);
-
-        if (fscanf(arq_aluguel,"%[^;]", modelo_veiculo) != 1) {
-            break;
-        }
-        fgetc(arq_aluguel);
-
-        if (fscanf(arq_aluguel,"%[^;]", data_aluguel) != 1) {
-            break;
-        }
-        fgetc(arq_aluguel);
-
-        if (fscanf(arq_aluguel,"%[^\n]", id_aluguel) != 1){
-            break;
-        }
+    while (fscanf(arq_aluguel, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, codigo_renavam, modelo_veiculo, data_aluguel, id_aluguel) == 6) {
 
         if (strcmp(id_aluguel_ler,id_aluguel) == 0) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
