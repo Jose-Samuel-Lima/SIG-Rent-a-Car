@@ -163,6 +163,15 @@ void modulo_cadastrar_veiculo(void)
 void modulo_dados_veiculo(void)
 {
     FILE *arq_veiculo;
+    arq_veiculo = fopen("veiculo.csv","rt");
+
+    if (arq_veiculo == NULL){
+        printf("Erro ao abrir o arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
     char cod_ler[7];
     char placa[8];
     char chassi[18];
@@ -195,64 +204,9 @@ void modulo_dados_veiculo(void)
     scanf("%7s", cod_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
+    while (fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", placa, chassi, renavam, categoria, modelo, marca, ano, codigo_interno, &preco) == 9) {
 
-    arq_veiculo = fopen("veiculo.csv","rt");
-
-    if (arq_veiculo == NULL){
-        printf("Erro na leitura do arquivo!");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-
-    while (!feof(arq_veiculo)) {
-
-        if (fscanf(arq_veiculo,"%[^;]", placa) != 1){
-            break;
-        }
-        fgetc(arq_veiculo);
-
-        if (fscanf(arq_veiculo,"%[^;]", chassi) != 1) {
-            break;
-        }
-        fgetc(arq_veiculo);
-
-        if (fscanf(arq_veiculo,"%[^;]", renavam) != 1) {
-            break;
-        }
-        fgetc(arq_veiculo);
-
-        if (fscanf(arq_veiculo,"%[^;]", categoria) != 1) {
-            break;
-        }
-        fgetc(arq_veiculo);
-
-        if (fscanf(arq_veiculo,"%[^;]", modelo) != 1){
-            break;
-        }
-        fgetc(arq_veiculo);
-
-        if (fscanf(arq_veiculo,"%[^;]", marca) != 1){
-            break;
-        }
-        fgetc(arq_veiculo);
-
-        if (fscanf(arq_veiculo,"%[^;]", ano) != 1){
-            break;
-        }
-        fgetc(arq_veiculo);
-
-        if (fscanf(arq_veiculo,"%[^;]", codigo_interno) != 1){
-            break;
-        }
-        fgetc(arq_veiculo);
-
-        if (fscanf(arq_veiculo,"%f\n", &preco) != 1){
-            break;
-        }
-        fgetc(arq_veiculo);
-
-        if (strcmp(codigo_interno,cod_ler) == 0) {
+        if (strcmp(cod_ler, codigo_interno) == 0) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Veículo Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
