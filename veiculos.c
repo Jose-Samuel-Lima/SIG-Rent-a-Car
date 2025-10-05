@@ -234,15 +234,39 @@ void modulo_dados_veiculo(void)
 
 void modulo_atualizar_veiculo(void)
 {
-    char codigo_renavam[13];
-    char choose;
-    char nome_veiculo[51];
-    float preco_veiculo;
-    char placa_veiculo[10];
-    char marca[20];
-    char modelo_veiculo[15];
-    char novo_codigo_renavam[13];
+    FILE *arq_veiculo;
+    arq_veiculo = fopen("veiculo.csv","rt");
+
+    if (arq_veiculo == NULL){
+        printf("Erro ao abrir o arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    FILE *arq_veiculo_temp;
+    arq_veiculo_temp = fopen("veiculo_temp.csv","wt");
+
+    if (arq_veiculo_temp== NULL){
+        printf("Erro na criação do arquivo Temporário!\n");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    char cod_ler[7];
+    char placa[8];
+    char chassi[18];
+    char renavam[12];
+    char categoria[7];
+    char modelo[31];
+    char marca[16];
+    char ano[5];
+    char codigo_interno[7];
+    char op_veiculo;
+    float preco;
     int c;
+    int veiculo_encontrado = 0;
 
     system("clear||cls");
     printf("\n");
@@ -261,59 +285,136 @@ void modulo_atualizar_veiculo(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o Código da RENAVAM para encontrar o veículo e atualizar seus dados: \n");
-    scanf("%s", codigo_renavam);
+    printf("Informe o Código Interno para encontrar o veículo e atualizar seus dados: \n");
+    scanf("%7s", cod_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
+    while(fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", placa, chassi, renavam, categoria, modelo, marca, ano, codigo_interno, &preco) == 9){
+        if (strcmp(codigo_interno, cod_ler) == 0) {
+    
+            veiculo_encontrado = 1;
 
-    // fazer verificação quando fazer o armazenamento de dados
+            system("clear||cls");
+            printf("Veículo encontrado!\n");
+            printf("Informe qual informação deseja alterar:\n");
+            printf("\n");
+            printf("---------------------------\n");
+            printf("[1] Nova Placa\n");
+            printf("[2] Nova Chassi\n");
+            printf("[3] Novo Código Renavam\n");
+            printf("[4] Nova categoria\n");
+            printf("[5] Novo modelo\n");
+            printf("[6] Nova marca\n");
+            printf("[7] Novo ano\n");
+            printf("[8] Novo código_interno\n");
+            printf("[9] Novo preço\n");
+            printf("[0] Cancelar\n");
+            printf("-----------------------\n");
+            scanf(" %c", &op_veiculo);
+            while ((c = getchar()) != '\n' && c != EOF)
+                ;
+            
+            switch(op_veiculo){
+                case '1':
+                    printf("Nova placa: ");
+                    scanf("%7[A-Z0-9]", placa);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
 
-    system("clear||cls");
-    printf("[1] Novo Nome\n");
-    printf("[2] Nova Valor\n");
-    printf("[3] Nova Placa\n");
-    printf("[4] Nova Marca\n");
-    printf("[5] Novo Modelo\n");
-    printf("[6] Novo Código RENAVAM\n");
-    printf("[0] Cancelar\n");
-    printf("-----------------------\n");
-    scanf(" %c", &choose);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    system("clear||cls");
-    if (choose == '1')
-    {
-        printf("Informe o novo do veículo: ");
-        fgets(nome_veiculo, sizeof(nome_veiculo), stdin);
+                case '2':
+                    printf("Novo chassi: ");
+                    scanf("%17[A-HJ-NP-Z0-9]", chassi);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '3':
+                    printf("Novo Renavam: ");
+                    scanf("%11[0-9]", renavam);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+                
+                case '4':
+                    printf("Nova categoria: ");
+                    scanf("%6[A-Z]", categoria);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '5':
+                    printf("Novo modelo: ");
+                    scanf("%30[A-Za-z0-9 ]", modelo);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '6':
+                    printf("Nova marca: ");
+                    scanf("%15[A-Za-z ]", marca);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '7':
+                    printf("Novo ano: ");
+                    scanf("%4[0-9]", ano);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '8':
+                    printf("Novo código_interno: ");
+                    scanf("%6[A-Z0-9]", codigo_interno);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '9':
+                    printf("Novo preço: ");
+                    scanf("%f", &preco);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
+                    break;
+
+                case '0':
+                    printf("Voltando ao menu veículos.");
+                    break;
+                
+                default:
+                    printf("Opção inválida. Nenhum dado alterado!\n");
+                    break;
+            }
+    
+        }
+
+        fprintf(arq_veiculo_temp, "%s;", placa);
+        fprintf(arq_veiculo_temp, "%s;", chassi);
+        fprintf(arq_veiculo_temp, "%s;", renavam);
+        fprintf(arq_veiculo_temp, "%s;", categoria);
+        fprintf(arq_veiculo_temp, "%s;", modelo);
+        fprintf(arq_veiculo_temp, "%s;", marca);
+        fprintf(arq_veiculo_temp, "%s;", ano);
+        fprintf(arq_veiculo_temp, "%s;", codigo_interno);
+        fprintf(arq_veiculo_temp, "%f\n", preco);
+
     }
-    else if (choose == '2')
-    {
-        printf("Informe o novo valor do veículo: ");
-        scanf(" %f", &preco_veiculo);
-        while ((c = getchar()) != '\n' && c != EOF)
-            ;
+
+    fclose(arq_veiculo);
+    fclose(arq_veiculo_temp);
+
+    if (veiculo_encontrado){
+            remove("veiculo.csv");
+            rename("veiculo_temp.csv","veiculo.csv");
+            printf("Dado(s) do veículo alterado(s) com sucesso!\n");
+        }
+    else {
+        remove("veiculo_temp.csv");
+        printf("Veículo não encontrado..\n");
     }
-    else if (choose == '3')
-    {
-        printf("Informe a nova placa do veículo:");
-        fgets(placa_veiculo, sizeof(placa_veiculo), stdin);
-    }
-    else if (choose == '4')
-    {
-        printf("Informe a nova marca do veículo: ");
-        fgets(marca, sizeof(marca), stdin);
-    }
-    else if (choose == '5')
-    {
-        printf("Informe o novo modelo do veículo: ");
-        fgets(modelo_veiculo, sizeof(modelo_veiculo), stdin);
-    }
-    else if (choose == '6')
-    {
-        printf("Informe o novo código RENAVAM do veículo: ");
-        fgets(novo_codigo_renavam, sizeof(novo_codigo_renavam), stdin);
-    }
-    printf("Pressione enter para continuar...");
+
+    printf("Pressione Enter para continuar...");
     getchar();
 }
 
