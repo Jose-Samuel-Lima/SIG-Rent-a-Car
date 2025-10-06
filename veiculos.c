@@ -67,15 +67,7 @@ int modulo_tela_veiculos(void)
 void modulo_cadastrar_veiculo(void)
 {
     FILE *arq_veiculo;
-    char placa[8];
-    char chassi[18];
-    char renavam[12];
-    char categoria[7];
-    char modelo[31];
-    char marca[16];
-    char ano[5];
-    char codigo_interno[7];
-    float preco;
+    Veiculo vcl;
     int c;
 
     system("clear||cls");
@@ -90,47 +82,47 @@ void modulo_cadastrar_veiculo(void)
     printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n\n");
 
     printf("Placa do veículo: ");
-    scanf("%7[A-Z0-9]", placa);
+    scanf("%7[A-Z0-9]", vcl.placa);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Chassi do veículo: ");
-    scanf("%17[A-HJ-NP-Z0-9]", chassi);
+    scanf("%17[A-HJ-NP-Z0-9]", vcl.chassi);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Renavam do veículo: ");
-    scanf("%11[0-9]", renavam);
+    scanf("%11[0-9]", vcl.renavam);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Categoria do veículo: ");
-    scanf("%6[A-Z]", categoria);
+    scanf("%6[A-Z]", vcl.categoria);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Modelo do veículo: ");
-    scanf("%30[A-Za-z0-9 ]", modelo);
+    scanf("%30[A-Za-z0-9 ]", vcl.modelo);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Marca do veículo: ");
-    scanf("%15[A-Za-z ]", marca);
+    scanf("%15[A-Za-z ]", vcl.marca);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Ano do veículo: ");
-    scanf("%4[0-9]", ano);
+    scanf("%4[0-9]", vcl.ano);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Código do veículo: ");
-    scanf("%6[A-Z0-9]", codigo_interno);
+    scanf("%6[A-Z0-9]", vcl.codigo_interno);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Preço do veículo: ");
-    scanf("%f", &preco);
+    scanf("%f", &vcl.preco);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
@@ -144,15 +136,15 @@ void modulo_cadastrar_veiculo(void)
         exit(1);
     }
 
-    fprintf(arq_veiculo, "%s;", placa);
-    fprintf(arq_veiculo, "%s;", chassi);
-    fprintf(arq_veiculo, "%s;", renavam);
-    fprintf(arq_veiculo, "%s;", categoria);
-    fprintf(arq_veiculo, "%s;", modelo);
-    fprintf(arq_veiculo, "%s;", marca);
-    fprintf(arq_veiculo, "%s;", ano);
-    fprintf(arq_veiculo, "%s;", codigo_interno);
-    fprintf(arq_veiculo, "%f\n", preco);
+    fprintf(arq_veiculo, "%s;", vcl.placa);
+    fprintf(arq_veiculo, "%s;", vcl.chassi);
+    fprintf(arq_veiculo, "%s;", vcl.renavam);
+    fprintf(arq_veiculo, "%s;", vcl.categoria);
+    fprintf(arq_veiculo, "%s;", vcl.modelo);
+    fprintf(arq_veiculo, "%s;", vcl.marca);
+    fprintf(arq_veiculo, "%s;", vcl.ano);
+    fprintf(arq_veiculo, "%s;", vcl.codigo_interno);
+    fprintf(arq_veiculo, "%f\n", vcl.preco);
     fclose(arq_veiculo);
 
     printf("Veículo Registrado com Sucesso!\n");
@@ -173,15 +165,7 @@ void modulo_dados_veiculo(void)
     }
 
     char cod_ler[7];
-    char placa[8];
-    char chassi[18];
-    char renavam[12];
-    char categoria[7];
-    char modelo[31];
-    char marca[16];
-    char ano[5];
-    char codigo_interno[7];
-    float preco;
+    Veiculo vcl;
     int c;
 
     system("cls||clear");
@@ -204,21 +188,21 @@ void modulo_dados_veiculo(void)
     scanf("%7s", cod_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", placa, chassi, renavam, categoria, modelo, marca, ano, codigo_interno, &preco) == 9) {
+    while (fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", vcl.placa, vcl.chassi, vcl.renavam, vcl.categoria, vcl.modelo, vcl.marca, vcl.ano, vcl.codigo_interno, &vcl.preco) == 9) {
 
-        if (strcmp(cod_ler, codigo_interno) == 0) {
+        if (strcmp(cod_ler, vcl.codigo_interno) == 0) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Veículo Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Placa: %s\n", placa);
-            printf("\t\t Chassi: %s\n", chassi);
-            printf("\t\t Renavam.: %s\n", renavam);
-            printf("\t\t Categoria: %s\n", categoria);
-            printf("\t\t Modelo: %s\n", modelo);
-            printf("\t\t Marca: %s\n", marca);
-            printf("\t\t Ano: %s\n", ano);
-            printf("\t\t Código Interno: %s\n", codigo_interno);
-            printf("\t\t Preço: %f\n", preco);
+            printf("\t\t Placa: %s\n", vcl.placa);
+            printf("\t\t Chassi: %s\n", vcl.chassi);
+            printf("\t\t Renavam.: %s\n", vcl.renavam);
+            printf("\t\t Categoria: %s\n", vcl.categoria);
+            printf("\t\t Modelo: %s\n", vcl.modelo);
+            printf("\t\t Marca: %s\n", vcl.marca);
+            printf("\t\t Ano: %s\n", vcl.ano);
+            printf("\t\t Código Interno: %s\n", vcl.codigo_interno);
+            printf("\t\t Preço: %f\n", vcl.preco);
             printf("\n");
             printf("\t\t Pressione Enter para continuar...");
             getchar();
@@ -255,16 +239,8 @@ void modulo_atualizar_veiculo(void)
     }
 
     char cod_ler[7];
-    char placa[8];
-    char chassi[18];
-    char renavam[12];
-    char categoria[7];
-    char modelo[31];
-    char marca[16];
-    char ano[5];
-    char codigo_interno[7];
+    Veiculo vcl;
     char op_veiculo;
-    float preco;
     int c;
     int veiculo_encontrado = 0;
 
@@ -289,8 +265,8 @@ void modulo_atualizar_veiculo(void)
     scanf("%7s", cod_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while(fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", placa, chassi, renavam, categoria, modelo, marca, ano, codigo_interno, &preco) == 9){
-        if (strcmp(codigo_interno, cod_ler) == 0) {
+    while(fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", vcl.placa, vcl.chassi, vcl.renavam, vcl.categoria, vcl.modelo, vcl.marca, vcl.ano, vcl.codigo_interno, &vcl.preco) == 9){
+        if (strcmp(vcl.codigo_interno, cod_ler) == 0) {
     
             veiculo_encontrado = 1;
 
@@ -317,69 +293,69 @@ void modulo_atualizar_veiculo(void)
             switch(op_veiculo){
                 case '1':
                     printf("Nova placa: ");
-                    scanf("%7[A-Z0-9]", placa);
+                    scanf("%7[A-Z0-9]", vcl.placa);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '2':
                     printf("Novo chassi: ");
-                    scanf("%17[A-HJ-NP-Z0-9]", chassi);
+                    scanf("%17[A-HJ-NP-Z0-9]", vcl.chassi);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '3':
                     printf("Novo Renavam: ");
-                    scanf("%11[0-9]", renavam);
+                    scanf("%11[0-9]", vcl.renavam);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
                 
                 case '4':
                     printf("Nova categoria: ");
-                    scanf("%6[A-Z]", categoria);
+                    scanf("%6[A-Z]", vcl.categoria);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '5':
                     printf("Novo modelo: ");
-                    scanf("%30[A-Za-z0-9 ]", modelo);
+                    scanf("%30[A-Za-z0-9 ]", vcl.modelo);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '6':
                     printf("Nova marca: ");
-                    scanf("%15[A-Za-z ]", marca);
+                    scanf("%15[A-Za-z ]", vcl.marca);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '7':
                     printf("Novo ano: ");
-                    scanf("%4[0-9]", ano);
+                    scanf("%4[0-9]", vcl.ano);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '8':
                     printf("Novo código_interno: ");
-                    scanf("%6[A-Z0-9]", codigo_interno);
+                    scanf("%6[A-Z0-9]", vcl.codigo_interno);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '9':
                     printf("Novo preço: ");
-                    scanf("%f", &preco);
+                    scanf("%f", &vcl.preco);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '0':
-                    printf("Voltando ao menu veículos.");
+                    printf("Voltando ao menu veículos.\n");
                     break;
                 
                 default:
@@ -389,15 +365,15 @@ void modulo_atualizar_veiculo(void)
     
         }
 
-        fprintf(arq_veiculo_temp, "%s;", placa);
-        fprintf(arq_veiculo_temp, "%s;", chassi);
-        fprintf(arq_veiculo_temp, "%s;", renavam);
-        fprintf(arq_veiculo_temp, "%s;", categoria);
-        fprintf(arq_veiculo_temp, "%s;", modelo);
-        fprintf(arq_veiculo_temp, "%s;", marca);
-        fprintf(arq_veiculo_temp, "%s;", ano);
-        fprintf(arq_veiculo_temp, "%s;", codigo_interno);
-        fprintf(arq_veiculo_temp, "%f\n", preco);
+        fprintf(arq_veiculo_temp, "%s;", vcl.placa);
+        fprintf(arq_veiculo_temp, "%s;", vcl.chassi);
+        fprintf(arq_veiculo_temp, "%s;", vcl.renavam);
+        fprintf(arq_veiculo_temp, "%s;", vcl.categoria);
+        fprintf(arq_veiculo_temp, "%s;", vcl.modelo);
+        fprintf(arq_veiculo_temp, "%s;", vcl.marca);
+        fprintf(arq_veiculo_temp, "%s;", vcl.ano);
+        fprintf(arq_veiculo_temp, "%s;", vcl.codigo_interno);
+        fprintf(arq_veiculo_temp, "%f\n", vcl.preco);
 
     }
 
@@ -408,7 +384,7 @@ void modulo_atualizar_veiculo(void)
             remove("veiculo.csv");
             rename("veiculo_temp.csv","veiculo.csv");
             printf("Dado(s) do veículo alterado(s) com sucesso!\n");
-        }
+    }
     else {
         remove("veiculo_temp.csv");
         printf("Veículo não encontrado..\n");
@@ -441,15 +417,7 @@ void modulo_excluir_veiculo(void)
     }
 
     char cod_ler[7];
-    char placa[8];
-    char chassi[18];
-    char renavam[12];
-    char categoria[7];
-    char modelo[31];
-    char marca[16];
-    char ano[5];
-    char codigo_interno[7];
-    float preco;
+    Veiculo vcl;
     int c;
     int veiculo_encontrado = 0;
 
@@ -473,19 +441,19 @@ void modulo_excluir_veiculo(void)
     scanf("%7s", cod_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", placa, chassi, renavam, categoria, modelo, marca, ano, codigo_interno, &preco) == 9) {
+    while (fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", vcl.placa, vcl.chassi, vcl.renavam, vcl.categoria, vcl.modelo, vcl.marca, vcl.ano, vcl.codigo_interno, &vcl.preco) == 9) {
     
-        if (strcmp(codigo_interno, cod_ler) != 0){
+        if (strcmp(vcl.codigo_interno, cod_ler) != 0){
 
-            fprintf(arq_veiculo_temp,"%s;", placa);
-            fprintf(arq_veiculo_temp,"%s;", chassi);
-            fprintf(arq_veiculo_temp,"%s;", renavam);
-            fprintf(arq_veiculo_temp,"%s;", categoria);
-            fprintf(arq_veiculo_temp,"%s;", modelo);
-            fprintf(arq_veiculo_temp,"%s;", marca);
-            fprintf(arq_veiculo_temp,"%s;", ano);
-            fprintf(arq_veiculo_temp,"%s;", codigo_interno);
-            fprintf(arq_veiculo_temp,"%f\n", preco);
+            fprintf(arq_veiculo_temp,"%s;", vcl.placa);
+            fprintf(arq_veiculo_temp,"%s;", vcl.chassi);
+            fprintf(arq_veiculo_temp,"%s;", vcl.renavam);
+            fprintf(arq_veiculo_temp,"%s;", vcl.categoria);
+            fprintf(arq_veiculo_temp,"%s;", vcl.modelo);
+            fprintf(arq_veiculo_temp,"%s;", vcl.marca);
+            fprintf(arq_veiculo_temp,"%s;", vcl.ano);
+            fprintf(arq_veiculo_temp,"%s;", vcl.codigo_interno);
+            fprintf(arq_veiculo_temp,"%f\n", vcl.preco);
 
         }
         else {
