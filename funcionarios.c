@@ -69,11 +69,7 @@ int modulo_tela_funcionario(void)
 void modulo_cadastrar_funcionario(void)
 {
     FILE *arq_funcionario;
-    char nome_funcionario[51];
-    char dt_nascimento_fun[12];
-    char cpf_funcionario[12];
-    char cargo[22];
-    char email_funcionario[30];
+    Funcionario fun;
     int c;
 
     system("clear||cls");
@@ -94,23 +90,23 @@ void modulo_cadastrar_funcionario(void)
     printf("\n");
 
     printf("Nome do funcionário: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_funcionario);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", fun.nome_funcionario);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("CPF do funcionário: ");
-    scanf("%[0-9.-]", cpf_funcionario);
+    scanf("%[0-9.-]", fun.cpf_funcionario);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Data de Nascimento do funcionário: ");
-    scanf("%[0-9/]", dt_nascimento_fun);
+    scanf("%[0-9/]", fun.dt_nascimento_fun);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Email do funcionário: ");
-    scanf("%[A-Za-z-z0-9@._]", email_funcionario);
+    scanf("%[A-Za-z-z0-9@._]", fun.email_funcionario);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Cargo do funcionário: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", cargo);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", fun.cargo);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
@@ -123,11 +119,11 @@ void modulo_cadastrar_funcionario(void)
         exit(1);
     }
 
-    fprintf(arq_funcionario,"%s;", nome_funcionario);
-    fprintf(arq_funcionario,"%s;", cpf_funcionario);
-    fprintf(arq_funcionario,"%s;", dt_nascimento_fun);
-    fprintf(arq_funcionario,"%s;", email_funcionario);
-    fprintf(arq_funcionario,"%s\n", cargo);
+    fprintf(arq_funcionario,"%s;", fun.nome_funcionario);
+    fprintf(arq_funcionario,"%s;", fun.cpf_funcionario);
+    fprintf(arq_funcionario,"%s;", fun.dt_nascimento_fun);
+    fprintf(arq_funcionario,"%s;", fun.email_funcionario);
+    fprintf(arq_funcionario,"%s\n", fun.cargo);
     fclose(arq_funcionario);
     printf("Funcionário Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
@@ -147,11 +143,7 @@ void modulo_dados_funcionario(void)
     }
 
     char cpf[15];
-    char nome_funcionario[51];
-    char dt_nascimento_fun[12];
-    char cpf_funcionario[12];
-    char cargo[30];
-    char email_funcionario[30];
+    Funcionario fun;
     int c;
 
     system("clear||cls");
@@ -174,17 +166,17 @@ void modulo_dados_funcionario(void)
     scanf("%15s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_funcionario, cpf_funcionario, dt_nascimento_fun, email_funcionario, cargo) == 5) {
+    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", fun.nome_funcionario, fun.cpf_funcionario, fun.dt_nascimento_fun, fun.email_funcionario, fun.cargo) == 5) {
 
-        if (strcmp(cpf,cpf_funcionario) == 0) {
+        if (strcmp(cpf,fun.cpf_funcionario) == 0) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Funcionário Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Nome: %s\n", nome_funcionario);
-            printf("\t\t CPF: %s\n", cpf_funcionario);
-            printf("\t\t Data Nasci.: %s\n", dt_nascimento_fun);
-            printf("\t\t Email: %s\n", email_funcionario);
-            printf("\t\t CNH: %s\n", cargo);
+            printf("\t\t Nome: %s\n", fun.nome_funcionario);
+            printf("\t\t CPF: %s\n", fun.cpf_funcionario);
+            printf("\t\t Data Nasci.: %s\n", fun.dt_nascimento_fun);
+            printf("\t\t Email: %s\n", fun.email_funcionario);
+            printf("\t\t CNH: %s\n", fun.cargo);
             printf("\n");
             printf("\t\t Pressione Enter para continuar...");
             getchar();
@@ -222,11 +214,7 @@ void modulo_atualizar_funcionario(void)
     }
 
     char cpf[12];
-    char nome_funcionario[51];
-    char cpf_funcionario[15];
-    char dt_nascimento_fun[12];
-    char cargo[22];
-    char email_funcionario[30];
+    Funcionario fun;
     char op_funcionario;
     int c;
     int func_encontrado = 0;
@@ -252,8 +240,8 @@ void modulo_atualizar_funcionario(void)
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     
-    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_funcionario, cpf_funcionario, dt_nascimento_fun, email_funcionario, cargo) == 5) {
-        if (strcmp(cpf, cpf_funcionario) == 0) {
+    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", fun.nome_funcionario, fun.cpf_funcionario, fun.dt_nascimento_fun, fun.email_funcionario, fun.cargo) == 5) {
+        if (strcmp(cpf, fun.cpf_funcionario) == 0) {
 
             func_encontrado = 1;
         
@@ -273,14 +261,14 @@ void modulo_atualizar_funcionario(void)
              switch(op_funcionario){
                 case '1':
                     printf("Novo nome do funcionário: ");
-                    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_funcionario);
+                    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", fun.nome_funcionario);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '2':
                     printf("Novo CPF do funcionário: ");
-                    scanf("%[0-9.-]", cpf_funcionario);
+                    scanf("%[0-9.-]", fun.cpf_funcionario);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
@@ -288,27 +276,27 @@ void modulo_atualizar_funcionario(void)
                 case '3':
                     
                     printf("Nova Data de Nasc. do funcionário: ");
-                    scanf("%[0-9/]", dt_nascimento_fun);
+                    scanf("%[0-9/]", fun.dt_nascimento_fun);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '4':
                     printf("Novo email do funcionário: ");
-                    scanf("%[A-Za-z-z0-9@._]", email_funcionario);
+                    scanf("%[A-Za-z-z0-9@._]", fun.email_funcionario);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '5':
                     printf("Nova cargo do funcionário: ");
-                    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", cargo);
+                    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", fun.cargo);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '0':
-                    printf("Voltando ao menu funcionários.");
+                    printf("Voltando ao menu funcionários.\n");
                     break;
 
                 default:
@@ -319,21 +307,21 @@ void modulo_atualizar_funcionario(void)
 
         }
 
-        fprintf(arq_temp_funcionario,"%s;", nome_funcionario);
-        fprintf(arq_temp_funcionario,"%s;", cpf_funcionario);
-        fprintf(arq_temp_funcionario,"%s;", dt_nascimento_fun);
-        fprintf(arq_temp_funcionario,"%s;", email_funcionario);
-        fprintf(arq_temp_funcionario,"%s\n", cargo);
+        fprintf(arq_temp_funcionario,"%s;", fun.nome_funcionario);
+        fprintf(arq_temp_funcionario,"%s;", fun.cpf_funcionario);
+        fprintf(arq_temp_funcionario,"%s;", fun.dt_nascimento_fun);
+        fprintf(arq_temp_funcionario,"%s;", fun.email_funcionario);
+        fprintf(arq_temp_funcionario,"%s\n", fun.cargo);
     }
 
     fclose(arq_funcionario);
     fclose(arq_temp_funcionario);
 
-     if (func_encontrado){
-            remove("funcionario.csv");
-            rename("funcionario_temp.csv","funcionario.csv");
-            printf("Dado(s) do funcionário alterado(s) com sucesso!\n");
-        }
+    if (func_encontrado){
+        remove("funcionario.csv");
+        rename("funcionario_temp.csv","funcionario.csv");
+        printf("Dado(s) do funcionário alterado(s) com sucesso!\n");
+    }
     else {
         remove("funcionario_temp.csv");
         printf("Funcionário não encontrado..\n");
@@ -366,11 +354,7 @@ void modulo_excluir_funcionario(void)
     }
 
     char cpf[15];
-    char nome_funcionario[51];
-    char dt_nascimento_fun[12];
-    char cpf_funcionario[12];
-    char cargo[22];
-    char email_funcionario[30];
+    Funcionario fun;
     int c;
     int func_encontrado = 0;
 
@@ -394,15 +378,15 @@ void modulo_excluir_funcionario(void)
     scanf("%14s", cpf);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_funcionario, cpf_funcionario, dt_nascimento_fun, email_funcionario, cargo) == 5) {
+    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", fun.nome_funcionario, fun.cpf_funcionario, fun.dt_nascimento_fun, fun.email_funcionario, fun.cargo) == 5) {
     
-        if (strcmp(cpf_funcionario,cpf) != 0){
+        if (strcmp(fun.cpf_funcionario,cpf) != 0){
 
-            fprintf(arq_temp_funcionario,"%s;", nome_funcionario);
-            fprintf(arq_temp_funcionario,"%s;", cpf_funcionario);
-            fprintf(arq_temp_funcionario,"%s;", dt_nascimento_fun);
-            fprintf(arq_temp_funcionario,"%s;", email_funcionario);
-            fprintf(arq_temp_funcionario,"%s\n", cargo);
+            fprintf(arq_temp_funcionario,"%s;", fun.nome_funcionario);
+            fprintf(arq_temp_funcionario,"%s;", fun.cpf_funcionario);
+            fprintf(arq_temp_funcionario,"%s;", fun.dt_nascimento_fun);
+            fprintf(arq_temp_funcionario,"%s;", fun.email_funcionario);
+            fprintf(arq_temp_funcionario,"%s\n", fun.cargo);
 
         }
         else {
