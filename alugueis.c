@@ -67,12 +67,7 @@ int modulo_tela_alugueis(void)
 void modulo_cadastrar_aluguel(void)
 {
     FILE *arq_aluguel;
-    char nome_cliente[51];
-    char cpf_cliente[12];
-    char codigo_renavam[12];
-    char modelo_veiculo[15];
-    char data_aluguel[15];
-    char id_aluguel[11];
+    Aluguel alg;
     int c;
 
     system("clear||cls");
@@ -93,27 +88,27 @@ void modulo_cadastrar_aluguel(void)
     printf("\n");
 
     printf("Nome do cliente: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_cliente);
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", alg.nome_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("CPF do cliente: ");
-    scanf("%[0-9.-]", cpf_cliente);
+    scanf("%[0-9.-]", alg.cpf_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Código RENAVAM do veículo: ");
-    scanf("%[0-9]", codigo_renavam);
+    scanf("%[0-9]", alg.codigo_renavam);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Modelo do veículo: ");
-    scanf("%[0-9 A-Za-z]", modelo_veiculo);
+    scanf("%[0-9 A-Za-z]", alg.modelo_veiculo);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Data do Fim do aluguel: ");
-    scanf("%[0-9/]", data_aluguel);
+    scanf("%[0-9/]", alg.data_aluguel);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("ID de identificação do aluguel: ");
-    scanf("%[0-9]", id_aluguel);
+    scanf("%[0-9]", alg.id_aluguel);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
@@ -125,12 +120,12 @@ void modulo_cadastrar_aluguel(void)
         getchar();
         exit(1);
     }
-    fprintf(arq_aluguel,"%s;", nome_cliente);
-    fprintf(arq_aluguel,"%s;", cpf_cliente);
-    fprintf(arq_aluguel,"%s;", codigo_renavam);
-    fprintf(arq_aluguel,"%s;", modelo_veiculo);
-    fprintf(arq_aluguel,"%s;", data_aluguel);
-    fprintf(arq_aluguel,"%s\n", id_aluguel);
+    fprintf(arq_aluguel,"%s;", alg.nome_cliente);
+    fprintf(arq_aluguel,"%s;", alg.cpf_cliente);
+    fprintf(arq_aluguel,"%s;", alg.codigo_renavam);
+    fprintf(arq_aluguel,"%s;", alg.modelo_veiculo);
+    fprintf(arq_aluguel,"%s;", alg.data_aluguel);
+    fprintf(arq_aluguel,"%s\n", alg.id_aluguel);
     fclose(arq_aluguel);
     printf("Aluguel Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
@@ -150,12 +145,7 @@ void modulo_dados_aluguel(void)
         return;
     }
 
-    char nome_cliente[51];
-    char cpf_cliente[12];
-    char codigo_renavam[12];
-    char modelo_veiculo[15];
-    char data_aluguel[15];
-    char id_aluguel[11];
+    Aluguel alg;
     char id_aluguel_ler[11];
     int c;
 
@@ -179,18 +169,18 @@ void modulo_dados_aluguel(void)
     scanf("%11s", id_aluguel_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_aluguel, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, codigo_renavam, modelo_veiculo, data_aluguel, id_aluguel) == 6) {
+    while (fscanf(arq_aluguel, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", alg.nome_cliente, alg.cpf_cliente, alg.codigo_renavam, alg.modelo_veiculo, alg.data_aluguel, alg.id_aluguel) == 6) {
 
-        if (strcmp(id_aluguel_ler,id_aluguel) == 0) {
+        if (strcmp(id_aluguel_ler,alg.id_aluguel) == 0) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Aluguel Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Nome: %s\n", nome_cliente);
-            printf("\t\t CPF: %s\n", cpf_cliente);
-            printf("\t\t Código RENAVAM: %s\n", codigo_renavam);
-            printf("\t\t Modelo do Veículo: %s\n", modelo_veiculo);
-            printf("\t\t Data de Finalização: %s\n", data_aluguel);
-            printf("\t\t ID do Aluguel: %s\n", id_aluguel);
+            printf("\t\t Nome: %s\n", alg.nome_cliente);
+            printf("\t\t CPF: %s\n", alg.cpf_cliente);
+            printf("\t\t Código RENAVAM: %s\n", alg.codigo_renavam);
+            printf("\t\t Modelo do Veículo: %s\n", alg.modelo_veiculo);
+            printf("\t\t Data de Finalização: %s\n", alg.data_aluguel);
+            printf("\t\t ID do Aluguel: %s\n", alg.id_aluguel);
             printf("\n");
             printf("\t\t Pressione Enter para continuar...");
             getchar();
@@ -227,13 +217,8 @@ void modulo_atualizar_aluguel(void)
         exit(1);
     }
 
-    char nome_cliente[51];
-    char cpf_cliente[12];
-    char codigo_renavam[12];
-    char modelo_veiculo[15];
-    char data_aluguel[15];
-    char id_aluguel[11];
-    char aluguel[11];
+    Aluguel alg;
+    char id_ler[11];
     char op_aluguel;
     int c; 
     int aluguel_encontrado = 0;
@@ -255,11 +240,11 @@ void modulo_atualizar_aluguel(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o Id do aluguel para alterar os dados: \n");
-    scanf("%11s", aluguel);
+    scanf("%11s", id_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_aluguel, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, codigo_renavam, modelo_veiculo, data_aluguel, id_aluguel) == 6) {
-        if (strcmp(aluguel, id_aluguel) == 0) {
+    while (fscanf(arq_aluguel, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", alg.nome_cliente, alg.cpf_cliente, alg.codigo_renavam, alg.modelo_veiculo, alg.data_aluguel, alg.id_aluguel) == 6) {
+        if (strcmp(id_ler, alg.id_aluguel) == 0) {
 
             aluguel_encontrado = 1;
 
@@ -282,42 +267,42 @@ void modulo_atualizar_aluguel(void)
             switch (op_aluguel){
                 case '1':
                     printf("Novo nome do cliente: ");
-                    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", nome_cliente);
+                    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", alg.nome_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
 
                 case '2':
                     printf("Novo CPF do cliente: ");
-                    scanf("%[0-9.-]", cpf_cliente);
+                    scanf("%[0-9.-]", alg.cpf_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
                     break;
                 
                 case '3':
                     printf("Novo Renavam: ");
-                    scanf("%11[0-9]",codigo_renavam);
+                    scanf("%11[0-9]", alg.codigo_renavam);
                     while ((c = getchar()) != '\n' && c != EOF)
                     ;
                     break;
                 
                 case '4':
                     printf("Novo Modelo: ");
-                    scanf("%[0-9 A-Za-z]", modelo_veiculo);
+                    scanf("%[0-9 A-Za-z]", alg.modelo_veiculo);
                     while ((c = getchar()) != '\n' && c != EOF)
                     ;
                     break;
 
                 case '5':
                     printf("Novo data final: ");
-                    scanf("%[0-9/]", data_aluguel);
+                    scanf("%[0-9/]", alg.data_aluguel);
                     while ((c = getchar()) != '\n' && c != EOF)
                     ;
                     break;
 
                 case '6':
                     printf("Novo ID de identificação do aluguel: ");
-                    scanf("%[0-9]", id_aluguel);
+                    scanf("%[0-9]", alg.id_aluguel);
                     while ((c = getchar()) != '\n' && c != EOF)
                     ;
                     break;
@@ -333,12 +318,12 @@ void modulo_atualizar_aluguel(void)
         
         }
             
-        fprintf(arq_aluguel_temp,"%s;", nome_cliente);
-        fprintf(arq_aluguel_temp,"%s;", cpf_cliente);
-        fprintf(arq_aluguel_temp,"%s;", codigo_renavam);
-        fprintf(arq_aluguel_temp,"%s;", modelo_veiculo);
-        fprintf(arq_aluguel_temp,"%s;", data_aluguel);
-        fprintf(arq_aluguel_temp,"%s\n", id_aluguel);
+        fprintf(arq_aluguel_temp,"%s;", alg.nome_cliente);
+        fprintf(arq_aluguel_temp,"%s;", alg.cpf_cliente);
+        fprintf(arq_aluguel_temp,"%s;", alg.codigo_renavam);
+        fprintf(arq_aluguel_temp,"%s;", alg.modelo_veiculo);
+        fprintf(arq_aluguel_temp,"%s;", alg.data_aluguel);
+        fprintf(arq_aluguel_temp,"%s\n", alg.id_aluguel);
 
     }
 
@@ -380,12 +365,7 @@ void modulo_finalizar_aluguel(void)
         exit(1);
     }
 
-    char nome_cliente[51];
-    char cpf_cliente[12];
-    char codigo_renavam[12];
-    char modelo_veiculo[15];
-    char data_aluguel[15];
-    char id_aluguel[11];
+    Aluguel alg;
     char id_ler[11];
     int c; 
     int aluguel_encontrado = 0;
@@ -410,16 +390,16 @@ void modulo_finalizar_aluguel(void)
     scanf("%11s", id_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_aluguel, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", nome_cliente, cpf_cliente, codigo_renavam, modelo_veiculo, data_aluguel, id_aluguel) == 6) {
+    while (fscanf(arq_aluguel, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", alg.nome_cliente, alg.cpf_cliente, alg.codigo_renavam, alg.modelo_veiculo, alg.data_aluguel, alg.id_aluguel) == 6) {
 
-        if (strcmp(id_aluguel, id_ler) != 0){
+        if (strcmp(alg.id_aluguel, id_ler) != 0){
 
-            fprintf(arq_aluguel_temp, "%s;", nome_cliente);
-            fprintf(arq_aluguel_temp, "%s;", cpf_cliente);
-            fprintf(arq_aluguel_temp, "%s;", codigo_renavam);
-            fprintf(arq_aluguel_temp, "%s;", modelo_veiculo);
-            fprintf(arq_aluguel_temp, "%s;", data_aluguel);
-            fprintf(arq_aluguel_temp, "%s\n", id_aluguel);
+            fprintf(arq_aluguel_temp, "%s;", alg.nome_cliente);
+            fprintf(arq_aluguel_temp, "%s;", alg.cpf_cliente);
+            fprintf(arq_aluguel_temp, "%s;", alg.codigo_renavam);
+            fprintf(arq_aluguel_temp, "%s;", alg.modelo_veiculo);
+            fprintf(arq_aluguel_temp, "%s;", alg.data_aluguel);
+            fprintf(arq_aluguel_temp, "%s\n", alg.id_aluguel);
 
         }
         else {
