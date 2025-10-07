@@ -1,12 +1,15 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
+#include <stdbool.h>
 
 typedef struct cliente {
-    char nome_cliente[52];
-    char cpf_cliente[15];
-    char data_nascimento[15];
-    char email_cliente[52];
-    char cnh[14];
+    char *nome_cliente;
+    char *cpf_cliente;
+    char *data_nascimento;
+    char *email_cliente;
+    char *cnh;
+    bool status;
+    
 } Cliente;
 
 int modulo_cliente(void);
