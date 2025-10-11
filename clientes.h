@@ -17,6 +17,6 @@ int modulo_tela_cliente(void);
 void modulo_cadastrar_cliente(Cliente* cli);
 void modulo_dados_cliente(Cliente* cli);
 void modulo_atualizar_clientes(void);
-void modulo_excluir_cliente(void);
+void modulo_excluir_cliente(Cliente* cli);
 
 #endif

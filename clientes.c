@@ -25,13 +25,15 @@ int modulo_cliente(void)
             modulo_atualizar_clientes();
             break;
         case 4:
-            modulo_excluir_cliente();
+            modulo_excluir_cliente(cli);
             break;
         case 0:
             return -1;
         }
 
     } while (esc != 0);
+
+    free(cli);
     return -1;
 }
 
@@ -41,7 +43,6 @@ int modulo_tela_cliente(void)
     int c;
 
     system("clear||cls");
-    printf("\n");
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
     printf("|                        --------------------                         |\n");
@@ -127,8 +128,6 @@ void modulo_cadastrar_cliente(Cliente* cli)
 
     fclose(arq_cliente);
 
-    free(cli);
-
     printf("Cliente Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
@@ -172,7 +171,7 @@ void modulo_dados_cliente(Cliente* cli)
 
     while (fread(cli,sizeof(Cliente),1,arq_cliente)) {
 
-        if (strcmp(cpf_ler,cli->cpf_cliente) == 0) {
+        if (strcmp(cpf_ler,cli->cpf_cliente) == 0 && cli->status == true) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Cliente Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
@@ -184,15 +183,15 @@ void modulo_dados_cliente(Cliente* cli)
             printf("\n");
             printf("\t\t Pressione Enter para continuar...");
             getchar();
-            fclose(arq_cliente);
             return;
         }
         
     }
+
+    fclose(arq_cliente);
     printf("Cliente não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
-    fclose(arq_cliente);
 }
 
 void modulo_atualizar_clientes(void)
@@ -338,32 +337,13 @@ void modulo_atualizar_clientes(void)
     getchar();
 }
 
-void modulo_excluir_cliente(void)
+void modulo_excluir_cliente(Cliente* cli)
 {
     FILE *arq_cliente;
-    arq_cliente = fopen("cliente.csv","rt");
 
-    if (arq_cliente == NULL){
-        printf("Erro ao entrar no arquivo!");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-
-    FILE *arq_temp;
-    arq_temp = fopen("cliente_temp.csv","wt");
-
-    if (arq_temp== NULL){
-        printf("Erro na criação do arquivo Temporário!\n");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-
-    char cpf[15];
-    Cliente clt;
+    char cpf_ler[15];
     int c;
-    int encontrado = 0;
+    bool encontrado;
 
     system("clear||cls");
     printf("\n");
@@ -381,38 +361,41 @@ void modulo_excluir_cliente(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o CPf do cliente que deseja excluir: \n");
-    scanf("%15s", cpf);
+    printf("Informe o CPf do cliente que deseja excluir:\n");
+    scanf("%15s", cpf_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_cliente, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", clt.nome_cliente, clt.cpf_cliente, clt.data_nascimento, clt.email_cliente, clt.cnh) == 5) {
+        
+    encontrado = false;
 
-        if (strcmp(clt.cpf_cliente,cpf) != 0){
+    arq_cliente = fopen("cliente.dat","r+b");
 
-            fprintf(arq_temp,"%s;", clt.nome_cliente);
-            fprintf(arq_temp,"%s;", clt.cpf_cliente);
-            fprintf(arq_temp,"%s;", clt.data_nascimento);
-            fprintf(arq_temp,"%s;", clt.email_cliente);
-            fprintf(arq_temp,"%s\n", clt.cnh);
-
-        }
-        else {
-            encontrado = 1;
-        }
+    if (arq_cliente == NULL){
+        printf("Erro ao entrar no arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
     }
+
+    while ((fread(cli,sizeof(Cliente),1,arq_cliente) == 1) && (!encontrado)) {
+
+        if (strcmp(cli->cpf_cliente,cpf_ler) == 0){
+
+            cli->status = false;
+            fseek(arq_cliente,(-1)*sizeof(Cliente),SEEK_CUR);
+            fwrite(cli, sizeof(Cliente), 1, arq_cliente);
+            encontrado = true;
+
+            printf("Cliente excluido com sucesso!\n");
+            
+            }
+        }
 
     fclose(arq_cliente);
-    fclose(arq_temp);
 
-    if (encontrado){
-            remove("cliente.csv");
-            rename("cliente_temp.csv","cliente.csv");
-            printf("Cliente excluído com sucesso!\n");
+    if (!encontrado){
+            printf("Cliente não encontrado..\n");
         }
-    else {
-        remove("cliente_temp.csv");
-        printf("Cliente não encontrado..\n");
-    }
 
     printf("Pressione Enter para continuar...");
     getchar();
