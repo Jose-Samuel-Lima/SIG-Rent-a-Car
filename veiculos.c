@@ -381,33 +381,13 @@ void modulo_atualizar_veiculo(Veiculo* vei)
     getchar();
 }
 
-void modulo_excluir_veiculo(void)
-
+void modulo_excluir_veiculo(Veiculo* vei)
 {
     FILE *arq_veiculo;
-    arq_veiculo = fopen("veiculo.csv","rt");
-
-    if (arq_veiculo== NULL){
-        printf("Erro ao abrir o arquivo!\n");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-
-    FILE *arq_veiculo_temp;
-    arq_veiculo_temp = fopen("veiculo_temp.csv","wt");
-
-    if (arq_veiculo_temp== NULL){
-        printf("Erro na criação do arquivo Temporário!\n");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-
-    char cod_ler[7];
-    Veiculo vcl;
+    
+    char cod_veiculo_ler[7];
     int c;
-    int veiculo_encontrado = 0;
+    bool veiculo_encontrado;
 
     system("clear||cls");
     printf("\n");
@@ -426,43 +406,41 @@ void modulo_excluir_veiculo(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o Código Interno  para encontrar o veículo que deseja excluir: \n");
-    scanf("%7s", cod_ler);
+    scanf("%7s", cod_veiculo_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", vcl.placa, vcl.chassi, vcl.renavam, vcl.categoria, vcl.modelo, vcl.marca, vcl.ano, vcl.codigo_interno, &vcl.preco) == 9) {
     
-        if (strcmp(vcl.codigo_interno, cod_ler) != 0){
+    veiculo_encontrado = false;
 
-            fprintf(arq_veiculo_temp,"%s;", vcl.placa);
-            fprintf(arq_veiculo_temp,"%s;", vcl.chassi);
-            fprintf(arq_veiculo_temp,"%s;", vcl.renavam);
-            fprintf(arq_veiculo_temp,"%s;", vcl.categoria);
-            fprintf(arq_veiculo_temp,"%s;", vcl.modelo);
-            fprintf(arq_veiculo_temp,"%s;", vcl.marca);
-            fprintf(arq_veiculo_temp,"%s;", vcl.ano);
-            fprintf(arq_veiculo_temp,"%s;", vcl.codigo_interno);
-            fprintf(arq_veiculo_temp,"%f\n", vcl.preco);
+    arq_veiculo = fopen("veiculo.dat","r+b");
 
-        }
-        else {
-            veiculo_encontrado = 1;
-        }
+    if (arq_veiculo == NULL){
+        printf("Erro ao entrar no arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
     }
 
-    fclose(arq_veiculo);
-    fclose(arq_veiculo_temp);
+    while ((fread(vei,sizeof(Veiculo),1,arq_veiculo) == 1) && (!veiculo_encontrado)) {
 
-    if (veiculo_encontrado){
-            remove("veiculo.csv");
-            rename("veiculo_temp.csv","veiculo.csv");
+        if (strcmp(vei->codigo_interno,cod_veiculo_ler) == 0){
+
+            vei->status = false;
+            fseek(arq_veiculo,(-1)*sizeof(Veiculo),SEEK_CUR);
+            fwrite(vei, sizeof(Veiculo),1, arq_veiculo);
+            veiculo_encontrado = true;
+
             printf("Veículo excluído com sucesso!\n");
+            break;
+            }
         }
-    else {
-        remove("veiculo_temp.csv");
-        printf("Veículo não encontrado...\n");
-    }
+    fclose(arq_veiculo);
+
+    if (!veiculo_encontrado){
+            printf("Veículo não encontrado...\n");
+        }
 
     printf("Pressione Enter para continuar...");
     getchar();
-
+    
 }
