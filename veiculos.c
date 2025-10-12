@@ -2,10 +2,13 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdbool.h>
 #include "veiculos.h"
 
 int modulo_veiculo(void)
 {
+    Veiculo* vei;
+    vei = (Veiculo*) malloc(sizeof(Veiculo));
     int escVeiculo;
     do
     {
@@ -13,28 +16,30 @@ int modulo_veiculo(void)
         switch (escVeiculo)
         {
         case 1:
-            modulo_cadastrar_veiculo();
+            modulo_cadastrar_veiculo(vei);
             break;
         case 2:
-            modulo_dados_veiculo();
+            modulo_dados_veiculo(vei);
             break;
         case 3:
-            modulo_atualizar_veiculo();
+            modulo_atualizar_veiculo(vei);
             break;
         case 4:
-            modulo_excluir_veiculo();
+            modulo_excluir_veiculo(vei);
             break;
         case 0:
             return -1;
         }
 
     } while (escVeiculo != 0);
+    
+    free(vei);
     return -1;
 }
 
 int modulo_tela_veiculos(void)
 {
-    int op;
+    int op_veiculo;
     int c;
 
     system("clear||cls");
@@ -58,10 +63,10 @@ int modulo_tela_veiculos(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Escolha uma das opções acima: \n");
-    scanf(" %d", &op);
+    scanf(" %d", &op_veiculo);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    return op;
+    return op_veiculo;
 }
 
 void modulo_cadastrar_veiculo(void)
