@@ -39,7 +39,7 @@ int modulo_funcionario(void)
 
 int modulo_tela_funcionario(void)
 {   
-    int op;
+    int op_funcionario;
     int c;
 
     system("clear||cls");
@@ -63,12 +63,12 @@ int modulo_tela_funcionario(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Escolha uma das opções acima: \n");
-    scanf(" %d", &op);
+    scanf(" %d", &op_funcionario);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("\n");
     printf("Processando...\n");
-    return op;
+    return op_funcionario;
 }
 
 void modulo_cadastrar_funcionario(Funcionario* fun)
