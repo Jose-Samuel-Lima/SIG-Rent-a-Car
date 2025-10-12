@@ -5,7 +5,9 @@
 #include "funcionarios.h"
 
 int modulo_funcionario(void)
-{
+{  
+    Funcionario* fun;
+    fun = (Funcionario*) malloc(sizeof(Funcionario));
     int escFunc;
     do
     {
@@ -13,28 +15,30 @@ int modulo_funcionario(void)
         switch (escFunc)
         {
         case 1:
-            modulo_cadastrar_funcionario();
+            modulo_cadastrar_funcionario(fun);
             break;
         case 2:
-            modulo_dados_funcionario();
+            modulo_dados_funcionario(fun);
             break;
         case 3:
-            modulo_atualizar_funcionario();
+            modulo_atualizar_funcionario(fun);
             break;
         case 4:
-            modulo_excluir_funcionario();
+            modulo_excluir_funcionario(fun);
             break;
         case 0:
             return -1;
         }
 
     } while (escFunc != 0);
+
+    free(fun);
     return -1;
 }
 
 int modulo_tela_funcionario(void)
 {   
-    int op;
+    int op_funcionario;
     int c;
 
     system("clear||cls");
@@ -58,12 +62,12 @@ int modulo_tela_funcionario(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Escolha uma das opções acima: \n");
-    scanf(" %d", &op);
+    scanf(" %d", &op_funcionario);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("\n");
     printf("Processando...\n");
-    return op;
+    return op_funcionario;
 }
 
 void modulo_cadastrar_funcionario(void)
