@@ -133,10 +133,10 @@ void modulo_cadastrar_funcionario(Funcionario* fun)
     getchar();
 }
 
-void modulo_dados_funcionario(void)
+void modulo_dados_funcionario(Funcionario* fun)
 {
     FILE *arq_funcionario;
-    arq_funcionario = fopen("funcionario.csv","rt");
+    arq_funcionario = fopen("funcionario.dat","rb");
 
     if (arq_funcionario == NULL){
         printf("Erro na criação do arquivo!");
@@ -145,8 +145,7 @@ void modulo_dados_funcionario(void)
         exit(1);
     }
 
-    char cpf[15];
-    Funcionario fun;
+    char cpf_funcionario_ler[15];
     int c;
 
     system("clear||cls");
@@ -166,32 +165,32 @@ void modulo_dados_funcionario(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o CPf do funcionário que deseja encontrar: \n");
-    scanf("%15s", cpf);
+    scanf("%15s", cpf_funcionario_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", fun.nome_funcionario, fun.cpf_funcionario, fun.dt_nascimento_fun, fun.email_funcionario, fun.cargo) == 5) {
+    while (fread(fun,sizeof(Funcionario),1,arq_funcionario)){
 
-        if (strcmp(cpf,fun.cpf_funcionario) == 0) {
+        if (strcmp(cpf_funcionario_ler,fun->cpf_funcionario) == 0 && fun->status == true) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Funcionário Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Nome: %s\n", fun.nome_funcionario);
-            printf("\t\t CPF: %s\n", fun.cpf_funcionario);
-            printf("\t\t Data Nasci.: %s\n", fun.dt_nascimento_fun);
-            printf("\t\t Email: %s\n", fun.email_funcionario);
-            printf("\t\t CNH: %s\n", fun.cargo);
+            printf("\t\t Nome: %s\n", fun->nome_funcionario);
+            printf("\t\t CPF: %s\n", fun->cpf_funcionario);
+            printf("\t\t Data Nasci.: %s\n", fun->dt_nascimento_fun);
+            printf("\t\t Email: %s\n", fun->email_funcionario);
+            printf("\t\t CNH: %s\n", fun->cargo);
             printf("\n");
             printf("\t\t Pressione Enter para continuar...");
             getchar();
-            fclose(arq_funcionario);
             return;
         }
         
     }
+
+    fclose(arq_funcionario);
     printf("Funcionário não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
-    fclose(arq_funcionario);
 }
 
 void modulo_atualizar_funcionario(void)
