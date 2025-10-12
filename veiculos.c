@@ -69,10 +69,9 @@ int modulo_tela_veiculos(void)
     return op_veiculo;
 }
 
-void modulo_cadastrar_veiculo(void)
+void modulo_cadastrar_veiculo(Veiculo* vei)
 {
     FILE *arq_veiculo;
-    Veiculo vcl;
     int c;
 
     system("clear||cls");
@@ -84,54 +83,57 @@ void modulo_cadastrar_veiculo(void)
     printf("#=====================================================================#\n");
     printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
     printf("|                | < = = =  Cadastrar Veículos  = = = > |             |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n\n");
+    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
+    printf("#=====================================================================#\n\n");
 
     printf("Placa do veículo: ");
-    scanf("%7[A-Z0-9]", vcl.placa);
+    scanf("%7[A-Z0-9]", vei->placa);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Chassi do veículo: ");
-    scanf("%17[A-HJ-NP-Z0-9]", vcl.chassi);
+    scanf("%17[A-HJ-NP-Z0-9]", vei->chassi);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Renavam do veículo: ");
-    scanf("%11[0-9]", vcl.renavam);
+    scanf("%11[0-9]", vei->renavam);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Categoria do veículo: ");
-    scanf("%6[A-Z]", vcl.categoria);
+    scanf("%6[A-Z]", vei->categoria);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Modelo do veículo: ");
-    scanf("%30[A-Za-z0-9 ]", vcl.modelo);
+    scanf("%30[A-Za-z0-9 ]", vei->modelo);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Marca do veículo: ");
-    scanf("%15[A-Za-z ]", vcl.marca);
+    scanf("%15[A-Za-z ]", vei->marca);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Ano do veículo: ");
-    scanf("%4[0-9]", vcl.ano);
+    scanf("%4[0-9]", vei->ano);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Código do veículo: ");
-    scanf("%6[A-Z0-9]", vcl.codigo_interno);
+    scanf("%6[A-Z0-9]", vei->codigo_interno);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
     printf("Preço do veículo: ");
-    scanf("%f", &vcl.preco);
+    scanf("%f", &vei->preco);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
-    arq_veiculo = fopen("veiculo.csv", "at");
+    vei->status = true;
+
+    arq_veiculo = fopen("veiculo.dat", "ab");
 
     if (arq_veiculo == NULL)
     {
@@ -141,15 +143,8 @@ void modulo_cadastrar_veiculo(void)
         exit(1);
     }
 
-    fprintf(arq_veiculo, "%s;", vcl.placa);
-    fprintf(arq_veiculo, "%s;", vcl.chassi);
-    fprintf(arq_veiculo, "%s;", vcl.renavam);
-    fprintf(arq_veiculo, "%s;", vcl.categoria);
-    fprintf(arq_veiculo, "%s;", vcl.modelo);
-    fprintf(arq_veiculo, "%s;", vcl.marca);
-    fprintf(arq_veiculo, "%s;", vcl.ano);
-    fprintf(arq_veiculo, "%s;", vcl.codigo_interno);
-    fprintf(arq_veiculo, "%f\n", vcl.preco);
+    fwrite(vei, sizeof(Veiculo), 1, arq_veiculo);
+
     fclose(arq_veiculo);
 
     printf("Veículo Registrado com Sucesso!\n");
@@ -400,6 +395,7 @@ void modulo_atualizar_veiculo(void)
 }
 
 void modulo_excluir_veiculo(void)
+
 {
     FILE *arq_veiculo;
     arq_veiculo = fopen("veiculo.csv","rt");
