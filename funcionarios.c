@@ -322,32 +322,13 @@ void modulo_atualizar_funcionario(Funcionario* fun)
     getchar();
 }
 
-void modulo_excluir_funcionario(void)
+void modulo_excluir_funcionario(Funcionario* fun)
 {
     FILE *arq_funcionario; 
-    arq_funcionario = fopen("funcionario.csv","rt");
-
-    if (arq_funcionario == NULL){
-        printf("Erro ao entrar no arquivo!");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-
-    FILE *arq_temp_funcionario;
-    arq_temp_funcionario = fopen("funcionario_temp.csv","wt");
-
-    if (arq_temp_funcionario== NULL){
-        printf("Erro na criação do arquivo Temporário!\n");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-
-    char cpf[15];
-    Funcionario fun;
+    
+    char cpf_funcionario_ler[15];
     int c;
-    int func_encontrado = 0;
+    bool func_encontrado;
 
     system("clear||cls");
     printf("\n");
@@ -366,37 +347,39 @@ void modulo_excluir_funcionario(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o CPf do funcionário que deseja excluir: \n");
-    scanf("%14s", cpf);
+    scanf("%14s", cpf_funcionario_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_funcionario, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", fun.nome_funcionario, fun.cpf_funcionario, fun.dt_nascimento_fun, fun.email_funcionario, fun.cargo) == 5) {
-    
-        if (strcmp(fun.cpf_funcionario,cpf) != 0){
 
-            fprintf(arq_temp_funcionario,"%s;", fun.nome_funcionario);
-            fprintf(arq_temp_funcionario,"%s;", fun.cpf_funcionario);
-            fprintf(arq_temp_funcionario,"%s;", fun.dt_nascimento_fun);
-            fprintf(arq_temp_funcionario,"%s;", fun.email_funcionario);
-            fprintf(arq_temp_funcionario,"%s\n", fun.cargo);
+    func_encontrado = false;
 
-        }
-        else {
-            func_encontrado = 1;
-        }
+    arq_funcionario = fopen("funcionario.dat","r+b");
+
+    if (arq_funcionario == NULL){
+        printf("Erro ao entrar no arquivo!");
+        printf("Pressione Enter para continuar...");
+        getchar();
+        exit(1);
     }
 
+    while ((fread(fun,sizeof(Funcionario),1,arq_funcionario) == 1) && (!func_encontrado)) {
+
+        if (strcmp(fun->cpf_funcionario,cpf_funcionario_ler) == 0){
+
+            fun->status = false;
+            fseek(arq_funcionario,(-1)*sizeof(Funcionario),SEEK_CUR);
+            fwrite(fun, sizeof(Funcionario),1, arq_funcionario);
+            func_encontrado = true;
+
+            printf("Funcionário excluído com sucesso!\n");
+            break;
+            }
+        }
     fclose(arq_funcionario);
-    fclose(arq_temp_funcionario);
 
-    if (func_encontrado){
-            remove("funcionario.csv");
-            rename("funcionario_temp.csv","funcionario.csv");
-            printf("funcionario excluído com sucesso!\n");
+    if (!func_encontrado){
+            printf("Funcionário não encontrado...\n");
         }
-    else {
-        remove("funcionario_temp.csv");
-        printf("funcionario não encontrado..\n");
-    }
 
     printf("Pressione Enter para continuar...");
     getchar();
