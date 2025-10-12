@@ -70,10 +70,9 @@ int modulo_tela_funcionario(void)
     return op_funcionario;
 }
 
-void modulo_cadastrar_funcionario(void)
+void modulo_cadastrar_funcionario(Funcionario* fun)
 {
     FILE *arq_funcionario;
-    Funcionario fun;
     int c;
 
     system("clear||cls");
@@ -94,27 +93,29 @@ void modulo_cadastrar_funcionario(void)
     printf("\n");
 
     printf("Nome do funcionário: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", fun.nome_funcionario);
+    scanf("%99[^\n]", fun->nome_funcionario);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("CPF do funcionário: ");
-    scanf("%[0-9.-]", fun.cpf_funcionario);
+    scanf("%14s", fun->cpf_funcionario);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Data de Nascimento do funcionário: ");
-    scanf("%[0-9/]", fun.dt_nascimento_fun);
+    scanf("%10s", fun->dt_nascimento_fun);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Email do funcionário: ");
-    scanf("%[A-Za-z-z0-9@._]", fun.email_funcionario);
+    scanf("%99s", fun->email_funcionario);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Cargo do funcionário: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", fun.cargo);
+    scanf("%19s", fun->cargo);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
-    arq_funcionario = fopen("funcionario.csv","at");
+    fun->status = true;
+    
+    arq_funcionario = fopen("funcionario.dat","ab");
 
     if (arq_funcionario == NULL){
         printf("Erro na criação do arquivo!");
@@ -123,12 +124,10 @@ void modulo_cadastrar_funcionario(void)
         exit(1);
     }
 
-    fprintf(arq_funcionario,"%s;", fun.nome_funcionario);
-    fprintf(arq_funcionario,"%s;", fun.cpf_funcionario);
-    fprintf(arq_funcionario,"%s;", fun.dt_nascimento_fun);
-    fprintf(arq_funcionario,"%s;", fun.email_funcionario);
-    fprintf(arq_funcionario,"%s\n", fun.cargo);
+    fwrite(fun, sizeof(Funcionario), 1, arq_funcionario);
+
     fclose(arq_funcionario);
+
     printf("Funcionário Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
