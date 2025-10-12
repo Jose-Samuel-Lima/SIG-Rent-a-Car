@@ -152,10 +152,10 @@ void modulo_cadastrar_veiculo(Veiculo* vei)
     getchar();
 }
 
-void modulo_dados_veiculo(void)
+void modulo_dados_veiculo(Veiculo* vei)
 {
     FILE *arq_veiculo;
-    arq_veiculo = fopen("veiculo.csv","rt");
+    arq_veiculo = fopen("veiculo.dat","rb");
 
     if (arq_veiculo == NULL){
         printf("Erro ao abrir o arquivo!");
@@ -164,8 +164,7 @@ void modulo_dados_veiculo(void)
         exit(1);
     }
 
-    char cod_ler[7];
-    Veiculo vcl;
+    char cod_veiculo_ler[7];
     int c;
 
     system("cls||clear");
@@ -185,35 +184,35 @@ void modulo_dados_veiculo(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o Código interno para encontrar o veículo desejado: \n");
-    scanf("%7s", cod_ler);
+    scanf("%7s", cod_veiculo_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_veiculo, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%f\n", vcl.placa, vcl.chassi, vcl.renavam, vcl.categoria, vcl.modelo, vcl.marca, vcl.ano, vcl.codigo_interno, &vcl.preco) == 9) {
+     while (fread(vei,sizeof(Veiculo),1,arq_veiculo)){
 
-        if (strcmp(cod_ler, vcl.codigo_interno) == 0) {
+        if (strcmp(cod_veiculo_ler, vei->codigo_interno) == 0 && vei->status == true) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Veículo Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Placa: %s\n", vcl.placa);
-            printf("\t\t Chassi: %s\n", vcl.chassi);
-            printf("\t\t Renavam.: %s\n", vcl.renavam);
-            printf("\t\t Categoria: %s\n", vcl.categoria);
-            printf("\t\t Modelo: %s\n", vcl.modelo);
-            printf("\t\t Marca: %s\n", vcl.marca);
-            printf("\t\t Ano: %s\n", vcl.ano);
-            printf("\t\t Código Interno: %s\n", vcl.codigo_interno);
-            printf("\t\t Preço: %f\n", vcl.preco);
+            printf("\t\t Placa: %s\n", vei->placa);
+            printf("\t\t Chassi: %s\n", vei->chassi);
+            printf("\t\t Renavam.: %s\n", vei->renavam);
+            printf("\t\t Categoria: %s\n", vei->categoria);
+            printf("\t\t Modelo: %s\n", vei->modelo);
+            printf("\t\t Marca: %s\n", vei->marca);
+            printf("\t\t Ano: %s\n", vei->ano);
+            printf("\t\t Código Interno: %s\n", vei->codigo_interno);
+            printf("\t\t Preço: %f\n", vei->preco);
             printf("\n");
             printf("\t\t Pressione Enter para continuar...");
             getchar();
-            fclose(arq_veiculo);
             return;
         }
     }
+
+    fclose(arq_veiculo);
     printf("Veículo não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
-    fclose(arq_veiculo);
 }
 
 void modulo_atualizar_veiculo(void)
