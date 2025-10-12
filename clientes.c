@@ -261,6 +261,7 @@ void modulo_atualizar_clientes(Cliente* cli)
                     scanf(" %99[^\n]", cli->nome_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+                    alt = 1;
                     break;
 
                 case '2':
@@ -307,9 +308,9 @@ void modulo_atualizar_clientes(Cliente* cli)
             if (alt){
 
                 fseek(arq_cliente, -sizeof(Cliente), SEEK_CUR);
-            fwrite(cli, sizeof(Cliente), 1, arq_cliente);
-            fflush(arq_cliente);
-            printf("Dado(s) alterado(s) com sucesso!\n");
+                fwrite(cli, sizeof(Cliente), 1, arq_cliente);
+                fflush(arq_cliente);
+                printf("Dado(s) alterado(s) com sucesso!\n");
 
             }
             
