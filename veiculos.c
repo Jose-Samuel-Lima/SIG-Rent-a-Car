@@ -2,13 +2,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include <stdbool.h>
 #include "veiculos.h"
 
 int modulo_veiculo(void)
 {
-    Veiculo* vei;
-    vei = (Veiculo*) malloc(sizeof(Veiculo));
     int escVeiculo;
     do
     {
@@ -16,16 +13,16 @@ int modulo_veiculo(void)
         switch (escVeiculo)
         {
         case 1:
-            modulo_cadastrar_veiculo(vei);
+            modulo_cadastrar_veiculo();
             break;
         case 2:
-            modulo_dados_veiculo(vei);
+            modulo_dados_veiculo();
             break;
         case 3:
-            modulo_atualizar_veiculo(vei);
+            modulo_atualizar_veiculo();
             break;
         case 4:
-            modulo_excluir_veiculo(vei);
+            modulo_excluir_veiculo();
             break;
         case 0:
             return -1;
@@ -33,7 +30,6 @@ int modulo_veiculo(void)
 
     } while (escVeiculo != 0);
     
-    free(vei);
     return -1;
 }
 
@@ -69,9 +65,11 @@ int modulo_tela_veiculos(void)
     return op_veiculo;
 }
 
-void modulo_cadastrar_veiculo(Veiculo* vei)
+void modulo_cadastrar_veiculo(void)
 {
     FILE *arq_veiculo;
+    Veiculo* vei;
+    vei = (Veiculo*) malloc(sizeof(Veiculo));
     int c;
 
     system("clear||cls");
@@ -146,15 +144,18 @@ void modulo_cadastrar_veiculo(Veiculo* vei)
     fwrite(vei, sizeof(Veiculo), 1, arq_veiculo);
 
     fclose(arq_veiculo);
+    free(vei);
 
     printf("Veículo Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_dados_veiculo(Veiculo* vei)
+void modulo_dados_veiculo(void)
 {
     FILE *arq_veiculo;
+    Veiculo* vei;
+    vei = (Veiculo*) malloc(sizeof(Veiculo));
     arq_veiculo = fopen("veiculo.dat","rb");
 
     if (arq_veiculo == NULL){
@@ -210,14 +211,17 @@ void modulo_dados_veiculo(Veiculo* vei)
     }
 
     fclose(arq_veiculo);
+    free(vei);
     printf("Veículo não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_atualizar_veiculo(Veiculo* vei)
+void modulo_atualizar_veiculo(void)
 {
     FILE *arq_veiculo;
+    Veiculo* vei;
+    vei = (Veiculo*) malloc(sizeof(Veiculo));
     arq_veiculo = fopen("veiculo.dat","r+b");
 
     if (arq_veiculo == NULL){
@@ -377,13 +381,16 @@ void modulo_atualizar_veiculo(Veiculo* vei)
     }
 
     fclose(arq_veiculo);
+    free(vei);
     printf("Pressione <Enter> para continuar...");
     getchar();
 }
 
-void modulo_excluir_veiculo(Veiculo* vei)
+void modulo_excluir_veiculo(void)
 {
     FILE *arq_veiculo;
+    Veiculo* vei;
+    vei = (Veiculo*) malloc(sizeof(Veiculo));
     
     char cod_veiculo_ler[7];
     int c;
@@ -435,6 +442,7 @@ void modulo_excluir_veiculo(Veiculo* vei)
             }
         }
     fclose(arq_veiculo);
+    free(vei);
 
     if (!veiculo_encontrado){
             printf("Veículo não encontrado...\n");
