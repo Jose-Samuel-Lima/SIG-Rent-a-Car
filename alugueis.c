@@ -64,7 +64,7 @@ int modulo_tela_alugueis(void)
     return op;
 }
 
-void modulo_cadastrar_aluguel()
+void modulo_cadastrar_aluguel(void)
 {
     FILE *arq_aluguel;
     Aluguel* alg;
@@ -128,13 +128,14 @@ void modulo_cadastrar_aluguel()
     fwrite(alg, sizeof(Aluguel), 1, arq_aluguel);
 
     fclose(arq_aluguel);
+    free(alg);
     printf("Aluguel Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
     
 }
 
-void modulo_dados_aluguel()
+void modulo_dados_aluguel(void)
 {
     FILE *arq_aluguel;
     Aluguel* alg;
@@ -190,13 +191,16 @@ void modulo_dados_aluguel()
         }
         
     }
+    
+    fclose(arq_aluguel);
+    free(alg);
     printf("Aluguel não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
-    fclose(arq_aluguel);
+    
 }
 
-void modulo_atualizar_aluguel()
+void modulo_atualizar_aluguel(void)
 {
     FILE *arq_aluguel;
     Aluguel* alg;
@@ -335,12 +339,12 @@ void modulo_atualizar_aluguel()
     }
 
     fclose(arq_aluguel);
-
+    free(alg);
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_finalizar_aluguel()
+void modulo_finalizar_aluguel(void)
 {
     FILE *arq_aluguel;
     Aluguel* alg;
@@ -395,7 +399,7 @@ void modulo_finalizar_aluguel()
         }
 
     fclose(arq_aluguel);
-
+    free(alg);
     if (!aluguel_encontrado){
         printf("Aluguel não encontrado!\n");
     }
