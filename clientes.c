@@ -200,30 +200,21 @@ void modulo_dados_cliente(void)
 void modulo_atualizar_clientes(void)
 {
     FILE *arq_cliente;
-    arq_cliente = fopen("cliente.csv","rt");
+    Cliente* cli;
+    cli = (Cliente*) malloc(sizeof(Cliente));
+    arq_cliente = fopen("cliente.dat","r+b");
 
     if (arq_cliente == NULL){
-        printf("Erro ao entrar no arquivo!");
+        printf("Erro ao abrir o arquivo!");
         printf("Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
 
-    FILE *arq_temp;
-    arq_temp = fopen("cliente_temp.csv","wt");
-
-    if (arq_temp== NULL){
-        printf("Erro na criação do arquivo Temporário!\n");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-
-    char cpf[15];
-    Cliente clt;
+    char cpf_ler[15];
     char opcao;
     int c;
-    int encontrado = 0;
+    int encontrado = false;
 
     system("clear||cls");
     printf("\n");
@@ -242,14 +233,14 @@ void modulo_atualizar_clientes(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("Informe o CPf do cliente para alterar os dados: \n");
-    scanf("%15s", cpf);
+    scanf("%15s", cpf_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
-    while (fscanf(arq_cliente, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", clt.nome_cliente, clt.cpf_cliente, clt.data_nascimento, clt.email_cliente, clt.cnh) == 5) {
-        if (strcmp(cpf, clt.cpf_cliente) == 0) {
+    while ((fread(cli,sizeof(Cliente),1,arq_cliente) == 1)) {
+        if (strcmp(cli->cpf_cliente,cpf_ler) == 0 && cli->status) {
             
-            encontrado = 1;
+            encontrado = true;
 
             system("clear||cls");
             printf("Cliente encontrado!\n");
@@ -267,40 +258,47 @@ void modulo_atualizar_clientes(void)
             while ((c = getchar()) != '\n' && c != EOF)
                 ;
 
+            int alt = 0;
+
             switch(opcao){
                 case '1':
                     printf("Novo nome do cliente: ");
-                    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", clt.nome_cliente);
+                    scanf(" %99[^\n]", cli->nome_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+                    alt = 1;
                     break;
 
                 case '2':
                     printf("Novo CPF do cliente: ");
-                    scanf("%[0-9.-]", clt.cpf_cliente);
+                    scanf("%14s", cli->cpf_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+                    alt = 1;
                     break;
 
                 case '3':
                     printf("Nova Data de Nasc. do cliente: ");
-                    scanf("%[0-9/]", clt.data_nascimento);
+                    scanf("%10s", cli->data_nascimento);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+                    alt = 1;
                     break;
 
                 case '4':
                     printf("Novo email do cliente: ");
-                    scanf("%[A-Za-z-z0-9@._]", clt.email_cliente);
+                    scanf("%99s", cli->email_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+                    alt = 1;
                     break;
 
                 case '5':
                     printf("Nova CNH do cliente: ");
-                    scanf("%[0-9]", clt.cnh);
+                    scanf("%19s", cli->cnh);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+                    alt = 1;
                     break;
 
                 case '0':
@@ -312,30 +310,25 @@ void modulo_atualizar_clientes(void)
                     break;
 
             }
+            if (alt){
 
+                fseek(arq_cliente, -sizeof(Cliente), SEEK_CUR);
+                fwrite(cli, sizeof(Cliente), 1, arq_cliente);
+                fflush(arq_cliente);
+                printf("Dado(s) alterado(s) com sucesso!\n");
+
+            }
+            
+            break;
         }
+    }
 
-        fprintf(arq_temp,"%s;", clt.nome_cliente);
-        fprintf(arq_temp,"%s;", clt.cpf_cliente);
-        fprintf(arq_temp,"%s;", clt.data_nascimento);
-        fprintf(arq_temp,"%s;", clt.email_cliente);
-        fprintf(arq_temp,"%s\n", clt.cnh);
-
+    if (!encontrado){
+        printf("Cliente não encontrado!\n");
     }
 
     fclose(arq_cliente);
-    fclose(arq_temp);
-
-    if (encontrado){
-            remove("cliente.csv");
-            rename("cliente_temp.csv","cliente.csv");
-            printf("Dado(s) do cliente alterado(s) com sucesso!\n");
-        }
-    else {
-        remove("cliente_temp.csv");
-        printf("Cliente não encontrado..\n");
-    }
-
+    free(cli);
     printf("Pressione Enter para continuar...");
     getchar();
 }
