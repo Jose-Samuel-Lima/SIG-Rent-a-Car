@@ -136,17 +136,18 @@ void modulo_cadastrar_cliente(void)
 void modulo_dados_cliente(void)
 {
     FILE *arq_cliente;
-    arq_cliente = fopen("cliente.csv","rt");
+    Cliente* cli;
+    cli = (Cliente*) malloc(sizeof(Cliente));
+    arq_cliente = fopen("cliente.dat","rb");
 
     if (arq_cliente == NULL){
-        printf("Erro na criação do arquivo!");
+        printf("Erro ao abrir o arquivo!");
         printf("Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
 
-    char cpf[15];
-    Cliente clt;
+    char cpf_ler[15];
     int c;
 
     system("clear||cls");
@@ -166,33 +167,34 @@ void modulo_dados_cliente(void)
     printf("#=====================================================================#\n");
     printf("\n");
     printf("\t\tInforme o CPf do cliente que deseja encontrar: \n");
-    scanf("%15s", cpf);
+    scanf("%15s", cpf_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
-    while (fscanf(arq_cliente, "%[^;];%[^;];%[^;];%[^;];%[^\n]\n", clt.nome_cliente, clt.cpf_cliente, clt.data_nascimento, clt.email_cliente, clt.cnh) == 5) {
+    while (fread(cli,sizeof(Cliente),1,arq_cliente)) {
 
-        if (strcmp(cpf,clt.cpf_cliente) == 0) {
+        if (strcmp(cpf_ler,cli->cpf_cliente) == 0 && cli->status == true) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Cliente Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Nome: %s\n", clt.nome_cliente);
-            printf("\t\t CPF: %s\n", clt.cpf_cliente);
-            printf("\t\t Data Nasci.: %s\n", clt.data_nascimento);
-            printf("\t\t Email: %s\n", clt.email_cliente);
-            printf("\t\t CNH: %s\n", clt.cnh);
+            printf("\t\t Nome: %s\n", cli->nome_cliente);
+            printf("\t\t CPF: %s\n", cli->cpf_cliente);
+            printf("\t\t Data Nasci.: %s\n", cli->data_nascimento);
+            printf("\t\t Email: %s\n", cli->email_cliente);
+            printf("\t\t CNH: %s\n", cli->cnh);
             printf("\n");
             printf("\t\t Pressione Enter para continuar...");
             getchar();
-            fclose(arq_cliente);
             return;
         }
         
     }
+
+    fclose(arq_cliente);
+    free(cli);
     printf("Cliente não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
-    fclose(arq_cliente);
 }
 
 void modulo_atualizar_clientes(void)
