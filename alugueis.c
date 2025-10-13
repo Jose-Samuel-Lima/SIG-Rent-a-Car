@@ -67,7 +67,8 @@ int modulo_tela_alugueis(void)
 void modulo_cadastrar_aluguel(void)
 {
     FILE *arq_aluguel;
-    Aluguel alg;
+    Aluguel* alg;
+    alg = (Aluguel*) malloc(sizeof(Aluguel));
     int c;
 
     system("clear||cls");
@@ -88,45 +89,46 @@ void modulo_cadastrar_aluguel(void)
     printf("\n");
 
     printf("Nome do cliente: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", alg.nome_cliente);
+    scanf(" %99[^\n]", alg->nome_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("CPF do cliente: ");
-    scanf("%[0-9.-]", alg.cpf_cliente);
+    scanf("%14s", alg->cpf_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    printf("Código RENAVAM do veículo: ");
-    scanf("%[0-9]", alg.codigo_renavam);
+    printf("Renavam do veículo: ");
+    scanf("%11[0-9]", alg->codigo_renavam);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Modelo do veículo: ");
-    scanf("%[0-9 A-Za-z]", alg.modelo_veiculo);
+    scanf("%30[A-Za-z0-9 ]", alg->modelo_veiculo);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Data do Fim do aluguel: ");
-    scanf("%[0-9/]", alg.data_aluguel);
+    scanf("%14[0-9/]", alg->data_aluguel);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("ID de identificação do aluguel: ");
-    scanf("%[0-9]", alg.id_aluguel);
+    scanf("%11[0-9]", alg->id_aluguel);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
 
-    arq_aluguel = fopen("aluguel.csv","at");
+    alg->status = true;
 
-    if (arq_aluguel == NULL){
-        printf("Erro na criação do arquivo!\n");
+    arq_aluguel = fopen("aluguel.dat","ab");
+
+    if (arq_aluguel == NULL)
+    {
+        printf("Erro na criação do arquivo!");
         printf("Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
-    fprintf(arq_aluguel,"%s;", alg.nome_cliente);
-    fprintf(arq_aluguel,"%s;", alg.cpf_cliente);
-    fprintf(arq_aluguel,"%s;", alg.codigo_renavam);
-    fprintf(arq_aluguel,"%s;", alg.modelo_veiculo);
-    fprintf(arq_aluguel,"%s;", alg.data_aluguel);
-    fprintf(arq_aluguel,"%s\n", alg.id_aluguel);
+    
+    fwrite(alg, sizeof(Aluguel), 1, arq_aluguel);
+
     fclose(arq_aluguel);
+    free(alg);
     printf("Aluguel Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
