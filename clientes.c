@@ -70,7 +70,8 @@ int modulo_tela_cliente(void)
 void modulo_cadastrar_cliente(void)
 {
     FILE *arq_cliente;
-    Cliente clt;
+    Cliente* cli;
+    cli = (Cliente*) malloc(sizeof(Cliente));
     int c;
     
     system("clear||cls");
@@ -91,40 +92,42 @@ void modulo_cadastrar_cliente(void)
     printf("\n");
 
     printf("Nome do cliente: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâôêçãõà]", clt.nome_cliente);
+    scanf(" %99[^\n]", cli->nome_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("CPF do cliente: ");
-    scanf("%[0-9.-]", clt.cpf_cliente);
+    scanf("%14s", cli->cpf_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Data de Nascimento do cliente: ");
-    scanf("%[0-9/]", clt.data_nascimento);
+    scanf("%10s", cli->data_nascimento);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("Email do cliente: ");
-    scanf("%[A-Za-z0-9@._]", clt.email_cliente);
+    scanf("%99s", cli->email_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     printf("CNH do cliente: ");
-    scanf("%[0-9]", clt.cnh);
+    scanf("%19s", cli->cnh);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
+    
+    cli->status = true;
 
-    arq_cliente = fopen("cliente.csv","at");
+    arq_cliente = fopen("cliente.dat","ab");
 
     if (arq_cliente == NULL){
-        printf("Erro na criação do arquivo!");
+        printf("Erro ao abrir o arquivo!");
         printf("Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
-    fprintf(arq_cliente,"%s;", clt.nome_cliente);
-    fprintf(arq_cliente,"%s;", clt.cpf_cliente);
-    fprintf(arq_cliente,"%s;", clt.data_nascimento);
-    fprintf(arq_cliente,"%s;", clt.email_cliente);
-    fprintf(arq_cliente,"%s\n", clt.cnh);
+
+    fwrite(cli, sizeof(Cliente), 1, arq_cliente);
+
     fclose(arq_cliente);
+    free(cli);
+
     printf("Cliente Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
