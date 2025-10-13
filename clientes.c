@@ -2,13 +2,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include <stdbool.h>
 #include "clientes.h"
 
 int modulo_cliente(void)
 {
-    Cliente* cli;
-    cli = (Cliente*) malloc(sizeof(Cliente));
     int esc;
     do
     {
@@ -16,16 +13,16 @@ int modulo_cliente(void)
         switch (esc)
         {
         case 1:
-            modulo_cadastrar_cliente(cli);
+            modulo_cadastrar_cliente();
             break;
         case 2:
-            modulo_dados_cliente(cli);
+            modulo_dados_cliente();
             break;
         case 3:
-            modulo_atualizar_clientes(cli);
+            modulo_atualizar_clientes();
             break;
         case 4:
-            modulo_excluir_cliente(cli);
+            modulo_excluir_cliente();
             break;
         case 0:
             return -1;
@@ -33,7 +30,6 @@ int modulo_cliente(void)
 
     } while (esc != 0);
 
-    free(cli);
     return -1;
 }
 
@@ -70,9 +66,11 @@ int modulo_tela_cliente(void)
     return op;
 }
 
-void modulo_cadastrar_cliente(Cliente* cli)
+void modulo_cadastrar_cliente(void)
 {
     FILE *arq_cliente;
+    Cliente* cli;
+    cli = (Cliente*) malloc(sizeof(Cliente));
     int c;
     
     system("clear||cls");
@@ -127,15 +125,18 @@ void modulo_cadastrar_cliente(Cliente* cli)
     fwrite(cli, sizeof(Cliente), 1, arq_cliente);
 
     fclose(arq_cliente);
+    free(cli);
 
     printf("Cliente Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_dados_cliente(Cliente* cli)
+void modulo_dados_cliente(void)
 {
     FILE *arq_cliente;
+    Cliente* cli;
+    cli = (Cliente*) malloc(sizeof(Cliente));
     arq_cliente = fopen("cliente.dat","rb");
 
     if (arq_cliente == NULL){
@@ -189,14 +190,17 @@ void modulo_dados_cliente(Cliente* cli)
     }
 
     fclose(arq_cliente);
+    free(cli);
     printf("Cliente não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_atualizar_clientes(Cliente* cli)
+void modulo_atualizar_clientes(void)
 {
     FILE *arq_cliente;
+    Cliente* cli;
+    cli = (Cliente*) malloc(sizeof(Cliente));
     arq_cliente = fopen("cliente.dat","r+b");
 
     if (arq_cliente == NULL){
@@ -323,14 +327,16 @@ void modulo_atualizar_clientes(Cliente* cli)
     }
 
     fclose(arq_cliente);
+    free(cli);
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_excluir_cliente(Cliente* cli)
+void modulo_excluir_cliente(void)
 {
     FILE *arq_cliente;
-
+    Cliente* cli;
+    cli = (Cliente*) malloc(sizeof(Cliente));
     char cpf_ler[15];
     int c;
     bool encontrado;
@@ -382,7 +388,7 @@ void modulo_excluir_cliente(Cliente* cli)
         }
 
     fclose(arq_cliente);
-
+    free(cli);
     if (!encontrado){
             printf("Cliente não encontrado..\n");
         }
