@@ -138,16 +138,17 @@ void modulo_cadastrar_aluguel(void)
 void modulo_dados_aluguel(void)
 {
     FILE *arq_aluguel;
-    arq_aluguel = fopen("aluguel.csv","rt");
+    Aluguel* alg;
+    alg = (Aluguel*) malloc(sizeof(Aluguel));
+    arq_aluguel = fopen("aluguel.dat","rb");
 
     if (arq_aluguel == NULL){
-        printf("Erro na criação do arquivo!\n");
+        printf("Erro ao abrir o arquivo!");
         printf("Pressione Enter para continuar...");
         getchar();
-        return;
+        exit(1);
     }
 
-    Aluguel alg;
     char id_aluguel_ler[11];
     int c;
 
@@ -171,30 +172,32 @@ void modulo_dados_aluguel(void)
     scanf("%11s", id_aluguel_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_aluguel, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", alg.nome_cliente, alg.cpf_cliente, alg.codigo_renavam, alg.modelo_veiculo, alg.data_aluguel, alg.id_aluguel) == 6) {
+    while (fread(alg,sizeof(Aluguel),1,arq_aluguel)) {
 
-        if (strcmp(id_aluguel_ler,alg.id_aluguel) == 0) {
+        if (strcmp(id_aluguel_ler,alg->id_aluguel) == 0 && alg->status == true) {
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Aluguel Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Nome: %s\n", alg.nome_cliente);
-            printf("\t\t CPF: %s\n", alg.cpf_cliente);
-            printf("\t\t Código RENAVAM: %s\n", alg.codigo_renavam);
-            printf("\t\t Modelo do Veículo: %s\n", alg.modelo_veiculo);
-            printf("\t\t Data de Finalização: %s\n", alg.data_aluguel);
-            printf("\t\t ID do Aluguel: %s\n", alg.id_aluguel);
+            printf("\t\t Nome: %s\n", alg->nome_cliente);
+            printf("\t\t CPF: %s\n", alg->cpf_cliente);
+            printf("\t\t Código RENAVAM: %s\n", alg->codigo_renavam);
+            printf("\t\t Modelo do Veículo: %s\n", alg->modelo_veiculo);
+            printf("\t\t Data de Finalização: %s\n", alg->data_aluguel);
+            printf("\t\t ID do Aluguel: %s\n", alg->id_aluguel);
             printf("\n");
             printf("\t\t Pressione Enter para continuar...");
             getchar();
-            fclose(arq_aluguel);
             return;
         }
         
     }
+    
+    fclose(arq_aluguel);
+    free(alg);
     printf("Aluguel não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
-    fclose(arq_aluguel);
+    
 }
 
 void modulo_atualizar_aluguel(void)
