@@ -347,7 +347,10 @@ void modulo_atualizar_aluguel(void)
 void modulo_finalizar_aluguel(void)
 {
     FILE *arq_aluguel;
-    arq_aluguel = fopen("aluguel.csv","rt");
+    Aluguel* alg;
+    alg = (Aluguel*) malloc(sizeof(Aluguel));
+
+    arq_aluguel = fopen("aluguel.dat","r+b");
 
     if (arq_aluguel == NULL){
         printf("Erro ao abrir o arquivo!\n");
@@ -356,20 +359,9 @@ void modulo_finalizar_aluguel(void)
         exit(1);
     }
 
-    FILE *arq_aluguel_temp;
-    arq_aluguel_temp = fopen("aluguel_temp.csv","wt");
-
-    if (arq_aluguel_temp== NULL){
-        printf("Erro na criação do arquivo Temporário!\n");
-        printf("Pressione Enter para continuar...");
-        getchar();
-        exit(1);
-    }
-
-    Aluguel alg;
     char id_ler[11];
     int c; 
-    int aluguel_encontrado = 0;
+    bool aluguel_encontrado = false;
 
     system("clear||cls");
     printf("\n");
@@ -391,34 +383,25 @@ void modulo_finalizar_aluguel(void)
     scanf("%11s", id_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
-    while (fscanf(arq_aluguel, "%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n", alg.nome_cliente, alg.cpf_cliente, alg.codigo_renavam, alg.modelo_veiculo, alg.data_aluguel, alg.id_aluguel) == 6) {
 
-        if (strcmp(alg.id_aluguel, id_ler) != 0){
+    while ((fread(alg,sizeof(Aluguel),1,arq_aluguel) == 1) && (!aluguel_encontrado)) {
 
-            fprintf(arq_aluguel_temp, "%s;", alg.nome_cliente);
-            fprintf(arq_aluguel_temp, "%s;", alg.cpf_cliente);
-            fprintf(arq_aluguel_temp, "%s;", alg.codigo_renavam);
-            fprintf(arq_aluguel_temp, "%s;", alg.modelo_veiculo);
-            fprintf(arq_aluguel_temp, "%s;", alg.data_aluguel);
-            fprintf(arq_aluguel_temp, "%s\n", alg.id_aluguel);
+        if (strcmp(alg->id_aluguel,id_ler) == 0){
 
+            alg->status = false;
+            fseek(arq_aluguel,(-1)*sizeof(Aluguel),SEEK_CUR);
+            fwrite(alg, sizeof(Aluguel), 1, arq_aluguel);
+            aluguel_encontrado = true;
+
+            printf("Aluguel excluido com sucesso!\n");
+            break;
+            }
         }
-        else {
-            aluguel_encontrado = 1;
-        }
-    }
 
     fclose(arq_aluguel);
-    fclose(arq_aluguel_temp);
-
-    if (aluguel_encontrado){
-            remove("aluguel.csv");
-            rename("aluguel_temp.csv","aluguel.csv");
-            printf("Aluguel finalizado com sucesso!\n");
-        }
-    else {
-        remove("aluguel_temp.csv");
-        printf("Aluguel não encontrado...\n");
+    free(alg);
+    if (!aluguel_encontrado){
+        printf("Aluguel não encontrado!\n");
     }
 
     printf("Pressione Enter para continuar...");
