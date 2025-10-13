@@ -2,13 +2,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include <stdbool.h>
 #include "funcionarios.h"
 
 int modulo_funcionario(void)
 {  
-    Funcionario* fun;
-    fun = (Funcionario*) malloc(sizeof(Funcionario));
     int escFunc;
     do
     {
@@ -16,16 +13,16 @@ int modulo_funcionario(void)
         switch (escFunc)
         {
         case 1:
-            modulo_cadastrar_funcionario(fun);
+            modulo_cadastrar_funcionario();
             break;
         case 2:
-            modulo_dados_funcionario(fun);
+            modulo_dados_funcionario();
             break;
         case 3:
-            modulo_atualizar_funcionario(fun);
+            modulo_atualizar_funcionario();
             break;
         case 4:
-            modulo_excluir_funcionario(fun);
+            modulo_excluir_funcionario();
             break;
         case 0:
             return -1;
@@ -33,7 +30,6 @@ int modulo_funcionario(void)
 
     } while (escFunc != 0);
 
-    free(fun);
     return -1;
 }
 
@@ -71,9 +67,11 @@ int modulo_tela_funcionario(void)
     return op_funcionario;
 }
 
-void modulo_cadastrar_funcionario(Funcionario* fun)
+void modulo_cadastrar_funcionario(void)
 {
     FILE *arq_funcionario;
+    Funcionario* fun;
+    fun = (Funcionario*) malloc(sizeof(Funcionario));
     int c;
 
     system("clear||cls");
@@ -128,15 +126,18 @@ void modulo_cadastrar_funcionario(Funcionario* fun)
     fwrite(fun, sizeof(Funcionario), 1, arq_funcionario);
 
     fclose(arq_funcionario);
+    free(fun);
 
     printf("Funcionário Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_dados_funcionario(Funcionario* fun)
+void modulo_dados_funcionario(void)
 {
     FILE *arq_funcionario;
+    Funcionario* fun;
+    fun = (Funcionario*) malloc(sizeof(Funcionario));
     arq_funcionario = fopen("funcionario.dat","rb");
 
     if (arq_funcionario == NULL){
@@ -189,14 +190,17 @@ void modulo_dados_funcionario(Funcionario* fun)
     }
 
     fclose(arq_funcionario);
+    free(fun);
     printf("Funcionário não encontrado!\n");
     printf("Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_atualizar_funcionario(Funcionario* fun)
+void modulo_atualizar_funcionario(void)
 {
     FILE *arq_funcionario;
+    Funcionario* fun;
+    fun = (Funcionario*) malloc(sizeof(Funcionario));
     arq_funcionario = fopen("funcionario.dat", "r+b");
 
     if (arq_funcionario == NULL){
@@ -319,14 +323,16 @@ void modulo_atualizar_funcionario(Funcionario* fun)
     }
 
     fclose(arq_funcionario);
+    free(fun);
     printf("Pressione <Enter> para continuar...");
     getchar();
 }
 
-void modulo_excluir_funcionario(Funcionario* fun)
+void modulo_excluir_funcionario(void)
 {
     FILE *arq_funcionario; 
-    
+    Funcionario* fun;
+    fun = (Funcionario*) malloc(sizeof(Funcionario));
     char cpf_funcionario_ler[15];
     int c;
     bool func_encontrado;
@@ -377,6 +383,7 @@ void modulo_excluir_funcionario(Funcionario* fun)
             }
         }
     fclose(arq_funcionario);
+    free(fun);
 
     if (!func_encontrado){
             printf("Funcionário não encontrado...\n");
