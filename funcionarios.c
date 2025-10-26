@@ -5,11 +5,15 @@
 #include "funcionarios.h"
 
 // ==============================
-//       FUNCAO_VALIDAÇÃO 
+//      FUNCOES_DE_VALIDACAO 
 // ==============================
 
 int ehLetra(char c) {
     return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+}
+
+int ehDigito(char c) {
+    return (c >= '0' && c <= '9');
 }
 
 int validarNome(char *nome) {
@@ -22,6 +26,51 @@ int validarNome(char *nome) {
         i++;
     }
     return 1;
+}
+
+int validarCPF(char *cpf) {
+    int cont = 0;
+    if (cpf == NULL || cpf[0] == '\0')
+        return 0;
+    for (int i = 0; cpf[i] != '\0'; i++) {
+        if (ehDigito(cpf[i])) cont++;
+        else if (cpf[i] != '.' && cpf[i] != '-') return 0;
+    }
+    return (cont == 11);
+}
+
+int validarData(char *data) {
+    if (!data || strlen(data) != 10) return 0;
+    if (data[2] != '/' || data[5] != '/') return 0;
+    for (int i = 0; i < 10; i++) {
+        if (i == 2 || i == 5) continue;
+        if (!ehDigito(data[i])) return 0;
+    }
+    return 1;
+}
+
+int validarEmail(char *email) {
+    if (!email || !email[0] || email[0] == '@' || email[0] == '.') return 0;
+
+    int temArroba = 0;
+    int temPontoDepois = 0;
+
+    for (int i = 0; email[i]; i++) {
+        char c = email[i];
+        if (c == '@') {
+            if (temArroba) return 0;
+            temArroba = 1;
+        } else if (c == '.' && temArroba) {
+            temPontoDepois = 1;
+        } else if (!((c >= 'a' && c <= 'z') ||
+                     (c >= 'A' && c <= 'Z') ||
+                     (c >= '0' && c <= '9') ||
+                     c == '_' || c == '-' || c == '+')) {
+            return 0;
+        }
+    }
+
+    return (temArroba && temPontoDepois);
 }
 
 // ==============================
@@ -123,32 +172,55 @@ void modulo_cadastrar_funcionario(void)
     printf("#=====================================================================#\n");
     printf("\n");
 
-    printf("Nome do funcionário: ");
+    printf("[+] - Nome do funcionário: ");
     scanf("%99[^\n]", fun->nome_funcionario);
     while ((c = getchar()) != '\n' && c != EOF);
 
     while (!validarNome(fun->nome_funcionario)) {
-        printf("Nome inválido. Digite novamente: ");
+        printf(" XXX - Nome inválido! Digite novamente: ");
         scanf("%99[^\n]", fun->nome_funcionario);
         while ((c = getchar()) != '\n' && c != EOF);
     }
     
-    printf("CPF do funcionário: ");
+    printf("[+] - CPF do funcionário: ");
     scanf("%14s", fun->cpf_funcionario);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    printf("Data de Nascimento do funcionário: ");
-    scanf("%10s", fun->dt_nascimento_fun);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    printf("Email do funcionário: ");
-    scanf("%99s", fun->email_funcionario);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    printf("Cargo do funcionário: ");
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    while (!validarCPF(fun->cpf_funcionario)) {
+        printf("XXX - CPF inválido! Digite novamente: ");
+        scanf("%14s", fun->cpf_funcionario);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+    
+    printf("[+] - Data de Nascimento (DD/MM/AAAA): ");
+    scanf("%11s", fun->dt_nascimento_fun);
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    while (!validarData(fun->dt_nascimento_fun)) {
+        printf("XXX - Data inválida. Digite novamente (DD/MM/AAAA): ");
+        scanf("%11s", fun->dt_nascimento_fun);
+        while ((c = getchar()) != '\n' && c != EOF);
+}
+    
+    printf("[+] - Email do funcionário: ");
+    scanf("%29s", fun->email_funcionario);
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    while (!validarEmail(fun->email_funcionario)) {
+        printf("XXX - Email inválido. Digite novamente: ");
+        scanf("%29s", fun->email_funcionario);
+        while ((c = getchar()) != '\n' && c != EOF);
+}
+
+    printf("[+] - Cargo do funcionário: ");
     scanf("%19s", fun->cargo);
     while ((c = getchar()) != '\n' && c != EOF)
-        ;
+
+    while (!validarNome(fun->cargo)) {
+        printf("XXX - Cargo inválido. Digite novamente: ");
+        scanf("%19[^\n]", fun->cargo);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
 
     fun->status = true;
     
@@ -166,6 +238,7 @@ void modulo_cadastrar_funcionario(void)
     fclose(arq_funcionario);
     free(fun);
 
+    printf("-----------------------------------\n");
     printf("Funcionário Registrado com Sucesso!\n");
     printf("Pressione Enter para continuar...");
     getchar();
