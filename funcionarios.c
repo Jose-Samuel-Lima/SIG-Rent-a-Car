@@ -5,6 +5,26 @@
 #include "funcionarios.h"
 
 // ==============================
+//       FUNCAO_VALIDAÇÃO 
+// ==============================
+
+int ehLetra(char c) {
+    return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+}
+
+int validarNome(char *nome) {
+    int i = 0;
+    if (nome == NULL || nome[0] == '\0')
+        return 0;
+    while (nome[i] != '\0') {
+        if (!(ehLetra(nome[i]) || nome[i] == ' '))
+            return 0;
+        i++;
+    }
+    return 1;
+}
+
+// ==============================
 //       MODULO_FUNCIONARIO 
 // ==============================
 
@@ -105,8 +125,14 @@ void modulo_cadastrar_funcionario(void)
 
     printf("Nome do funcionário: ");
     scanf("%99[^\n]", fun->nome_funcionario);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    while (!validarNome(fun->nome_funcionario)) {
+        printf("Nome inválido. Digite novamente: ");
+        scanf("%99[^\n]", fun->nome_funcionario);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+    
     printf("CPF do funcionário: ");
     scanf("%14s", fun->cpf_funcionario);
     while ((c = getchar()) != '\n' && c != EOF)
