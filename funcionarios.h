@@ -3,11 +3,11 @@
 #include <stdbool.h>
 
 typedef struct funcionario {
-    char nome_funcionario[51];
+    char nome_funcionario[100];
     char dt_nascimento_fun[12];
-    char cpf_funcionario[12];
-    char cargo[22];
-    char email_funcionario[30];
+    char cpf_funcionario[15];
+    char cargo[51];
+    char email_funcionario[100];
     bool status;
 
 } Funcionario;
