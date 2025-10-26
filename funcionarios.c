@@ -4,6 +4,10 @@
 #include <string.h>
 #include "funcionarios.h"
 
+// ==============================
+//       MODULO_FUNCIONARIO 
+// ==============================
+
 int modulo_funcionario(void)
 {  
     int escFunc;
@@ -32,6 +36,10 @@ int modulo_funcionario(void)
 
     return -1;
 }
+
+// ==============================
+//     MODULO_TELA_FUNCIONARIO 
+// ==============================
 
 int modulo_tela_funcionario(void)
 {   
@@ -66,6 +74,10 @@ int modulo_tela_funcionario(void)
     printf("Processando...\n");
     return op_funcionario;
 }
+
+// ==============================
+//  MODULO_CADASTRAR_FUNCIONARIO 
+// ==============================
 
 void modulo_cadastrar_funcionario(void)
 {
@@ -133,6 +145,10 @@ void modulo_cadastrar_funcionario(void)
     getchar();
 }
 
+// ==============================
+//    MODULO_DADOS_FUNCIONARIO 
+// ==============================
+
 void modulo_dados_funcionario(void)
 {
     FILE *arq_funcionario;
@@ -195,6 +211,10 @@ void modulo_dados_funcionario(void)
     printf("Pressione Enter para continuar...");
     getchar();
 }
+
+// ==============================
+//  MODULO_ATUALIZAR_FUNCIONARIO 
+// ==============================
 
 void modulo_atualizar_funcionario(void)
 {
@@ -327,6 +347,10 @@ void modulo_atualizar_funcionario(void)
     printf("Pressione <Enter> para continuar...");
     getchar();
 }
+
+// ==============================
+//   MODULO_EXCLUIR_FUNCIONARIO 
+// ==============================
 
 void modulo_excluir_funcionario(void)
 {
