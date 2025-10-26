@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "validacao.h"
 
 // ==============================
 //       CARACTERES PADRÃO
@@ -37,7 +38,27 @@ int validarCPF(char *cpf) {
 }
 
 int validarEmail(char *email) {
-    return (strchr(email, '@') != NULL & strchr(email, '.') != NULL);
+    if (!email || !email[0] || email[0] == '@' || email[0] == '.') return 0;
+
+    int temArroba = 0;
+    int temPontoDepois = 0;
+
+    for (int i = 0; email[i]; i++) {
+        char c = email[i];
+        if (c == '@') {
+            if (temArroba) return 0;
+            temArroba = 1;
+        } else if (c == '.' && temArroba) {
+            temPontoDepois = 1;
+        } else if (!((c >= 'a' && c <= 'z') ||
+                     (c >= 'A' && c <= 'Z') ||
+                     (c >= '0' && c <= '9') ||
+                     c == '_' || c == '-' || c == '+')) {
+            return 0;
+        }
+    }
+
+    return (temArroba && temPontoDepois);
 }
 
 int validarData(char *data) {
