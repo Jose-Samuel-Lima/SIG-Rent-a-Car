@@ -74,3 +74,86 @@ int validarData(char *data) {
     return 1;
 
 }
+
+// ==============================
+//    VALIDAÇÕES DE VEÍCULOS
+// ==============================
+
+int validarPlaca(char *placa) {
+    int len = strlen(placa);
+    if (len != 7) return 0;
+
+    if (ehLetra(placa[0]) && ehLetra(placa[1]) && ehLetra(placa[2]) &&
+        ehDigito(placa[3]) && ehDigito(placa[4]) && ehDigito(placa[5]) && ehDigito(placa[6]))
+        return 1;
+
+    return 0;
+}
+
+int validarChassi(char *chassi) {
+    if (strlen(chassi) != 17) return 0;
+    for (int i = 0; i < 17; i++) {
+        char c = chassi[i];
+        if (!(ehLetra(c) || ehDigito(c))) return 0;
+        if (c == 'I' || c == 'O' || c == 'Q') return 0;
+    }
+    return 1;
+}
+
+int validarRenavam(char *renavam) {
+
+    if (strlen(renavam) != 11) return 0;
+    for (int i = 0; i < 11; i++) {
+        if (!ehDigito(renavam[i])) return 0;
+    }
+    return 1;
+}
+
+int validarCategoria(char *categoria) {
+    int len = strlen(categoria);
+    if (len == 0 || len > 6) return 0;
+    for (int i = 0; i < len; i++) {
+        if (!(categoria[i] >= 'A' && categoria[i] <= 'Z')) return 0;
+    }
+    return 1;
+}
+
+int validarModelo(char *modelo) {
+    int len = strlen(modelo);
+    if (len == 0 || len > 30) return 0;
+    for (int i = 0; i < len; i++) {
+        if (!(ehLetra(modelo[i]) || ehDigito(modelo[i]) || modelo[i] == ' ')) return 0;
+    }
+    return 1;
+}
+
+int validarMarca(char *marca) {
+    int len = strlen(marca);
+    if (len == 0 || len > 15) return 0;
+    for (int i = 0; i < len; i++) {
+        if (!(ehLetra(marca[i]) || marca[i] == ' ')) return 0;
+    }
+    return 1;
+}
+
+int validarAno(char *ano) {
+    if (strlen(ano) != 4) return 0;
+    for (int i = 0; i < 4; i++) {
+        if (!ehDigito(ano[i])) return 0;
+    }
+    int valor = atoi(ano);
+    return (valor >= 1900 && valor <= 2025);
+}
+
+int validarCodigoInterno(char *codigo) {
+    int len = strlen(codigo);
+    if (len == 0 || len > 6) return 0;
+    for (int i = 0; i < len; i++) {
+        if (!(ehLetra(codigo[i]) || ehDigito(codigo[i]))) return 0;
+    }
+    return 1;
+}
+
+int validarPreco(float preco) {
+    return (preco > 0);
+}
