@@ -94,7 +94,7 @@ void modulo_cadastrar_cliente(void)
 
     printf("Nome do cliente: ");
     scanf(" %99[^\n]", cli->nome_cliente);
-    while ((c = getchar()) != '\n' && c != EOF)
+    while ((c = getchar()) != '\n' && c != EOF);
     
     while (!validarNome(cli->nome_cliente)) {
         printf(" XXX - Nome inválido! Digite novamente: ");
@@ -104,7 +104,7 @@ void modulo_cadastrar_cliente(void)
 
     printf("CPF do cliente: ");
     scanf("%14s", cli->cpf_cliente);
-    while ((c = getchar()) != '\n' && c != EOF)
+    while ((c = getchar()) != '\n' && c != EOF);
 
     while (!validarCPF(cli->cpf_cliente)) {
         printf("XXX - CPF inválido! Digite novamente: ");
@@ -132,13 +132,13 @@ void modulo_cadastrar_cliente(void)
         while ((c = getchar()) != '\n' && c != EOF);
     }
 
-    printf("CNH do cliente: ");
-    scanf("%19s", cli->cnh);
+    printf("Nova CNH do cliente: ");
+    scanf(" %19s", cli->cnh);
     while ((c = getchar()) != '\n' && c != EOF);
-    
+
     while (!validarCNH(cli->cnh)) {
         printf("XXX - CNH inválida! Digite novamente (somente números, 11 dígitos): ");
-        scanf("%19s", cli->cnh);
+        scanf(" %19s", cli->cnh);
         while ((c = getchar()) != '\n' && c != EOF);
     }
     
@@ -353,13 +353,12 @@ void modulo_atualizar_clientes(void)
 
                 case '5':
                     printf("Nova CNH do cliente: ");
-                    scanf("%19s", cli->cnh);
-                    while ((c = getchar()) != '\n' && c != EOF)
-                        ;
+                    scanf(" %19s", cli->cnh);
+                    while ((c = getchar()) != '\n' && c != EOF);
 
                     while (!validarCNH(cli->cnh)) {
                         printf("XXX - CNH inválida! Digite novamente (somente números, 11 dígitos): ");
-                        scanf("%19s", cli->cnh);
+                        scanf(" %19s", cli->cnh);
                         while ((c = getchar()) != '\n' && c != EOF);
                     }
                     alt = 1;
