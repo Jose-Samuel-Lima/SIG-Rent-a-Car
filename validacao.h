@@ -8,6 +8,8 @@ int validarNome(char *nome);
 int validarCPF(char *cpf);
 int validarEmail(char *email);
 int validarData(char *data);
+int validarCNH(char *cnh);
+int validarIDaluguel(char *id);
 
 int validarPlaca(char *placa);
 int validarChassi(char *chassi);
