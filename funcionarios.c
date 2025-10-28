@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "funcionarios.h"
+#include "validacao.h"
 
 int modulo_funcionario(void)
 {  
@@ -91,26 +92,55 @@ void modulo_cadastrar_funcionario(void)
     printf("#=====================================================================#\n");
     printf("\n");
 
-    printf("Nome do funcionário: ");
+    printf("[+] - Nome do funcionário: ");
     scanf("%99[^\n]", fun->nome_funcionario);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    printf("CPF do funcionário: ");
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    while (!validarNome(fun->nome_funcionario)) {
+        printf(" XXX - Nome inválido! Digite novamente: ");
+        scanf("%99[^\n]", fun->nome_funcionario);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+    
+    printf("[+] - CPF do funcionário: ");
     scanf("%14s", fun->cpf_funcionario);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    printf("Data de Nascimento do funcionário: ");
-    scanf("%10s", fun->dt_nascimento_fun);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    printf("Email do funcionário: ");
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    while (!validarCPF(fun->cpf_funcionario)) {
+        printf("XXX - CPF inválido! Digite novamente: ");
+        scanf("%14s", fun->cpf_funcionario);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+    
+    printf("[+] - Data de Nascimento (DD/MM/AAAA): ");
+    scanf("%11s", fun->dt_nascimento_fun);
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    while (!validarData(fun->dt_nascimento_fun)) {
+        printf("XXX - Data inválida. Digite novamente (DD/MM/AAAA): ");
+        scanf("%11s", fun->dt_nascimento_fun);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+    
+    printf("[+] - Email do funcionário: ");
     scanf("%99s", fun->email_funcionario);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    printf("Cargo do funcionário: ");
-    scanf("%19s", fun->cargo);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    while (!validarEmail(fun->email_funcionario)) {
+        printf("XXX - Email inválido. Digite novamente: ");
+        scanf("%99s", fun->email_funcionario);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+
+    printf("[+] - Cargo do funcionário: ");
+    scanf("%50[^\n]", fun->cargo);
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    while (!validarNome(fun->cargo)) {
+        printf("XXX - Cargo inválido. Digite novamente: ");
+        scanf("%50[^\n]", fun->cargo);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
 
     fun->status = true;
     
