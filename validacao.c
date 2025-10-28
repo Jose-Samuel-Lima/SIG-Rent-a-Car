@@ -75,6 +75,36 @@ int validarData(char *data) {
 
 }
 
+int validarCNH(char *cnh) {
+    if (cnh == NULL) {
+        return 0;
+    }
+
+    int len = strlen(cnh);
+    if (len != 11) {
+        return 0;
+    }
+
+    for (int i = 0; i < len; i++) {
+        if (!ehDigito(cnh[i])) {
+            return 0;
+        }
+    }
+
+    int todos_iguais = 1;
+    for (int i = 1; i < len; i++) {
+        if (cnh[i] != cnh[0]) {
+            todos_iguais = 0;
+            break;
+        }
+    }
+    if (todos_iguais) {
+        return 0;
+    }
+
+    return 1;
+}
+
 // ==============================
 //    VALIDAÇÕES DE VEÍCULOS
 // ==============================

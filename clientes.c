@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "clientes.h"
+#include "validacao.h"
 
 int modulo_cliente(void)
 {
@@ -94,23 +95,52 @@ void modulo_cadastrar_cliente(void)
     printf("Nome do cliente: ");
     scanf(" %99[^\n]", cli->nome_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    
+    while (!validarNome(cli->nome_cliente)) {
+        printf(" XXX - Nome inválido! Digite novamente: ");
+        scanf("%99[^\n]", cli->nome_cliente);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+
     printf("CPF do cliente: ");
     scanf("%14s", cli->cpf_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
-        ;
+
+    while (!validarCPF(cli->cpf_cliente)) {
+        printf("XXX - CPF inválido! Digite novamente: ");
+        scanf("%14s", cli->cpf_cliente);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+
     printf("Data de Nascimento do cliente: ");
-    scanf("%10s", cli->data_nascimento);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    scanf("%11s", cli->data_nascimento);
+    while ((c = getchar()) != '\n' && c != EOF);
+    
+    while (!validarData(cli->data_nascimento)) {
+        printf("XXX - Data inválida. Digite novamente (DD/MM/AAAA): ");
+        scanf("%11s", cli->data_nascimento);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+
     printf("Email do cliente: ");
     scanf("%99s", cli->email_cliente);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    while ((c = getchar()) != '\n' && c != EOF);
+    
+    while (!validarEmail(cli->email_cliente)) {
+        printf("XXX - Email inválido. Digite novamente: ");
+        scanf("%99s", cli->email_cliente);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+
     printf("CNH do cliente: ");
     scanf("%19s", cli->cnh);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    while ((c = getchar()) != '\n' && c != EOF);
+    
+    while (!validarCNH(cli->cnh)) {
+    printf("XXX - CNH inválida! Digite novamente (somente números, 11 dígitos): ");
+    scanf("%19s", cli->cnh);
+    while ((c = getchar()) != '\n' && c != EOF);
+    }
     
     cli->status = true;
 

@@ -5,7 +5,6 @@
 #include "funcionarios.h"
 #include "validacao.h"
 
-
 // ==============================
 //       MODULO_FUNCIONARIO 
 // ==============================
