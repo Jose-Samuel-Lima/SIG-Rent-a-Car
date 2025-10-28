@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "veiculos.h"
+#include "validacao.h"
 
 int modulo_veiculo(void)
 {
@@ -84,50 +85,104 @@ void modulo_cadastrar_veiculo(void)
     printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
     printf("#=====================================================================#\n\n");
 
+    // EXEMPLO DE DADOS: ABC1234
     printf("Placa do veículo: ");
     scanf("%7[A-Z0-9]", vei->placa);
     while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    
+    while (!validarPlaca(vei->placa)) {
+        printf("XXX - Placa inválida! Digite novamente: ");
+        scanf("%7[A-Z0-9]", vei->placa);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
 
+    // EXEMPLO DE DADOS: 9BWZZZ377VT004251
     printf("Chassi do veículo: ");
     scanf("%17[A-HJ-NP-Z0-9]", vei->chassi);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    while ((c = getchar()) != '\n' && c != EOF);
 
+    while (!validarChassi(vei->chassi)) {
+        printf("XXX - Chassi inválido! Digite novamente: ");
+        scanf("%17[A-HJ-NP-Z0-9]", vei->chassi);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+
+    // EXEMPLO DE DADOS: 12345678901
     printf("Renavam do veículo: ");
     scanf("%11[0-9]", vei->renavam);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    while ((c = getchar()) != '\n' && c != EOF);
 
+    while (!validarRenavam(vei->renavam)) {
+        printf("XXX - Renavam inválido! Digite novamente: ");
+        scanf("%11[0-9]", vei->renavam);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+    
+    // EXEMPLO DE DADOS: SUV, SEDAN, HATCH, PICAPE
     printf("Categoria do veículo: ");
     scanf("%6[A-Z]", vei->categoria);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    while ((c = getchar()) != '\n' && c != EOF);
 
+    while (!validarCategoria(vei->categoria)) {
+        printf("XXX - Categoria inválida! Digite novamente: ");
+        scanf("%6[A-Z]", vei->categoria);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+    
+    // EXEMPLO DE DADOS: Onix LTZ 1.0 Turbo, Corolla XEi, HB20 Comfort
     printf("Modelo do veículo: ");
     scanf("%30[A-Za-z0-9 ]", vei->modelo);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    while ((c = getchar()) != '\n' && c != EOF);
 
+    while (!validarModelo(vei->modelo)) {
+        printf("XXX - Modelo inválido! Digite novamente: ");
+        scanf("%30[A-Za-z0-9 ]", vei->modelo);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+
+    // EXEMPLO DE DADOS: Chevrolet, Toyota, Hyundai, Honda
     printf("Marca do veículo: ");
     scanf("%15[A-Za-z ]", vei->marca);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    while ((c = getchar()) != '\n' && c != EOF);
 
+    while (!validarMarca(vei->marca)) {
+        printf("XXX - Marca inválida! Digite novamente: ");
+        scanf("%15[A-Za-z ]", vei->marca);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+
+    // EXEMPLO DE DADOS: 2020, 2024, 2015
     printf("Ano do veículo: ");
     scanf("%4[0-9]", vei->ano);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    while ((c = getchar()) != '\n' && c != EOF);
 
+    while (!validarAno(vei->ano)) {
+        printf("XXX - Ano inválido! Digite novamente (ex: 2024): ");
+        scanf("%4[0-9]", vei->ano);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+
+    // EXEMPLO DE DADOS: CAR001, ABC123, VEI007
     printf("Código do veículo: ");
     scanf("%6[A-Z0-9]", vei->codigo_interno);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    while ((c = getchar()) != '\n' && c != EOF);
+    
+    while (!validarCodigoInterno(vei->codigo_interno)) {
+        printf("XXX - Código inválido! Digite novamente: ");
+        scanf("%6[A-Z0-9]", vei->codigo_interno);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
 
+    // EXEMPLO DE DADOS: 98500.50, 75499.99, 120000
     printf("Preço do veículo: ");
     scanf("%f", &vei->preco);
     while ((c = getchar()) != '\n' && c != EOF)
-        ;
+    
+    while (!validarPreco(vei->preco)) {
+        printf("XXX - Preço inválido! Digite novamente: ");
+        scanf("%f", &vei->preco);
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
 
     vei->status = true;
 
