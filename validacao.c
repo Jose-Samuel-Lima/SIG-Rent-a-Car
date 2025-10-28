@@ -105,6 +105,14 @@ int validarCNH(char *cnh) {
     return 1;
 }
 
+int validarIDaluguel(char *id) {
+    if (strlen(id) != 11) return 0;
+    for (int i = 0; i < 11; i++) {
+        if (!ehDigito(id[i])) return 0;
+    }
+    return 1;
+}
+
 // ==============================
 //    VALIDAÇÕES DE VEÍCULOS
 // ==============================
