@@ -305,6 +305,13 @@ void modulo_atualizar_aluguel(void)
                     scanf(" %99[^\n]", alg->nome_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+
+                    while (!validarNome(alg->nome_cliente)) {
+                        printf(" XXX - Nome inválido! Digite novamente: ");
+                        scanf("%99[^\n]", alg->nome_cliente);
+                        while ((c = getchar()) != '\n' && c != EOF);
+                    }
+
                     alt = 1;
                     break;
 
@@ -313,6 +320,13 @@ void modulo_atualizar_aluguel(void)
                     scanf("%14s", alg->cpf_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+                    
+                    while (!validarCPF(alg->cpf_cliente)) {
+                        printf("XXX - CPF inválido! Digite novamente: ");
+                        scanf("%14s", alg->cpf_cliente);
+                        while ((c = getchar()) != '\n' && c != EOF);
+                    }
+
                     alt = 1;
                     break;
                 
@@ -321,6 +335,13 @@ void modulo_atualizar_aluguel(void)
                     scanf("%11[0-9]", alg->codigo_renavam);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+                    
+                    while (!validarRenavam(alg->codigo_renavam)) {
+                        printf("XXX - Renavam inválido! Digite novamente: ");
+                        scanf("%11[0-9]", alg->codigo_renavam);
+                        while ((c = getchar()) != '\n' && c != EOF);
+                    }
+
                     alt = 1;
                     break;
                 
@@ -329,6 +350,13 @@ void modulo_atualizar_aluguel(void)
                     scanf("%30[A-Za-z0-9 ]", alg->modelo_veiculo);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+                    
+                    while (!validarModelo(alg->modelo_veiculo)) {
+                        printf("XXX - Modelo inválido! Digite novamente: ");
+                        scanf("%30[A-Za-z0-9 ]", alg->modelo_veiculo);
+                        while ((c = getchar()) != '\n' && c != EOF);
+                    }
+
                     alt = 1;
                     break;
 
@@ -337,6 +365,13 @@ void modulo_atualizar_aluguel(void)
                     scanf("%[0-9/]", alg->data_aluguel);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+
+                    while (!validarData(alg->data_aluguel)) {
+                        printf("XXX - Data inválida. Digite novamente (DD/MM/AAAA): ");
+                        scanf("%11s", alg->data_aluguel);
+                        while ((c = getchar()) != '\n' && c != EOF);
+                    }
+
                     alt = 1;
                     break;
 
@@ -345,6 +380,13 @@ void modulo_atualizar_aluguel(void)
                     scanf("%[0-9]", alg->id_aluguel);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
+                    
+                    while (!validarIDaluguel(alg->id_aluguel)) {
+                        printf("XXX - ID do aluguel inválido! Digite novamente (11 dígitos): ");
+                        scanf("%11[0-9]", alg->id_aluguel);
+                        while ((c = getchar()) != '\n' && c != EOF);
+                    }
+                    
                     alt = 1;
                     break;
 
