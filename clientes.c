@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <string.h>
 #include "clientes.h"
-#include "validacao.h"
 
 int modulo_cliente(void)
 {
@@ -94,7 +93,7 @@ void modulo_cadastrar_cliente(void)
 
     printf("Nome do cliente: ");
     scanf(" %99[^\n]", cli->nome_cliente);
-    while ((c = getchar()) != '\n' && c != EOF);
+    while ((c = getchar()) != '\n' && c != EOF)
     
     while (!validarNome(cli->nome_cliente)) {
         printf(" XXX - Nome inválido! Digite novamente: ");
@@ -104,7 +103,7 @@ void modulo_cadastrar_cliente(void)
 
     printf("CPF do cliente: ");
     scanf("%14s", cli->cpf_cliente);
-    while ((c = getchar()) != '\n' && c != EOF);
+    while ((c = getchar()) != '\n' && c != EOF)
 
     while (!validarCPF(cli->cpf_cliente)) {
         printf("XXX - CPF inválido! Digite novamente: ");
@@ -113,15 +112,9 @@ void modulo_cadastrar_cliente(void)
     }
 
     printf("Data de Nascimento do cliente: ");
-    scanf("%11s", cli->data_nascimento);
-    while ((c = getchar()) != '\n' && c != EOF);
-    
-    while (!validarData(cli->data_nascimento)) {
-        printf("XXX - Data inválida. Digite novamente (DD/MM/AAAA): ");
-        scanf("%11s", cli->data_nascimento);
-        while ((c = getchar()) != '\n' && c != EOF);
-    }
-
+    scanf("%10s", cli->data_nascimento);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
     printf("Email do cliente: ");
     scanf("%99s", cli->email_cliente);
     while ((c = getchar()) != '\n' && c != EOF);
@@ -132,13 +125,13 @@ void modulo_cadastrar_cliente(void)
         while ((c = getchar()) != '\n' && c != EOF);
     }
 
-    printf("Nova CNH do cliente: ");
-    scanf(" %19s", cli->cnh);
+    printf("CNH do cliente: ");
+    scanf("%19s", cli->cnh);
     while ((c = getchar()) != '\n' && c != EOF);
-
+    
     while (!validarCNH(cli->cnh)) {
         printf("XXX - CNH inválida! Digite novamente (somente números, 11 dígitos): ");
-        scanf(" %19s", cli->cnh);
+        scanf("%19s", cli->cnh);
         while ((c = getchar()) != '\n' && c != EOF);
     }
     
@@ -296,9 +289,6 @@ void modulo_atualizar_clientes(void)
                     scanf(" %99[^\n]", cli->nome_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
-
-                    
-
                     alt = 1;
                     break;
 
@@ -307,9 +297,6 @@ void modulo_atualizar_clientes(void)
                     scanf("%14s", cli->cpf_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
-
-                    
-
                     alt = 1;
                     break;
 
@@ -318,9 +305,6 @@ void modulo_atualizar_clientes(void)
                     scanf("%10s", cli->data_nascimento);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
-
-                    
-
                     alt = 1;
                     break;
 
@@ -329,18 +313,20 @@ void modulo_atualizar_clientes(void)
                     scanf("%99s", cli->email_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
-                    
-                    
-
                     alt = 1;
                     break;
 
                 case '5':
                     printf("Nova CNH do cliente: ");
-                    scanf(" %19s", cli->cnh);
-                    while ((c = getchar()) != '\n' && c != EOF);
+                    scanf("%19s", cli->cnh);
+                    while ((c = getchar()) != '\n' && c != EOF)
+                        ;
 
-                
+                    while (!validarCNH(cli->cnh)) {
+                        printf("XXX - CNH inválida! Digite novamente (somente números, 11 dígitos): ");
+                        scanf("%19s", cli->cnh);
+                        while ((c = getchar()) != '\n' && c != EOF);
+                    }
                     alt = 1;
                     break;
 
