@@ -70,6 +70,10 @@ int verificarNumero(char *entrada) {
     return 1;
 }
 
+// https://pt.stackoverflow.com/questions/213423/verificar-se-uma-data-é-válida-ou-não-em-c
+// Código original que foi utilizado para complementar validarData.
+// Autor: Mercador; Perfil: https://pt.stackoverflow.com/users/17607/mercador
+
 int validarData(char *data) {
     if (strlen(data) != 10) return 0;
     if (!(ehDigito(data[0]) && ehDigito(data[1]) && 
