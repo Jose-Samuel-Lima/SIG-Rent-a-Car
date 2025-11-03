@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "clientes.h"
+#include "validacao.h"
 
 int modulo_cliente(void)
 {
