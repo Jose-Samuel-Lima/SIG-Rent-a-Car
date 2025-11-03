@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "alugueis.h"
+#include "validacao.h"
 
 int modulo_aluguel(void)
 {
