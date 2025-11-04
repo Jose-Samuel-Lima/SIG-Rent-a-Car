@@ -309,6 +309,7 @@ void modulo_atualizar_clientes(void)
                     break;
 
                 case '2':
+                    printf("---------------------------\n");
                     printf("[+] - Novo CPF do cliente: ");
                     scanf("%14s", cli->cpf_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
@@ -323,6 +324,7 @@ void modulo_atualizar_clientes(void)
                     break;
 
                 case '3':
+                    printf("---------------------------\n");
                     printf("[+] - Nova Data de Nasc. do cliente: ");
                     scanf("%10s", cli->data_nascimento);
                     while ((c = getchar()) != '\n' && c != EOF)
@@ -337,6 +339,7 @@ void modulo_atualizar_clientes(void)
                     break;
 
                 case '4':
+                    printf("---------------------------\n");
                     printf("[+] - Novo email do cliente: ");
                     scanf("%99s", cli->email_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
@@ -351,6 +354,7 @@ void modulo_atualizar_clientes(void)
                     break;
 
                 case '5':
+                    printf("---------------------------\n");
                     printf("[+] - Nova CNH do cliente: ");
                     scanf("%19s", cli->cnh);
                     while ((c = getchar()) != '\n' && c != EOF)
@@ -446,8 +450,8 @@ void modulo_excluir_cliente(void)
             fwrite(cli, sizeof(Cliente), 1, arq_cliente);
             encontrado = true;
 
-            printf("------------------------------\n");
-            printf("Cliente excluido com sucesso!\n");
+            printf("-----------------------------------\n");
+            printf("[o] - Cliente excluido com sucesso!\n");
             break;
             }
         }

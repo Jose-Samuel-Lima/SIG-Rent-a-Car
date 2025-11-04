@@ -59,7 +59,7 @@ int modulo_tela_veiculos(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Escolha uma das opções acima: \n");
+    printf("[>] - Escolha uma das opções acima: ");
     scanf(" %d", &op_veiculo);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -86,7 +86,7 @@ void modulo_cadastrar_veiculo(void)
     printf("#=====================================================================#\n\n");
 
     // EXEMPLO DE DADOS: ABC1234
-    printf("Placa do veículo: ");
+    printf("[+] - Placa do veículo: ");
     scanf("%7[A-Z0-9]", vei->placa);
     while ((c = getchar()) != '\n' && c != EOF);
     
@@ -97,7 +97,7 @@ void modulo_cadastrar_veiculo(void)
     }
 
     // EXEMPLO DE DADOS: 9BWZZZ377VT004251
-    printf("Chassi do veículo: ");
+    printf("[+] - Chassi do veículo: ");
     scanf("%17[A-HJ-NP-Z0-9]", vei->chassi);
     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -108,7 +108,7 @@ void modulo_cadastrar_veiculo(void)
     }
 
     // EXEMPLO DE DADOS: 12345678901
-    printf("Renavam do veículo: ");
+    printf("[+] - Renavam do veículo: ");
     scanf("%11[0-9]", vei->renavam);
     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -119,7 +119,7 @@ void modulo_cadastrar_veiculo(void)
     }
     
     // EXEMPLO DE DADOS: SUV, SEDAN, HATCH, PICAPE
-    printf("Categoria do veículo: ");
+    printf("[+] - Categoria do veículo: ");
     scanf("%6[A-Z]", vei->categoria);
     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -130,7 +130,7 @@ void modulo_cadastrar_veiculo(void)
     }
     
     // EXEMPLO DE DADOS: Onix LTZ 1.0 Turbo, Corolla XEi, HB20 Comfort
-    printf("Modelo do veículo: ");
+    printf("[+] - Modelo do veículo: ");
     scanf("%30[A-Za-z0-9 ]", vei->modelo);
     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -141,7 +141,7 @@ void modulo_cadastrar_veiculo(void)
     }
 
     // EXEMPLO DE DADOS: Chevrolet, Toyota, Hyundai, Honda
-    printf("Marca do veículo: ");
+    printf("[+] - Marca do veículo: ");
     scanf("%15[A-Za-z ]", vei->marca);
     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -152,7 +152,7 @@ void modulo_cadastrar_veiculo(void)
     }
 
     // EXEMPLO DE DADOS: 2020, 2024, 2015
-    printf("Ano do veículo: ");
+    printf("[+] - Ano do veículo: ");
     scanf("%4[0-9]", vei->ano);
     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -163,7 +163,7 @@ void modulo_cadastrar_veiculo(void)
     }
 
     // EXEMPLO DE DADOS: CAR001, ABC123, VEI007
-    printf("Código do veículo: ");
+    printf("[+] - Código do veículo: ");
     scanf("%6[A-Z0-9]", vei->codigo_interno);
     while ((c = getchar()) != '\n' && c != EOF);
     
@@ -174,7 +174,7 @@ void modulo_cadastrar_veiculo(void)
     }
 
     // EXEMPLO DE DADOS: 98500.50, 75499.99, 120000
-    printf("Preço do veículo: ");
+    printf("[+] - Preço do veículo: ");
     scanf("%f", &vei->preco);
     while ((c = getchar()) != '\n' && c != EOF);
     
@@ -190,8 +190,8 @@ void modulo_cadastrar_veiculo(void)
 
     if (arq_veiculo == NULL)
     {
-        printf("Erro na criação do arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro na criação do arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -200,9 +200,9 @@ void modulo_cadastrar_veiculo(void)
 
     fclose(arq_veiculo);
     free(vei);
-
-    printf("Veículo Registrado com Sucesso!\n");
-    printf("Pressione Enter para continuar...");
+    printf("----------------------------------------\n");
+    printf("[o] - Veículo Registrado com Sucesso!\n");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 
@@ -214,8 +214,8 @@ void modulo_dados_veiculo(void)
     arq_veiculo = fopen("veiculo.dat","rb");
 
     if (arq_veiculo == NULL){
-        printf("Erro ao abrir o arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro ao abrir o arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -239,27 +239,28 @@ void modulo_dados_veiculo(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o Código interno para encontrar o veículo desejado: \n");
+    printf("[>] - Informe o Código interno para encontrar o veículo desejado: ");
     scanf("%7s", cod_veiculo_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
      while (fread(vei,sizeof(Veiculo),1,arq_veiculo)){
 
         if (strcmp(cod_veiculo_ler, vei->codigo_interno) == 0 && vei->status == true) {
-            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t < = = Veículo Encontrado! = = >\n");
-            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Placa: %s\n", vei->placa);
-            printf("\t\t Chassi: %s\n", vei->chassi);
-            printf("\t\t Renavam.: %s\n", vei->renavam);
-            printf("\t\t Categoria: %s\n", vei->categoria);
-            printf("\t\t Modelo: %s\n", vei->modelo);
-            printf("\t\t Marca: %s\n", vei->marca);
-            printf("\t\t Ano: %s\n", vei->ano);
-            printf("\t\t Código Interno: %s\n", vei->codigo_interno);
-            printf("\t\t Preço: %f\n", vei->preco);
-            printf("\n");
-            printf("\t\t Pressione Enter para continuar...");
+            printf("--------------------------------\n");
+            printf("T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("< = = Veículo Encontrado! = = >\n");
+            printf("T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("Placa: %s\n", vei->placa);
+            printf("Chassi: %s\n", vei->chassi);
+            printf("Renavam.: %s\n", vei->renavam);
+            printf("Categoria: %s\n", vei->categoria);
+            printf("Modelo: %s\n", vei->modelo);
+            printf("Marca: %s\n", vei->marca);
+            printf("Ano: %s\n", vei->ano);
+            printf("Código Interno: %s\n", vei->codigo_interno);
+            printf("Preço: %f\n", vei->preco);
+            printf("--------------------------------\n");
+            printf("[>] - Pressione Enter para continuar...");
             getchar();
             return;
         }
@@ -267,8 +268,8 @@ void modulo_dados_veiculo(void)
 
     fclose(arq_veiculo);
     free(vei);
-    printf("Veículo não encontrado!\n");
-    printf("Pressione Enter para continuar...");
+    printf("XXX - Veículo não encontrado!\n");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 
@@ -280,8 +281,8 @@ void modulo_atualizar_veiculo(void)
     arq_veiculo = fopen("veiculo.dat","r+b");
 
     if (arq_veiculo == NULL){
-        printf("Erro ao abrir o arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro ao abrir o arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -308,7 +309,7 @@ void modulo_atualizar_veiculo(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o Código Interno para encontrar o veículo e atualizar seus dados: \n");
+    printf("[>] - Informe o Código Interno para encontrar o veículo e atualizar seus dados: ");
     scanf("%7s", cod_veiculo_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -318,9 +319,8 @@ void modulo_atualizar_veiculo(void)
             veiculo_encontrado = true;
         
             system("clear||cls");
-            printf("Veículo encontrado!\n");
-            printf("Informe qual informação deseja alterar:\n");
-            printf("\n");
+            printf("---------------------------\n");
+            printf("[o] - Veículo encontrado!\n");
             printf("---------------------------\n");
             printf("[1] Nova Placa\n");
             printf("[2] Nova Chassi\n");
@@ -332,7 +332,8 @@ void modulo_atualizar_veiculo(void)
             printf("[8] Novo código_interno\n");
             printf("[9] Novo preço\n");
             printf("[0] Cancelar\n");
-            printf("-----------------------\n");
+            printf("---------------------------\n");
+            printf("[>] - Informe qual informação deseja alterar: ");
             scanf(" %c", &op_veiculo);
             while ((c = getchar()) != '\n' && c != EOF)
                 ;
@@ -341,7 +342,8 @@ void modulo_atualizar_veiculo(void)
 
             switch(op_veiculo){
                 case '1':
-                    printf("Nova placa: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Nova placa: ");
                     scanf("%7[A-Z0-9]", vei->placa);
                     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -354,7 +356,8 @@ void modulo_atualizar_veiculo(void)
                     break;
 
                 case '2':
-                    printf("Novo chassi: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo chassi: ");
                     scanf("%17[A-HJ-NP-Z0-9]", vei->chassi);
                     while ((c = getchar()) != '\n' && c != EOF);
                     
@@ -367,7 +370,8 @@ void modulo_atualizar_veiculo(void)
                     break;
 
                 case '3':
-                    printf("Novo Renavam: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo Renavam: ");
                     scanf("%11[0-9]", vei->renavam);
                     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -380,6 +384,7 @@ void modulo_atualizar_veiculo(void)
                     break;
                 
                 case '4':
+                    printf("---------------------------\n");
                     printf("Nova categoria: ");
                     scanf("%6[A-Z]", vei->categoria);
                     while ((c = getchar()) != '\n' && c != EOF);
@@ -392,8 +397,9 @@ void modulo_atualizar_veiculo(void)
                     alt = 1;
                     break;
 
-                case '5':
-                    printf("Novo modelo: ");
+                case '5':  
+                    printf("---------------------------\n");
+                    printf("[+] - Novo modelo: ");
                     scanf("%30[A-Za-z0-9 ]", vei->modelo);
                     while ((c = getchar()) != '\n' && c != EOF);
                     
@@ -406,7 +412,8 @@ void modulo_atualizar_veiculo(void)
                     break;
 
                 case '6':
-                    printf("Nova marca: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Nova marca: ");
                     scanf("%15[A-Za-z ]", vei->marca);
                     while ((c = getchar()) != '\n' && c != EOF);
                     
@@ -419,7 +426,8 @@ void modulo_atualizar_veiculo(void)
                     break;
 
                 case '7':
-                    printf("Novo ano: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo ano: ");
                     scanf("%4[0-9]", vei->ano);
                     while ((c = getchar()) != '\n' && c != EOF);
                     
@@ -432,7 +440,8 @@ void modulo_atualizar_veiculo(void)
                     break;
 
                 case '8':
-                    printf("Novo código_interno: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo código_interno: ");
                     scanf("%6[A-Z0-9]", vei->codigo_interno);
                     while ((c = getchar()) != '\n' && c != EOF);
                     
@@ -445,7 +454,8 @@ void modulo_atualizar_veiculo(void)
                     break;
 
                 case '9':
-                    printf("Novo preço: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo preço: ");
                     scanf("%f", &vei->preco);
                     while ((c = getchar()) != '\n' && c != EOF);
                     
@@ -462,14 +472,14 @@ void modulo_atualizar_veiculo(void)
                     break;
                 
                 default:
-                    printf("Opção inválida. Nenhum dado alterado!\n");
+                    printf("XXX - Opção inválida. Nenhum dado alterado!\n");
                     break;
             }
             if (alt){
                 fseek(arq_veiculo, -sizeof(Veiculo), SEEK_CUR);
                 fwrite(vei, sizeof(Veiculo), 1,arq_veiculo);
                 fflush(arq_veiculo);
-                printf("Dado(s) alterado(s) com sucesso!\n");
+                printf("[o] - Dado(s) alterado(s) com sucesso!\n");
             }
 
             break;
@@ -477,12 +487,12 @@ void modulo_atualizar_veiculo(void)
     }
 
     if (!veiculo_encontrado){
-        printf("Veículo não encontrado!\n"); 
+        printf("XXX - Veículo não encontrado!\n"); 
     }
 
     fclose(arq_veiculo);
     free(vei);
-    printf("Pressione <Enter> para continuar...");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 
@@ -512,7 +522,7 @@ void modulo_excluir_veiculo(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o Código Interno  para encontrar o veículo que deseja excluir: \n");
+    printf("[>] - Informe o Código Interno  para encontrar o veículo que deseja excluir: ");
     scanf("%7s", cod_veiculo_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -522,8 +532,8 @@ void modulo_excluir_veiculo(void)
     arq_veiculo = fopen("veiculo.dat","r+b");
 
     if (arq_veiculo == NULL){
-        printf("Erro ao entrar no arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro ao entrar no arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -537,7 +547,8 @@ void modulo_excluir_veiculo(void)
             fwrite(vei, sizeof(Veiculo),1, arq_veiculo);
             veiculo_encontrado = true;
 
-            printf("Veículo excluído com sucesso!\n");
+            printf("-----------------------------------\n");
+            printf("[o] - Veículo excluído com sucesso!\n");
             break;
             }
         }
@@ -545,10 +556,10 @@ void modulo_excluir_veiculo(void)
     free(vei);
 
     if (!veiculo_encontrado){
-            printf("Veículo não encontrado...\n");
+            printf("XXX - Veículo não encontrado...\n");
         }
 
-    printf("Pressione Enter para continuar...");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
     
 }
