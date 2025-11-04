@@ -479,6 +479,7 @@ void modulo_atualizar_veiculo(void)
                 fseek(arq_veiculo, -sizeof(Veiculo), SEEK_CUR);
                 fwrite(vei, sizeof(Veiculo), 1,arq_veiculo);
                 fflush(arq_veiculo);
+                printf("------------------------00-------------\n");
                 printf("[o] - Dado(s) alterado(s) com sucesso!\n");
             }
 

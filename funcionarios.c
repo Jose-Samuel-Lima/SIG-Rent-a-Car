@@ -375,6 +375,7 @@ void modulo_atualizar_funcionario(void)
                 fseek(arq_funcionario, -sizeof(Funcionario), SEEK_CUR);
                 fwrite(fun, sizeof(Funcionario), 1,arq_funcionario);
                 fflush(arq_funcionario);
+                printf("-----------------------000--------------\n");
                 printf("[o] - Dado(s) alterado(s) com sucesso!\n");
             }
 
@@ -383,12 +384,12 @@ void modulo_atualizar_funcionario(void)
     }
 
     if (!func_encontrado){
-        printf("Funcionário não encontrado!\n"); 
+        printf("XXX - Funcionário não encontrado!\n"); 
     }
 
     fclose(arq_funcionario);
     free(fun);
-    printf("Pressione <Enter> para continuar...");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 

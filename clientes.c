@@ -382,6 +382,7 @@ void modulo_atualizar_clientes(void)
                 fseek(arq_cliente, -sizeof(Cliente), SEEK_CUR);
                 fwrite(cli, sizeof(Cliente), 1, arq_cliente);
                 fflush(arq_cliente);
+                printf("----------------------------------------\n");
                 printf("[o] - Dado(s) alterado(s) com sucesso!\n");
 
             }

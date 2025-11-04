@@ -58,7 +58,7 @@ int modulo_tela_alugueis(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Escolha uma das opções acima: \n");
+    printf("[>] - Escolha uma das opções acima: ");
     scanf(" %d", &op);
     while ((c = getchar()) != '\n' && c != EOF);
     printf("Processando...\n");
@@ -89,7 +89,7 @@ void modulo_cadastrar_aluguel(void)
     printf("#=====================================================================#\n");
     printf("\n");
 
-    printf("Nome do cliente: ");
+    printf("[+] - Nome do cliente: ");
     scanf(" %99[^\n]", alg->nome_cliente);
     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -99,7 +99,7 @@ void modulo_cadastrar_aluguel(void)
         while ((c = getchar()) != '\n' && c != EOF);
     }
 
-    printf("CPF do cliente: ");
+    printf("[+] - CPF do cliente: ");
     scanf("%14s", alg->cpf_cliente);
     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -109,7 +109,7 @@ void modulo_cadastrar_aluguel(void)
         while ((c = getchar()) != '\n' && c != EOF);
     }
 
-    printf("Renavam do veículo: ");
+    printf("[+] - Renavam do veículo: ");
     scanf("%11[0-9]", alg->codigo_renavam);
     while ((c = getchar()) != '\n' && c != EOF);
         
@@ -119,7 +119,7 @@ void modulo_cadastrar_aluguel(void)
         while ((c = getchar()) != '\n' && c != EOF);
     }
 
-    printf("Modelo do veículo: ");
+    printf("[+] - Modelo do veículo: ");
     scanf("%30[A-Za-z0-9 ]", alg->modelo_veiculo);
     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -129,7 +129,7 @@ void modulo_cadastrar_aluguel(void)
         while ((c = getchar()) != '\n' && c != EOF);
     }
 
-    printf("Data do Fim do aluguel: ");
+    printf("[+] - Data do Fim do aluguel: ");
     scanf("%11s", alg->data_aluguel);
     while ((c = getchar()) != '\n' && c != EOF)
 
@@ -139,7 +139,7 @@ void modulo_cadastrar_aluguel(void)
         while ((c = getchar()) != '\n' && c != EOF);
     }
 
-    printf("ID de identificação do aluguel: ");
+    printf("[+] - ID de identificação do aluguel: ");
     scanf("%11[0-9]", alg->id_aluguel);
     while ((c = getchar()) != '\n' && c != EOF);
     
@@ -155,8 +155,8 @@ void modulo_cadastrar_aluguel(void)
 
     if (arq_aluguel == NULL)
     {
-        printf("Erro na criação do arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro na criação do arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -165,8 +165,9 @@ void modulo_cadastrar_aluguel(void)
 
     fclose(arq_aluguel);
     free(alg);
-    printf("Aluguel Registrado com Sucesso!\n");
-    printf("Pressione Enter para continuar...");
+    printf("-----------------------------------------\n");
+    printf("[o] - Aluguel Registrado com Sucesso!\n");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
     
 }
@@ -179,8 +180,8 @@ void modulo_dados_aluguel(void)
     arq_aluguel = fopen("aluguel.dat","rb");
 
     if (arq_aluguel == NULL){
-        printf("Erro ao abrir o arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro ao abrir o arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -204,13 +205,14 @@ void modulo_dados_aluguel(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o Id do aluguel que deseja encontrar: \n");
+    printf("[>] - Informe o Id do aluguel que deseja encontrar: ");
     scanf("%11s", id_aluguel_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     while (fread(alg,sizeof(Aluguel),1,arq_aluguel)) {
 
         if (strcmp(id_aluguel_ler,alg->id_aluguel) == 0 && alg->status == true) {
+            printf("----------------------------------------\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
             printf("\t\t < = = Aluguel Encontrado! = = >\n");
             printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
@@ -220,8 +222,8 @@ void modulo_dados_aluguel(void)
             printf("\t\t Modelo do Veículo: %s\n", alg->modelo_veiculo);
             printf("\t\t Data de Finalização: %s\n", alg->data_aluguel);
             printf("\t\t ID do Aluguel: %s\n", alg->id_aluguel);
-            printf("\n");
-            printf("\t\t Pressione Enter para continuar...");
+            printf("----------------------------------------\n");
+            printf("[>] - Pressione Enter para continuar...");
             getchar();
             return;
         }
@@ -230,8 +232,8 @@ void modulo_dados_aluguel(void)
     
     fclose(arq_aluguel);
     free(alg);
-    printf("Aluguel não encontrado!\n");
-    printf("Pressione Enter para continuar...");
+    printf("XXX - Aluguel não encontrado!\n");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
     
 }
@@ -245,8 +247,8 @@ void modulo_atualizar_aluguel(void)
     arq_aluguel = fopen("aluguel.dat","r+b");
 
     if (arq_aluguel == NULL){
-        printf("Erro ao entrar no arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro ao entrar no arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -272,7 +274,7 @@ void modulo_atualizar_aluguel(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o Id do aluguel para alterar os dados: \n");
+    printf("[>] - Informe o Id do aluguel para alterar os dados: ");
     scanf("%11s", id_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -282,10 +284,9 @@ void modulo_atualizar_aluguel(void)
             aluguel_encontrado = true;
 
             system("clear||cls");
+            printf("---------------------------------------\n");
             printf("Aluguel encontrado!\n");
-            printf("Informe qual informação deseja alterar:\n");
-            printf("\n");
-            printf("---------------------------\n");
+            printf("---------------------------------------\n");
             printf("[1] Novo Nome: \n");
             printf("[2] Novo CPF: \n");
             printf("[3] Novo Código RENAVAM: \n");
@@ -293,7 +294,8 @@ void modulo_atualizar_aluguel(void)
             printf("[5] Nova Data Final: \n");
             printf("[6] Novo Id: \n");
             printf("[0] Cancelar\n");
-            printf("---------------------------\n");
+            printf("---------------------------------------\n");
+            printf("[>] - Informe qual informação deseja alterar:\n");
             scanf(" %c", &op_aluguel);
             while ((c = getchar()) != '\n' && c != EOF)
                 ;
@@ -302,7 +304,8 @@ void modulo_atualizar_aluguel(void)
 
             switch (op_aluguel){
                 case '1':
-                    printf("Novo nome do cliente: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo nome do cliente: ");
                     scanf(" %99[^\n]", alg->nome_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
@@ -317,7 +320,8 @@ void modulo_atualizar_aluguel(void)
                     break;
 
                 case '2':
-                    printf("Novo CPF do cliente: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo CPF do cliente: ");
                     scanf("%14s", alg->cpf_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
@@ -332,7 +336,8 @@ void modulo_atualizar_aluguel(void)
                     break;
                 
                 case '3':
-                    printf("Novo Renavam: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo Renavam: ");
                     scanf("%11[0-9]", alg->codigo_renavam);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
@@ -347,7 +352,8 @@ void modulo_atualizar_aluguel(void)
                     break;
                 
                 case '4':
-                    printf("Novo Modelo: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo Modelo: ");
                     scanf("%30[A-Za-z0-9 ]", alg->modelo_veiculo);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
@@ -361,8 +367,9 @@ void modulo_atualizar_aluguel(void)
                     alt = 1;
                     break;
 
-                case '5':
-                    printf("Novo data final: ");
+                case '5':  
+                    printf("---------------------------\n");
+                    printf("[+] - Novo data final: ");
                     scanf("%[0-9/]", alg->data_aluguel);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
@@ -377,7 +384,8 @@ void modulo_atualizar_aluguel(void)
                     break;
 
                 case '6':
-                    printf("Novo ID de identificação do aluguel: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo ID de identificação do aluguel: ");
                     scanf("%[0-9]", alg->id_aluguel);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
@@ -396,7 +404,7 @@ void modulo_atualizar_aluguel(void)
                     break;
                 
                 default:
-                    printf("Opção inválida. Nenhum dado alterado.\n");
+                    printf("XXX - Opção inválida. Nenhum dado alterado.\n");
                     break;
             }
 
@@ -405,7 +413,8 @@ void modulo_atualizar_aluguel(void)
             fseek(arq_aluguel, -sizeof(Aluguel), SEEK_CUR);
             fwrite(alg, sizeof(Aluguel), 1, arq_aluguel);
             fflush(arq_aluguel);
-            printf("Dado(s) alterado(s) com sucesso!\n");
+            printf("----------------------------------------\n");
+            printf("[o] - Dado(s) alterado(s) com sucesso!\n");
 
             }
             break;
@@ -413,12 +422,12 @@ void modulo_atualizar_aluguel(void)
     }
 
     if (!aluguel_encontrado){
-        printf("Aluguel não encontrado!\n");
+        printf("XXX - Aluguel não encontrado!\n");
     }
 
     fclose(arq_aluguel);
     free(alg);
-    printf("Pressione Enter para continuar...");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 
@@ -431,8 +440,8 @@ void modulo_finalizar_aluguel(void)
     arq_aluguel = fopen("aluguel.dat","r+b");
 
     if (arq_aluguel == NULL){
-        printf("Erro ao abrir o arquivo!\n");
-        printf("Pressione Enter para continuar...");
+        printf("XXX- Erro ao abrir o arquivo!\n");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -457,7 +466,7 @@ void modulo_finalizar_aluguel(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o Id do aluguel que deseja excluir: \n");
+    printf("[>] - Informe o Id do aluguel que deseja excluir: ");
     scanf("%11s", id_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -471,7 +480,8 @@ void modulo_finalizar_aluguel(void)
             fwrite(alg, sizeof(Aluguel), 1, arq_aluguel);
             aluguel_encontrado = true;
 
-            printf("Aluguel excluido com sucesso!\n");
+            printf("-------------------------------------\n");
+            printf("[o] - Aluguel excluido com sucesso!\n");
             break;
             }
         }
@@ -479,9 +489,9 @@ void modulo_finalizar_aluguel(void)
     fclose(arq_aluguel);
     free(alg);
     if (!aluguel_encontrado){
-        printf("Aluguel não encontrado!\n");
+        printf("XXX - Aluguel não encontrado!\n");
     }
 
-    printf("Pressione Enter para continuar...");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
