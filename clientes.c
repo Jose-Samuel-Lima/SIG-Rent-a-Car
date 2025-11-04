@@ -59,7 +59,7 @@ int modulo_tela_cliente(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Escolha uma das opções acima: \n");
+    printf("[>] - Escolha uma das opções acima: ");
     scanf(" %d", &op);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -92,7 +92,7 @@ void modulo_cadastrar_cliente(void)
     printf("#=====================================================================#\n");
     printf("\n");
 
-    printf("Nome do cliente: ");
+    printf("[+] - Nome do cliente: ");
     scanf(" %99[^\n]", cli->nome_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
     
@@ -102,7 +102,7 @@ void modulo_cadastrar_cliente(void)
         while ((c = getchar()) != '\n' && c != EOF);
     }
 
-    printf("CPF do cliente: ");
+    printf("[+] - CPF do cliente: ");
     scanf("%14s", cli->cpf_cliente);
     while ((c = getchar()) != '\n' && c != EOF)
 
@@ -112,7 +112,7 @@ void modulo_cadastrar_cliente(void)
         while ((c = getchar()) != '\n' && c != EOF);
     }
 
-    printf("Data de Nascimento do cliente: ");
+    printf("[+] - Data de Nascimento do cliente: ");
     scanf("%11s", cli->data_nascimento);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -122,7 +122,7 @@ void modulo_cadastrar_cliente(void)
         while ((c = getchar()) != '\n' && c != EOF);
     }
 
-    printf("Email do cliente: ");
+    printf("[+] - Email do cliente: ");
     scanf("%99s", cli->email_cliente);
     while ((c = getchar()) != '\n' && c != EOF);
     
@@ -132,7 +132,7 @@ void modulo_cadastrar_cliente(void)
         while ((c = getchar()) != '\n' && c != EOF);
     }
 
-    printf("CNH do cliente: ");
+    printf("[+] - CNH do cliente: ");
     scanf("%19s", cli->cnh);
     while ((c = getchar()) != '\n' && c != EOF);
     
@@ -147,8 +147,8 @@ void modulo_cadastrar_cliente(void)
     arq_cliente = fopen("cliente.dat","ab");
 
     if (arq_cliente == NULL){
-        printf("Erro ao abrir o arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro ao abrir o arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -158,8 +158,9 @@ void modulo_cadastrar_cliente(void)
     fclose(arq_cliente);
     free(cli);
 
-    printf("Cliente Registrado com Sucesso!\n");
-    printf("Pressione Enter para continuar...");
+    printf("-----------------------------------------\n");
+    printf("[o] - Cliente Registrado com Sucesso!\n");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 
@@ -171,8 +172,8 @@ void modulo_dados_cliente(void)
     arq_cliente = fopen("cliente.dat","rb");
 
     if (arq_cliente == NULL){
-        printf("Erro ao abrir o arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro ao abrir o arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -196,7 +197,8 @@ void modulo_dados_cliente(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("\t\tInforme o CPf do cliente que deseja encontrar: \n");
+    printf("[>] - Informe o CPf do cliente que deseja encontrar: ");
+    
     scanf("%15s", cpf_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -204,16 +206,17 @@ void modulo_dados_cliente(void)
     while (fread(cli,sizeof(Cliente),1,arq_cliente)) {
 
         if (strcmp(cpf_ler,cli->cpf_cliente) == 0 && cli->status == true) {
-            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t < = = Cliente Encontrado! = = >\n");
-            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Nome: %s\n", cli->nome_cliente);
-            printf("\t\t CPF: %s\n", cli->cpf_cliente);
-            printf("\t\t Data Nasci.: %s\n", cli->data_nascimento);
-            printf("\t\t Email: %s\n", cli->email_cliente);
-            printf("\t\t CNH: %s\n", cli->cnh);
-            printf("\n");
-            printf("\t\t Pressione Enter para continuar...");
+            printf("-------------------------------\n");
+            printf("T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("< = = Cliente Encontrado! = = >\n");
+            printf("T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("Nome: %s\n", cli->nome_cliente);
+            printf("CPF: %s\n", cli->cpf_cliente);
+            printf("Data Nasci.: %s\n", cli->data_nascimento);
+            printf("Email: %s\n", cli->email_cliente);
+            printf("CNH: %s\n", cli->cnh);
+            printf("-------------------------------\n");
+            printf("[>] - Pressione Enter para continuar...");
             getchar();
             return;
         }
@@ -222,8 +225,8 @@ void modulo_dados_cliente(void)
 
     fclose(arq_cliente);
     free(cli);
-    printf("Cliente não encontrado!\n");
-    printf("Pressione Enter para continuar...");
+    printf("XXX - Cliente não encontrado!\n");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 
@@ -235,8 +238,8 @@ void modulo_atualizar_clientes(void)
     arq_cliente = fopen("cliente.dat","r+b");
 
     if (arq_cliente == NULL){
-        printf("Erro ao abrir o arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro ao abrir o arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -262,7 +265,7 @@ void modulo_atualizar_clientes(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o CPf do cliente para alterar os dados: \n");
+    printf("[>] - Informe o CPf do cliente para alterar os dados: ");
     scanf("%15s", cpf_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -273,9 +276,8 @@ void modulo_atualizar_clientes(void)
             encontrado = true;
 
             system("clear||cls");
-            printf("Cliente encontrado!\n");
-            printf("Informe qual informação deseja alterar:\n");
-            printf("\n");
+            printf("---------------------------\n");
+            printf("[o] - Cliente encontrado!\n");
             printf("---------------------------\n");
             printf("[1] Novo Nome\n");
             printf("[2] Novo Cpf\n");
@@ -284,6 +286,7 @@ void modulo_atualizar_clientes(void)
             printf("[5] Nova CNH\n");
             printf("[0] Cancelar\n");
             printf("---------------------------\n");
+            printf("[>] - Informe qual informação deseja alterar: ");
             scanf(" %c", &opcao);
             while ((c = getchar()) != '\n' && c != EOF)
                 ;
@@ -292,7 +295,8 @@ void modulo_atualizar_clientes(void)
 
             switch(opcao){
                 case '1':
-                    printf("Novo nome do cliente: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo nome do cliente: ");
                     scanf(" %99[^\n]", cli->nome_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
@@ -305,7 +309,7 @@ void modulo_atualizar_clientes(void)
                     break;
 
                 case '2':
-                    printf("Novo CPF do cliente: ");
+                    printf("[+] - Novo CPF do cliente: ");
                     scanf("%14s", cli->cpf_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
@@ -319,7 +323,7 @@ void modulo_atualizar_clientes(void)
                     break;
 
                 case '3':
-                    printf("Nova Data de Nasc. do cliente: ");
+                    printf("[+] - Nova Data de Nasc. do cliente: ");
                     scanf("%10s", cli->data_nascimento);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
@@ -333,7 +337,7 @@ void modulo_atualizar_clientes(void)
                     break;
 
                 case '4':
-                    printf("Novo email do cliente: ");
+                    printf("[+] - Novo email do cliente: ");
                     scanf("%99s", cli->email_cliente);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
@@ -347,7 +351,7 @@ void modulo_atualizar_clientes(void)
                     break;
 
                 case '5':
-                    printf("Nova CNH do cliente: ");
+                    printf("[+] - Nova CNH do cliente: ");
                     scanf("%19s", cli->cnh);
                     while ((c = getchar()) != '\n' && c != EOF)
                         ;
@@ -365,7 +369,7 @@ void modulo_atualizar_clientes(void)
                     break;
 
                 default:
-                    printf("Opção inválida. Nenhum dado alterado.\n");
+                    printf("XXX - Opção inválida. Nenhum dado alterado.\n");
                     break;
 
             }
@@ -374,7 +378,7 @@ void modulo_atualizar_clientes(void)
                 fseek(arq_cliente, -sizeof(Cliente), SEEK_CUR);
                 fwrite(cli, sizeof(Cliente), 1, arq_cliente);
                 fflush(arq_cliente);
-                printf("Dado(s) alterado(s) com sucesso!\n");
+                printf("[o] - Dado(s) alterado(s) com sucesso!\n");
 
             }
             
@@ -383,12 +387,12 @@ void modulo_atualizar_clientes(void)
     }
 
     if (!encontrado){
-        printf("Cliente não encontrado!\n");
+        printf("XXX - Cliente não encontrado!\n");
     }
 
     fclose(arq_cliente);
     free(cli);
-    printf("Pressione Enter para continuar...");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 
@@ -417,7 +421,7 @@ void modulo_excluir_cliente(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o CPf do cliente que deseja excluir:\n");
+    printf("[>] - Informe o CPf do cliente que deseja excluir: ");
     scanf("%15s", cpf_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -427,8 +431,8 @@ void modulo_excluir_cliente(void)
     arq_cliente = fopen("cliente.dat","r+b");
 
     if (arq_cliente == NULL){
-        printf("Erro ao entrar no arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro ao entrar no arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -442,6 +446,7 @@ void modulo_excluir_cliente(void)
             fwrite(cli, sizeof(Cliente), 1, arq_cliente);
             encontrado = true;
 
+            printf("------------------------------\n");
             printf("Cliente excluido com sucesso!\n");
             break;
             }
@@ -450,10 +455,10 @@ void modulo_excluir_cliente(void)
     fclose(arq_cliente);
     free(cli);
     if (!encontrado){
-            printf("Cliente não encontrado..\n");
+            printf("XXX - Cliente não encontrado..\n");
         }
 
-    printf("Pressione Enter para continuar...");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
     
 }
