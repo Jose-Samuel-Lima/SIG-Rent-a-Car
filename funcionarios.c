@@ -59,7 +59,7 @@ int modulo_tela_funcionario(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Escolha uma das opções acima: \n");
+    printf("[>] - Escolha uma das opções acima: ");
     scanf(" %d", &op_funcionario);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -147,8 +147,8 @@ void modulo_cadastrar_funcionario(void)
     arq_funcionario = fopen("funcionario.dat","ab");
 
     if (arq_funcionario == NULL){
-        printf("Erro na criação do arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro na criação do arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -158,8 +158,9 @@ void modulo_cadastrar_funcionario(void)
     fclose(arq_funcionario);
     free(fun);
 
-    printf("Funcionário Registrado com Sucesso!\n");
-    printf("Pressione Enter para continuar...");
+    printf("-----------------------------------------\n");
+    printf("[o] - Funcionário Registrado com Sucesso!\n");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 
@@ -171,8 +172,8 @@ void modulo_dados_funcionario(void)
     arq_funcionario = fopen("funcionario.dat","rb");
 
     if (arq_funcionario == NULL){
-        printf("Erro na criação do arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro na criação do arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -196,23 +197,24 @@ void modulo_dados_funcionario(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o CPf do funcionário que deseja encontrar: \n");
+    printf("[>] - Informe o CPf do funcionário que deseja encontrar: ");
     scanf("%15s", cpf_funcionario_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
     while (fread(fun,sizeof(Funcionario),1,arq_funcionario)){
 
         if (strcmp(cpf_funcionario_ler,fun->cpf_funcionario) == 0 && fun->status == true) {
-            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t < = = Funcionário Encontrado! = = >\n");
-            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Nome: %s\n", fun->nome_funcionario);
-            printf("\t\t CPF: %s\n", fun->cpf_funcionario);
-            printf("\t\t Data Nasci.: %s\n", fun->dt_nascimento_fun);
-            printf("\t\t Email: %s\n", fun->email_funcionario);
-            printf("\t\t CNH: %s\n", fun->cargo);
-            printf("\n");
-            printf("\t\t Pressione Enter para continuar...");
+            printf("------------------------------------\n");
+            printf("T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("< = = Funcionário Encontrado! = = >\n");
+            printf("T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("Nome: %s\n", fun->nome_funcionario);
+            printf("CPF: %s\n", fun->cpf_funcionario);
+            printf("Data Nasci.: %s\n", fun->dt_nascimento_fun);
+            printf("Email: %s\n", fun->email_funcionario);
+            printf("CNH: %s\n", fun->cargo);
+            printf("-----------------------------------\n");
+            printf("[>] - Pressione Enter para continuar...");
             getchar();
             return;
         }
@@ -221,8 +223,8 @@ void modulo_dados_funcionario(void)
 
     fclose(arq_funcionario);
     free(fun);
-    printf("Funcionário não encontrado!\n");
-    printf("Pressione Enter para continuar...");
+    printf("XXX - Funcionário não encontrado!\n");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 
@@ -234,8 +236,8 @@ void modulo_atualizar_funcionario(void)
     arq_funcionario = fopen("funcionario.dat", "r+b");
 
     if (arq_funcionario == NULL){
-        printf("Erro ao entrar no arquivo!");
-        printf("Pressioner <ENTER> para continuar...");
+        printf("XXX - Erro ao entrar no arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -261,7 +263,7 @@ void modulo_atualizar_funcionario(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o CPf do funcionário para alterar os dados: \n");
+    printf("[>] - Informe o CPf do funcionário para alterar os dados: ");
     scanf("%15s", cpf_funcionario_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -272,15 +274,17 @@ void modulo_atualizar_funcionario(void)
             func_encontrado = true;
         
             system("clear||cls");
-            printf("Funcionário encontrado!\n");
-            printf("Informe qual informação deseja alterar: \n");
+            printf("------------------------------\n");
+            printf("[o] - Funcionário encontrado!\n");
+            printf("------------------------------\n");
             printf("[1] Novo Nome\n");
             printf("[2] Novo Cpf\n");
             printf("[3] Nova Data de Nascimento\n");
             printf("[4] Novo E-mail\n");
             printf("[5] Novo cargo\n");
             printf("[0] Cancelar\n");
-            printf("-----------------------\n");
+            printf("------------------------------\n");
+            printf("[>] - Informe qual informação deseja alterar: ");
             scanf(" %c", &op_funcionario);
             while ((c = getchar()) != '\n' && c != EOF)
                 ;
@@ -289,7 +293,8 @@ void modulo_atualizar_funcionario(void)
 
             switch(op_funcionario){
                 case '1':
-                    printf("Novo nome do funcionário: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo nome do funcionário: ");
                     scanf("%99[^\n]", fun->nome_funcionario);
                     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -302,7 +307,8 @@ void modulo_atualizar_funcionario(void)
                     break;
 
                 case '2':
-                    printf("Novo CPF do funcionário: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo CPF do funcionário: ");
                     scanf("%14s", fun->cpf_funcionario);
                     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -315,7 +321,8 @@ void modulo_atualizar_funcionario(void)
                     break;
                     
                 case '3':
-                    printf("Nova Data de Nasc. do funcionário: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Nova Data de Nasc. do funcionário: ");
                     scanf("%11s", fun->dt_nascimento_fun);
                     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -328,7 +335,8 @@ void modulo_atualizar_funcionario(void)
                     break;
 
                 case '4':
-                    printf("Novo email do funcionário: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo email do funcionário: ");
                     scanf("%99s", fun->email_funcionario);
                     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -341,7 +349,8 @@ void modulo_atualizar_funcionario(void)
                     break;
 
                 case '5':
-                    printf("Novo cargo do funcionário: ");
+                    printf("---------------------------\n");
+                    printf("[+] - Novo cargo do funcionário: ");
                     scanf("%50[^\n]", fun->cargo);
                     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -358,7 +367,7 @@ void modulo_atualizar_funcionario(void)
                     break;
 
                 default:
-                    printf("Opção inválida. Nenhum dado alterado.\n");
+                    printf("XXX - Opção inválida. Nenhum dado alterado.\n");
                     break;
 
             }
@@ -366,7 +375,7 @@ void modulo_atualizar_funcionario(void)
                 fseek(arq_funcionario, -sizeof(Funcionario), SEEK_CUR);
                 fwrite(fun, sizeof(Funcionario), 1,arq_funcionario);
                 fflush(arq_funcionario);
-                printf("Dado(s) alterado(s) com sucesso!\n");
+                printf("[o] - Dado(s) alterado(s) com sucesso!\n");
             }
 
             break;
@@ -408,7 +417,7 @@ void modulo_excluir_funcionario(void)
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("Informe o CPf do funcionário que deseja excluir: \n");
+    printf("[>] - Informe o CPf do funcionário que deseja excluir: ");
     scanf("%14s", cpf_funcionario_ler);
     while ((c = getchar()) != '\n' && c != EOF)
         ;
@@ -418,8 +427,8 @@ void modulo_excluir_funcionario(void)
     arq_funcionario = fopen("funcionario.dat","r+b");
 
     if (arq_funcionario == NULL){
-        printf("Erro ao entrar no arquivo!");
-        printf("Pressione Enter para continuar...");
+        printf("XXX - Erro ao entrar no arquivo!");
+        printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
@@ -433,7 +442,8 @@ void modulo_excluir_funcionario(void)
             fwrite(fun, sizeof(Funcionario),1, arq_funcionario);
             func_encontrado = true;
 
-            printf("Funcionário excluído com sucesso!\n");
+            printf("---------------------------------------\n");
+            printf("[o] - Funcionário excluído com sucesso!\n");
             break;
             }
         }
@@ -441,10 +451,10 @@ void modulo_excluir_funcionario(void)
     free(fun);
 
     if (!func_encontrado){
-            printf("Funcionário não encontrado...\n");
+            printf("XXX - Funcionário não encontrado...\n");
         }
 
-    printf("Pressione Enter para continuar...");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
     
 }
