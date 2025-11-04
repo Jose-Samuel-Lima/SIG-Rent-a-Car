@@ -213,15 +213,15 @@ void modulo_dados_aluguel(void)
 
         if (strcmp(id_aluguel_ler,alg->id_aluguel) == 0 && alg->status == true) {
             printf("----------------------------------------\n");
-            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t < = = Aluguel Encontrado! = = >\n");
-            printf("\t\t T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("\t\t Nome: %s\n", alg->nome_cliente);
-            printf("\t\t CPF: %s\n", alg->cpf_cliente);
-            printf("\t\t Código RENAVAM: %s\n", alg->codigo_renavam);
-            printf("\t\t Modelo do Veículo: %s\n", alg->modelo_veiculo);
-            printf("\t\t Data de Finalização: %s\n", alg->data_aluguel);
-            printf("\t\t ID do Aluguel: %s\n", alg->id_aluguel);
+            printf("T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("< = = Aluguel Encontrado! = = >\n");
+            printf("T ~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
+            printf("Nome: %s\n", alg->nome_cliente);
+            printf("CPF: %s\n", alg->cpf_cliente);
+            printf("Código RENAVAM: %s\n", alg->codigo_renavam);
+            printf("Modelo do Veículo: %s\n", alg->modelo_veiculo);
+            printf("Data de Finalização: %s\n", alg->data_aluguel);
+            printf("ID do Aluguel: %s\n", alg->id_aluguel);
             printf("----------------------------------------\n");
             printf("[>] - Pressione Enter para continuar...");
             getchar();
