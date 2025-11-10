@@ -1,5 +1,5 @@
-#ifndef VEICULO_H
-#define VEICULO_H
+#ifndef VEICULOS_H
+#define VEICULOS_H
 #include <stdbool.h>
 
 typedef struct veiculo {

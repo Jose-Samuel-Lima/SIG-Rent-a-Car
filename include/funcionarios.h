@@ -1,5 +1,5 @@
-#ifndef FUNCIONARIO_H
-#define FUNCIONARIO_H
+#ifndef FUNCIONARIOS_H
+#define FUNCIONARIOS_H
 #include <stdbool.h>
 
 typedef struct funcionario {

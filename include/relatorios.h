@@ -1,5 +1,5 @@
-#ifndef RELATORIO_H
-#define RELATORIO_H
+#ifndef RELATORIOS_H
+#define RELATORIOS_H
 
 int modulo_relatorio(void);
 int modulo_tela_relatorio(void);

@@ -1,5 +1,5 @@
-#ifndef CLIENTE_H
-#define CLIENTE_H
+#ifndef CLIENTES_H
+#define CLIENTES_H
 #include <stdbool.h>
 
 typedef struct cliente {
