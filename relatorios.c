@@ -74,19 +74,20 @@ void modulo_relatorio_funcionarios(void)
 {
     system("clear||cls");
     printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|              T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T           |\n");
-    printf("|              | < = = =  Dados dos Funcionários  = = = > |           |\n");
-    printf("|              T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T           |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                          --------------------                         |\n");
+    printf("|                          | SIG - Rent a Car |                         |\n");
+    printf("|                          --------------------                         |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|              < = = =  Relatório de Funcionários = = = >               |\n");
+    printf("|                                                                       |\n");
+    printf("|                        # 1 # Relatório_Ativos                         |\n");
+    printf("|                        # 2 # Relatório_Geral                          |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
     printf("\n");
     getchar();
     system("cls||clear");
@@ -98,19 +99,20 @@ void modulo_relatorio_clientes(void)
 {
     system("clear||cls");
     printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                | < = = =  Dados dos Clientes  = = = > |             |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                          --------------------                         |\n");
+    printf("|                          | SIG - Rent a Car |                         |\n");
+    printf("|                          --------------------                         |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                < = = =  Relatório de Clientes = = = >                 |\n");
+    printf("|                                                                       |\n");
+    printf("|                         # 1 # Relatório_Ativos                        |\n");
+    printf("|                         # 2 # Relatório_Geral                         |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
     printf("\n");
     getchar();
     system("cls||clear");
@@ -122,19 +124,20 @@ void modulo_relatorio_veiculos(void)
 {
     system("clear||cls");
     printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                | < = = =  Dados dos Veículos  = = = > |             |\n");
-    printf("|                T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T             |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                          --------------------                         |\n");
+    printf("|                          | SIG - Rent a Car |                         |\n");
+    printf("|                          --------------------                         |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                < = = =  Relatório de Veículos = = = >                 |\n");
+    printf("|                                                                       |\n");
+    printf("|                        # 1 # Relatório_Ativos                         |\n");
+    printf("|                        # 2 # Relatório_Geral                          |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
     printf("\n");
     getchar();
     system("cls||clear");
@@ -142,50 +145,28 @@ void modulo_relatorio_veiculos(void)
     getchar();
 }
 
-void modulo_relatorio_alugueis_ativos(void)
+void modulo_relatorio_alugueis(void)
 {
     system("clear||cls");
     printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                 T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T              |\n");
-    printf("|                 | < = = =  Aluguéis  Ativos  = = = > |              |\n");
-    printf("|                 T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T              |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                          --------------------                         |\n");
+    printf("|                          | SIG - Rent a Car |                         |\n");
+    printf("|                          --------------------                         |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                 < = = =  Relatório de Alugueis  = = = >               |\n");
+    printf("|                                                                       |\n");
+    printf("|                        # 1 # Relatório_Ativos                         |\n");
+    printf("|                        # 2 # Relatório_Geral                          |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
     printf("\n");
     getchar();
     system("cls||clear");
     printf("Pressione Enter para continuar...");
     getchar();
-}
 
-void modulo_relatorio_alugueis_finalizados(void)
-{
-    system("clear||cls");
-    printf("\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|               T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T              |\n");
-    printf("|               | < = = =  Aluguéis  Inativos  = = = > |              |\n");
-    printf("|               T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T              |\n");
-    printf("|                                                                     |\n");
-    printf("#=====================================================================#\n");
-    printf("\n");
-    getchar();
-    system("cls||clear");
-    printf("Pressione Enter para continuar...");
-    getchar();
 }
