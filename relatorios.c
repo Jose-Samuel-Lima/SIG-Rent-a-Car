@@ -21,10 +21,7 @@ int modulo_relatorio(void)
             modulo_relatorio_veiculos();
             break;
         case 4:
-            modulo_relatorio_alugueis_ativos();
-            break;
-        case 5:
-            modulo_relatorio_alugueis_finalizados();
+            modulo_relatorio_alugueis();
             break;
         case 0:
             return -1;
@@ -54,8 +51,7 @@ int modulo_tela_relatorio(void)
     printf("|                    # 1 # Relatório de funcionários                  |\n");
     printf("|                    # 2 # Relatório de clientes                      |\n");
     printf("|                    # 3 # Relatório de veículos                      |\n");
-    printf("|                    # 4 # Relatório de aluguéis ativos               |\n");
-    printf("|                    # 5 # Relatório de aluguéis finalizados          |\n");
+    printf("|                    # 4 # Relatório de aluguéis                      |\n");
     printf("|                    # 0 # Voltar ao menu principal                   |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
@@ -72,6 +68,7 @@ int modulo_tela_relatorio(void)
 
 void modulo_relatorio_funcionarios(void)
 {
+    int 
     system("clear||cls");
     printf("\n");
     printf("#=======================================================================#\n");
