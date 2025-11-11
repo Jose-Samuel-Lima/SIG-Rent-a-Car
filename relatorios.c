@@ -47,6 +47,8 @@ int navegar_relatorio_funcionarios(void)
         case 1: 
             funcionarios_ativos();
             break;
+        case 2:
+            funcionarios_inativos();
         case 0:
             return -1;
         }
@@ -312,6 +314,58 @@ void funcionarios_ativos(void)
     } else {
         printf("------------------------------------------------------------\n");
         printf("Total de funcionários ativos: %d\n", contador);
+    }
+
+    fclose(arq_funcionario);
+    free(fun);
+
+    printf("\n[>] - Pressione Enter para sair...");
+    getchar();
+}
+
+void funcionarios_inativos(void)
+{
+    FILE *arq_funcionario;
+    Funcionario* fun;
+    fun = (Funcionario*) malloc(sizeof(Funcionario));
+    arq_funcionario = fopen("funcionario.dat","rb");
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|               < = = =  Funcionários Inativos = = = >                  |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("\n");
+    
+    if (arq_funcionario == NULL) {
+        printf("XXX - Nenhum arquivo de funcionários encontrado!\n");
+        printf("[>] - Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    int contador = 0;
+
+    while (fread(fun, sizeof(Funcionario), 1, arq_funcionario)) {
+        if (fun->status == false) {
+            contador++;
+            printf("------------------------------------------------------------\n");
+            printf("Funcionário #%d\n", contador);
+            printf("Nome: %s\n", fun->nome_funcionario);
+            printf("CPF: %s\n", fun->cpf_funcionario);
+            printf("Data de Nascimento: %s\n", fun->dt_nascimento_fun);
+            printf("Email: %s\n", fun->email_funcionario);
+            printf("Cargo: %s\n", fun->cargo);
+        }
+    }
+
+    if (contador == 0) {
+        printf("XXX - Nenhum funcionário inativo encontrado!\n");
+    } else {
+        printf("------------------------------------------------------------\n");
+        printf("Total de funcionários inativos: %d\n", contador);
     }
 
     fclose(arq_funcionario);
