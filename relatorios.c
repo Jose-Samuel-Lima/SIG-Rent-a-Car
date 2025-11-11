@@ -6,6 +6,7 @@
 #include "clientes.h"
 #include "veiculos.h"
 #include "relatorios.h"
+#include "alugueis.h"
 
 int modulo_relatorio(void)
 {
@@ -25,7 +26,7 @@ int modulo_relatorio(void)
             navegar_relatorio_veiculos();
             break;
         case 4:
-            modulo_relatorio_alugueis();
+            navegar_relatorio_alugueis();
             break;
         case 0:
             return -1;
@@ -86,6 +87,24 @@ int navegar_relatorio_veiculos(void)
             return -1;
         }
     } while (esc_veiculos != 0);
+    return -1;
+}
+
+int navegar_relatorio_alugueis(void)
+{ 
+    int esc_alugueis;
+    do
+    {
+        esc_alugueis = modulo_relatorio_alugueis();
+        switch(esc_alugueis)
+        {
+        case 1: 
+            alugueis_ativos();
+            break;
+        case 0:
+            return -1;
+        }
+    } while (esc_alugueis != 0);
     return -1;
 }
 
@@ -219,8 +238,11 @@ int modulo_relatorio_veiculos(void)
     return op;
 }
 
-void modulo_relatorio_alugueis(void)
+int modulo_relatorio_alugueis(void)
 {
+    int op;   
+    int c;
+
     system("clear||cls");
     printf("\n");
     printf("#=======================================================================#\n");
@@ -238,11 +260,13 @@ void modulo_relatorio_alugueis(void)
     printf("|                                                                       |\n");
     printf("#=======================================================================#\n");
     printf("\n");
-    getchar();
-    system("cls||clear");
-    printf("Pressione Enter para continuar...");
-    getchar();
-
+    printf("Escolha uma das opções acima: ");
+    scanf(" %d", &op);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    printf("\n");
+    printf("Processando...\n");
+    return op;
 }
 
 void funcionarios_ativos(void)
@@ -366,7 +390,7 @@ void veiculos_ativos(void)
     printf("\n");
     
     if (arq_veiculo == NULL) {
-        printf("XXX - Nenhum arquivo de clientes encontrado!\n");
+        printf("XXX - Nenhum arquivo de veículos encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
@@ -399,6 +423,58 @@ void veiculos_ativos(void)
 
     fclose(arq_veiculo);
     free(vei);
+
+    printf("\n[>] - Pressione Enter para sair...");
+    getchar();
+}
+
+void alugueis_ativos(void)
+{
+FILE *arq_aluguel;
+    Aluguel* alg;
+    alg = (Aluguel*) malloc(sizeof(Aluguel));
+    arq_aluguel = fopen("aluguel.dat","rb");
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                   < = = =  Alugueis Ativos = = = >                    |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("\n");
+
+    if (arq_aluguel == NULL) {
+        printf("XXX - Nenhum arquivo de alugueis encontrado!\n");
+        printf("[>] - Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    int contador = 0;
+
+    while (fread(alg, sizeof(Aluguel), 1, arq_aluguel)) {
+        if (alg->status == true) {
+            contador++;
+            printf("------------------------------------------------------------\n");
+            printf("Nome: %s\n", alg->nome_cliente);
+            printf("CPF: %s\n", alg->cpf_cliente);
+            printf("Código RENAVAM: %s\n", alg->codigo_renavam);
+            printf("Modelo do Veículo: %s\n", alg->modelo_veiculo);
+            printf("Data de Finalização: %s\n", alg->data_aluguel);
+            printf("ID do Aluguel: %s\n", alg->id_aluguel);
+            }
+    }
+
+    if (contador == 0) {
+        printf("XXX - Nenhum aluguel ativo encontrado!\n");
+    } else {
+        printf("------------------------------------------------------------\n");
+        printf("Total de alugueis ativos: %d\n", contador);
+    }
+
+    fclose(arq_aluguel);
+    free(alg);
 
     printf("\n[>] - Pressione Enter para sair...");
     getchar();
