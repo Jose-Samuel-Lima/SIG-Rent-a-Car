@@ -49,6 +49,7 @@ int navegar_relatorio_funcionarios(void)
             break;
         case 2:
             funcionarios_inativos();
+            break;
         case 0:
             return -1;
         }
