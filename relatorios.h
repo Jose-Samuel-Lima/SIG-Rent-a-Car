@@ -19,8 +19,10 @@ void clientes_inativos(void);
 
 int modulo_relatorio_veiculos(void);
 void veiculos_ativos(void);
+void veiculos_inativos(void);
 
 int modulo_relatorio_alugueis(void);
 void alugueis_ativos(void);
+void alugueis_inativos(void);
 
 #endif

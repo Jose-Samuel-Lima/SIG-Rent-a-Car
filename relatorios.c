@@ -88,6 +88,9 @@ int navegar_relatorio_veiculos(void)
         case 1: 
             veiculos_ativos();
             break;
+        case 2: 
+            veiculos_inativos();
+            break;
         case 0:
             return -1;
         }
@@ -105,6 +108,9 @@ int navegar_relatorio_alugueis(void)
         {
         case 1: 
             alugueis_ativos();
+            break;
+        case 2: 
+            alugueis_inativos();
             break;
         case 0:
             return -1;
@@ -260,8 +266,8 @@ int modulo_relatorio_alugueis(void)
     printf("|                                                                       |\n");
     printf("|                 < = = =  Relatório de Alugueis  = = = >               |\n");
     printf("|                                                                       |\n");
-    printf("|                        # 1 # Relatório_Ativos                         |\n");
-    printf("|                        # 2 # Relatório_Geral                          |\n");
+    printf("|                        # 1 # Alugueis Ativos                          |\n");
+    printf("|                        # 2 # Alugueis Inativos                        |\n");
     printf("|                                                                       |\n");
     printf("#=======================================================================#\n");
     printf("\n");
@@ -537,6 +543,61 @@ void veiculos_ativos(void)
     getchar();
 }
 
+void veiculos_inativos(void)
+{
+    FILE *arq_veiculo;
+    Veiculo* vei;
+    vei = (Veiculo*) malloc(sizeof(Veiculo));
+    arq_veiculo = fopen("veiculo.dat","rb");
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                   < = = =  Veículos Inativos = = = >                  |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("\n");
+    
+    if (arq_veiculo == NULL) {
+        printf("XXX - Nenhum arquivo de veículos encontrado!\n");
+        printf("[>] - Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    int contador = 0;
+
+    while (fread(vei, sizeof(Veiculo), 1, arq_veiculo)) {
+        if (vei->status == false) {
+            contador++;
+            printf("------------------------------------------------------------\n");
+            printf("Placa: %s\n", vei->placa);
+            printf("Chassi: %s\n", vei->chassi);
+            printf("Renavam.: %s\n", vei->renavam);
+            printf("Categoria: %s\n", vei->categoria);
+            printf("Modelo: %s\n", vei->modelo);
+            printf("Marca: %s\n", vei->marca);
+            printf("Ano: %s\n", vei->ano);
+            printf("Código Interno: %s\n", vei->codigo_interno);
+            printf("Preço: %f\n", vei->preco);
+        }
+    }
+
+    if (contador == 0) {
+        printf("XXX - Nenhum veículo inativo encontrado!\n");
+    } else {
+        printf("------------------------------------------------------------\n");
+        printf("Total de veículos inativos: %d\n", contador);
+    }
+
+    fclose(arq_veiculo);
+    free(vei);
+
+    printf("\n[>] - Pressione Enter para sair...");
+    getchar();
+}
+
 void alugueis_ativos(void)
 {
 FILE *arq_aluguel;
@@ -580,6 +641,58 @@ FILE *arq_aluguel;
     } else {
         printf("------------------------------------------------------------\n");
         printf("Total de alugueis ativos: %d\n", contador);
+    }
+
+    fclose(arq_aluguel);
+    free(alg);
+
+    printf("\n[>] - Pressione Enter para sair...");
+    getchar();
+}
+
+void alugueis_inativos(void)
+{
+FILE *arq_aluguel;
+    Aluguel* alg;
+    alg = (Aluguel*) malloc(sizeof(Aluguel));
+    arq_aluguel = fopen("aluguel.dat","rb");
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                   < = = =  Alugueis Inativos = = = >                  |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("\n");
+
+    if (arq_aluguel == NULL) {
+        printf("XXX - Nenhum arquivo de alugueis encontrado!\n");
+        printf("[>] - Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    int contador = 0;
+
+    while (fread(alg, sizeof(Aluguel), 1, arq_aluguel)) {
+        if (alg->status == false) {
+            contador++;
+            printf("------------------------------------------------------------\n");
+            printf("Nome: %s\n", alg->nome_cliente);
+            printf("CPF: %s\n", alg->cpf_cliente);
+            printf("Código RENAVAM: %s\n", alg->codigo_renavam);
+            printf("Modelo do Veículo: %s\n", alg->modelo_veiculo);
+            printf("Data de Finalização: %s\n", alg->data_aluguel);
+            printf("ID do Aluguel: %s\n", alg->id_aluguel);
+            }
+    }
+
+    if (contador == 0) {
+        printf("XXX - Nenhum aluguel inativo encontrado!\n");
+    } else {
+        printf("------------------------------------------------------------\n");
+        printf("Total de alugueis inativos: %d\n", contador);
     }
 
     fclose(arq_aluguel);
