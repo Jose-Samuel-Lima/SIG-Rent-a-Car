@@ -67,6 +67,9 @@ int navegar_relatorio_clientes(void)
         case 1: 
             clientes_ativos();
             break;
+        case 2:
+            clientes_inativos();
+            break;
         case 0:
             return -1;
         }
@@ -418,6 +421,58 @@ void clientes_ativos(void)
     } else {
         printf("------------------------------------------------------------\n");
         printf("Total de clientes ativos: %d\n", contador);
+    }
+
+    fclose(arq_cliente);
+    free(cli);
+
+    printf("\n[>] - Pressione Enter para sair...");
+    getchar();
+}
+
+void clientes_inativos(void)
+{
+    FILE *arq_cliente;
+    Cliente* cli;
+    cli = (Cliente*) malloc(sizeof(Cliente));
+    arq_cliente = fopen("cliente.dat","rb");
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                 < = = =  Clientes Inativos = = = >                    |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("\n");
+    
+    if (arq_cliente == NULL) {
+        printf("XXX - Nenhum arquivo de clientes encontrado!\n");
+        printf("[>] - Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    int contador = 0;
+
+    while (fread(cli, sizeof(Cliente), 1, arq_cliente)) {
+        if (cli->status == false) {
+            contador++;
+            printf("------------------------------------------------------------\n");
+            printf("Cliente #%d\n", contador);
+            printf("Nome: %s\n", cli->nome_cliente);
+            printf("CPF: %s\n", cli->cpf_cliente);
+            printf("Data Nasci.: %s\n", cli->data_nascimento);
+            printf("Email: %s\n", cli->email_cliente);
+            printf("CNH: %s\n", cli->cnh);
+        }
+    }
+
+    if (contador == 0) {
+        printf("XXX - Nenhum cliente inativo encontrado!\n");
+    } else {
+        printf("------------------------------------------------------------\n");
+        printf("Total de clientes inativos: %d\n", contador);
     }
 
     fclose(arq_cliente);

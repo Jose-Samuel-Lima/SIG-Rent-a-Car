@@ -15,6 +15,7 @@ void funcionarios_inativos(void);
 
 int modulo_relatorio_clientes(void);
 void clientes_ativos(void);
+void clientes_inativos(void);
 
 int modulo_relatorio_veiculos(void);
 void veiculos_ativos(void);
