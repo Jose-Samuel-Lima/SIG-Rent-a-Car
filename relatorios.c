@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include "funcionarios.h"
+#include "clientes.h"
+#include "veiculos.h"
 #include "relatorios.h"
 
 int modulo_relatorio(void)
@@ -17,10 +19,10 @@ int modulo_relatorio(void)
             navegar_relatorio_funcionarios();
             break;
         case 2:
-            modulo_relatorio_clientes();
+            navegar_relatorio_clientes();
             break;
         case 3:
-            modulo_relatorio_veiculos();
+            navegar_relatorio_veiculos();
             break;
         case 4:
             modulo_relatorio_alugueis();
@@ -56,16 +58,34 @@ int navegar_relatorio_clientes(void)
     int esc_cliente;
     do
     {
-        esc_cliente = modulo_relatorio_funcionarios();
+        esc_cliente = modulo_relatorio_clientes();
         switch(esc_cliente)
         {
         case 1: 
-            funcionarios_ativos();
+            clientes_ativos();
             break;
         case 0:
             return -1;
         }
     } while (esc_cliente != 0);
+    return -1;
+}
+
+int navegar_relatorio_veiculos(void)
+{ 
+    int esc_veiculos;
+    do
+    {
+        esc_veiculos = modulo_relatorio_veiculos();
+        switch(esc_veiculos)
+        {
+        case 1: 
+            veiculos_ativos();
+            break;
+        case 0:
+            return -1;
+        }
+    } while (esc_veiculos != 0);
     return -1;
 }
 
@@ -100,7 +120,6 @@ int modulo_tela_relatorio(void)
         ;
     printf("\n");
     printf("Processando...\n");
-    // sleep(1);
     return op;
 }
 
@@ -136,8 +155,11 @@ int modulo_relatorio_funcionarios(void)
     return op;
 }
 
-void modulo_relatorio_clientes(void)
+int modulo_relatorio_clientes(void)
 {
+    int op;
+    int c; 
+
     system("clear||cls");
     printf("\n");
     printf("#=======================================================================#\n");
@@ -156,14 +178,20 @@ void modulo_relatorio_clientes(void)
     printf("|                                                                       |\n");
     printf("#=======================================================================#\n");
     printf("\n");
-    getchar();
-    system("cls||clear");
-    printf("Pressione Enter para continuar...");
-    getchar();
+    printf("Escolha uma das opções acima: ");
+    scanf(" %d", &op);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    printf("\n");
+    printf("Processando...\n");
+    return op;
 }
 
-void modulo_relatorio_veiculos(void)
+int modulo_relatorio_veiculos(void)
 {
+    int op; 
+    int c;
+
     system("clear||cls");
     printf("\n");
     printf("#=======================================================================#\n");
@@ -176,15 +204,18 @@ void modulo_relatorio_veiculos(void)
     printf("|                                                                       |\n");
     printf("|                < = = =  Relatório de Veículos = = = >                 |\n");
     printf("|                                                                       |\n");
-    printf("|                        # 1 # Relatório_Ativos                         |\n");
-    printf("|                        # 2 # Relatório_Geral                          |\n");
+    printf("|                        # 1 # Veículos Ativos                          |\n");
+    printf("|                        # 2 # Veículos Inativos                        |\n");
     printf("|                                                                       |\n");
     printf("#=======================================================================#\n");
     printf("\n");
-    getchar();
-    system("cls||clear");
-    printf("Pressione Enter para continuar...");
-    getchar();
+    printf("Escolha uma das opções acima: ");
+    scanf(" %d", &op);
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    printf("\n");
+    printf("Processando...\n");
+    return op;
 }
 
 void modulo_relatorio_alugueis(void)
@@ -261,7 +292,113 @@ void funcionarios_ativos(void)
     fclose(arq_funcionario);
     free(fun);
 
-    printf("\n[>] - Pressione Enter para continuar...");
+    printf("\n[>] - Pressione Enter para sair...");
     getchar();
 }
 
+void clientes_ativos(void)
+{
+    FILE *arq_cliente;
+    Cliente* cli;
+    cli = (Cliente*) malloc(sizeof(Cliente));
+    arq_cliente = fopen("cliente.dat","rb");
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                   < = = =  Clientes Ativos = = = >                    |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("\n");
+    
+    if (arq_cliente == NULL) {
+        printf("XXX - Nenhum arquivo de clientes encontrado!\n");
+        printf("[>] - Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    int contador = 0;
+
+    while (fread(cli, sizeof(Cliente), 1, arq_cliente)) {
+        if (cli->status == true) {
+            contador++;
+            printf("------------------------------------------------------------\n");
+            printf("Cliente #%d\n", contador);
+            printf("Nome: %s\n", cli->nome_cliente);
+            printf("CPF: %s\n", cli->cpf_cliente);
+            printf("Data Nasci.: %s\n", cli->data_nascimento);
+            printf("Email: %s\n", cli->email_cliente);
+            printf("CNH: %s\n", cli->cnh);
+        }
+    }
+
+    if (contador == 0) {
+        printf("XXX - Nenhum cliente ativo encontrado!\n");
+    } else {
+        printf("------------------------------------------------------------\n");
+        printf("Total de clientes ativos: %d\n", contador);
+    }
+
+    fclose(arq_cliente);
+    free(cli);
+
+    printf("\n[>] - Pressione Enter para sair...");
+    getchar();
+}
+
+void veiculos_ativos(void)
+{
+    FILE *arq_veiculo;
+    Veiculo* vei;
+    vei = (Veiculo*) malloc(sizeof(Veiculo));
+    arq_veiculo = fopen("veiculo.dat","rb");
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                   < = = =  Veículos Ativos = = = >                    |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("\n");
+    
+    if (arq_veiculo == NULL) {
+        printf("XXX - Nenhum arquivo de clientes encontrado!\n");
+        printf("[>] - Pressione Enter para continuar...");
+        getchar();
+        exit(1);
+    }
+
+    int contador = 0;
+
+    while (fread(vei, sizeof(Cliente), 1, arq_veiculo)) {
+        if (vei->status == true) {
+            contador++;
+            printf("------------------------------------------------------------\n");
+            printf("Placa: %s\n", vei->placa);
+            printf("Chassi: %s\n", vei->chassi);
+            printf("Renavam.: %s\n", vei->renavam);
+            printf("Categoria: %s\n", vei->categoria);
+            printf("Modelo: %s\n", vei->modelo);
+            printf("Marca: %s\n", vei->marca);
+            printf("Ano: %s\n", vei->ano);
+            printf("Código Interno: %s\n", vei->codigo_interno);
+            printf("Preço: %f\n", vei->preco);
+        }
+    }
+
+    if (contador == 0) {
+        printf("XXX - Nenhum veículo ativo encontrado!\n");
+    } else {
+        printf("------------------------------------------------------------\n");
+        printf("Total de veículos ativos: %d\n", contador);
+    }
+
+    fclose(arq_veiculo);
+    free(vei);
+
+    printf("\n[>] - Pressione Enter para sair...");
+    getchar();
+}
