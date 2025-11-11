@@ -1,96 +1,104 @@
-# Criado por https://www.toptal.com/developers/gitignore/api/c,cmake,visualstudiocode
-# Edite em https://www.toptal.com/developers/gitignore?templates=c,cmake,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/c,c++,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=c,c++,visualstudiocode
+
+# Arquivos binario
+*.dat
+*.csv
+*.json
 
 ### C ###
-# Pré-requisitos
+# Prerequisites
 *.d
 
-# Arquivos de objeto
+# Text files
+*.txt
+
+# Object files
 *.o
 *.ko
 *.obj
-*.duende
+*.elf
 
-# Saída do vinculador
-*.semente
-*.mapa
+# Linker output
+*.ilk
+*.map
 *.exp
 
-# Cabeçalhos pré-compilados
+# Precompiled Headers
 *.gch
 *.pch
 
-# Bibliotecas
+# Libraries
 *.lib
-*.um
+*.a
 *.la
 *.lo
 
-# Objetos compartilhados (incluindo DLLs do Windows)
+# Shared objects (inc. Windows DLLs)
 *.dll
-*.então
-*.então.*
+*.so
+*.so.*
 *.dylib
 
-# Executáveis
+# Executables
 *.exe
-*.fora
-*.aplicativo
+*.out
+*.app
 *.i*86
 *.x86_64
 *.hex
 
-# Arquivos de depuração
+# Debug files
 *.dSYM/
 *.su
 *.idb
 *.pdb
 
-# Resultados da compilação do módulo do kernel
+# Kernel Module Compile Results
 *.mod*
 *.cmd
-.tmp_versões/
-módulos.ordem
-Módulo.symvers
+.tmp_versions/
+modules.order
+Module.symvers
 Mkfile.old
 dkms.conf
 
-### CMake ###
-CMakeLists.txt.usuário
-CMakeCache.txt
-Arquivos CMake
-CMakeScripts
-Teste
-!Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps
+### C++ ###
+# Prerequisites
 
-### Patch do CMake ###
-CMakeUserPresets.json
+# Compiled Object files
+*.slo
 
-# Projetos externos
-*-prefixo/
+# Precompiled Headers
 
-### Código do VisualStudio ###
+# Compiled Dynamic libraries
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+
+# Executables
+
+### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
-!.vscode/extensões.json
-!.vscode/*.trechos de código
+!.vscode/extensions.json
+!.vscode/*.code-snippets
 
-# Histórico local para o Visual Studio Code
-.história/
+# Local History for Visual Studio Code
+.history/
 
-# Extensões do Visual Studio Code criadas
+# Built Visual Studio Code Extensions
 *.vsix
 
-### Patch do VisualStudioCode ###
-# Ignorar todo o histórico local de arquivos
-.história
-.ionídeo
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
 
-# Fim de https://www.toptal.com/developers/gitignore/api/c,cmake,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/c,c++,visualstudiocode

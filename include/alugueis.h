@@ -1,5 +1,5 @@
-#ifndef ALUGUEL_H
-#define ALUGUEL_H
+#ifndef ALUGUEIS_H
+#define ALUGUEIS_H
 #include <stdbool.h>
 
 typedef struct aluguel
