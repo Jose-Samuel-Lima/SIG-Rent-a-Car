@@ -206,6 +206,7 @@ int modulo_relatorio_veiculos(void)
     printf("|                                                                       |\n");
     printf("|                        # 1 # Veículos Ativos                          |\n");
     printf("|                        # 2 # Veículos Inativos                        |\n");
+    printf("|                        # 0 # Sair                                     |\n");
     printf("|                                                                       |\n");
     printf("#=======================================================================#\n");
     printf("\n");
@@ -373,7 +374,7 @@ void veiculos_ativos(void)
 
     int contador = 0;
 
-    while (fread(vei, sizeof(Cliente), 1, arq_veiculo)) {
+    while (fread(vei, sizeof(Veiculo), 1, arq_veiculo)) {
         if (vei->status == true) {
             contador++;
             printf("------------------------------------------------------------\n");
