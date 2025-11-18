@@ -269,6 +269,7 @@ int modulo_relatorio_alugueis(void)
     printf("|                                                                       |\n");
     printf("|                        # 1 # Alugueis Ativos                          |\n");
     printf("|                        # 2 # Alugueis Inativos                        |\n");
+    printf("|                        # 0 # Sair                                     |\n");
     printf("|                                                                       |\n");
     printf("#=======================================================================#\n");
     printf("\n");
@@ -285,7 +286,6 @@ void funcionarios_ativos(void)
 {
     FILE *arq_funcionario;
     Funcionario* fun;
-    fun = (Funcionario*) malloc(sizeof(Funcionario));
     arq_funcionario = fopen("funcionario.dat","rb");
 
     system("clear||cls");
@@ -301,8 +301,10 @@ void funcionarios_ativos(void)
         printf("XXX - Nenhum arquivo de funcionários encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    fun = (Funcionario*) malloc(sizeof(Funcionario));
 
     int contador = 0;
 
@@ -337,7 +339,6 @@ void funcionarios_inativos(void)
 {
     FILE *arq_funcionario;
     Funcionario* fun;
-    fun = (Funcionario*) malloc(sizeof(Funcionario));
     arq_funcionario = fopen("funcionario.dat","rb");
 
     system("clear||cls");
@@ -353,8 +354,10 @@ void funcionarios_inativos(void)
         printf("XXX - Nenhum arquivo de funcionários encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    fun = (Funcionario*) malloc(sizeof(Funcionario));
 
     int contador = 0;
 
@@ -389,7 +392,6 @@ void clientes_ativos(void)
 {
     FILE *arq_cliente;
     Cliente* cli;
-    cli = (Cliente*) malloc(sizeof(Cliente));
     arq_cliente = fopen("cliente.dat","rb");
 
     system("clear||cls");
@@ -405,8 +407,10 @@ void clientes_ativos(void)
         printf("XXX - Nenhum arquivo de clientes encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    cli = (Cliente*) malloc(sizeof(Cliente));
 
     int contador = 0;
 
@@ -441,7 +445,6 @@ void clientes_inativos(void)
 {
     FILE *arq_cliente;
     Cliente* cli;
-    cli = (Cliente*) malloc(sizeof(Cliente));
     arq_cliente = fopen("cliente.dat","rb");
 
     system("clear||cls");
@@ -457,8 +460,10 @@ void clientes_inativos(void)
         printf("XXX - Nenhum arquivo de clientes encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    cli = (Cliente*) malloc(sizeof(Cliente));
 
     int contador = 0;
 
@@ -493,7 +498,6 @@ void veiculos_ativos(void)
 {
     FILE *arq_veiculo;
     Veiculo* vei;
-    vei = (Veiculo*) malloc(sizeof(Veiculo));
     arq_veiculo = fopen("veiculo.dat","rb");
 
     system("clear||cls");
@@ -509,8 +513,10 @@ void veiculos_ativos(void)
         printf("XXX - Nenhum arquivo de veículos encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    vei = (Veiculo*) malloc(sizeof(Veiculo));
 
     int contador = 0;
 
@@ -548,7 +554,6 @@ void veiculos_inativos(void)
 {
     FILE *arq_veiculo;
     Veiculo* vei;
-    vei = (Veiculo*) malloc(sizeof(Veiculo));
     arq_veiculo = fopen("veiculo.dat","rb");
 
     system("clear||cls");
@@ -564,8 +569,10 @@ void veiculos_inativos(void)
         printf("XXX - Nenhum arquivo de veículos encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+    
+    vei = (Veiculo*) malloc(sizeof(Veiculo));
 
     int contador = 0;
 
@@ -601,9 +608,8 @@ void veiculos_inativos(void)
 
 void alugueis_ativos(void)
 {
-FILE *arq_aluguel;
+    FILE *arq_aluguel;
     Aluguel* alg;
-    alg = (Aluguel*) malloc(sizeof(Aluguel));
     arq_aluguel = fopen("aluguel.dat","rb");
 
     system("clear||cls");
@@ -619,8 +625,10 @@ FILE *arq_aluguel;
         printf("XXX - Nenhum arquivo de alugueis encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    alg = (Aluguel*) malloc(sizeof(Aluguel));
 
     int contador = 0;
 
@@ -653,9 +661,8 @@ FILE *arq_aluguel;
 
 void alugueis_inativos(void)
 {
-FILE *arq_aluguel;
+    FILE *arq_aluguel;
     Aluguel* alg;
-    alg = (Aluguel*) malloc(sizeof(Aluguel));
     arq_aluguel = fopen("aluguel.dat","rb");
 
     system("clear||cls");
@@ -671,8 +678,10 @@ FILE *arq_aluguel;
         printf("XXX - Nenhum arquivo de alugueis encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    alg = (Aluguel*) malloc(sizeof(Aluguel));
 
     int contador = 0;
 
