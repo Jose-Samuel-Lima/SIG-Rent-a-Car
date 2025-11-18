@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <string.h>
 #include "funcionarios.h"
 #include "clientes.h"
 #include "veiculos.h"
@@ -49,6 +50,9 @@ int navegar_relatorio_funcionarios(void)
             break;
         case 2:
             funcionarios_inativos();
+            break;
+        case 3:
+            funcionarios_por_cargo();
             break;
         case 0:
             return -1;
@@ -171,9 +175,10 @@ int modulo_relatorio_funcionarios(void)
     printf("|                                                                       |\n");
     printf("|              < = = =  Relatório de Funcionários = = = >               |\n");
     printf("|                                                                       |\n");
-    printf("|                       # 1 # Funcionários_Ativos                       |\n");
-    printf("|                       # 2 # Funcionários_Inativos                     |\n");
-    printf("|                       # 0 # Sair                                      |\n");
+    printf("|                   # 1 # Listar Funcionários Ativos                    |\n");
+    printf("|                   # 2 # Listar Funcionários Inativos                  |\n");
+    printf("|                   # 3 # Filtrar Funcionários por Cargo                |\n");
+    printf("|                   # 0 # Sair                                          |\n");
     printf("|                                                                       |\n");
     printf("#=======================================================================#\n");
     printf("\n");
@@ -269,6 +274,7 @@ int modulo_relatorio_alugueis(void)
     printf("|                                                                       |\n");
     printf("|                        # 1 # Alugueis Ativos                          |\n");
     printf("|                        # 2 # Alugueis Inativos                        |\n");
+    printf("|                        # 0 # Sair                                     |\n");
     printf("|                                                                       |\n");
     printf("#=======================================================================#\n");
     printf("\n");
@@ -281,11 +287,14 @@ int modulo_relatorio_alugueis(void)
     return op;
 }
 
+// ====================== //
+// FUNCOES - FUNCIONARIOS //
+// ====================== //
+
 void funcionarios_ativos(void)
 {
     FILE *arq_funcionario;
     Funcionario* fun;
-    fun = (Funcionario*) malloc(sizeof(Funcionario));
     arq_funcionario = fopen("funcionario.dat","rb");
 
     system("clear||cls");
@@ -301,8 +310,10 @@ void funcionarios_ativos(void)
         printf("XXX - Nenhum arquivo de funcionários encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    fun = (Funcionario*) malloc(sizeof(Funcionario));
 
     int contador = 0;
 
@@ -337,7 +348,6 @@ void funcionarios_inativos(void)
 {
     FILE *arq_funcionario;
     Funcionario* fun;
-    fun = (Funcionario*) malloc(sizeof(Funcionario));
     arq_funcionario = fopen("funcionario.dat","rb");
 
     system("clear||cls");
@@ -353,8 +363,10 @@ void funcionarios_inativos(void)
         printf("XXX - Nenhum arquivo de funcionários encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    fun = (Funcionario*) malloc(sizeof(Funcionario));
 
     int contador = 0;
 
@@ -385,11 +397,84 @@ void funcionarios_inativos(void)
     getchar();
 }
 
+void funcionarios_por_cargo(void)
+{
+    char cargo_busca[51];
+    int c;
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=======================================================================#\n");
+    printf("|                                                                       |\n");
+    printf("|                < = = =  Filtragem por Cargos = = = >                  |\n");
+    printf("|                                                                       |\n");
+    printf("#=======================================================================#\n");
+    printf("\n");
+
+    printf("Digite o cargo que deseja buscar: ");
+    scanf("%50s", cargo_busca); 
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    filtrar_funcionario_cargo(cargo_busca);
+}
+
+void filtrar_funcionario_cargo(char* cargo) {
+    FILE *arq_funcionario;
+    Funcionario* fun;
+    int contador = 0;
+
+    arq_funcionario = fopen("funcionario.dat", "rb");
+
+    system("clear||cls");
+    printf("\n");
+    printf("#=======================================================================#\n");
+    printf("|                  < = = = Funcionários por Cargo = = = >               |\n");
+    printf("#=======================================================================#\n\n");
+
+    if (arq_funcionario == NULL) {
+        printf("XXX - Arquivo de funcionários não encontrado!\n");
+        printf("[>] - Pressione Enter para continuar...");
+        getchar();
+        return;
+    }
+
+    fun = (Funcionario*) malloc(sizeof(Funcionario));
+
+    printf("\n [>] - Funcionários com o cargo: %s\n\n", cargo);
+
+    while (fread(fun, sizeof(Funcionario), 1, arq_funcionario)) {
+        if (fun->status == true && strcmp(fun->cargo, cargo) == 0) {
+            contador++;
+            printf("----------------------------------------------\n");
+            printf("Nome: %s\n", fun->nome_funcionario);
+            printf("CPF: %s\n", fun->cpf_funcionario);
+            printf("Data de Nascimento: %s\n", fun->dt_nascimento_fun);
+            printf("Email: %s\n", fun->email_funcionario);
+        }
+    }
+
+    if (contador == 0) {
+        printf("XXX - Nenhum funcionário com esse cargo encontrado!\n");
+    } else {
+        printf("----------------------------------------------\n");
+        printf("\nTotal: %d funcionário(s)\n", contador);
+    }
+
+    fclose(arq_funcionario);
+    free(fun);
+
+    printf("\n[>] - Pressione Enter para sair...");
+    getchar();
+}
+
+// ====================== //
+// FUNCOES - CLIENTES     //
+// ====================== //
+
 void clientes_ativos(void)
 {
     FILE *arq_cliente;
     Cliente* cli;
-    cli = (Cliente*) malloc(sizeof(Cliente));
     arq_cliente = fopen("cliente.dat","rb");
 
     system("clear||cls");
@@ -405,8 +490,10 @@ void clientes_ativos(void)
         printf("XXX - Nenhum arquivo de clientes encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    cli = (Cliente*) malloc(sizeof(Cliente));
 
     int contador = 0;
 
@@ -441,7 +528,6 @@ void clientes_inativos(void)
 {
     FILE *arq_cliente;
     Cliente* cli;
-    cli = (Cliente*) malloc(sizeof(Cliente));
     arq_cliente = fopen("cliente.dat","rb");
 
     system("clear||cls");
@@ -457,8 +543,10 @@ void clientes_inativos(void)
         printf("XXX - Nenhum arquivo de clientes encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    cli = (Cliente*) malloc(sizeof(Cliente));
 
     int contador = 0;
 
@@ -493,7 +581,6 @@ void veiculos_ativos(void)
 {
     FILE *arq_veiculo;
     Veiculo* vei;
-    vei = (Veiculo*) malloc(sizeof(Veiculo));
     arq_veiculo = fopen("veiculo.dat","rb");
 
     system("clear||cls");
@@ -509,8 +596,10 @@ void veiculos_ativos(void)
         printf("XXX - Nenhum arquivo de veículos encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    vei = (Veiculo*) malloc(sizeof(Veiculo));
 
     int contador = 0;
 
@@ -548,7 +637,6 @@ void veiculos_inativos(void)
 {
     FILE *arq_veiculo;
     Veiculo* vei;
-    vei = (Veiculo*) malloc(sizeof(Veiculo));
     arq_veiculo = fopen("veiculo.dat","rb");
 
     system("clear||cls");
@@ -564,8 +652,10 @@ void veiculos_inativos(void)
         printf("XXX - Nenhum arquivo de veículos encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+    
+    vei = (Veiculo*) malloc(sizeof(Veiculo));
 
     int contador = 0;
 
@@ -601,9 +691,8 @@ void veiculos_inativos(void)
 
 void alugueis_ativos(void)
 {
-FILE *arq_aluguel;
+    FILE *arq_aluguel;
     Aluguel* alg;
-    alg = (Aluguel*) malloc(sizeof(Aluguel));
     arq_aluguel = fopen("aluguel.dat","rb");
 
     system("clear||cls");
@@ -619,8 +708,10 @@ FILE *arq_aluguel;
         printf("XXX - Nenhum arquivo de alugueis encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    alg = (Aluguel*) malloc(sizeof(Aluguel));
 
     int contador = 0;
 
@@ -653,9 +744,8 @@ FILE *arq_aluguel;
 
 void alugueis_inativos(void)
 {
-FILE *arq_aluguel;
+    FILE *arq_aluguel;
     Aluguel* alg;
-    alg = (Aluguel*) malloc(sizeof(Aluguel));
     arq_aluguel = fopen("aluguel.dat","rb");
 
     system("clear||cls");
@@ -671,8 +761,10 @@ FILE *arq_aluguel;
         printf("XXX - Nenhum arquivo de alugueis encontrado!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
-        exit(1);
+        return;
     }
+
+    alg = (Aluguel*) malloc(sizeof(Aluguel));
 
     int contador = 0;
 

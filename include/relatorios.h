@@ -12,6 +12,8 @@ int navegar_relatorio_alugueis(void);
 int modulo_relatorio_funcionarios(void);
 void funcionarios_ativos(void);
 void funcionarios_inativos(void);
+void funcionarios_por_cargo(void);
+void filtrar_funcionario_cargo(char* cargo);
 
 int modulo_relatorio_clientes(void);
 void clientes_ativos(void);
