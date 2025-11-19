@@ -105,12 +105,12 @@ void menu_sobre(void)
     printf("#=====================================================================#\n");
     printf("|                                                                     |\n");
     printf("|       O sistema de gestão da locadora de veículos Rent a Car        |\n");
-    printf("|   é um ferramenta desenvolvida para organizar e automatizar        |\n");
+    printf("|   é um ferramenta desenvolvida para organizar e automatizar         |\n");
     printf("|   os processos administrativos e operacionais da empresa.           |\n");
     printf("|   Seu principal objetivo é facilitar o controle das atividades      |\n");
     printf("|   relacionadas à frota de veículos, aos clientes e às locações      |\n");
     printf("|   realizadas, garantindo maior eficiência, segurança e              |\n");
-    printf("|   agilidade no atendimento.    a                                     |\n");
+    printf("|   agilidade no atendimento.                                         |\n");
     printf("|                                                                     |\n");
     printf("#=====================================================================#\n");
     printf("\n");

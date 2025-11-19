@@ -276,16 +276,16 @@ void modulo_atualizar_clientes(void)
             encontrado = true;
 
             system("clear||cls");
-            printf("---------------------------\n");
+            printf("------------------------------------------------\n");
             printf("[o] - Cliente encontrado!\n");
-            printf("---------------------------\n");
+            printf("------------------------------------------------\n");
             printf("[1] Novo Nome\n");
             printf("[2] Novo Cpf\n");
             printf("[3] Nova Data de Nascimento\n");
             printf("[4] Novo E-mail\n");
             printf("[5] Nova CNH\n");
             printf("[0] Cancelar\n");
-            printf("---------------------------\n");
+            printf("------------------------------------------------\n");
             printf("[>] - Informe qual informação deseja alterar: ");
             scanf(" %c", &opcao);
             while ((c = getchar()) != '\n' && c != EOF)

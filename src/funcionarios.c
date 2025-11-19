@@ -274,16 +274,17 @@ void modulo_atualizar_funcionario(void)
             func_encontrado = true;
         
             system("clear||cls");
-            printf("------------------------------\n");
-            printf("[o] - Funcionário encontrado!\n");
-            printf("------------------------------\n");
-            printf("[1] Novo Nome\n");
-            printf("[2] Novo Cpf\n");
-            printf("[3] Nova Data de Nascimento\n");
-            printf("[4] Novo E-mail\n");
-            printf("[5] Novo cargo\n");
-            printf("[0] Cancelar\n");
-            printf("------------------------------\n");
+            printf("#====================================================#\n");
+            printf("|            [o] - Funcionário encontrado!           |\n");
+            printf("#====================================================#\n");
+            printf("|            [1] - Nome                              |\n");
+            printf("|            [2] - CPF                               |\n");
+            printf("|            [3] - Data de Nascimento                |\n");
+            printf("|            [4] - E-mail                            |\n");
+            printf("|            [5] - Cargo                             |\n");
+            printf("|----------------------------------------------------|\n");
+            printf("|            [0] - Cancelar                          |\n");
+            printf("#====================================================#\n");
             printf("[>] - Informe qual informação deseja alterar: ");
             scanf(" %c", &op_funcionario);
             while ((c = getchar()) != '\n' && c != EOF)
@@ -293,7 +294,7 @@ void modulo_atualizar_funcionario(void)
 
             switch(op_funcionario){
                 case '1':
-                    printf("---------------------------\n");
+                    printf("------------------------------------------------------\n");
                     printf("[+] - Novo nome do funcionário: ");
                     scanf("%99[^\n]", fun->nome_funcionario);
                     while ((c = getchar()) != '\n' && c != EOF);
@@ -307,7 +308,7 @@ void modulo_atualizar_funcionario(void)
                     break;
 
                 case '2':
-                    printf("---------------------------\n");
+                    printf("------------------------------------------------------\n");
                     printf("[+] - Novo CPF do funcionário: ");
                     scanf("%14s", fun->cpf_funcionario);
                     while ((c = getchar()) != '\n' && c != EOF);
@@ -321,7 +322,7 @@ void modulo_atualizar_funcionario(void)
                     break;
                     
                 case '3':
-                    printf("---------------------------\n");
+                    printf("------------------------------------------------------\n");
                     printf("[+] - Nova Data de Nasc. do funcionário: ");
                     scanf("%11s", fun->dt_nascimento_fun);
                     while ((c = getchar()) != '\n' && c != EOF);
@@ -335,7 +336,7 @@ void modulo_atualizar_funcionario(void)
                     break;
 
                 case '4':
-                    printf("---------------------------\n");
+                    printf("------------------------------------------------------\n");
                     printf("[+] - Novo email do funcionário: ");
                     scanf("%99s", fun->email_funcionario);
                     while ((c = getchar()) != '\n' && c != EOF);
@@ -349,7 +350,7 @@ void modulo_atualizar_funcionario(void)
                     break;
 
                 case '5':
-                    printf("---------------------------\n");
+                    printf("------------------------------------------------------\n");
                     printf("[+] - Novo cargo do funcionário: ");
                     scanf("%50[^\n]", fun->cargo);
                     while ((c = getchar()) != '\n' && c != EOF);
@@ -375,7 +376,7 @@ void modulo_atualizar_funcionario(void)
                 fseek(arq_funcionario, -sizeof(Funcionario), SEEK_CUR);
                 fwrite(fun, sizeof(Funcionario), 1,arq_funcionario);
                 fflush(arq_funcionario);
-                printf("-----------------------000--------------\n");
+                printf("------------------------------------------------------\n");
                 printf("[o] - Dado(s) alterado(s) com sucesso!\n");
             }
 
