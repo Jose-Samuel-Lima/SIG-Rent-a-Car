@@ -48,12 +48,12 @@ int modulo_tela_funcionario(void)
     printf("#=====================================================================#\n");
     printf("|                          MÓDULO FUNCIONÁRIOS                        |\n");
     printf("|---------------------------------------------------------------------|\n");
-    printf("|                    [1] - Cadastrar Funcionário                      |\n");
-    printf("|                    [2] - Verificar Funcionário                      |\n");
-    printf("|                    [3] - Atualizar Funcionário                      |\n");
-    printf("|                    [4] - Excluir Funcionário                        |\n");
+    printf("|                     [1] - Cadastrar Funcionário                     |\n");
+    printf("|                     [2] - Verificar Funcionário                     |\n");
+    printf("|                     [3] - Atualizar Funcionário                     |\n");
+    printf("|                     [4] - Excluir Funcionário                       |\n");
     printf("|---------------------------------------------------------------------|\n");
-    printf("|                    [0] - Sair                                       |\n");
+    printf("|                     [0] - Sair                                      |\n");
     printf("#=====================================================================#\n");
     printf("\n");
     printf("[>] - Escolha uma das opções acima: ");
