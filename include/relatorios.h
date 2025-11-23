@@ -27,4 +27,6 @@ int modulo_relatorio_alugueis(void);
 void alugueis_ativos(void);
 void alugueis_inativos(void);
 
+void str_to_lower(char *str);
+
 #endif

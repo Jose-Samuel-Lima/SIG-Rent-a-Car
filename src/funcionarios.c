@@ -197,7 +197,7 @@ void modulo_dados_funcionario(void)
             printf("CPF: %s\n", fun->cpf_funcionario);
             printf("Data Nasci.: %s\n", fun->dt_nascimento_fun);
             printf("Email: %s\n", fun->email_funcionario);
-            printf("CNH: %s\n", fun->cargo);
+            printf("Cargo: %s\n", fun->cargo);
             printf("-----------------------------------\n");
             printf("[>] - Pressione Enter para continuar...");
             getchar();

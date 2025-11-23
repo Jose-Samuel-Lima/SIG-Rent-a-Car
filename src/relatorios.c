@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <string.h>
+#include <ctype.h>
 #include "funcionarios.h"
 #include "clientes.h"
 #include "veiculos.h"
@@ -287,10 +288,6 @@ int modulo_relatorio_alugueis(void)
     return op;
 }
 
-// ====================== //
-// FUNCOES - FUNCIONARIOS //
-// ====================== //
-
 void funcionarios_ativos(void)
 {
     FILE *arq_funcionario;
@@ -415,6 +412,8 @@ void funcionarios_por_cargo(void)
     scanf("%50s", cargo_busca); 
     while ((c = getchar()) != '\n' && c != EOF);
 
+    str_to_lower(cargo_busca);
+
     filtrar_funcionario_cargo(cargo_busca);
 }
 
@@ -443,13 +442,22 @@ void filtrar_funcionario_cargo(char* cargo) {
     printf("\n [>] - Funcionários com o cargo: %s\n\n", cargo);
 
     while (fread(fun, sizeof(Funcionario), 1, arq_funcionario)) {
-        if (fun->status == true && strcmp(fun->cargo, cargo) == 0) {
-            contador++;
-            printf("----------------------------------------------\n");
-            printf("Nome: %s\n", fun->nome_funcionario);
-            printf("CPF: %s\n", fun->cpf_funcionario);
-            printf("Data de Nascimento: %s\n", fun->dt_nascimento_fun);
-            printf("Email: %s\n", fun->email_funcionario);
+        if (fun->status == true){ 
+
+            char cargo_temp[51];
+            strcpy(cargo_temp, fun->cargo);
+
+            str_to_lower(cargo_temp);
+
+            if(strstr(cargo_temp, cargo) != NULL) {
+                contador++;
+                printf("----------------------------------------------\n");
+                printf("Nome: %s\n", fun->nome_funcionario);
+                printf("CPF: %s\n", fun->cpf_funcionario);
+                printf("Data de Nascimento: %s\n", fun->dt_nascimento_fun);
+                printf("Email: %s\n", fun->email_funcionario);
+                printf("Cargo: %s\n", fun->cargo);
+            }
         }
     }
 
