@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 typedef struct funcionario {
+    int id;
     char nome_funcionario[100];
     char dt_nascimento_fun[12];
     char cpf_funcionario[15];

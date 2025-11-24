@@ -9,6 +9,45 @@
 #include "relatorios.h"
 #include "alugueis.h"
 
+// Estrutura para representar um nó
+typedef struct Node {
+    int data;           // Dado armazenado no nó
+    struct Node* next;  // Ponteiro para o próximo nó
+} Node;
+
+void append(Node** head, int data) {
+    // Cria um novo nó
+    Node* new_node = (Node*)malloc(sizeof(Node));
+    if (new_node == NULL) {
+        printf("Erro ao alocar memória!\n");
+        return;
+    }
+
+    new_node->data = data;
+    new_node->next = NULL;  // O próximo nó será NULL, pois é o último nó
+
+    // Se a lista estiver vazia, o novo nó será o primeiro
+    if (*head == NULL) {
+        *head = new_node;
+    } else {
+        // Caso contrário, percorre até o último nó e o adiciona
+        Node* temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = new_node;
+    }
+}
+
+void freeList(Node* head) {
+    Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);  // Libera a memória do nó
+    }
+}
+
 int modulo_relatorio(void)
 {
     int esc;

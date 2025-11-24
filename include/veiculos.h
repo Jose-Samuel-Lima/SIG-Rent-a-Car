@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 typedef struct veiculo {
+    int id;
     char placa[8];
     char chassi[18];
     char renavam[12];

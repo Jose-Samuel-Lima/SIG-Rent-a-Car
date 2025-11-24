@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 typedef struct cliente {
+    int id;
     char nome_cliente[100];
     char cpf_cliente[15];
     char data_nascimento[12];

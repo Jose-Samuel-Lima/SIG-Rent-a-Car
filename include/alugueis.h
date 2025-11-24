@@ -4,6 +4,7 @@
 
 typedef struct aluguel
 {
+    int id;
     char nome_cliente[100];
     char cpf_cliente[15];
     char codigo_renavam[12];
