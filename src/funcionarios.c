@@ -2,8 +2,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+
 #include "funcionarios.h"
 #include "validacao.h"
+#include "utilidades.h"
 
 int modulo_funcionario(void)
 {  
@@ -67,13 +69,11 @@ int modulo_tela_funcionario(void)
 
 void modulo_cadastrar_funcionario(void)
 {
-    FILE *arq_funcionario;
-    Funcionario* fun;
-    fun = (Funcionario*) malloc(sizeof(Funcionario));
-    int c;
-
     system("clear||cls");
-    printf("\n");
+
+    Funcionario *fun = malloc(sizeof(Funcionario));
+    if (!fun) return;
+
     printf("#=====================================================================#\n");
     printf("|                         --------------------                        |\n");
     printf("|                         | SIG - Rent a Car |                        |\n");
@@ -81,71 +81,26 @@ void modulo_cadastrar_funcionario(void)
     printf("#=====================================================================#\n");
     printf("|                        CADASTRAR FUNCIONÁRIOS                       |\n");
     printf("#=====================================================================#\n");
-    printf("\n");
 
-    printf("[+] - Nome do funcionário: ");
-    scanf("%99[^\n]", fun->nome_funcionario);
-    while ((c = getchar()) != '\n' && c != EOF);
-
-    while (!validarNome(fun->nome_funcionario)) {
-        printf(" XXX - Nome inválido! Digite novamente: ");
-        scanf("%99[^\n]", fun->nome_funcionario);
-        while ((c = getchar()) != '\n' && c != EOF);
-    }
-    
-    printf("[+] - CPF do funcionário: ");
-    scanf("%14s", fun->cpf_funcionario);
-    while ((c = getchar()) != '\n' && c != EOF);
-
-    while (!validarCPF(fun->cpf_funcionario)) {
-        printf("XXX - CPF inválido! Digite novamente: ");
-        scanf("%14s", fun->cpf_funcionario);
-        while ((c = getchar()) != '\n' && c != EOF);
-    }
-    
-    printf("[+] - Data de Nascimento (DD/MM/AAAA): ");
-    scanf("%11s", fun->dt_nascimento_fun);
-    while ((c = getchar()) != '\n' && c != EOF);
-
-    while (!validarData(fun->dt_nascimento_fun)) {
-        printf("XXX - Data inválida. Digite novamente (DD/MM/AAAA): ");
-        scanf("%11s", fun->dt_nascimento_fun);
-        while ((c = getchar()) != '\n' && c != EOF);
-    }
-    
-    printf("[+] - Email do funcionário: ");
-    scanf("%99s", fun->email_funcionario);
-    while ((c = getchar()) != '\n' && c != EOF);
-
-    while (!validarEmail(fun->email_funcionario)) {
-        printf("XXX - Email inválido. Digite novamente: ");
-        scanf("%99s", fun->email_funcionario);
-        while ((c = getchar()) != '\n' && c != EOF);
-    }
-
-    printf("[+] - Cargo do funcionário: ");
-    scanf("%50[^\n]", fun->cargo);
-    while ((c = getchar()) != '\n' && c != EOF);
-
-    while (!validarNome(fun->cargo)) {
-        printf("XXX - Cargo inválido. Digite novamente: ");
-        scanf("%50[^\n]", fun->cargo);
-        while ((c = getchar()) != '\n' && c != EOF);
-    }
+    lerEntrada(fun->nome_funcionario, 100, "[+] - Nome: ", validarNome);
+    lerEntrada(fun->cpf_funcionario, 15, "[+] - CPF: ", validarCPF);
+    lerEntrada(fun->dt_nascimento_fun, 12, "[+] - Data: ", validarData);
+    lerEntrada(fun->email_funcionario, 100, "[+] - Email: ", validarEmail);
+    lerEntrada(fun->cargo, 51, "[+] - Cargo: ", validarNome);
 
     fun->status = true;
     
-    arq_funcionario = fopen("funcionario.dat","ab");
+    FILE *arq_funcionario = fopen("funcionario.dat","ab");
 
     if (arq_funcionario == NULL){
         printf("XXX - Erro na criação do arquivo!");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
+        free(fun);
         exit(1);
     }
 
     fwrite(fun, sizeof(Funcionario), 1, arq_funcionario);
-
     fclose(arq_funcionario);
     free(fun);
 

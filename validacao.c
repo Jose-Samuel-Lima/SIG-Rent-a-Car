@@ -19,7 +19,8 @@ int ehDigito(char c) {
 //       DADOS ESPECÍFICOS
 // ==============================
 
-int validarNome(char *nome) {
+int validarNome(const char *nome) {
+    if (nome == NULL) return 0;
     for (int i = 0; nome[i] != '\0'; i++) {
         if (!(ehLetra(nome[i]) || nome[i] == ' ')) {
             return 0;
@@ -28,7 +29,7 @@ int validarNome(char *nome) {
     return 1;
 }
 
-int validarCPF(char *cpf) {
+int validarCPF(const char *cpf) {
     int cont = 0;
     for (int i = 0; cpf[i] != '\0'; i++) {
         if (ehDigito(cpf[i])) cont++;
@@ -37,7 +38,7 @@ int validarCPF(char *cpf) {
     return (cont == 11);
 }
 
-int validarEmail(char *email) {
+int validarEmail(const char *email) {
     if (!email || !email[0] || email[0] == '@' || email[0] == '.') return 0;
 
     int temArroba = 0;
@@ -61,7 +62,7 @@ int validarEmail(char *email) {
     return (temArroba && temPontoDepois);
 }
 
-int verificarNumero(char *entrada) {
+int verificarNumero(const char *entrada) {
     for (int i = 0; entrada[i] != '\0'; i++) {
         if (entrada[i] != '/' && !ehDigito(entrada[i])) {
             return 0;
@@ -74,28 +75,28 @@ int verificarNumero(char *entrada) {
 // Código original que foi utilizado para complementar validarData.
 // Autor: Mercador; Perfil: https://pt.stackoverflow.com/users/17607/mercador
 
-int validarData(char *data) {
-    if (strlen(data) != 10) return 0;
-    if (!(ehDigito(data[0]) && ehDigito(data[1]) && 
-          data[2] == '/' &&
-          ehDigito(data[3]) && ehDigito(data[4]) && 
-          data[5] == '/' &&
-          ehDigito(data[6]) && ehDigito(data[7]) && 
-          ehDigito(data[8]) && ehDigito(data[9]))) {
+int validarData(const char *str) {
+    if (strlen(str) != 10) return 0;
+    if (!(ehDigito(str[0]) && ehDigito(str[1]) && 
+          str[2] == '/' &&
+          ehDigito(str[3]) && ehDigito(str[4]) && 
+          str[5] == '/' &&
+          ehDigito(str[6]) && ehDigito(str[7]) && 
+          ehDigito(str[8]) && ehDigito(str[9]))) {
         return 0;
     }
     
-    if (strstr(data, "//") != NULL) {
+    if (strstr(str, "//") != NULL) {
         return 0;
     }
     
-    if (!verificarNumero(data)) {
+    if (!verificarNumero(str)) {
         return 0;
     }
     
     int dia, mes, ano;
     char data_copia[11];
-    strcpy(data_copia, data);
+    strcpy(data_copia, str);
     
     char *token = strtok(data_copia, "/");
     dia = strtol(token, NULL, 10);
