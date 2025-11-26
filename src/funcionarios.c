@@ -84,7 +84,7 @@ void modulo_cadastrar_funcionario(void)
 
     lerEntrada(fun->nome_funcionario, 100, "[+] - Nome: ", validarNome);
     lerEntrada(fun->cpf_funcionario, 15, "[+] - CPF: ", validarCPF);
-    lerEntrada(fun->dt_nascimento_fun, 12, "[+] - Data: ", validarData);
+    lerEntrada(fun->dt_nascimento_fun, 12, "[+] - Data (DD/MM/AAAA): ", validarData);
     lerEntrada(fun->email_funcionario, 100, "[+] - Email: ", validarEmail);
     lerEntrada(fun->cargo, 51, "[+] - Cargo: ", validarNome);
 
@@ -329,14 +329,16 @@ void modulo_excluir_funcionario(void)
 
             func_encontrado = true;
 
-            printf("\n---------------------------------------\n");
-            printf("[o] Funcionário encontrado!\n");
-            printf("Nome: %s\n", fun->nome_funcionario);
-            printf("CPF: %s\n", fun->cpf_funcionario);
-            printf("Nascimento: %s\n", fun->dt_nascimento_fun);
-            printf("Email: %s\n", fun->email_funcionario);
-            printf("Cargo: %s\n", fun->cargo);
-            printf("---------------------------------------\n");
+            system("clear||cls");
+            printf("#====================================================#\n");
+            printf("|            [o] - Funcionário encontrado!           |\n");
+            printf("#====================================================#\n");
+            printf("| > Nome: %s\n", fun->nome_funcionario);
+            printf("| > CPF: %s\n", fun->cpf_funcionario);
+            printf("| > Data de Nascimento: %s\n", fun->dt_nascimento_fun);
+            printf("| > Email: %s\n", fun->email_funcionario);
+            printf("| > Cargo: %s\n", fun->cargo);
+            printf("#====================================================#");
 
             printf("\n[?] - Deseja excluir o funcionário? (S/N): ");
             scanf(" %c", &confirmar);

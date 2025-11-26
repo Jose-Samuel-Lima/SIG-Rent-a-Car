@@ -75,28 +75,28 @@ int verificarNumero(const char *entrada) {
 // Código original que foi utilizado para complementar validarData.
 // Autor: Mercador; Perfil: https://pt.stackoverflow.com/users/17607/mercador
 
-int validarData(const char *str) {
-    if (strlen(str) != 10) return 0;
-    if (!(ehDigito(str[0]) && ehDigito(str[1]) && 
-          str[2] == '/' &&
-          ehDigito(str[3]) && ehDigito(str[4]) && 
-          str[5] == '/' &&
-          ehDigito(str[6]) && ehDigito(str[7]) && 
-          ehDigito(str[8]) && ehDigito(str[9]))) {
+int validarData(const char *data) {
+    if (strlen(data) != 10) return 0;
+    if (!(ehDigito(data[0]) && ehDigito(data[1]) && 
+          data[2] == '/' &&
+          ehDigito(data[3]) && ehDigito(data[4]) && 
+          data[5] == '/' &&
+          ehDigito(data[6]) && ehDigito(data[7]) && 
+          ehDigito(data[8]) && ehDigito(data[9]))) {
+        return 0;  
+    }
+    
+    if (strstr(data, "//") != NULL) {
         return 0;
     }
     
-    if (strstr(str, "//") != NULL) {
-        return 0;
-    }
-    
-    if (!verificarNumero(str)) {
+    if (!verificarNumero(data)) {
         return 0;
     }
     
     int dia, mes, ano;
     char data_copia[11];
-    strcpy(data_copia, str);
+    strcpy(data_copia, data);
     
     char *token = strtok(data_copia, "/");
     dia = strtol(token, NULL, 10);
@@ -146,7 +146,7 @@ int validarData(const char *str) {
     return 1;
 }
 
-int validarCNH(char *cnh) {
+int validarCNH(const char *cnh) {
     if (cnh == NULL) {
         return 0;
     }

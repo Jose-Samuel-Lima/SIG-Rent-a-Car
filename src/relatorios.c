@@ -516,9 +516,9 @@ void clientes_ativos(void)
             printf("Cliente #%d\n", contador);
             printf("Nome: %s\n", cli->nome_cliente);
             printf("CPF: %s\n", cli->cpf_cliente);
-            printf("Data Nasci.: %s\n", cli->data_nascimento);
+            printf("Data Nasci.: %s\n", cli->data_cliente);
             printf("Email: %s\n", cli->email_cliente);
-            printf("CNH: %s\n", cli->cnh);
+            printf("CNH: %s\n", cli->cnh_cliente);
         }
     }
 
@@ -569,9 +569,9 @@ void clientes_inativos(void)
             printf("Cliente #%d\n", contador);
             printf("Nome: %s\n", cli->nome_cliente);
             printf("CPF: %s\n", cli->cpf_cliente);
-            printf("Data Nasci.: %s\n", cli->data_nascimento);
+            printf("Data Nasci.: %s\n", cli->data_cliente);
             printf("Email: %s\n", cli->email_cliente);
-            printf("CNH: %s\n", cli->cnh);
+            printf("CNH: %s\n", cli->cnh_cliente);
         }
     }
 
@@ -649,9 +649,9 @@ void filtrar_cliente_nome(char* nome_cliente) {
                 printf("----------------------------------------------\n");
                 printf("Nome: %s\n", cli->nome_cliente);
                 printf("CPF: %s\n", cli->cpf_cliente);
-                printf("Data Nasci.: %s\n", cli->data_nascimento);
+                printf("Data Nasci.: %s\n", cli->data_cliente);
                 printf("Email: %s\n", cli->email_cliente);
-                printf("CNH: %s\n", cli->cnh);
+                printf("CNH: %s\n", cli->cnh_cliente);
             }
         }
     }

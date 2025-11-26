@@ -4,11 +4,11 @@
 int ehLetra(char c);
 int ehDigito(char c);
 
-int validarNome(const char *str);
-int validarCPF(const char *str);
-int validarData(const char *str);
-int validarEmail(const char *str);
-int validarCNH(char *cnh);
+int validarNome(const char *nome);
+int validarCPF(const char *cpf);
+int validarData(const char *data);
+int validarEmail(const char *email);
+int validarCNH(const char *cnh);
 int validarIDaluguel(char *id);
 
 int validarPlaca(char *placa);
