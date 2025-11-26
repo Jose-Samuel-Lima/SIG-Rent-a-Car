@@ -19,7 +19,7 @@ int modulo_funcionario(void)
             modulo_cadastrar_funcionario();
             break;
         case 2:
-            modulo_dados_funcionario();
+            modulo_verificar_funcionario();
             break;
         case 3:
             modulo_atualizar_funcionario();
@@ -104,13 +104,13 @@ void modulo_cadastrar_funcionario(void)
     fclose(arq_funcionario);
     free(fun);
 
-    printf("-----------------------------------------\n");
+    printf("#=====================================================================#\n");
     printf("[o] - Funcionário Registrado com Sucesso!\n");
     printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 
-void modulo_dados_funcionario(void)
+void modulo_verificar_funcionario(void)
 {
     FILE *arq_funcionario;
     Funcionario* fun;
@@ -144,16 +144,16 @@ void modulo_dados_funcionario(void)
     while (fread(fun,sizeof(Funcionario),1,arq_funcionario)){
 
         if (strcmp(cpf_funcionario_ler,fun->cpf_funcionario) == 0 && fun->status == true) {
-            printf("------------------------------------\n");
-            printf("T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("< = = Funcionário Encontrado! = = >\n");
-            printf("T ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ T\n");
-            printf("Nome: %s\n", fun->nome_funcionario);
-            printf("CPF: %s\n", fun->cpf_funcionario);
-            printf("Data Nasci.: %s\n", fun->dt_nascimento_fun);
-            printf("Email: %s\n", fun->email_funcionario);
-            printf("Cargo: %s\n", fun->cargo);
-            printf("-----------------------------------\n");
+            system("clear||cls");
+            printf("#====================================================#\n");
+            printf("|            [o] - Funcionário encontrado!           |\n");
+            printf("#====================================================#\n");
+            printf("| > Nome: %s\n", fun->nome_funcionario);
+            printf("| > CPF: %s\n", fun->cpf_funcionario);
+            printf("| > Data de Nascimento: %s\n", fun->dt_nascimento_fun);
+            printf("| > Email: %s\n", fun->email_funcionario);
+            printf("| > Cargo: %s\n", fun->cargo);
+            printf("#====================================================#\n");
             printf("[>] - Pressione Enter para continuar...");
             getchar();
             return;
@@ -164,7 +164,7 @@ void modulo_dados_funcionario(void)
     fclose(arq_funcionario);
     free(fun);
     printf("XXX - Funcionário não encontrado!\n");
-    printf("[>] - Pressione Enter para continuar...\n");
+    printf("[>] - Pressione Enter para continuar...");
     getchar();
 }
 
@@ -228,77 +228,38 @@ void modulo_atualizar_funcionario(void)
 
             switch(op_funcionario){
                 case '1':
-                    printf("------------------------------------------------------\n");
-                    printf("[+] - Novo nome do funcionário: ");
-                    scanf("%99[^\n]", fun->nome_funcionario);
-                    while ((c = getchar()) != '\n' && c != EOF);
+                    atualizarEntrada("[+] - Novo nome do Funcionário: ", fun->nome_funcionario, 100, validarNome);
 
-                    while (!validarNome(fun->nome_funcionario)) {
-                        printf(" XXX - Nome inválido! Digite novamente: ");
-                        scanf("%99[^\n]", fun->nome_funcionario);
-                        while ((c = getchar()) != '\n' && c != EOF);
-                    }
                     alt = 1;
                     break;
 
                 case '2':
-                    printf("------------------------------------------------------\n");
-                    printf("[+] - Novo CPF do funcionário: ");
-                    scanf("%14s", fun->cpf_funcionario);
-                    while ((c = getchar()) != '\n' && c != EOF);
+                    atualizarEntrada("[+] - Novo CPF do Funcionário: ", fun->cpf_funcionario, 15, validarCPF);
 
-                    while (!validarCPF(fun->cpf_funcionario)) {
-                        printf("XXX - CPF inválido! Digite novamente: ");
-                        scanf("%14s", fun->cpf_funcionario);
-                        while ((c = getchar()) != '\n' && c != EOF);
-                    }
                     alt = 1;
                     break;
                     
                 case '3':
-                    printf("------------------------------------------------------\n");
-                    printf("[+] - Nova Data de Nasc. do funcionário: ");
-                    scanf("%11s", fun->dt_nascimento_fun);
-                    while ((c = getchar()) != '\n' && c != EOF);
+                    atualizarEntrada("[+] - Nova data de nascimento (DD/MM/AAAA): ", fun->dt_nascimento_fun, 12, validarData);
 
-                    while (!validarData(fun->dt_nascimento_fun)) {
-                        printf("XXX - Data inválida. Digite novamente (DD/MM/AAAA): ");
-                        scanf("%11s", fun->dt_nascimento_fun);
-                        while ((c = getchar()) != '\n' && c != EOF);
-                    }
                     alt = 1;
                     break;
 
                 case '4':
-                    printf("------------------------------------------------------\n");
-                    printf("[+] - Novo email do funcionário: ");
-                    scanf("%99s", fun->email_funcionario);
-                    while ((c = getchar()) != '\n' && c != EOF);
+                    atualizarEntrada("[+] - Novo e-mail: ", fun->email_funcionario, 100, validarEmail);
 
-                    while (!validarEmail(fun->email_funcionario)) {
-                        printf("XXX - Email inválido. Digite novamente: ");
-                        scanf("%99s", fun->email_funcionario);
-                        while ((c = getchar()) != '\n' && c != EOF);
-                    }
-                    alt =1;
+                    alt = 1;
                     break;
 
-                case '5':
-                    printf("------------------------------------------------------\n");
-                    printf("[+] - Novo cargo do funcionário: ");
-                    scanf("%50[^\n]", fun->cargo);
-                    while ((c = getchar()) != '\n' && c != EOF);
 
-                    while (!validarNome(fun->cargo)) {
-                        printf("XXX - Cargo inválido. Digite novamente: ");
-                        scanf("%50[^\n]", fun->cargo);
-                        while ((c = getchar()) != '\n' && c != EOF);
-                    }
+                case '5':
+                    atualizarEntrada("[+] - Novo cargo: ", fun->cargo, 51, validarNome);
+        
                     alt = 1;
                     break;
 
                 case '0':
-                    printf("Voltando ao menu funcionários.\n");
+                    printf("Voltando ao menu...\n");
                     break;
 
                 default:
@@ -310,7 +271,7 @@ void modulo_atualizar_funcionario(void)
                 fseek(arq_funcionario, -sizeof(Funcionario), SEEK_CUR);
                 fwrite(fun, sizeof(Funcionario), 1,arq_funcionario);
                 fflush(arq_funcionario);
-                printf("------------------------------------------------------\n");
+                printf("#====================================================#\n");
                 printf("[o] - Dado(s) alterado(s) com sucesso!\n");
             }
 
@@ -335,7 +296,8 @@ void modulo_excluir_funcionario(void)
     fun = (Funcionario*) malloc(sizeof(Funcionario));
     char cpf_funcionario_ler[15];
     int c;
-    bool func_encontrado;
+    bool func_encontrado = false;
+    char confirmar;
 
     system("clear||cls");
     printf("\n");
@@ -347,44 +309,64 @@ void modulo_excluir_funcionario(void)
     printf("|                         EXCLUIR FUNCIONÁRIOS                        |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("[>] - Informe o CPf do funcionário que deseja excluir: ");
-    scanf("%14s", cpf_funcionario_ler);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
 
-    func_encontrado = false;
+    printf("[>] - Informe o CPF do funcionário que deseja excluir: ");
+    scanf("%14s", cpf_funcionario_ler);
+    while ((c = getchar()) != '\n' && c != EOF);
 
     arq_funcionario = fopen("funcionario.dat","r+b");
 
     if (arq_funcionario == NULL){
-        printf("XXX - Erro ao entrar no arquivo!");
+        printf("XXX - Erro ao abrir o arquivo!\n");
         printf("[>] - Pressione Enter para continuar...");
         getchar();
         exit(1);
     }
 
-    while ((fread(fun,sizeof(Funcionario),1,arq_funcionario) == 1) && (!func_encontrado)) {
+    while (fread(fun, sizeof(Funcionario), 1, arq_funcionario) == 1) {
 
-        if (strcmp(fun->cpf_funcionario,cpf_funcionario_ler) == 0){
+        if (strcmp(fun->cpf_funcionario, cpf_funcionario_ler) == 0 && fun->status) {
 
-            fun->status = false;
-            fseek(arq_funcionario,(-1)*sizeof(Funcionario),SEEK_CUR);
-            fwrite(fun, sizeof(Funcionario),1, arq_funcionario);
             func_encontrado = true;
 
+            printf("\n---------------------------------------\n");
+            printf("[o] Funcionário encontrado!\n");
+            printf("Nome: %s\n", fun->nome_funcionario);
+            printf("CPF: %s\n", fun->cpf_funcionario);
+            printf("Nascimento: %s\n", fun->dt_nascimento_fun);
+            printf("Email: %s\n", fun->email_funcionario);
+            printf("Cargo: %s\n", fun->cargo);
             printf("---------------------------------------\n");
-            printf("[o] - Funcionário excluído com sucesso!\n");
-            break;
+
+            printf("\n[?] - Deseja excluir o funcionário? (S/N): ");
+            scanf(" %c", &confirmar);
+            while ((c = getchar()) != '\n' && c != EOF);
+
+            if (confirmar == 'S' || confirmar == 's') {
+
+                fun->status = false;
+
+                fseek(arq_funcionario, -sizeof(Funcionario), SEEK_CUR);
+                fwrite(fun, sizeof(Funcionario), 1, arq_funcionario);
+                fflush(arq_funcionario);
+
+                printf("\n[o] - Funcionário excluído com sucesso!\n");
             }
+            else {
+                printf("\n[o] - Exclusão cancelada.\n");
+            }
+
+            break;
         }
+    }
+
     fclose(arq_funcionario);
     free(fun);
 
     if (!func_encontrado){
-            printf("XXX - Funcionário não encontrado...\n");
-        }
+        printf("XXX - Funcionário não encontrado...\n");
+    }
 
-    printf("[>] - Pressione Enter para continuar...");
+    printf("\n[>] - Pressione Enter para continuar...");
     getchar();
-    
 }

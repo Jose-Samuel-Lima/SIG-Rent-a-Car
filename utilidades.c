@@ -25,3 +25,7 @@ void lerEntrada(char *destino, int tamanho, const char *mensagem, int (*validado
         while ((c = getchar()) != '\n' && c != EOF);
     }
 }
+
+void atualizarEntrada(const char *mensagem, char *destino, int tamanho, int (*validador)(const char*)) {
+    lerEntrada(destino, tamanho, mensagem, validador);
+}
