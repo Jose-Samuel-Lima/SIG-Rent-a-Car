@@ -367,7 +367,7 @@ void modulo_excluir_cliente(void)
     free(cli);
 
     if (!cli_encontrado){
-        printf("XXX - Funcionário não encontrado...\n");
+        printf("XXX - Cliente não encontrado...\n");
     }
 
     printf("\n[>] - Pressione Enter para continuar...");
