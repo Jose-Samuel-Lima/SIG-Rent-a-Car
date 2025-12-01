@@ -19,7 +19,8 @@ int ehDigito(char c) {
 //       DADOS ESPECÍFICOS
 // ==============================
 
-int validarNome(char *nome) {
+int validarNome(const char *nome) {
+    if (nome == NULL) return 0;
     for (int i = 0; nome[i] != '\0'; i++) {
         if (!(ehLetra(nome[i]) || nome[i] == ' ')) {
             return 0;
@@ -28,7 +29,7 @@ int validarNome(char *nome) {
     return 1;
 }
 
-int validarCPF(char *cpf) {
+int validarCPF(const char *cpf) {
     int cont = 0;
     for (int i = 0; cpf[i] != '\0'; i++) {
         if (ehDigito(cpf[i])) cont++;
@@ -37,7 +38,7 @@ int validarCPF(char *cpf) {
     return (cont == 11);
 }
 
-int validarEmail(char *email) {
+int validarEmail(const char *email) {
     if (!email || !email[0] || email[0] == '@' || email[0] == '.') return 0;
 
     int temArroba = 0;
@@ -61,7 +62,7 @@ int validarEmail(char *email) {
     return (temArroba && temPontoDepois);
 }
 
-int verificarNumero(char *entrada) {
+int verificarNumero(const char *entrada) {
     for (int i = 0; entrada[i] != '\0'; i++) {
         if (entrada[i] != '/' && !ehDigito(entrada[i])) {
             return 0;
@@ -74,7 +75,7 @@ int verificarNumero(char *entrada) {
 // Código original que foi utilizado para complementar validarData.
 // Autor: Mercador; Perfil: https://pt.stackoverflow.com/users/17607/mercador
 
-int validarData(char *data) {
+int validarData(const char *data) {
     if (strlen(data) != 10) return 0;
     if (!(ehDigito(data[0]) && ehDigito(data[1]) && 
           data[2] == '/' &&
@@ -82,7 +83,7 @@ int validarData(char *data) {
           data[5] == '/' &&
           ehDigito(data[6]) && ehDigito(data[7]) && 
           ehDigito(data[8]) && ehDigito(data[9]))) {
-        return 0;
+        return 0;  
     }
     
     if (strstr(data, "//") != NULL) {
@@ -145,7 +146,7 @@ int validarData(char *data) {
     return 1;
 }
 
-int validarCNH(char *cnh) {
+int validarCNH(const char *cnh) {
     if (cnh == NULL) {
         return 0;
     }
