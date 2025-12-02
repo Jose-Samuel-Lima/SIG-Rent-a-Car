@@ -79,20 +79,24 @@ int modulo_tela_funcionario(void)
 // FUNÇÕES FUNCIONÁRIOS - LISTA DINÂMICA        |
 // =============================================|
 
+// FUNCIONÁRIO NA LISTA EM ORDEM ALFABÉTICA
 void listaOrdenada(Funcionario** lista, Funcionario* novo) 
-{
+{ 
+    // Caso1: lista vazia - Novo vira o primeiro
     if (*lista == NULL) {
         novo->prox = NULL;
         *lista = novo;
         return;
     }
 
+    // Caso2: Novo deve ser inserido antes do primeiro elemento
     if (strcmp(novo->nome_funcionario, (*lista)->nome_funcionario) < 0) {
         novo->prox = *lista;
         *lista = novo;
         return;
     }
 
+    // Caso3: inserir no meio ou final da lista
     Funcionario* anter = *lista;
     Funcionario* atual = (*lista)->prox;
 
@@ -108,6 +112,7 @@ void listaOrdenada(Funcionario** lista, Funcionario* novo)
 
 }
 
+// LEITURA DO ARQUIVO funcionario.dat E MONTA LISTA ORDENADA
 Funcionario* carregarListaFuncionarios() 
 {
     FILE* fp = fopen("funcionario.dat", "rb");
@@ -129,6 +134,7 @@ Funcionario* carregarListaFuncionarios()
     return lista;
 }
 
+// BUSCA FUNCIONÁRIO NA LISTA USANDO CPF
 Funcionario* buscarFuncionario(Funcionario* lista, const char* cpf) {
     Funcionario* aux = lista;
     while (aux) {
@@ -140,8 +146,8 @@ Funcionario* buscarFuncionario(Funcionario* lista, const char* cpf) {
     return NULL;
 }
 
-void salvarListaFuncionarios(Funcionario* lista) 
-{
+// SOBRESCREVE O ARQUIVO funcionario.dat COM A LISTA ATUAL
+void salvarListaFuncionarios(Funcionario* lista) {
     FILE* fp = fopen("funcionario.dat", "wb");
     if (!fp) return;
 
@@ -155,6 +161,7 @@ void salvarListaFuncionarios(Funcionario* lista)
     fclose(fp);
 }
 
+// LIBERA MEMÓRIA ALOCADA PARA A LISTA DINÂMICA
 void limparListaFuncionarios(Funcionario* lista) 
 {
     Funcionario* aux;
