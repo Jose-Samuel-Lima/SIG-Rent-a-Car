@@ -1,14 +1,23 @@
+// =============================================|
+// SEÇÃO DE INCLUDE DE RELATÓRIOS.C             |
+// =============================================|
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
+
 #include "funcionarios.h"
 #include "clientes.h"
 #include "veiculos.h"
 #include "relatorios.h"
 #include "alugueis.h"
+
+// =============================================|
+// MÓDULO DE TELA E NAVEGAÇÃO DE RELATÓRIOS.C   |
+// =============================================|
 
 int modulo_relatorio(void)
 {
@@ -300,7 +309,7 @@ int modulo_relatorio_alugueis(void)
 //      RELATÓRIO DE FUNCIONÁRIO         |
 // ======================================|
 
-// =========== LISTA DINÂMICA DIRETA - FUNCIONÁRIOS ATIVOS =========== 
+// LISTA DINÂMICA DIRETA - FUNCIONÁRIOS ATIVOS
 void funcionarios_ativos(void)
 {
     Funcionario* fun = (Funcionario*) malloc(sizeof(Funcionario));
@@ -381,7 +390,7 @@ void funcionarios_ativos(void)
     getchar();
 }
 
-// =========== LISTA DINÂMICA INVERSA - FUNCIONÁRIOS INATIVOS =========== 
+// LISTA DINÂMICA INVERSA - FUNCIONÁRIOS INATIVOS
 void funcionarios_inativos(void)
 {
     FILE *arq_funcionario;
