@@ -296,73 +296,104 @@ int modulo_relatorio_alugueis(void)
     return op;
 }
 
+// ======================================|
+//      RELATÓRIO DE FUNCIONÁRIO         |
+// ======================================|
+
+// =========== LISTA DINÂMICA DIRETA - FUNCIONÁRIOS ATIVOS =========== 
 void funcionarios_ativos(void)
 {
-    FILE *arq_funcionario;
-    Funcionario* fun;
-    arq_funcionario = fopen("funcionario.dat","rb");
+    Funcionario* fun = (Funcionario*) malloc(sizeof(Funcionario));
+    Funcionario* lista = NULL;
+    Funcionario* ultimo = NULL;
 
     system("clear||cls");
     printf("\n");
-    printf("#=======================================================================#\n");
-    printf("|                                                                       |\n");
-    printf("|                 < = = =  Funcionários Ativos = = = >                  |\n");
-    printf("|                                                                       |\n");
-    printf("#=======================================================================#\n");
-    printf("\n");
-    
+    printf("#=========================================================================================================#\n");
+    printf("|                                          FUNCIONÁRIOS ATIVOS                                            |\n");                
+    printf("#=========================================================================================================#\n");
+
+    FILE* arq_funcionario = fopen("funcionario.dat", "rb");
     if (arq_funcionario == NULL) {
         printf("XXX - Nenhum arquivo de funcionários encontrado!\n");
-        printf("[>] - Pressione Enter para continuar...");
         getchar();
+        free(fun);
         return;
     }
 
-    fun = (Funcionario*) malloc(sizeof(Funcionario));
-
     int contador = 0;
 
+    // LISTA DINÂMICA DIRETA
     while (fread(fun, sizeof(Funcionario), 1, arq_funcionario)) {
         if (fun->status == true) {
-            contador++;
-            printf("------------------------------------------------------------\n");
-            printf("Funcionário #%d\n", contador);
-            printf("Nome: %s\n", fun->nome_funcionario);
-            printf("CPF: %s\n", fun->cpf_funcionario);
-            printf("Data de Nascimento: %s\n", fun->dt_nascimento_fun);
-            printf("Email: %s\n", fun->email_funcionario);
-            printf("Cargo: %s\n", fun->cargo);
-        }
-    }
 
-    if (contador == 0) {
-        printf("XXX - Nenhum funcionário ativo encontrado!\n");
-    } else {
-        printf("------------------------------------------------------------\n");
-        printf("Total de funcionários ativos: %d\n", contador);
+            Funcionario* novo = (Funcionario*) malloc(sizeof(Funcionario));
+            *novo = *fun;
+            novo->prox = NULL;
+
+            if (contador == 0) {
+                lista = novo;
+                ultimo = novo;
+            } else {
+                ultimo->prox = novo;
+                ultimo = novo;
+            }
+
+            contador++;
+        }
     }
 
     fclose(arq_funcionario);
     free(fun);
+    
+    if (contador == 0) {
+        printf("\nNenhum funcionário ativo encontrado.\n");
+        printf("\nPressione ENTER para continuar...");
+        getchar();
+        return;
+    }
 
-    printf("\n[>] - Pressione Enter para sair...");
+    // EXIBINDO LISTA EM FORMATO DE TABELA
+    printf("| %-20s | %-14s | %-12s | %-25s | %-20s |\n",
+           "NOME", "CPF", "NASCIMENTO", "EMAIL", "CARGO");
+
+    Funcionario* atual = lista;
+    while (atual != NULL) {
+        printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-20.20s |\n",
+               atual->nome_funcionario,
+               atual->cpf_funcionario,
+               atual->dt_nascimento_fun,
+               atual->email_funcionario,
+               atual->cargo);
+
+        atual = atual->prox;
+    }
+
+    // LIBERANDO MEMÓRIA DA LISTA
+    atual = lista;
+    while (atual != NULL) {
+        Funcionario* prox = atual->prox;
+        free(atual);
+        atual = prox;
+    }
+    printf("#=========================================================================================================#");
+    printf("\nPressione ENTER para continuar...");
     getchar();
 }
 
+// =========== LISTA DINÂMICA INVERSA - FUNCIONÁRIOS INATIVOS =========== 
 void funcionarios_inativos(void)
 {
     FILE *arq_funcionario;
     Funcionario* fun;
+    Funcionario* lista = NULL;
     arq_funcionario = fopen("funcionario.dat","rb");
 
     system("clear||cls");
     printf("\n");
-    printf("#=======================================================================#\n");
-    printf("|                                                                       |\n");
-    printf("|               < = = =  Funcionários Inativos = = = >                  |\n");
-    printf("|                                                                       |\n");
-    printf("#=======================================================================#\n");
-    printf("\n");
+    printf("#=========================================================================================================#\n");
+    printf("|                                        FUNCIONÁRIOS INATIVOS                                            |\n");                
+    printf("#=========================================================================================================#\n");
     
     if (arq_funcionario == NULL) {
         printf("XXX - Nenhum arquivo de funcionários encontrado!\n");
@@ -375,30 +406,56 @@ void funcionarios_inativos(void)
 
     int contador = 0;
 
+    // LISTA DINÂMICA INVERSA
     while (fread(fun, sizeof(Funcionario), 1, arq_funcionario)) {
+
         if (fun->status == false) {
+            Funcionario* novo = (Funcionario*) malloc(sizeof(Funcionario));
+            *novo = *fun;         
+            novo->prox = lista; 
+            lista = novo;
             contador++;
-            printf("------------------------------------------------------------\n");
-            printf("Funcionário #%d\n", contador);
-            printf("Nome: %s\n", fun->nome_funcionario);
-            printf("CPF: %s\n", fun->cpf_funcionario);
-            printf("Data de Nascimento: %s\n", fun->dt_nascimento_fun);
-            printf("Email: %s\n", fun->email_funcionario);
-            printf("Cargo: %s\n", fun->cargo);
         }
     }
-
-    if (contador == 0) {
-        printf("XXX - Nenhum funcionário inativo encontrado!\n");
-    } else {
-        printf("------------------------------------------------------------\n");
-        printf("Total de funcionários inativos: %d\n", contador);
-    }
-
+    
     fclose(arq_funcionario);
     free(fun);
 
-    printf("\n[>] - Pressione Enter para sair...");
+    if (contador == 0) {
+        printf("XXX - Nenhum funcionário inativo encontrado!\n");
+        printf("\n[>] - Pressione Enter para sair...");
+        getchar();
+        return;
+    }
+
+    // EXIBINDO LISTA EM FORMATO DE TABELA
+    printf("| %-20s | %-14s | %-12s | %-25s | %-20s |\n",
+           "NOME", "CPF", "NASCIMENTO", "EMAIL", "CARGO");
+
+    Funcionario* atual = lista;
+    while (atual != NULL) {
+        printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-20.20s |\n",
+               atual->nome_funcionario,
+               atual->cpf_funcionario,
+               atual->dt_nascimento_fun,
+               atual->email_funcionario,
+               atual->cargo);
+
+        atual = atual->prox;
+    }
+
+    // LIBERANDO MEMÓRIA DA LISTA
+    atual = lista;
+    while (atual != NULL) {
+        Funcionario* prox = atual->prox;
+        free(atual);
+        atual = prox;
+    }
+
+    printf("\nTotal de funcionários inativos: %d\n", contador);
+
+    printf("#=========================================================================================================#");
+    printf("\nPressione ENTER para continuar...");
     getchar();
 }
 
