@@ -9,8 +9,19 @@ typedef struct cliente {
     char email_cliente[100];
     char cnh_cliente[20];
     bool status;
+    struct cliente* prox_cli;
     
 } Cliente;
+
+void listaOrdenadaClientes(Cliente** lista_cliente, Cliente* novo_cli);
+
+Cliente* carregarListaCliente(void);
+
+Cliente* buscarCliente(Cliente* lista_cliente, const char* cpf_cli);
+
+void salvarListaCliente(Cliente* lista_cliente);
+
+void limparListaCliente(Cliente* lista_cliente);
 
 int modulo_cliente(void);
 int modulo_tela_cliente(void);

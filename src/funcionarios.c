@@ -1,6 +1,6 @@
-// =============================================|
-// SEÇÃO DE INCLUDE DE FUNCIONARIOS.C           |
-// =============================================|
+// |==========================================|
+// |    SEÇÃO DE INCLUDE DE FUNCIONÁRIOS.C    |
+// |==========================================|
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -11,9 +11,9 @@
 #include "validacao.h"
 #include "utilidades.h"
 
-// =============================================|
-// MÓDULO DE TELA E NAVEGAÇÃO DE FUNCIONARIOS.C |
-// =============================================|
+// |====================================================|
+// |    MÓDULO DE TELA E NAVEGAÇÃO DE FUNCIONÁRIOS.C    |
+// |====================================================|
 
 int modulo_funcionario(void)
 {  
@@ -75,40 +75,40 @@ int modulo_tela_funcionario(void)
     return op_funcionario;
 }
 
-// =============================================|
-// FUNÇÕES FUNCIONÁRIOS - LISTA DINÂMICA        |
-// =============================================|
+// |=============================================|
+// |    FUNÇÕES FUNCIONÁRIOS - LISTA DINÂMICA    |
+// |=============================================|
 
 // FUNCIONÁRIO NA LISTA EM ORDEM ALFABÉTICA
-void listaOrdenada(Funcionario** lista, Funcionario* novo) 
+void listaOrdenadaFuncionarios(Funcionario** lista, Funcionario* novo_func) 
 { 
     // Caso1: lista vazia - Novo vira o primeiro
     if (*lista == NULL) {
-        novo->prox = NULL;
-        *lista = novo;
+        novo_func->prox_func = NULL;
+        *lista = novo_func;
         return;
     }
 
     // Caso2: Novo deve ser inserido antes do primeiro elemento
-    if (strcmp(novo->nome_funcionario, (*lista)->nome_funcionario) < 0) {
-        novo->prox = *lista;
-        *lista = novo;
+    if (strcmp(novo_func->nome_funcionario, (*lista)->nome_funcionario) < 0) {
+        novo_func->prox_func = *lista;
+        *lista = novo_func;
         return;
     }
 
     // Caso3: inserir no meio ou final da lista
     Funcionario* anter = *lista;
-    Funcionario* atual = (*lista)->prox;
+    Funcionario* atual_func = (*lista)->prox_func;
 
-    while (atual != NULL &&
-        strcmp(atual->nome_funcionario, novo->nome_funcionario) < 0) {
+    while (atual_func != NULL &&
+        strcmp(atual_func->nome_funcionario, novo_func->nome_funcionario) < 0) {
 
-            anter = atual;
-            atual = atual->prox;
+            anter = atual_func;
+            atual_func = atual_func->prox_func;
         }
 
-        anter->prox = novo;
-        novo->prox = atual;
+        anter->prox_func = novo_func;
+        novo_func->prox_func = atual_func;
 
 }
 
@@ -123,10 +123,10 @@ Funcionario* carregarListaFuncionarios()
 
     while (fread(&temp, sizeof(Funcionario), 1, fp)) {
         if (temp.status == true) {
-            Funcionario* novo = malloc(sizeof(Funcionario));
-            *novo = temp;
-            novo->prox = NULL;
-            listaOrdenada(&lista, novo);
+            Funcionario* novo_func = malloc(sizeof(Funcionario));
+            *novo_func = temp;
+            novo_func->prox_func = NULL;
+            listaOrdenadaFuncionarios(&lista, novo_func);
         }
     }
 
@@ -135,13 +135,13 @@ Funcionario* carregarListaFuncionarios()
 }
 
 // BUSCA FUNCIONÁRIO NA LISTA USANDO CPF
-Funcionario* buscarFuncionario(Funcionario* lista, const char* cpf) {
-    Funcionario* aux = lista;
-    while (aux) {
-        if (aux->status && strcmp(aux->cpf_funcionario, cpf) == 0) {
-            return aux;
+Funcionario* buscarFuncionario(Funcionario* lista, const char* cpf_fun) {
+    Funcionario* aux_func = lista;
+    while (aux_func) {
+        if (aux_func->status && strcmp(aux_func->cpf_funcionario, cpf_fun) == 0) {
+            return aux_func;
         }
-        aux = aux->prox;
+        aux_func = aux_func->prox_func;
     }
     return NULL;
 }
@@ -151,11 +151,11 @@ void salvarListaFuncionarios(Funcionario* lista) {
     FILE* fp = fopen("funcionario.dat", "wb");
     if (!fp) return;
 
-    Funcionario* aux = lista;
+    Funcionario* aux_func = lista;
 
-    while (aux != NULL) {
-        fwrite(aux, sizeof(Funcionario), 1, fp);
-        aux = aux->prox;
+    while (aux_func != NULL) {
+        fwrite(aux_func, sizeof(Funcionario), 1, fp);
+        aux_func = aux_func->prox_func;
     }
 
     fclose(fp);
@@ -164,25 +164,25 @@ void salvarListaFuncionarios(Funcionario* lista) {
 // LIBERA MEMÓRIA ALOCADA PARA A LISTA DINÂMICA
 void limparListaFuncionarios(Funcionario* lista) 
 {
-    Funcionario* aux;
+    Funcionario* aux_func;
 
     while (lista != NULL) {
-        aux = lista->prox;
+        aux_func = lista->prox_func;
         free(lista);
-        lista = aux;
+        lista = aux_func;
     }
 }
 
-// =============================================|
-// MÓDULOS DE CRUD DE FUNCIONARIOS.C            |
-// =============================================|
+// |===================================|
+// |    FUNÇÕES FUNCIONÁRIOS - CRUD    |
+// |===================================|
 
 void modulo_cadastrar_funcionario(void)
 {
     system("clear||cls");
 
-    Funcionario *novo = malloc(sizeof(Funcionario));
-    if (!novo) return;
+    Funcionario *novo_func = malloc(sizeof(Funcionario));
+    if (!novo_func) return;
 
     printf("#=====================================================================#\n");
     printf("|                         --------------------                        |\n");
@@ -192,18 +192,18 @@ void modulo_cadastrar_funcionario(void)
     printf("|                        CADASTRAR FUNCIONÁRIOS                       |\n");
     printf("#=====================================================================#\n");
 
-    lerEntrada(novo->nome_funcionario, 100, "[+] - Nome: ", validarNome);
-    lerEntrada(novo->cpf_funcionario, 15, "[+] - CPF: ", validarCPF);
-    lerEntrada(novo->dt_nascimento_fun, 12, "[+] - Data (DD/MM/AAAA): ", validarData);
-    lerEntrada(novo->email_funcionario, 100, "[+] - Email: ", validarEmail);
-    lerEntrada(novo->cargo, 51, "[+] - Cargo: ", validarNome);
+    lerEntrada(novo_func->nome_funcionario, 100, "[+] - Nome: ", validarNome);
+    lerEntrada(novo_func->cpf_funcionario, 15, "[+] - CPF: ", validarCPF);
+    lerEntrada(novo_func->dt_nascimento_fun, 12, "[+] - Data (DD/MM/AAAA): ", validarData);
+    lerEntrada(novo_func->email_funcionario, 100, "[+] - Email: ", validarEmail);
+    lerEntrada(novo_func->cargo, 51, "[+] - Cargo: ", validarNome);
 
-    novo->status = true;
-    novo->prox = NULL;
+    novo_func->status = true;
+    novo_func->prox_func = NULL;
     
     Funcionario* lista = carregarListaFuncionarios();
 
-    listaOrdenada(&lista, novo);
+    listaOrdenadaFuncionarios(&lista, novo_func);
 
     salvarListaFuncionarios(lista);
 
@@ -234,19 +234,19 @@ void modulo_verificar_funcionario(void)
     while (getchar() != '\n');
         
     Funcionario* lista = carregarListaFuncionarios();
-    Funcionario* aux = lista;
+    Funcionario* aux_func = lista;
     
-    while (aux != NULL) {
-        if (strcmp(aux->cpf_funcionario, cpf_funcionario_ler) == 0 && aux->status == true) {
+    while (aux_func != NULL) {
+        if (strcmp(aux_func->cpf_funcionario, cpf_funcionario_ler) == 0 && aux_func->status == true) {
             system("clear||cls");
             printf("#====================================================#\n");
             printf("|            [o] - Funcionário encontrado!           |\n");
             printf("#====================================================#\n");
-            printf("| > Nome: %s\n", aux->nome_funcionario);
-            printf("| > CPF: %s\n", aux->cpf_funcionario);
-            printf("| > Data de Nascimento: %s\n", aux->dt_nascimento_fun);
-            printf("| > Email: %s\n", aux->email_funcionario);
-            printf("| > Cargo: %s\n", aux->cargo);
+            printf("| > Nome: %s\n", aux_func->nome_funcionario);
+            printf("| > CPF: %s\n", aux_func->cpf_funcionario);
+            printf("| > Data de Nascimento: %s\n", aux_func->dt_nascimento_fun);
+            printf("| > Email: %s\n", aux_func->email_funcionario);
+            printf("| > Cargo: %s\n", aux_func->cargo);
             printf("#====================================================#\n");
             printf("[>] - Pressione Enter para continuar...");
             getchar();
@@ -254,7 +254,7 @@ void modulo_verificar_funcionario(void)
             limparListaFuncionarios(lista);
             return;
         }
-        aux = aux->prox;
+        aux_func = aux_func->prox_func;
         
     }
 
@@ -289,8 +289,6 @@ void modulo_atualizar_funcionario(void)
     printf("#=====================================================================#\n");
     printf("|                        ATUALIZAR FUNCIONÁRIOS                       |\n");
     printf("#=====================================================================#\n");
-    printf("\n");
-
     printf("[>] - Informe o CPf do funcionário para alterar os dados: ");
     scanf("%15s", cpf_funcionario_ler);
     while ((c = getchar()) != '\n' && c != EOF);
@@ -326,7 +324,7 @@ void modulo_atualizar_funcionario(void)
 
             switch(op_funcionario){
                 case '1':
-                    atualizarEntrada("[+] - Novo nome do Funcionário: ", fun->nome_funcionario, 100, validarNome);
+                    atualizarEntrada("[+] - novo_fun nome do Funcionário: ", fun->nome_funcionario, 100, validarNome);
                     alt = 1;
                     break;
 
@@ -400,28 +398,28 @@ void modulo_excluir_funcionario(void)
     scanf("%14s", cpf_funcionario_ler);
     while ((c = getchar()) != '\n' && c != EOF);
 
-    Funcionario* atual = lista;
+    Funcionario* atual_func = lista;
 
-    while (atual) {
-        if (strcmp(atual->cpf_funcionario, cpf_funcionario_ler) == 0 && atual->status) {
+    while (atual_func) {
+        if (strcmp(atual_func->cpf_funcionario, cpf_funcionario_ler) == 0 && atual_func->status) {
             func_encontrado = true;
 
             system("clear||cls");
             printf("#====================================================#\n");
             printf("|            [o] - Funcionário encontrado!           |\n");
             printf("#====================================================#\n");
-            printf("| > Nome: %s\n", atual->nome_funcionario);
-            printf("| > CPF: %s\n", atual->cpf_funcionario);
-            printf("| > Data de Nascimento: %s\n", atual->dt_nascimento_fun);
-            printf("| > Email: %s\n", atual->email_funcionario);
-            printf("| > Cargo: %s\n", atual->cargo);
+            printf("| > Nome: %s\n", atual_func->nome_funcionario);
+            printf("| > CPF: %s\n", atual_func->cpf_funcionario);
+            printf("| > Data de Nascimento: %s\n", atual_func->dt_nascimento_fun);
+            printf("| > Email: %s\n", atual_func->email_funcionario);
+            printf("| > Cargo: %s\n", atual_func->cargo);
             printf("#====================================================#");
             printf("[?] - Deseja excluir o funcionário? (S/N): ");
             scanf(" %c", &confirmar);
             while ((c = getchar()) != '\n' && c != EOF);
 
             if (confirmar == 'S' || confirmar == 's') {
-                atual->status = false;
+                atual_func->status = false;
                 salvarListaFuncionarios(lista);
                 printf("#====================================================#");
                 printf("\n[o] - Funcionário excluído com sucesso!");
@@ -432,7 +430,7 @@ void modulo_excluir_funcionario(void)
 
             break;
         }
-        atual = atual->prox;
+        atual_func = atual_func->prox_func;
     }
 
     if (!func_encontrado){

@@ -305,11 +305,10 @@ int modulo_relatorio_alugueis(void)
     return op;
 }
 
-// ======================================|
-//      RELATÓRIO DE FUNCIONÁRIO         |
-// ======================================|
+// |======================================|
+// |       RELATÓRIO DE FUNCIONÁRIOS      |
+// |======================================|
 
-// LISTA DINÂMICA DIRETA - FUNCIONÁRIOS ATIVOS
 void funcionarios_ativos(void)
 {
     Funcionario* fun = (Funcionario*) malloc(sizeof(Funcionario));
@@ -336,16 +335,16 @@ void funcionarios_ativos(void)
     while (fread(fun, sizeof(Funcionario), 1, arq_funcionario)) {
         if (fun->status == true) {
 
-            Funcionario* novo = (Funcionario*) malloc(sizeof(Funcionario));
-            *novo = *fun;
-            novo->prox = NULL;
+            Funcionario* novo_func = (Funcionario*) malloc(sizeof(Funcionario));
+            *novo_func = *fun;
+            novo_func->prox_func = NULL;
 
             if (contador == 0) {
-                lista = novo;
-                ultimo = novo;
+                lista = novo_func;
+                ultimo = novo_func;
             } else {
-                ultimo->prox = novo;
-                ultimo = novo;
+                ultimo->prox_func = novo_func;
+                ultimo = novo_func;
             }
 
             contador++;
@@ -356,8 +355,8 @@ void funcionarios_ativos(void)
     free(fun);
     
     if (contador == 0) {
-        printf("\nNenhum funcionário ativo encontrado.\n");
-        printf("\nPressione ENTER para continuar...");
+        printf("XXX - Nenhum funcionário ativo encontrado.\n");
+        printf("\n[>] - Pressione ENTER para sai...");
         getchar();
         return;
     }
@@ -375,22 +374,21 @@ void funcionarios_ativos(void)
                atual->email_funcionario,
                atual->cargo);
 
-        atual = atual->prox;
+        atual = atual->prox_func;
     }
 
     // LIBERANDO MEMÓRIA DA LISTA
     atual = lista;
     while (atual != NULL) {
-        Funcionario* prox = atual->prox;
+        Funcionario* prox_func = atual->prox_func;
         free(atual);
-        atual = prox;
+        atual = prox_func;
     }
     printf("#=========================================================================================================#");
-    printf("\nPressione ENTER para continuar...");
+    printf("\n[>] - Pressione ENTER para continuar...");
     getchar();
 }
 
-// LISTA DINÂMICA INVERSA - FUNCIONÁRIOS INATIVOS
 void funcionarios_inativos(void)
 {
     FILE *arq_funcionario;
@@ -419,10 +417,10 @@ void funcionarios_inativos(void)
     while (fread(fun, sizeof(Funcionario), 1, arq_funcionario)) {
 
         if (fun->status == false) {
-            Funcionario* novo = (Funcionario*) malloc(sizeof(Funcionario));
-            *novo = *fun;         
-            novo->prox = lista; 
-            lista = novo;
+            Funcionario* novo_func = (Funcionario*) malloc(sizeof(Funcionario));
+            *novo_func = *fun;         
+            novo_func->prox_func = lista; 
+            lista = novo_func;
             contador++;
         }
     }
@@ -450,21 +448,21 @@ void funcionarios_inativos(void)
                atual->email_funcionario,
                atual->cargo);
 
-        atual = atual->prox;
+        atual = atual->prox_func;
     }
 
     // LIBERANDO MEMÓRIA DA LISTA
     atual = lista;
     while (atual != NULL) {
-        Funcionario* prox = atual->prox;
+        Funcionario* prox_func = atual->prox_func;
         free(atual);
-        atual = prox;
+        atual = prox_func;
     }
 
     printf("\nTotal de funcionários inativos: %d\n", contador);
 
     printf("#=========================================================================================================#");
-    printf("\nPressione ENTER para continuar...");
+    printf("\n[>] - Pressione ENTER para continuar...");
     getchar();
 }
 
@@ -524,13 +522,18 @@ void filtrar_funcionario_cargo(char* cargo) {
             str_to_lower(cargo_temp);
 
             if(strstr(cargo_temp, cargo) != NULL) {
+                if (contador == 0) {
+                    printf("| %-20s | %-14s | %-12s | %-25s | %-20s |\n",
+                           "NOME", "CPF", "NASCIMENTO", "EMAIL", "CARGO");
+                }
+
                 contador++;
-                printf("----------------------------------------------\n");
-                printf("Nome: %s\n", fun->nome_funcionario);
-                printf("CPF: %s\n", fun->cpf_funcionario);
-                printf("Data de Nascimento: %s\n", fun->dt_nascimento_fun);
-                printf("Email: %s\n", fun->email_funcionario);
-                printf("Cargo: %s\n", fun->cargo);
+                printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-20.20s |\n",
+                       fun->nome_funcionario,
+                       fun->cpf_funcionario,
+                       fun->dt_nascimento_fun,
+                       fun->email_funcionario,
+                       fun->cargo);
             }
         }
     }
@@ -549,72 +552,103 @@ void filtrar_funcionario_cargo(char* cargo) {
     getchar();
 }
 
+// |======================================|
+// |        RELATÓRIO DE CLIENTES         |
+// |======================================|
+
 void clientes_ativos(void)
 {
-    FILE *arq_cliente;
-    Cliente* cli;
-    arq_cliente = fopen("cliente.dat","rb");
+    Cliente* cli = (Cliente*) malloc(sizeof(Cliente));
+    Cliente* lista_cliente = NULL;
+    Cliente* ultimo = NULL;
 
     system("clear||cls");
     printf("\n");
-    printf("#=======================================================================#\n");
-    printf("|                                                                       |\n");
-    printf("|                   < = = =  Clientes Ativos = = = >                    |\n");
-    printf("|                                                                       |\n");
-    printf("#=======================================================================#\n");
+    printf("#=========================================================================================================#\n");
+    printf("|                                          CLIENTES ATIVOS                                                |\n");                
+    printf("#=========================================================================================================#\n");
     printf("\n");
     
+    FILE* arq_cliente = fopen("cliente.dat","rb");
     if (arq_cliente == NULL) {
         printf("XXX - Nenhum arquivo de clientes encontrado!\n");
-        printf("[>] - Pressione Enter para continuar...");
         getchar();
+        free(cli);
         return;
     }
 
-    cli = (Cliente*) malloc(sizeof(Cliente));
-
     int contador = 0;
 
+    // LISTA DINÂMICA DIRETA
     while (fread(cli, sizeof(Cliente), 1, arq_cliente)) {
         if (cli->status == true) {
+            
+            Cliente* novo_cli = (Cliente*) malloc(sizeof(Funcionario));
+            *novo_cli = *cli;
+            novo_cli->prox_cli = NULL;
+
+            if (contador == 0) {
+                lista_cliente = novo_cli;
+                ultimo = novo_cli;
+            } else {
+                ultimo->prox_cli = novo_cli;
+                ultimo = novo_cli;
+            }
+
             contador++;
-            printf("------------------------------------------------------------\n");
-            printf("Cliente #%d\n", contador);
-            printf("Nome: %s\n", cli->nome_cliente);
-            printf("CPF: %s\n", cli->cpf_cliente);
-            printf("Data Nasci.: %s\n", cli->data_cliente);
-            printf("Email: %s\n", cli->email_cliente);
-            printf("CNH: %s\n", cli->cnh_cliente);
         }
-    }
+}
+fclose(arq_cliente);
+free(cli);
 
-    if (contador == 0) {
-        printf("XXX - Nenhum cliente ativo encontrado!\n");
-    } else {
-        printf("------------------------------------------------------------\n");
-        printf("Total de clientes ativos: %d\n", contador);
-    }
-
-    fclose(arq_cliente);
-    free(cli);
-
-    printf("\n[>] - Pressione Enter para sair...");
+if (contador == 0) {
+    printf("\nNenhum cliente ativo encontrado.\n");
+    printf("\nPressione ENTER para continuar...");
     getchar();
+    return;
+}
+
+// EXIBINDO LISTA EM FORMATO DE TABELA
+printf("| %-20s | %-14s | %-12s | %-25s | %-15s |\n",
+       "NOME", "CPF", "NASCIMENTO", "EMAIL", "CNH");
+
+Cliente* atual = lista_cliente;
+while (atual != NULL) {
+    printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-15.15s |\n",
+           atual->nome_cliente,
+           atual->cpf_cliente,
+           atual->data_cliente,
+           atual->email_cliente,
+           atual->cnh_cliente);
+
+    atual = atual->prox_cli;
+}
+
+// LIBERANDO MEMÓRIA DA LISTA
+atual = lista_cliente;
+while (atual != NULL) {
+    Cliente* prox_cli = atual->prox_cli;
+    free(atual);
+    atual = prox_cli;
+}
+printf("#=========================================================================================================#");
+printf("\nTotal de clientes ativos: %d\n", contador);
+printf("Pressione ENTER para continuar...");
+getchar();
 }
 
 void clientes_inativos(void)
 {
     FILE *arq_cliente;
     Cliente* cli;
+    Cliente* lista_cliente = NULL;
     arq_cliente = fopen("cliente.dat","rb");
 
     system("clear||cls");
     printf("\n");
-    printf("#=======================================================================#\n");
-    printf("|                                                                       |\n");
-    printf("|                 < = = =  Clientes Inativos = = = >                    |\n");
-    printf("|                                                                       |\n");
-    printf("#=======================================================================#\n");
+    printf("#=========================================================================================================#\n");
+    printf("|                                           CLIENTES INATIVOS                                             |\n");                
+    printf("#=========================================================================================================#\n");
     printf("\n");
     
     if (arq_cliente == NULL) {
@@ -628,29 +662,54 @@ void clientes_inativos(void)
 
     int contador = 0;
 
+    // LISTA DINÂMICA INVERSA
     while (fread(cli, sizeof(Cliente), 1, arq_cliente)) {
         if (cli->status == false) {
+            Cliente* novo_cli = (Cliente*) malloc(sizeof(Cliente));
+            *novo_cli = *cli;
+            novo_cli->prox_cli = lista_cliente;
+            lista_cliente = novo_cli;
             contador++;
-            printf("------------------------------------------------------------\n");
-            printf("Cliente #%d\n", contador);
-            printf("Nome: %s\n", cli->nome_cliente);
-            printf("CPF: %s\n", cli->cpf_cliente);
-            printf("Data Nasci.: %s\n", cli->data_cliente);
-            printf("Email: %s\n", cli->email_cliente);
-            printf("CNH: %s\n", cli->cnh_cliente);
         }
-    }
-
-    if (contador == 0) {
-        printf("XXX - Nenhum cliente inativo encontrado!\n");
-    } else {
-        printf("------------------------------------------------------------\n");
-        printf("Total de clientes inativos: %d\n", contador);
     }
 
     fclose(arq_cliente);
     free(cli);
 
+    if (contador == 0) {
+        printf("XXX - Nenhum cliente inativo encontrado!\n");
+        printf("\n[>] - Pressione Enter para sair...");
+        getchar();
+        return;
+    }
+
+    // EXIBINDO LISTA EM FORMATO DE TABELA
+    printf("| %-20s | %-14s | %-12s | %-25s | %-15s |\n",
+           "NOME", "CPF", "NASCIMENTO", "EMAIL", "CNH");
+
+    Cliente* atual = lista_cliente;
+    while (atual != NULL) {
+        printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-15.15s |\n",
+               atual->nome_cliente,
+               atual->cpf_cliente,
+               atual->data_cliente,
+               atual->email_cliente,
+               atual->cnh_cliente);
+
+        atual = atual->prox_cli;
+    }
+
+    // LIBERANDO MEMÓRIA DA LISTA
+    atual = lista_cliente;
+    while (atual != NULL) {
+        Cliente* prox_cli = atual->prox_cli;
+        free(atual);
+        atual = prox_cli;
+    }
+
+    printf("#=========================================================================================================#\n");
+    printf("\nTotal de clientes inativos: %d\n", contador);
+    printf("-----------------------------------------------------------------------------------------------------------\n");
     printf("\n[>] - Pressione Enter para sair...");
     getchar();
 }
@@ -700,7 +759,7 @@ void filtrar_cliente_nome(char* nome_cliente) {
 
     cli = (Cliente*) malloc(sizeof(Cliente));
 
-    printf("\n [>] - Funcionários com o cargo: %s\n\n", nome_cliente);
+    printf("\n [>] - Clientes com o nome: %s\n\n", nome_cliente);
 
     while (fread(cli, sizeof(Cliente), 1, arq_cliente)) {
         if (cli->status == true){ 
@@ -710,14 +769,19 @@ void filtrar_cliente_nome(char* nome_cliente) {
 
             str_to_lower(nome_temp);
 
-            if(strstr(nome_temp, nome_cliente) != NULL) {
+            if (strstr(nome_temp, nome_cliente) != NULL) {
+                if (contador == 0) {
+                    printf("| %-20s | %-14s | %-12s | %-25s | %-15s |\n",
+                           "NOME", "CPF", "NASCIMENTO", "EMAIL", "CNH");
+                }
+
                 contador++;
-                printf("----------------------------------------------\n");
-                printf("Nome: %s\n", cli->nome_cliente);
-                printf("CPF: %s\n", cli->cpf_cliente);
-                printf("Data Nasci.: %s\n", cli->data_cliente);
-                printf("Email: %s\n", cli->email_cliente);
-                printf("CNH: %s\n", cli->cnh_cliente);
+                printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-15.15s |\n",
+                       cli->nome_cliente,
+                       cli->cpf_cliente,
+                       cli->data_cliente,
+                       cli->email_cliente,
+                       cli->cnh_cliente);
             }
         }
     }
@@ -726,7 +790,7 @@ void filtrar_cliente_nome(char* nome_cliente) {
         printf("XXX - Nenhum cliente encontrado!\n");
     } else {
         printf("----------------------------------------------\n");
-        printf("\nTotal: %d clientes(s)\n", contador);
+        printf("\nTotal: %d cliente(s)\n", contador);
     }
 
     fclose(arq_cliente);

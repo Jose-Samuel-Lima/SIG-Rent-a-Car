@@ -9,20 +9,19 @@ typedef struct funcionario {
     char email_funcionario[100];
     char cargo[51];
     bool status;
-    struct funcionario* prox;
+    struct funcionario* prox_func;
 
 } Funcionario;
 
-void listaOrdenada(Funcionario** lista, Funcionario* novo);
+void listaOrdenadaFuncionarios(Funcionario** lista, Funcionario* novo_func);
 
 Funcionario* carregarListaFuncionarios(void);
 
-Funcionario* buscarFuncionario(Funcionario* lista, const char* cpf);
+Funcionario* buscarFuncionario(Funcionario* lista, const char* cpf_fun);
 
 void salvarListaFuncionarios(Funcionario* lista);
 
 void limparListaFuncionarios(Funcionario* lista);
-
 
 int modulo_funcionario(void);
 int modulo_tela_funcionario(void);
