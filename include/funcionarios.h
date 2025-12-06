@@ -8,10 +8,10 @@
 
 typedef struct funcionario {
     char nome_funcionario[100];
-    char dt_nascimento_fun[12];
     char cpf_funcionario[15];
     char email_funcionario[100];
-    char cargo[51];
+    char telefone_funcionario[15];
+    char cargo_funcionario[51];
     bool status;
     struct funcionario* prox_func;
 
@@ -21,15 +21,15 @@ typedef struct funcionario {
 // LISTA DINÂMICA
 // --------------------------------------------------------------
 
-void listaOrdenadaFuncionarios(Funcionario** lista, Funcionario* novo_func);
+void listaOrdenadaFuncionarios(Funcionario** lista_funcionario, Funcionario* novo_func);
 
 Funcionario* carregarListaFuncionarios(void);
 
-Funcionario* buscarFuncionario(Funcionario* lista, const char* cpf_fun);
+Funcionario* buscarFuncionario(Funcionario* lista_funcionario, const char* cpf_fun);
 
-void salvarListaFuncionarios(Funcionario* lista);
+void salvarListaFuncionarios(Funcionario* lista_funcionario);
 
-void limparListaFuncionarios(Funcionario* lista);
+void limparListaFuncionarios(Funcionario* lista_funcionario);
 
 // --------------------------------------------------------------
 // MÓDULO PRINCIPAL

@@ -79,7 +79,6 @@ int modulo_tela_cliente(void)
 // |    FUNÇÕES FUNCIONÁRIOS - LISTA DINÂMICA    |
 // |=============================================|
 
-// CLIENTE NA LISTA EM ORDEM ALFABÉTICA
 void listaOrdenadaClientes(Cliente** lista_cliente, Cliente* novo_cli) 
 { 
     // Caso1: lista vazia - Novo vira o primeiro
@@ -112,7 +111,6 @@ void listaOrdenadaClientes(Cliente** lista_cliente, Cliente* novo_cli)
 
 }
 
-// LEITURA DO ARQUIVO cliente.dat E MONTA LISTA ORDENADA
 Cliente* carregarListaCliente() 
 {
     FILE* fp = fopen("cliente.dat", "rb");   // <<< ARQUIVO CORRETO
@@ -134,7 +132,6 @@ Cliente* carregarListaCliente()
     return lista_cliente;
 }
 
-// BUSCA CLIENTE NA LISTA USANDO CPF
 Cliente* buscarCliente(Cliente* lista_cliente, const char* cpf_cli) {
     Cliente* aux_cli = lista_cliente;
     while (aux_cli) {
@@ -146,7 +143,6 @@ Cliente* buscarCliente(Cliente* lista_cliente, const char* cpf_cli) {
     return NULL;
 }
 
-// SOBRESCREVE O ARQUIVO cliente.dat COM A LISTA ATUAL
 void salvarListaCliente(Cliente* lista_cliente) {
     FILE* fp = fopen("cliente.dat", "wb");
     if (!fp) return;
@@ -161,7 +157,6 @@ void salvarListaCliente(Cliente* lista_cliente) {
     fclose(fp);
 }
 
-// LIBERA MEMÓRIA ALOCADA PARA A LISTA DINÂMICA
 void limparListaCliente(Cliente* lista_cliente) 
 {
     Cliente* aux_cli;
@@ -195,7 +190,7 @@ void modulo_cadastrar_cliente(void)
 
     lerEntrada(novo_cli->nome_cliente, 100, "[+] - Nome: ", validarNome);
     lerEntrada(novo_cli->cpf_cliente, 15, "[+] - CPF: ", validarCPF);
-    lerEntrada(novo_cli->data_cliente, 12, "[+] - Data de Nascimento (DD/MM/AAAA): ", validarData);
+    lerEntrada(novo_cli->telefone_cliente, 15, "[+] - Nº Telefone (XX) XXXXX-XXXX: ", validarTelefone);
     lerEntrada(novo_cli->email_cliente, 100, "[+] - Email: ", validarEmail);
     lerEntrada(novo_cli->cnh_cliente, 19,"[+] - CNH: ", validarCNH);
     
@@ -246,8 +241,8 @@ void modulo_verificar_cliente(void)
             printf("#====================================================#\n");
             printf("| > Nome: %s\n", aux_cli->nome_cliente);
             printf("| > CPF: %s\n", aux_cli->cpf_cliente);
-            printf("| > Data de Nascimento: %s\n", aux_cli->data_cliente);
-            printf("| > Email: %s\n", aux_cli->data_cliente);
+            printf("| > Nº Telefone: %s\n", aux_cli->telefone_cliente);
+            printf("| > Email: %s\n", aux_cli->email_cliente);
             printf("| > CNH: %s\n", aux_cli->cnh_cliente);
             printf("#====================================================#\n");
             printf("[>] - Pressione Enter para continuar...");
@@ -310,7 +305,7 @@ void modulo_atualizar_clientes(void)
             printf("#====================================================#\n");
             printf("|            [1] - Nome                              |\n");
             printf("|            [2] - CPF                               |\n");
-            printf("|            [3] - Data de Nascimento                |\n");
+            printf("|            [3] - Nº Telefone                       |\n");
             printf("|            [4] - E-mail                            |\n");
             printf("|            [5] - CNH                               |\n");
             printf("|----------------------------------------------------|\n");
@@ -335,7 +330,7 @@ void modulo_atualizar_clientes(void)
                     break;
                     
                 case '3':
-                    atualizarEntrada("[+] - Nova data de nascimento (DD/MM/AAAA): ", cli->data_cliente, 12, validarData);
+                    atualizarEntrada("[+] - Novo Nº Telefone (XX) XXXXX-XXXX: ", cli->telefone_cliente, 15, validarTelefone);
                     alt = 1;
                     break;
 
@@ -413,7 +408,7 @@ void modulo_excluir_cliente(void)
             printf("#====================================================#\n");
             printf("| > Nome: %s\n", atual_cli->nome_cliente);
             printf("| > CPF: %s\n", atual_cli->cpf_cliente);
-            printf("| > Data de Nascimento: %s\n", atual_cli->data_cliente);
+            printf("| > Nº Telefone: %s\n", atual_cli->telefone_cliente);
             printf("| > Email: %s\n", atual_cli->email_cliente);
             printf("| > CNH: %s\n", atual_cli->cnh_cliente);
             printf("#====================================================#");

@@ -15,10 +15,11 @@ int ehDigito(char c) {
     return (c >= '0' && c <= '9');
 }
 
-// ==============================
-//       DADOS ESPECÍFICOS
-// ==============================
+// |====================================================|
+// |    VALIDAÇÃO FUNCIONÁRIOS E CLIENTES               |
+// |====================================================|
 
+// FUNCIONÁRIOS E CLIENTES
 int validarNome(const char *nome) {
     if (nome == NULL) return 0;
     for (int i = 0; nome[i] != '\0'; i++) {
@@ -29,6 +30,7 @@ int validarNome(const char *nome) {
     return 1;
 }
 
+// FUNCIONÁRIOS E CLIENTES
 int validarCPF(const char *cpf) {
     int cont = 0;
     for (int i = 0; cpf[i] != '\0'; i++) {
@@ -38,6 +40,7 @@ int validarCPF(const char *cpf) {
     return (cont == 11);
 }
 
+// FUNCIONÁRIOS E CLIENTES
 int validarEmail(const char *email) {
     if (!email || !email[0] || email[0] == '@' || email[0] == '.') return 0;
 
@@ -62,90 +65,31 @@ int validarEmail(const char *email) {
     return (temArroba && temPontoDepois);
 }
 
-int verificarNumero(const char *entrada) {
-    for (int i = 0; entrada[i] != '\0'; i++) {
-        if (entrada[i] != '/' && !ehDigito(entrada[i])) {
-            return 0;
-        }
+// FUNCIONÁRIOS E CLIENTES
+int validarTelefone(const char *telefone) {
+    if (!telefone) return 0;
+    if (strlen(telefone) != 14) return 0; // 14 caracteres sem o '\0'
+
+    // Checa parênteses e hífen
+    if (telefone[0] != '(' || telefone[3] != ')' || telefone[9] != '-') return 0;
+
+    // Checa se os dígitos estão nos lugares corretos
+    for (int i = 1; i <= 2; i++) { // DDD
+        if (!isdigit((unsigned char)telefone[i])) return 0;
     }
-    return 1;
+
+    for (int i = 4; i <= 8; i++) { // primeiros 5 números do celular
+        if (!isdigit((unsigned char)telefone[i])) return 0;
+    }
+
+    for (int i = 10; i <= 13; i++) { // últimos 4 números do celular
+        if (!isdigit((unsigned char)telefone[i])) return 0;
+    }
+
+    return 1; // telefone válido
 }
 
-// https://pt.stackoverflow.com/questions/213423/verificar-se-uma-data-é-válida-ou-não-em-c
-// Código original que foi utilizado para complementar validarData.
-// Autor: Mercador; Perfil: https://pt.stackoverflow.com/users/17607/mercador
-
-int validarData(const char *data) {
-    if (strlen(data) != 10) return 0;
-    if (!(ehDigito(data[0]) && ehDigito(data[1]) && 
-          data[2] == '/' &&
-          ehDigito(data[3]) && ehDigito(data[4]) && 
-          data[5] == '/' &&
-          ehDigito(data[6]) && ehDigito(data[7]) && 
-          ehDigito(data[8]) && ehDigito(data[9]))) {
-        return 0;  
-    }
-    
-    if (strstr(data, "//") != NULL) {
-        return 0;
-    }
-    
-    if (!verificarNumero(data)) {
-        return 0;
-    }
-    
-    int dia, mes, ano;
-    char data_copia[11];
-    strcpy(data_copia, data);
-    
-    char *token = strtok(data_copia, "/");
-    dia = strtol(token, NULL, 10);
-    
-    token = strtok(NULL, "/");
-    mes = strtol(token, NULL, 10);
-    
-    token = strtok(NULL, "/");
-    ano = strtol(token, NULL, 10);
-    
-    
-    if (mes < 1 || mes > 12) return 0;
-    if (ano < 0000 || ano > 2900) return 0;
-    
-    int dias_no_mes;
-    switch (mes) {
-        case 2:
-            if ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0)) {
-                dias_no_mes = 29;
-            } else {
-                dias_no_mes = 28;
-            }
-            break;
-        case 4:
-            dias_no_mes = 30;
-            break;
-
-        case 6:
-            dias_no_mes = 30;
-            break;
-        case 9:
-
-            dias_no_mes = 30;
-            break;
-
-        case 11:
-            dias_no_mes = 30;
-            break;
-
-        default:
-            dias_no_mes = 31;
-            break;
-    }
-    
-    if (dia < 1 || dia > dias_no_mes) return 0;
-    
-    return 1;
-}
-
+// CLIENTES
 int validarCNH(const char *cnh) {
     if (cnh == NULL) {
         return 0;
@@ -176,14 +120,6 @@ int validarCNH(const char *cnh) {
     return 1;
 }
 
-int validarIDaluguel(char *id) {
-    if (strlen(id) != 11) return 0;
-    for (int i = 0; i < 11; i++) {
-        if (!ehDigito(id[i])) return 0;
-    }
-    return 1;
-}
-
 // ==============================
 //    VALIDAÇÕES DE VEÍCULOS
 // ==============================
@@ -198,36 +134,6 @@ int validarPlaca(const char *placa_veiculo) {
         return 1;
 
     return 0;
-}
-
-int validarChassi(const char *chassi_veiculo) {
-    if (strlen(chassi_veiculo) != 17) return 0;
-
-    for (int i = 0; i < 17; i++) {
-        char c = chassi_veiculo[i];
-        if (!(ehLetra(c) || ehDigito(c))) return 0;
-        if (c == 'I' || c == 'O' || c == 'Q') return 0;
-    }
-    return 1;
-}
-
-int validarRenavam(const char *renavam_veiculo) {
-    if (strlen(renavam_veiculo) != 11) return 0;
-
-    for (int i = 0; i < 11; i++) {
-        if (!ehDigito(renavam_veiculo[i])) return 0;
-    }
-    return 1;
-}
-
-int validarCategoria(const char *categoria_veiculo) {
-    int len = strlen(categoria_veiculo);
-    if (len == 0 || len > 6) return 0;
-
-    for (int i = 0; i < len; i++) {
-        if (!(categoria_veiculo[i] >= 'A' && categoria_veiculo[i] <= 'Z')) return 0;
-    }
-    return 1;
 }
 
 int validarModelo(const char *modelo_veiculo) {
@@ -261,17 +167,6 @@ int validarAno(const char *ano_veiculo) {
 
     int valor = atoi(ano_veiculo);
     return (valor >= 1900 && valor <= 2025);
-}
-
-int validarCodigoInterno(const char *codigo_interno_veiculo) {
-    int len = strlen(codigo_interno_veiculo);
-    if (len == 0 || len > 6) return 0;
-
-    for (int i = 0; i < len; i++) {
-        if (!(ehLetra(codigo_interno_veiculo[i]) || ehDigito(codigo_interno_veiculo[i])))
-            return 0;
-    }
-    return 1;
 }
 
 int validarPreco(float preco_veiculo) {

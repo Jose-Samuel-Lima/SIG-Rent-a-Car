@@ -5,7 +5,7 @@
 typedef struct cliente {
     char nome_cliente[100];
     char cpf_cliente[15];
-    char data_cliente[12];
+    char telefone_cliente[15];
     char email_cliente[100];
     char cnh_cliente[20];
     bool status;
