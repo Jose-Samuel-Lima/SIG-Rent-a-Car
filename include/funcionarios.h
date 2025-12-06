@@ -2,6 +2,10 @@
 #define FUNCIONARIOS_H
 #include <stdbool.h>
 
+// --------------------------------------------------------------
+// ESTRUTURA DO FUNCIONÁRIO
+// --------------------------------------------------------------
+
 typedef struct funcionario {
     char nome_funcionario[100];
     char dt_nascimento_fun[12];
@@ -13,6 +17,10 @@ typedef struct funcionario {
 
 } Funcionario;
 
+// --------------------------------------------------------------
+// LISTA DINÂMICA
+// --------------------------------------------------------------
+
 void listaOrdenadaFuncionarios(Funcionario** lista, Funcionario* novo_func);
 
 Funcionario* carregarListaFuncionarios(void);
@@ -23,8 +31,13 @@ void salvarListaFuncionarios(Funcionario* lista);
 
 void limparListaFuncionarios(Funcionario* lista);
 
+// --------------------------------------------------------------
+// MÓDULO PRINCIPAL
+// --------------------------------------------------------------
+
 int modulo_funcionario(void);
 int modulo_tela_funcionario(void);
+
 void modulo_cadastrar_funcionario(void);
 void modulo_verificar_funcionario(void);
 void modulo_atualizar_funcionario(void);

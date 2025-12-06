@@ -79,7 +79,6 @@ int modulo_tela_funcionario(void)
 // |    FUNÇÕES FUNCIONÁRIOS - LISTA DINÂMICA    |
 // |=============================================|
 
-// FUNCIONÁRIO NA LISTA EM ORDEM ALFABÉTICA
 void listaOrdenadaFuncionarios(Funcionario** lista, Funcionario* novo_func) 
 { 
     // Caso1: lista vazia - Novo vira o primeiro
@@ -112,7 +111,6 @@ void listaOrdenadaFuncionarios(Funcionario** lista, Funcionario* novo_func)
 
 }
 
-// LEITURA DO ARQUIVO funcionario.dat E MONTA LISTA ORDENADA
 Funcionario* carregarListaFuncionarios() 
 {
     FILE* fp = fopen("funcionario.dat", "rb");
@@ -134,7 +132,6 @@ Funcionario* carregarListaFuncionarios()
     return lista;
 }
 
-// BUSCA FUNCIONÁRIO NA LISTA USANDO CPF
 Funcionario* buscarFuncionario(Funcionario* lista, const char* cpf_fun) {
     Funcionario* aux_func = lista;
     while (aux_func) {
@@ -146,7 +143,6 @@ Funcionario* buscarFuncionario(Funcionario* lista, const char* cpf_fun) {
     return NULL;
 }
 
-// SOBRESCREVE O ARQUIVO funcionario.dat COM A LISTA ATUAL
 void salvarListaFuncionarios(Funcionario* lista) {
     FILE* fp = fopen("funcionario.dat", "wb");
     if (!fp) return;
@@ -161,7 +157,6 @@ void salvarListaFuncionarios(Funcionario* lista) {
     fclose(fp);
 }
 
-// LIBERA MEMÓRIA ALOCADA PARA A LISTA DINÂMICA
 void limparListaFuncionarios(Funcionario* lista) 
 {
     Funcionario* aux_func;
@@ -228,6 +223,7 @@ void modulo_verificar_funcionario(void)
     printf("#=====================================================================#\n");
     printf("|                        VERIFICAR FUNCIONÁRIOS                       |\n");
     printf("#=====================================================================#\n");
+    
     printf("\n");
     printf("[>] - Informe o CPf do funcionário que deseja encontrar: ");
     scanf("%15s", cpf_funcionario_ler);
@@ -324,7 +320,7 @@ void modulo_atualizar_funcionario(void)
 
             switch(op_funcionario){
                 case '1':
-                    atualizarEntrada("[+] - novo_fun nome do Funcionário: ", fun->nome_funcionario, 100, validarNome);
+                    atualizarEntrada("[+] - Novo nome do Funcionário: ", fun->nome_funcionario, 100, validarNome);
                     alt = 1;
                     break;
 
@@ -413,7 +409,7 @@ void modulo_excluir_funcionario(void)
             printf("| > Data de Nascimento: %s\n", atual_func->dt_nascimento_fun);
             printf("| > Email: %s\n", atual_func->email_funcionario);
             printf("| > Cargo: %s\n", atual_func->cargo);
-            printf("#====================================================#");
+            printf("#====================================================#\n");
             printf("[?] - Deseja excluir o funcionário? (S/N): ");
             scanf(" %c", &confirmar);
             while ((c = getchar()) != '\n' && c != EOF);

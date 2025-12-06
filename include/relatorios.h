@@ -25,7 +25,7 @@ int modulo_relatorio_veiculos(void);
 void veiculos_ativos(void);
 void veiculos_inativos(void);
 void veiculos_por_marca(void);
-void filtrar_veiculo_marca(char* marca);
+void filtrar_veiculo_marca(char* marca_veiculo);
 
 int modulo_relatorio_alugueis(void);
 void alugueis_ativos(void);

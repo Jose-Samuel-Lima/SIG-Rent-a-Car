@@ -1,7 +1,13 @@
-#ifndef UTILS_H
-#define UTILS_H
+#ifndef UTILIDADES_H
+#define UTILIDADES_H
 
+// Converte uma string para minúsculas
 void str_to_lower(char *str);
 
-#endif
+// Lê uma entrada com tamanho máximo e validação
+void lerEntrada(char *destino, int tamanho, const char *mensagem, int (*validador)(const char*));
 
+// Atualiza o valor de uma entrada já existente
+void atualizarEntrada(const char *mensagem, char *destino, int tamanho, int (*validador)(const char*));
+
+#endif

@@ -188,82 +188,92 @@ int validarIDaluguel(char *id) {
 //    VALIDAÇÕES DE VEÍCULOS
 // ==============================
 
-int validarPlaca(char *placa) {
-    int len = strlen(placa);
+int validarPlaca(const char *placa_veiculo) {
+    if (placa_veiculo == NULL) return 0;
+    int len = strlen(placa_veiculo);
     if (len != 7) return 0;
 
-    if (ehLetra(placa[0]) && ehLetra(placa[1]) && ehLetra(placa[2]) &&
-        ehDigito(placa[3]) && ehDigito(placa[4]) && ehDigito(placa[5]) && ehDigito(placa[6]))
+    if (ehLetra(placa_veiculo[0]) && ehLetra(placa_veiculo[1]) && ehLetra(placa_veiculo[2]) &&
+        ehDigito(placa_veiculo[3]) && ehDigito(placa_veiculo[4]) && ehDigito(placa_veiculo[5]) && ehDigito(placa_veiculo[6]))
         return 1;
 
     return 0;
 }
 
-int validarChassi(char *chassi) {
-    if (strlen(chassi) != 17) return 0;
+int validarChassi(const char *chassi_veiculo) {
+    if (strlen(chassi_veiculo) != 17) return 0;
+
     for (int i = 0; i < 17; i++) {
-        char c = chassi[i];
+        char c = chassi_veiculo[i];
         if (!(ehLetra(c) || ehDigito(c))) return 0;
         if (c == 'I' || c == 'O' || c == 'Q') return 0;
     }
     return 1;
 }
 
-int validarRenavam(char *renavam) {
+int validarRenavam(const char *renavam_veiculo) {
+    if (strlen(renavam_veiculo) != 11) return 0;
 
-    if (strlen(renavam) != 11) return 0;
     for (int i = 0; i < 11; i++) {
-        if (!ehDigito(renavam[i])) return 0;
+        if (!ehDigito(renavam_veiculo[i])) return 0;
     }
     return 1;
 }
 
-int validarCategoria(char *categoria) {
-    int len = strlen(categoria);
+int validarCategoria(const char *categoria_veiculo) {
+    int len = strlen(categoria_veiculo);
     if (len == 0 || len > 6) return 0;
+
     for (int i = 0; i < len; i++) {
-        if (!(categoria[i] >= 'A' && categoria[i] <= 'Z')) return 0;
+        if (!(categoria_veiculo[i] >= 'A' && categoria_veiculo[i] <= 'Z')) return 0;
     }
     return 1;
 }
 
-int validarModelo(char *modelo) {
-    int len = strlen(modelo);
+int validarModelo(const char *modelo_veiculo) {
+    int len = strlen(modelo_veiculo);
     if (len == 0 || len > 30) return 0;
+
     for (int i = 0; i < len; i++) {
-        if (!(ehLetra(modelo[i]) || ehDigito(modelo[i]) || modelo[i] == ' ')) return 0;
+        if (!(ehLetra(modelo_veiculo[i]) || ehDigito(modelo_veiculo[i]) || modelo_veiculo[i] == ' '))
+            return 0;
     }
     return 1;
 }
 
-int validarMarca(char *marca) {
-    int len = strlen(marca);
+int validarMarca(const char *marca_veiculo) {
+    int len = strlen(marca_veiculo);
     if (len == 0 || len > 15) return 0;
+
     for (int i = 0; i < len; i++) {
-        if (!(ehLetra(marca[i]) || marca[i] == ' ')) return 0;
+        if (!(ehLetra(marca_veiculo[i]) || marca_veiculo[i] == ' '))
+            return 0;
     }
     return 1;
 }
 
-int validarAno(char *ano) {
-    if (strlen(ano) != 4) return 0;
+int validarAno(const char *ano_veiculo) {
+    if (strlen(ano_veiculo) != 4) return 0;
+
     for (int i = 0; i < 4; i++) {
-        if (!ehDigito(ano[i])) return 0;
+        if (!ehDigito(ano_veiculo[i])) return 0;
     }
-    int valor = atoi(ano);
+
+    int valor = atoi(ano_veiculo);
     return (valor >= 1900 && valor <= 2025);
 }
 
-int validarCodigoInterno(char *codigo) {
-    int len = strlen(codigo);
+int validarCodigoInterno(const char *codigo_interno_veiculo) {
+    int len = strlen(codigo_interno_veiculo);
     if (len == 0 || len > 6) return 0;
+
     for (int i = 0; i < len; i++) {
-        if (!(ehLetra(codigo[i]) || ehDigito(codigo[i]))) return 0;
+        if (!(ehLetra(codigo_interno_veiculo[i]) || ehDigito(codigo_interno_veiculo[i])))
+            return 0;
     }
     return 1;
 }
 
-int validarPreco(float preco) {
-    return (preco > 0);
+int validarPreco(float preco_veiculo) {
+    return preco_veiculo > 0;
 }
-

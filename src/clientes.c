@@ -424,7 +424,7 @@ void modulo_excluir_cliente(void)
             if (confirmar == 'S' || confirmar == 's') {
                 atual_cli->status = false;
                 salvarListaCliente(lista_cliente);
-                printf("#====================================================#");
+                printf("#================================================#");
                 printf("\n[o] - Cliente excluído com sucesso!");
             }
             else {

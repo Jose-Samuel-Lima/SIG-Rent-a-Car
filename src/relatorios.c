@@ -830,15 +830,15 @@ void veiculos_ativos(void)
         if (vei->status == true) {
             contador++;
             printf("------------------------------------------------------------\n");
-            printf("Placa: %s\n", vei->placa);
-            printf("Chassi: %s\n", vei->chassi);
-            printf("Renavam.: %s\n", vei->renavam);
-            printf("Categoria: %s\n", vei->categoria);
-            printf("Modelo: %s\n", vei->modelo);
-            printf("Marca: %s\n", vei->marca);
-            printf("Ano: %s\n", vei->ano);
-            printf("Código Interno: %s\n", vei->codigo_interno);
-            printf("Preço: %f\n", vei->preco);
+            printf("Placa: %s\n", vei->placa_veiculo);
+            printf("Chassi: %s\n", vei->chassi_veiculo);
+            printf("Renavam.: %s\n", vei->renavam_veiculo);
+            printf("Categoria: %s\n", vei->categoria_veiculo);
+            printf("Modelo: %s\n", vei->modelo_veiculo);
+            printf("Marca: %s\n", vei->marca_veiculo);
+            printf("Ano: %s\n", vei->ano_veiculo);
+            printf("Código Interno: %s\n", vei->codigo_interno_veiculo);
+            printf("Preço: %f\n", vei->preco_veiculo);
         }
     }
 
@@ -886,15 +886,15 @@ void veiculos_inativos(void)
         if (vei->status == false) {
             contador++;
             printf("------------------------------------------------------------\n");
-            printf("Placa: %s\n", vei->placa);
-            printf("Chassi: %s\n", vei->chassi);
-            printf("Renavam.: %s\n", vei->renavam);
-            printf("Categoria: %s\n", vei->categoria);
-            printf("Modelo: %s\n", vei->modelo);
-            printf("Marca: %s\n", vei->marca);
-            printf("Ano: %s\n", vei->ano);
-            printf("Código Interno: %s\n", vei->codigo_interno);
-            printf("Preço: %f\n", vei->preco);
+            printf("Placa: %s\n", vei->placa_veiculo);
+            printf("Chassi: %s\n", vei->chassi_veiculo);
+            printf("Renavam.: %s\n", vei->renavam_veiculo);
+            printf("Categoria: %s\n", vei->categoria_veiculo);
+            printf("Modelo: %s\n", vei->modelo_veiculo);
+            printf("Marca: %s\n", vei->marca_veiculo);
+            printf("Ano: %s\n", vei->ano_veiculo);
+            printf("Código Interno: %s\n", vei->codigo_interno_veiculo);
+            printf("Preço: %f\n", vei->preco_veiculo);
         }
     }
 
@@ -935,7 +935,7 @@ void veiculos_por_marca(void)
     filtrar_veiculo_marca(marca_busca);
 }
 
-void filtrar_veiculo_marca(char* marca) {
+void filtrar_veiculo_marca(char* marca_veiculo) {
     FILE *arq_veiculo;
     Veiculo* vei;
     int contador = 0;
@@ -957,29 +957,29 @@ void filtrar_veiculo_marca(char* marca) {
 
     vei = (Veiculo*) malloc(sizeof(Veiculo));
 
-    printf("\n [>] - Veículos com o cargo: %s\n\n", marca);
+    printf("\n [>] - Veículos com o cargo: %s\n\n", marca_veiculo);
 
     while (fread(vei, sizeof(Veiculo), 1, arq_veiculo)) {
         if (vei->status == true){ 
 
             char marca_temp[16];
-            strcpy(marca_temp, vei->marca);
+            strcpy(marca_temp, vei->marca_veiculo);
 
             str_to_lower(marca_temp);
 
-            if(strstr(marca_temp, marca) != NULL) {
+            if(strstr(marca_temp, marca_veiculo) != NULL) {
                 contador++;
                 printf("----------------------------------------------\n");
-                printf("Placa: %s\n", vei->placa);
-                printf("Chassi: %s\n", vei->chassi);
-                printf("Renavam.: %s\n", vei->renavam);
-                printf("Categoria: %s\n", vei->categoria);
-                printf("Modelo: %s\n", vei->modelo);
-                printf("Marca: %s\n", vei->marca);
-                printf("Ano: %s\n", vei->ano);
-                printf("Código Interno: %s\n", vei->codigo_interno);
-                printf("Preço: %f\n", vei->preco);
-            }
+                printf("Placa: %s\n", vei->placa_veiculo);
+                printf("Chassi: %s\n", vei->chassi_veiculo);
+                printf("Renavam.: %s\n", vei->renavam_veiculo);
+                printf("Categoria: %s\n", vei->categoria_veiculo);
+                printf("Modelo: %s\n", vei->modelo_veiculo);
+                printf("Marca: %s\n", vei->marca_veiculo);
+                printf("Ano: %s\n", vei->ano_veiculo);
+                printf("Código Interno: %s\n", vei->codigo_interno_veiculo);
+                printf("Preço: %f\n", vei->preco_veiculo);
+        }
         }
     }
 
