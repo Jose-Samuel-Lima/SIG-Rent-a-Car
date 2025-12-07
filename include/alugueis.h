@@ -26,6 +26,7 @@ typedef struct Aluguel {
     char placa_veiculo[8];
     char data_inicio[11];
     char data_fim[11];
+    float valor_total;
     bool status;
     struct Aluguel* prox_alu;
 } Aluguel;
