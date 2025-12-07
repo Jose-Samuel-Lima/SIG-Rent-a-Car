@@ -16,4 +16,7 @@ int validarMarca(const char *marca);
 int validarAno(const char *ano);
 int validarPreco(float preco);
 
+int validarData(const char *data);
+int verificarNumero(const char *str);
+
 #endif

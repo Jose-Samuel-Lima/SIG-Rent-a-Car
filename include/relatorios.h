@@ -13,7 +13,7 @@ int modulo_relatorio_funcionarios(void);
 void funcionarios_ativos(void);
 void funcionarios_inativos(void);
 void funcionarios_por_cargo(void);
-void filtrar_funcionario_cargo(char* cargo);
+void filtrar_funcionario_cargo(char* cargo_funcionario);
 
 int modulo_relatorio_clientes(void);
 void clientes_ativos(void);
@@ -27,11 +27,6 @@ void veiculos_inativos(void);
 void veiculos_por_marca(void);
 void filtrar_veiculo_marca(char* marca_veiculo);
 
-int modulo_relatorio_alugueis(void);
-void alugueis_ativos(void);
-void alugueis_inativos(void);
-void alugueis_por_data(void);
-void filtrar_aluguel_data(char* data_aluguel);
 
 void str_to_lower(char *str);
 

@@ -13,7 +13,6 @@
 #include "clientes.h"
 #include "veiculos.h"
 #include "relatorios.h"
-#include "alugueis.h"
 
 // =============================================|
 // MÓDULO DE TELA E NAVEGAÇÃO DE RELATÓRIOS.C   |
@@ -35,9 +34,6 @@ int modulo_relatorio(void)
             break;
         case 3:
             navegar_relatorio_veiculos();
-            break;
-        case 4:
-            navegar_relatorio_alugueis();
             break;
         case 0:
             return -1;
@@ -116,27 +112,6 @@ int navegar_relatorio_veiculos(void)
             return -1;
         }
     } while (esc_veiculos != 0);
-    return -1;
-}
-
-int navegar_relatorio_alugueis(void)
-{ 
-    int esc_alugueis;
-    do
-    {
-        esc_alugueis = modulo_relatorio_alugueis();
-        switch(esc_alugueis)
-        {
-        case 1: 
-            alugueis_ativos();
-            break;
-        case 2: 
-            alugueis_inativos();
-            break;
-        case 0:
-            return -1;
-        }
-    } while (esc_alugueis != 0);
     return -1;
 }
 
@@ -273,38 +248,6 @@ int modulo_relatorio_veiculos(void)
     return op;
 }
 
-int modulo_relatorio_alugueis(void)
-{
-    int op;   
-    int c;
-
-    system("clear||cls");
-    printf("\n");
-    printf("#=======================================================================#\n");
-    printf("|                                                                       |\n");
-    printf("|                          --------------------                         |\n");
-    printf("|                          | SIG - Rent a Car |                         |\n");
-    printf("|                          --------------------                         |\n");
-    printf("|                                                                       |\n");
-    printf("#=======================================================================#\n");
-    printf("|                                                                       |\n");
-    printf("|                 < = = =  Relatório de Alugueis  = = = >               |\n");
-    printf("|                                                                       |\n");
-    printf("|                        # 1 # Alugueis Ativos                          |\n");
-    printf("|                        # 2 # Alugueis Inativos                        |\n");
-    printf("|                        # 0 # Sair                                     |\n");
-    printf("|                                                                       |\n");
-    printf("#=======================================================================#\n");
-    printf("\n");
-    printf("Escolha uma das opções acima: ");
-    scanf(" %d", &op);
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
-    printf("\n");
-    printf("Processando...\n");
-    return op;
-}
-
 // |======================================|
 // |       RELATÓRIO DE FUNCIONÁRIOS      |
 // |======================================|
@@ -312,7 +255,7 @@ int modulo_relatorio_alugueis(void)
 void funcionarios_ativos(void)
 {
     Funcionario* fun = (Funcionario*) malloc(sizeof(Funcionario));
-    Funcionario* lista = NULL;
+    Funcionario* lista_funcionario = NULL;
     Funcionario* ultimo = NULL;
 
     system("clear||cls");
@@ -340,7 +283,7 @@ void funcionarios_ativos(void)
             novo_func->prox_func = NULL;
 
             if (contador == 0) {
-                lista = novo_func;
+                lista_funcionario = novo_func;
                 ultimo = novo_func;
             } else {
                 ultimo->prox_func = novo_func;
@@ -365,20 +308,20 @@ void funcionarios_ativos(void)
     printf("| %-20s | %-14s | %-12s | %-25s | %-20s |\n",
            "NOME", "CPF", "NASCIMENTO", "EMAIL", "CARGO");
 
-    Funcionario* atual = lista;
+    Funcionario* atual = lista_funcionario;
     while (atual != NULL) {
         printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-20.20s |\n",
                atual->nome_funcionario,
                atual->cpf_funcionario,
-               atual->dt_nascimento_fun,
+               atual->telefone_funcionario,
                atual->email_funcionario,
-               atual->cargo);
+               atual->cargo_funcionario);
 
         atual = atual->prox_func;
     }
 
     // LIBERANDO MEMÓRIA DA LISTA
-    atual = lista;
+    atual = lista_funcionario;
     while (atual != NULL) {
         Funcionario* prox_func = atual->prox_func;
         free(atual);
@@ -393,7 +336,7 @@ void funcionarios_inativos(void)
 {
     FILE *arq_funcionario;
     Funcionario* fun;
-    Funcionario* lista = NULL;
+    Funcionario* lista_funcionario = NULL;
     arq_funcionario = fopen("funcionario.dat","rb");
 
     system("clear||cls");
@@ -419,8 +362,8 @@ void funcionarios_inativos(void)
         if (fun->status == false) {
             Funcionario* novo_func = (Funcionario*) malloc(sizeof(Funcionario));
             *novo_func = *fun;         
-            novo_func->prox_func = lista; 
-            lista = novo_func;
+            novo_func->prox_func = lista_funcionario; 
+            lista_funcionario = novo_func;
             contador++;
         }
     }
@@ -439,20 +382,20 @@ void funcionarios_inativos(void)
     printf("| %-20s | %-14s | %-12s | %-25s | %-20s |\n",
            "NOME", "CPF", "NASCIMENTO", "EMAIL", "CARGO");
 
-    Funcionario* atual = lista;
+    Funcionario* atual = lista_funcionario;
     while (atual != NULL) {
         printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-20.20s |\n",
                atual->nome_funcionario,
                atual->cpf_funcionario,
-               atual->dt_nascimento_fun,
+               atual->telefone_funcionario,
                atual->email_funcionario,
-               atual->cargo);
+               atual->cargo_funcionario);
 
         atual = atual->prox_func;
     }
 
     // LIBERANDO MEMÓRIA DA LISTA
-    atual = lista;
+    atual = lista_funcionario;
     while (atual != NULL) {
         Funcionario* prox_func = atual->prox_func;
         free(atual);
@@ -489,7 +432,7 @@ void funcionarios_por_cargo(void)
     filtrar_funcionario_cargo(cargo_busca);
 }
 
-void filtrar_funcionario_cargo(char* cargo) {
+void filtrar_funcionario_cargo(char* cargo_funcionario) {
     FILE *arq_funcionario;
     Funcionario* fun;
     int contador = 0;
@@ -511,17 +454,17 @@ void filtrar_funcionario_cargo(char* cargo) {
 
     fun = (Funcionario*) malloc(sizeof(Funcionario));
 
-    printf("\n [>] - Funcionários com o cargo: %s\n\n", cargo);
+    printf("\n [>] - Funcionários com o cargo: %s\n\n", cargo_funcionario);
 
     while (fread(fun, sizeof(Funcionario), 1, arq_funcionario)) {
         if (fun->status == true){ 
 
             char cargo_temp[51];
-            strcpy(cargo_temp, fun->cargo);
+            strcpy(cargo_temp, fun->cargo_funcionario);
 
             str_to_lower(cargo_temp);
 
-            if(strstr(cargo_temp, cargo) != NULL) {
+            if(strstr(cargo_temp, cargo_funcionario) != NULL) {
                 if (contador == 0) {
                     printf("| %-20s | %-14s | %-12s | %-25s | %-20s |\n",
                            "NOME", "CPF", "NASCIMENTO", "EMAIL", "CARGO");
@@ -531,9 +474,9 @@ void filtrar_funcionario_cargo(char* cargo) {
                 printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-20.20s |\n",
                        fun->nome_funcionario,
                        fun->cpf_funcionario,
-                       fun->dt_nascimento_fun,
+                       fun->telefone_funcionario,
                        fun->email_funcionario,
-                       fun->cargo);
+                       fun->cargo_funcionario);
             }
         }
     }
@@ -617,7 +560,7 @@ while (atual != NULL) {
     printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-15.15s |\n",
            atual->nome_cliente,
            atual->cpf_cliente,
-           atual->data_cliente,
+           atual->telefone_cliente,
            atual->email_cliente,
            atual->cnh_cliente);
 
@@ -692,7 +635,7 @@ void clientes_inativos(void)
         printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-15.15s |\n",
                atual->nome_cliente,
                atual->cpf_cliente,
-               atual->data_cliente,
+               atual->telefone_cliente,
                atual->email_cliente,
                atual->cnh_cliente);
 
@@ -779,7 +722,7 @@ void filtrar_cliente_nome(char* nome_cliente) {
                 printf("| %-20.20s | %-14.14s | %-12.12s | %-25.25s | %-15.15s |\n",
                        cli->nome_cliente,
                        cli->cpf_cliente,
-                       cli->data_cliente,
+                       cli->telefone_cliente,
                        cli->email_cliente,
                        cli->cnh_cliente);
             }
@@ -799,6 +742,10 @@ void filtrar_cliente_nome(char* nome_cliente) {
     printf("\n[>] - Pressione Enter para sair...");
     getchar();
 }
+
+// |======================================|
+// |        RELATÓRIO DE VEÍCULOS         |
+// |======================================|
 
 void veiculos_ativos(void)
 {
@@ -831,13 +778,9 @@ void veiculos_ativos(void)
             contador++;
             printf("------------------------------------------------------------\n");
             printf("Placa: %s\n", vei->placa_veiculo);
-            printf("Chassi: %s\n", vei->chassi_veiculo);
-            printf("Renavam.: %s\n", vei->renavam_veiculo);
-            printf("Categoria: %s\n", vei->categoria_veiculo);
             printf("Modelo: %s\n", vei->modelo_veiculo);
             printf("Marca: %s\n", vei->marca_veiculo);
             printf("Ano: %s\n", vei->ano_veiculo);
-            printf("Código Interno: %s\n", vei->codigo_interno_veiculo);
             printf("Preço: %f\n", vei->preco_veiculo);
         }
     }
@@ -887,13 +830,9 @@ void veiculos_inativos(void)
             contador++;
             printf("------------------------------------------------------------\n");
             printf("Placa: %s\n", vei->placa_veiculo);
-            printf("Chassi: %s\n", vei->chassi_veiculo);
-            printf("Renavam.: %s\n", vei->renavam_veiculo);
-            printf("Categoria: %s\n", vei->categoria_veiculo);
             printf("Modelo: %s\n", vei->modelo_veiculo);
             printf("Marca: %s\n", vei->marca_veiculo);
             printf("Ano: %s\n", vei->ano_veiculo);
-            printf("Código Interno: %s\n", vei->codigo_interno_veiculo);
             printf("Preço: %f\n", vei->preco_veiculo);
         }
     }
@@ -971,13 +910,9 @@ void filtrar_veiculo_marca(char* marca_veiculo) {
                 contador++;
                 printf("----------------------------------------------\n");
                 printf("Placa: %s\n", vei->placa_veiculo);
-                printf("Chassi: %s\n", vei->chassi_veiculo);
-                printf("Renavam.: %s\n", vei->renavam_veiculo);
-                printf("Categoria: %s\n", vei->categoria_veiculo);
                 printf("Modelo: %s\n", vei->modelo_veiculo);
                 printf("Marca: %s\n", vei->marca_veiculo);
                 printf("Ano: %s\n", vei->ano_veiculo);
-                printf("Código Interno: %s\n", vei->codigo_interno_veiculo);
                 printf("Preço: %f\n", vei->preco_veiculo);
         }
         }
@@ -992,194 +927,6 @@ void filtrar_veiculo_marca(char* marca_veiculo) {
 
     fclose(arq_veiculo);
     free(vei);
-
-    printf("\n[>] - Pressione Enter para sair...");
-    getchar();
-}
-
-void alugueis_ativos(void)
-{
-    FILE *arq_aluguel;
-    Aluguel* alg;
-    arq_aluguel = fopen("aluguel.dat","rb");
-
-    system("clear||cls");
-    printf("\n");
-    printf("#=======================================================================#\n");
-    printf("|                                                                       |\n");
-    printf("|                   < = = =  Alugueis Ativos = = = >                    |\n");
-    printf("|                                                                       |\n");
-    printf("#=======================================================================#\n");
-    printf("\n");
-
-    if (arq_aluguel == NULL) {
-        printf("XXX - Nenhum arquivo de alugueis encontrado!\n");
-        printf("[>] - Pressione Enter para continuar...");
-        getchar();
-        return;
-    }
-
-    alg = (Aluguel*) malloc(sizeof(Aluguel));
-
-    int contador = 0;
-
-    while (fread(alg, sizeof(Aluguel), 1, arq_aluguel)) {
-        if (alg->status == true) {
-            contador++;
-            printf("------------------------------------------------------------\n");
-            printf("Nome: %s\n", alg->nome_cliente);
-            printf("CPF: %s\n", alg->cpf_cliente);
-            printf("Código RENAVAM: %s\n", alg->codigo_renavam);
-            printf("Modelo do Veículo: %s\n", alg->modelo_veiculo);
-            printf("Data de Finalização: %s\n", alg->data_aluguel);
-            printf("ID do Aluguel: %s\n", alg->id_aluguel);
-            }
-    }
-
-    if (contador == 0) {
-        printf("XXX - Nenhum aluguel ativo encontrado!\n");
-    } else {
-        printf("------------------------------------------------------------\n");
-        printf("Total de alugueis ativos: %d\n", contador);
-    }
-
-    fclose(arq_aluguel);
-    free(alg);
-
-    printf("\n[>] - Pressione Enter para sair...");
-    getchar();
-}
-
-void alugueis_inativos(void)
-{
-    FILE *arq_aluguel;
-    Aluguel* alg;
-    arq_aluguel = fopen("aluguel.dat","rb");
-
-    system("clear||cls");
-    printf("\n");
-    printf("#=======================================================================#\n");
-    printf("|                                                                       |\n");
-    printf("|                   < = = =  Alugueis Inativos = = = >                  |\n");
-    printf("|                                                                       |\n");
-    printf("#=======================================================================#\n");
-    printf("\n");
-
-    if (arq_aluguel == NULL) {
-        printf("XXX - Nenhum arquivo de alugueis encontrado!\n");
-        printf("[>] - Pressione Enter para continuar...");
-        getchar();
-        return;
-    }
-
-    alg = (Aluguel*) malloc(sizeof(Aluguel));
-
-    int contador = 0;
-
-    while (fread(alg, sizeof(Aluguel), 1, arq_aluguel)) {
-        if (alg->status == false) {
-            contador++;
-            printf("------------------------------------------------------------\n");
-            printf("Nome: %s\n", alg->nome_cliente);
-            printf("CPF: %s\n", alg->cpf_cliente);
-            printf("Código RENAVAM: %s\n", alg->codigo_renavam);
-            printf("Modelo do Veículo: %s\n", alg->modelo_veiculo);
-            printf("Data de Finalização: %s\n", alg->data_aluguel);
-            printf("ID do Aluguel: %s\n", alg->id_aluguel);
-            }
-    }
-
-    if (contador == 0) {
-        printf("XXX - Nenhum aluguel inativo encontrado!\n");
-    } else {
-        printf("------------------------------------------------------------\n");
-        printf("Total de alugueis inativos: %d\n", contador);
-    }
-
-    fclose(arq_aluguel);
-    free(alg);
-
-    printf("\n[>] - Pressione Enter para sair...");
-    getchar();
-}
-
-void alugueis_por_data(void)
-{
-    char data_busca[15];
-    int c;
-
-    system("clear||cls");
-    printf("\n");
-    printf("#=======================================================================#\n");
-    printf("|                                                                       |\n");
-    printf("|                < = = =  Filtragem por Nome = = = >                    |\n");
-    printf("|                                                                       |\n");
-    printf("#=======================================================================#\n");
-    printf("\n");
-
-    printf("Digite o nome que deseja buscar: ");
-    scanf("%14s", data_busca); 
-    while ((c = getchar()) != '\n' && c != EOF);
-
-    str_to_lower(data_busca);
-
-    filtrar_aluguel_data(data_busca);
-}
-
-void filtrar_aluguel_data(char* data_aluguel) {
-FILE *arq_aluguel;
-    Aluguel* alg;
-    int contador = 0;
-
-    arq_aluguel = fopen("aluguel.dat", "rb");
-
-    system("clear||cls");
-    printf("\n");
-    printf("#=======================================================================#\n");
-    printf("|                  < = = = Filtrar por Data   = = = >                   |\n");
-    printf("#=======================================================================#\n\n");
-
-    if (arq_aluguel == NULL) {
-        printf("XXX - Arquivo não encontrado!\n");
-        printf("[>] - Pressione Enter para continuar...");
-        getchar();
-        return;
-    }
-
-    alg = (Aluguel*) malloc(sizeof(Aluguel));
-
-    printf("\n [>] - Aluguéis com a data: %s\n\n", data_aluguel);
-
-    while (fread(alg, sizeof(Aluguel), 1, arq_aluguel)) {
-        if (alg->status == true){ 
-
-            char data_temp[15];
-            strcpy(data_temp, alg->data_aluguel);
-
-            str_to_lower(data_temp);
-
-            if(strstr(data_temp, data_aluguel) != NULL) {
-                contador++;
-                printf("----------------------------------------------\n");
-                printf("Nome: %s\n", alg->nome_cliente);
-                printf("CPF: %s\n", alg->cpf_cliente);
-                printf("Código RENAVAM: %s\n", alg->codigo_renavam);
-                printf("Modelo do Veículo: %s\n", alg->modelo_veiculo);
-                printf("Data de Finalização: %s\n", alg->data_aluguel);
-                printf("ID do Aluguel: %s\n", alg->id_aluguel);
-            }
-        }
-    }
-
-    if (contador == 0) {
-        printf("XXX - Nenhum aluguel encontrado!\n");
-    } else {
-        printf("----------------------------------------------\n");
-        printf("\nTotal: %d aluguel(is)\n", contador);
-    }
-
-    fclose(arq_aluguel);
-    free(alg);
 
     printf("\n[>] - Pressione Enter para sair...");
     getchar();

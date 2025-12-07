@@ -7,14 +7,10 @@
 // --------------------------------------------------------------
 
 typedef struct veiculo {
-    char placa_veiculo[8];          
-    char chassi_veiculo[18];        
-    char renavam_veiculo[12];       
-    char categoria_veiculo[7];      
-    char modelo_veiculo[31];
+    char placa_veiculo[8];        
+    char modelo_veiculo[31];       
     char marca_veiculo[16];
     char ano_veiculo[5];           
-    char codigo_interno_veiculo[7];
     float preco_veiculo;
     bool status;
     struct veiculo *prox_vei;        

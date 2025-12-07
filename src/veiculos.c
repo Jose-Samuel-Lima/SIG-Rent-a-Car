@@ -52,21 +52,18 @@ int modulo_tela_veiculos(void)
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
+    printf("|                         --------------------                        |\n");
+    printf("|                         | SIG - Rent a Car |                        |\n");
+    printf("|                         --------------------                        |\n");
     printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                   < = = = Módulo de Veículos = = = >                |\n");
-    printf("|                                                                     |\n");
-    printf("|                    # 1 # Cadastrar novo veículo                     |\n");
-    printf("|                    # 2 # Dados do veículo                           |\n");
-    printf("|                    # 3 # Alterar dados do veículo                   |\n");
-    printf("|                    # 4 # Excluir um veículo                         |\n");
-    printf("|                    # 0 # Voltar ao menu principal                   |\n");
-    printf("|                                                                     |\n");
+    printf("|                           MÓDULO VEÍCULOS                           |\n");
+    printf("|---------------------------------------------------------------------|\n");
+    printf("|                     [1] - Cadastrar Veículo                         |\n");
+    printf("|                     [2] - Verificar Veículo                         |\n");
+    printf("|                     [3] - Atualizar Veículo                         |\n");
+    printf("|                     [4] - Excluir Veículo                           |\n");
+    printf("|---------------------------------------------------------------------|\n");
+    printf("|                     [0] - Sair                                      |\n");
     printf("#=====================================================================#\n");
     printf("\n");
     printf("[>] - Escolha uma das opções acima: ");
@@ -179,17 +176,13 @@ void modulo_cadastrar_veiculo(void) {
     printf("|                         | SIG - Rent a Car |                        |\n");
     printf("|                         --------------------                        |\n");
     printf("#=====================================================================#\n");
-    printf("|                        CADASTRAR VEÍCULOS                           |\n");
+    printf("|                          CADASTRAR VEÍCULOS                         |\n");
     printf("#=====================================================================#\n");
 
     lerEntrada(novo_vei->placa_veiculo, 8, "[+] - Placa: ", validarPlaca);
-    lerEntrada(novo_vei->chassi_veiculo, 18, "[+] - Chassi: ", validarChassi);
-    lerEntrada(novo_vei->renavam_veiculo, 12, "[+] - Renavam: ", validarRenavam);
-    lerEntrada(novo_vei->categoria_veiculo, 7, "[+] - Categoria: ", validarCategoria);
     lerEntrada(novo_vei->modelo_veiculo, 31, "[+] - Modelo: ", validarModelo);
     lerEntrada(novo_vei->marca_veiculo, 16, "[+] - Marca: ", validarMarca);
     lerEntrada(novo_vei->ano_veiculo, 5, "[+] - Ano: ", validarAno);
-    lerEntrada(novo_vei->codigo_interno_veiculo, 7, "[+] - Código interno: ", validarCodigoInterno);
 
     printf("[+] - Preço: ");
     scanf("%f", &novo_vei->preco_veiculo);
@@ -216,7 +209,7 @@ void modulo_verificar_veiculo(void)
 {
     system("clear||cls");
 
-    char codigo_ler[7];
+    char placa_ler[8];
 
     printf("#=====================================================================#\n");
     printf("|                         --------------------                        |\n");
@@ -226,28 +219,24 @@ void modulo_verificar_veiculo(void)
     printf("|                          VERIFICAR VEÍCULO                          |\n");
     printf("#=====================================================================#\n");
 
-    printf("[>] - Informe o Código interno do veículo: ");
-    scanf("%6s", codigo_ler);
+    printf("[>] - Informe a Placa do veículo: ");
+    scanf("%8s", placa_ler);
     while (getchar() != '\n');
 
     Veiculo* lista = carregarListaVeiculos();
     Veiculo* aux_vei = lista;
 
     while (aux_vei != NULL) {
-        if (aux_vei->status == true && strcmp(aux_vei->codigo_interno_veiculo, codigo_ler) == 0) {
+        if (aux_vei->status == true && strcmp(aux_vei->placa_veiculo, placa_ler) == 0) {
             system("clear||cls");
 
             printf("#====================================================#\n");
             printf("|                [o] - Veículo encontrado!           |\n");
             printf("#====================================================#\n");
             printf("| > Placa: %s\n", aux_vei->placa_veiculo);
-            printf("| > Chassi: %s\n", aux_vei->chassi_veiculo);
-            printf("| > Renavam: %s\n", aux_vei->renavam_veiculo);
-            printf("| > Categoria: %s\n", aux_vei->categoria_veiculo);
             printf("| > Modelo: %s\n", aux_vei->modelo_veiculo);
             printf("| > Marca: %s\n", aux_vei->marca_veiculo);
             printf("| > Ano: %s\n", aux_vei->ano_veiculo);
-            printf("| > Código Interno: %s\n", aux_vei->codigo_interno_veiculo);
             printf("| > Preço: %.2f\n", aux_vei->preco_veiculo);
             printf("#====================================================#\n");
             printf("[>] - Pressione Enter para continuar...");
@@ -290,7 +279,7 @@ void modulo_atualizar_veiculo(void)
     printf("#=====================================================================#\n");
     printf("|                         ATUALIZAR VEÍCULOS                          |\n");
     printf("#=====================================================================#\n");
-    printf("[>] - Informe o código interno do veículo: ");
+    printf("[>] - Informe a Placa do veículo: ");
     scanf("%7s", cod_veiculo_ler);
     while ((c = getchar()) != '\n' && c != EOF);
 
@@ -309,14 +298,10 @@ void modulo_atualizar_veiculo(void)
     printf("|               [o] - Veículo encontrado!            |\n");
     printf("#====================================================#\n");
     printf("|               [1] - Placa                          |\n");
-    printf("|               [2] - Chassi                         |\n");
-    printf("|               [3] - Renavam                        |\n");
-    printf("|               [4] - Categoria                      |\n");
-    printf("|               [5] - Modelo                         |\n");
-    printf("|               [6] - Marca                          |\n");
-    printf("|               [7] - Ano                            |\n");
-    printf("|               [8] - Código Interno                 |\n");
-    printf("|               [9] - Preço                          |\n");
+    printf("|               [2] - Modelo                         |\n");
+    printf("|               [3] - Marca                          |\n");
+    printf("|               [4] - Ano                            |\n");
+    printf("|               [5] - Preço                          |\n");
     printf("|----------------------------------------------------|\n");
     printf("|               [0] - Cancelar                       |\n");
     printf("#====================================================#\n");
@@ -334,21 +319,6 @@ void modulo_atualizar_veiculo(void)
             break;
 
         case '2':
-            atualizarEntrada("[+] - Novo número de chassi: ", vei->chassi_veiculo, 18, validarChassi);
-            alt = 1;
-            break;
-
-        case '3':
-            atualizarEntrada("[+] - Novo Renavam: ", vei->renavam_veiculo, 12, validarRenavam);
-            alt = 1;
-            break;
-
-        case '4':
-            atualizarEntrada("[+] - Nova categoria: ", vei->categoria_veiculo, 7, validarCategoria);
-            alt = 1;
-            break;
-
-        case '5':
             atualizarEntrada("[+] - Novo modelo: ", vei->modelo_veiculo, 31, validarModelo);
             alt = 1;
             break;
@@ -360,11 +330,6 @@ void modulo_atualizar_veiculo(void)
 
         case '7':
             atualizarEntrada("[+] - Novo ano (AAAA): ", vei->ano_veiculo, 5, validarAno);
-            alt = 1;
-            break;
-
-        case '8':
-            atualizarEntrada("[+] - Novo código interno: ", vei->codigo_interno_veiculo, 7, validarCodigoInterno);
             alt = 1;
             break;
 
@@ -408,7 +373,7 @@ void modulo_excluir_veiculo(void)
         return;
     }
 
-    char codinterno_ler[7];
+    char placa_ler[8];
     int c;
     bool vei_encontrado = false;
     char confirmar;
@@ -424,14 +389,14 @@ void modulo_excluir_veiculo(void)
     printf("#=====================================================================#\n");
     printf("\n");
 
-    printf("[>] - Informe o Código Interno do veículo que deseja excluir: ");
-    scanf("%6s", codinterno_ler);
+    printf("[>] - Informe a Placa do veículo que deseja excluir: ");
+    scanf("%8s", placa_ler);
     while ((c = getchar()) != '\n' && c != EOF);
 
     Veiculo* atual_vei = lista_veiculo;
 
     while (atual_vei) {
-        if (strcmp(atual_vei->codigo_interno_veiculo, codinterno_ler) == 0 && atual_vei->status) {
+        if (strcmp(atual_vei->placa_veiculo, placa_ler) == 0 && atual_vei->status) {
             vei_encontrado = true;
 
             system("clear||cls");
@@ -439,13 +404,9 @@ void modulo_excluir_veiculo(void)
             printf("|               [o] - Veículo encontrado!            |\n");
             printf("#====================================================#\n");
             printf("| > Placa: %s\n", atual_vei->placa_veiculo);
-            printf("| > Chassi: %s\n", atual_vei->chassi_veiculo);
-            printf("| > Renavam: %s\n", atual_vei->renavam_veiculo);
             printf("| > Modelo: %s\n", atual_vei->modelo_veiculo);
             printf("| > Marca: %s\n", atual_vei->marca_veiculo);
-            printf("| > Categoria: %s\n", atual_vei->categoria_veiculo);
             printf("| > Ano: %s\n", atual_vei->ano_veiculo);
-            printf("| > Código Interno: %s\n", atual_vei->codigo_interno_veiculo);
             printf("| > Preço: %.2f\n", atual_vei->preco_veiculo);
             printf("#====================================================#\n");
             printf("[?] - Deseja realmente excluir este veículo? (S/N): ");

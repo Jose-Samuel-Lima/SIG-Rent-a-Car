@@ -1,7 +1,3 @@
-// |=============================================|
-// |       SEÇÃO DE INCLUDE DE CLIENTES.C        |
-// |=============================================|
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -76,7 +72,7 @@ int modulo_tela_cliente(void)
 }
 
 // |=============================================|
-// |    FUNÇÕES FUNCIONÁRIOS - LISTA DINÂMICA    |
+// |    FUNÇÕES CLIENTES - LISTA DINÂMICA    |
 // |=============================================|
 
 void listaOrdenadaClientes(Cliente** lista_cliente, Cliente* novo_cli) 
@@ -226,7 +222,7 @@ void modulo_verificar_cliente(void)
     printf("|                          VERIFICAR CLIENTE                          |\n");
     printf("#=====================================================================#\n");
     printf("\n");
-    printf("[>] - Informe o CPf do funcionário que deseja encontrar: ");
+    printf("[>] - Informe o CPf do cliente que deseja encontrar: ");
     scanf("%15s", cpf_cliente_ler);
     while (getchar() != '\n');
     
@@ -286,7 +282,7 @@ void modulo_atualizar_clientes(void)
     printf("#=====================================================================#\n");
     printf("|                          ATUALIZAR CLIENTE                          |\n");
     printf("#=====================================================================#\n");
-    printf("[>] - Informe o CPf do funcionário para alterar os dados: ");
+    printf("[>] - Informe o CPf do cliente para alterar os dados: ");
     scanf("%15s", cpf_cliente_ler);
     while ((c = getchar()) != '\n' && c != EOF);
     
@@ -392,7 +388,7 @@ void modulo_excluir_cliente(void)
     printf("#=====================================================================#\n");
     printf("\n");
 
-    printf("[>] - Informe o CPF do funcionário que deseja excluir: ");
+    printf("[>] - Informe o CPF do cliente que deseja excluir: ");
     scanf("%14s", cpf_cliente_ler);
     while ((c = getchar()) != '\n' && c != EOF);
 

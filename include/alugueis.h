@@ -1,24 +1,58 @@
 #ifndef ALUGUEIS_H
 #define ALUGUEIS_H
-#include <stdbool.h>
 
-typedef struct aluguel
-{
-    char nome_cliente[100];
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include "clientes.h"
+#include "veiculos.h"
+
+// =======================
+// Definições Globais
+// =======================
+
+#define ARQUIVO_ID "ultimo_id_aluguel.txt"
+
+// =======================
+// Estrutura de Aluguel
+// =======================
+
+typedef struct Aluguel {
+    char id[5];              
     char cpf_cliente[15];
-    char codigo_renavam[12];
-    char modelo_veiculo[31];
-    char data_aluguel[15];
-    char id_aluguel[12];
+    char placa_veiculo[8];
+    char data_inicio[11];
+    char data_fim[11];
     bool status;
+    struct Aluguel* prox_alu;
 } Aluguel;
 
+// =======================
+// Protótipos de Funções
+// =======================
+
+// ---------- Módulos ----------
 int modulo_aluguel(void);
 int modulo_tela_alugueis(void);
 void modulo_cadastrar_aluguel(void);
-void modulo_dados_aluguel(void);
-void modulo_atualizar_aluguel(void);
-void modulo_finalizar_aluguel(void);
 
+// ---------- Lista Dinâmica - Aluguel ----------
+void listaOrdenadaAlugueis(Aluguel** lista_aluguel, Aluguel* novo_alu);
+Aluguel* carregarListaAlugueis(void);
+Aluguel* buscarAluguel(Aluguel* lista_aluguel, const char* cpf_cliente);
+void salvarListaAlugueis(Aluguel* lista_aluguel);
+void limparListaAlugueis(Aluguel* lista_aluguel);
 
-#endif
+// ---------- Lista Dinâmica - Cliente e Veículo ---------- 
+Cliente* carregarListaCliente(void);
+void limparListaCliente(Cliente* lista_cliente);
+
+Veiculo* carregarListaVeiculos(void);
+void limparListaVeiculos(Veiculo* lista_veiculo);
+
+// ---------- ID de Aluguel ----------
+void gerarID_aluguel(char *destino); 
+
+#endif // ALUGUEIS_H
+

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include "validacao.h"
 
 // ==============================
@@ -169,6 +170,88 @@ int validarAno(const char *ano_veiculo) {
     return (valor >= 1900 && valor <= 2025);
 }
 
-int validarPreco(float preco_veiculo) {
-    return preco_veiculo > 0;
+
+// https://pt.stackoverflow.com/questions/213423/verificar-se-uma-data-é-válida-ou-não-em-c
+// Código original que foi utilizado para complementar validarData.
+// Autor: Mercador; Perfil: https://pt.stackoverflow.com/users/17607/mercador
+
+int validarData(const char *data) {
+    if (strlen(data) != 10) return 0;
+    if (!(ehDigito(data[0]) && ehDigito(data[1]) && 
+          data[2] == '/' &&
+          ehDigito(data[3]) && ehDigito(data[4]) && 
+          data[5] == '/' &&
+          ehDigito(data[6]) && ehDigito(data[7]) && 
+          ehDigito(data[8]) && ehDigito(data[9]))) {
+        return 0;  
+    }
+    
+    if (strstr(data, "//") != NULL) {
+        return 0;
+    }
+    
+    if (!verificarNumero(data)) {
+        return 0;
+    }
+    
+    int dia, mes, ano;
+    char data_copia[11];
+    strcpy(data_copia, data);
+    
+    char *token = strtok(data_copia, "/");
+    dia = strtol(token, NULL, 10);
+    
+    token = strtok(NULL, "/");
+    mes = strtol(token, NULL, 10);
+    
+    token = strtok(NULL, "/");
+    ano = strtol(token, NULL, 10);
+    
+    
+    if (mes < 1 || mes > 12) return 0;
+    if (ano < 0000 || ano > 2900) return 0;
+    
+    int dias_no_mes;
+    switch (mes) {
+        case 2:
+            if ((ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0)) {
+                dias_no_mes = 29;
+            } else {
+                dias_no_mes = 28;
+            }
+            break;
+        case 4:
+            dias_no_mes = 30;
+            break;
+
+        case 6:
+            dias_no_mes = 30;
+            break;
+        case 9:
+
+            dias_no_mes = 30;
+            break;
+
+        case 11:
+            dias_no_mes = 30;
+            break;
+
+        default:
+            dias_no_mes = 31;
+            break;
+    }
+    
+    if (dia < 1 || dia > dias_no_mes) return 0;
+    
+    return 1;
+}
+
+int verificarNumero(const char *str) {
+    if (!str) return 0;
+    for (int i = 0; str[i] != '\0'; i++) {
+        if (!isdigit((unsigned char)str[i])) {
+            if (str[i] != '/') return 0; // permitir barra para datas
+        }
+    }
+    return 1;
 }
