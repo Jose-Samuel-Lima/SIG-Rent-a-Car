@@ -7,6 +7,8 @@
 #include <stdbool.h>
 #include "clientes.h"
 #include "veiculos.h"
+#include "utilidades.h"
+#include "validacao.h"
 
 // =======================
 // Definições Globais
@@ -36,6 +38,9 @@ typedef struct Aluguel {
 int modulo_aluguel(void);
 int modulo_tela_alugueis(void);
 void modulo_cadastrar_aluguel(void);
+void modulo_verificar_aluguel(void);
+void modulo_atualizar_aluguel(void);
+void modulo_excluir_aluguel(void);
 
 // ---------- Lista Dinâmica - Aluguel ----------
 void listaOrdenadaAlugueis(Aluguel** lista_aluguel, Aluguel* novo_alu);
@@ -53,6 +58,12 @@ void limparListaVeiculos(Veiculo* lista_veiculo);
 
 // ---------- ID de Aluguel ----------
 void gerarID_aluguel(char *destino); 
+
+// ----------- VERIFICAÇÃO DE VEICULO --------------
+
+bool verificarDisponibilidadeVeiculo(Aluguel* lista_aluguel, const char* placa, const char* nova_data_inicio, const char* nova_data_fim, const char* id_atual);
+
+struct tm strParaData(const char* str);
 
 #endif // ALUGUEIS_H
 

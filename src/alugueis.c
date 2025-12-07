@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <time.h>
 
 #include "alugueis.h"
 #include "clientes.h"
@@ -26,6 +27,12 @@ int modulo_aluguel(void)
         case 2:
             modulo_verificar_aluguel();
             break;
+        case 3:
+            modulo_atualizar_aluguel();
+            break;
+        case 4:
+            modulo_excluir_aluguel();
+            break;
         case 0:
             return -1;
         }
@@ -42,21 +49,18 @@ int modulo_tela_alugueis(void)
     system("clear||cls");
     printf("\n");
     printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                        | SIG - Rent a Car |                         |\n");
-    printf("|                        --------------------                         |\n");
-    printf("|                                                                     |\n");
+    printf("|                         --------------------                        |\n");
+    printf("|                         | SIG - Rent a Car |                        |\n");
+    printf("|                         --------------------                        |\n");
     printf("#=====================================================================#\n");
-    printf("|                                                                     |\n");
-    printf("|                   < = = = Módulo de Aluguéis = = = >                |\n");
-    printf("|                                                                     |\n");
-    printf("|                    # 1 # Cadastrar novo aluguel                     |\n");
-    printf("|                    # 2 # Dados do aluguel                           |\n");
-    printf("|                    # 3 # Alterar dados do aluguel                   |\n");
-    printf("|                    # 4 # Finalizar aluguel                          |\n");
-    printf("|                    # 0 # Voltar ao menu principal                   |\n");
-    printf("|                                                                     |\n");
+    printf("|                            MÓDULO ALUGUEIS                          |\n");
+    printf("|---------------------------------------------------------------------|\n");
+    printf("|                       [1] - Cadastrar Aluguel                       |\n");
+    printf("|                       [2] - Verificar Aluguel                       |\n");
+    printf("|                       [3] - Atualizar Aluguel                       |\n");
+    printf("|                       [4] - Excluir Aluguel                         |\n");
+    printf("|---------------------------------------------------------------------|\n");
+    printf("|                       [0] - Sair                                    |\n");
     printf("#=====================================================================#\n");
     printf("\n");
     printf("[>] - Escolha uma das opções acima: ");
@@ -67,7 +71,7 @@ int modulo_tela_alugueis(void)
 }
 
 // |====================================================|
-// |               LISTA DINÂMICA ALUGUEL               |
+// |                 FUNÇÕES AUXILIARES                 |
 // |====================================================|
 
 void listaOrdenadaAlugueis(Aluguel** lista_aluguel, Aluguel* novo_alu) 
@@ -135,6 +139,19 @@ Aluguel* buscarAluguel(Aluguel* lista_aluguel, const char* cpf_cli)
     return NULL;
 }
 
+Aluguel* buscarAluguelID(Aluguel* lista_aluguel, const char* id)
+{
+    Aluguel* aux_alu = lista_aluguel;
+    while (aux_alu) {
+        if (aux_alu->status && strcmp(aux_alu->id, id) == 0) { 
+            return aux_alu;
+        }
+        aux_alu = aux_alu->prox_alu;
+    }
+
+    return NULL;
+}
+
 void salvarListaAlugueis(Aluguel* lista_aluguel)
 {
     FILE* fp = fopen("aluguel.dat", "wb");
@@ -161,7 +178,6 @@ void limparListaAlugueis(Aluguel* lista_aluguel)
     }
 }
 
-// GERAÇÃO DE ID
 void gerarID_aluguel(char *destino) {
     int ultimo_numero = 0;
     FILE *fp;
@@ -197,8 +213,44 @@ void gerarID_aluguel(char *destino) {
     sprintf(destino, "#%03d", ultimo_numero);
 }
 
+float calcular_valor_total(int dias, float preco_veiculo) {
+    return (float)dias * preco_veiculo;
+}
+
+struct tm strParaData(const char* str) {
+    struct tm data = {0};
+    sscanf(str, "%2d/%2d/%4d", &data.tm_mday, &data.tm_mon, &data.tm_year);
+    data.tm_mon -= 1;       // tm_mon vai de 0 a 11
+    data.tm_year -= 1900;   // tm_year é ano desde 1900
+    return data;
+}
+
+bool verificarDisponibilidadeVeiculo(Aluguel* lista_aluguel, const char* placa, const char* novo_inicio, const char* novo_fim, const char* id_atual) {
+    struct tm novoIni = strParaData(novo_inicio);
+    struct tm novoFim = strParaData(novo_fim);
+    time_t tNovoIni = mktime(&novoIni);
+    time_t tNovoFim = mktime(&novoFim);
+
+    Aluguel* aux = lista_aluguel;
+    while (aux) {
+        if (aux->status && strcmp(aux->placa_veiculo, placa) == 0 && strcmp(aux->id, id_atual) != 0) {
+            struct tm existIni = strParaData(aux->data_inicio);
+            struct tm existFim = strParaData(aux->data_fim);
+            time_t tExistIni = mktime(&existIni);
+            time_t tExistFim = mktime(&existFim);
+
+            if (!(tNovoFim < tExistIni || tNovoIni > tExistFim)) {
+                return false;
+            }
+        }
+        aux = aux->prox_alu;
+    }
+    return true;
+}
+
+
 // |====================================================|
-// |                  CADASTRAR ALUGUEL                 |
+// |                    CRUD ALUGUEL                    |
 // |====================================================|
 
 void modulo_cadastrar_aluguel(void)
@@ -213,7 +265,7 @@ void modulo_cadastrar_aluguel(void)
     printf("|                         | SIG - Rent a Car |                        |\n");
     printf("|                         --------------------                        |\n");
     printf("#=====================================================================#\n");
-    printf("|                          CADASTRAR ALUGUEL                          |\n");
+    printf("|                          CADASTRAR ALUGUEIS                         |\n");
     printf("#=====================================================================#\n");
 
     // ===================== BUSCAR CLIENTE =====================
@@ -265,7 +317,7 @@ void modulo_cadastrar_aluguel(void)
     }
 
     if (!veiculo_encontrado) {
-        printf("XXX - Veículo não encontrado!\n");
+        printf("XXX - Veículo não encontrado ou não está disponível!\n");
         printf("[>] - Pressione Enter para voltar...");
         getchar();
         limparListaVeiculos(lista_veiculo);
@@ -281,16 +333,13 @@ void modulo_cadastrar_aluguel(void)
         return;
     }
 
-    
-    gerarID_aluguel(novo_aluguel->id); 
-    
+    gerarID_aluguel(novo_aluguel->id);
     strcpy(novo_aluguel->cpf_cliente, buscar_cpf_cliente);
     strcpy(novo_aluguel->placa_veiculo, buscar_placa_veiculo);
 
     printf("#=====================================================================#\n");
     printf("[o] - Novo ID de Aluguel Gerado: %s\n", novo_aluguel->id); 
     printf("#=====================================================================#\n");
-
 
     printf("[>] - Informe data de início (dd/mm/aaaa): ");
     scanf("%10s", novo_aluguel->data_inicio);
@@ -300,11 +349,24 @@ void modulo_cadastrar_aluguel(void)
     scanf("%10s", novo_aluguel->data_fim);
     while (getchar() != '\n');
 
+    // ===================== VERIFICAR DISPONIBILIDADE =====================
+    Aluguel *lista_aluguel = carregarListaAlugueis();
+
+    if (!verificarDisponibilidadeVeiculo(lista_aluguel, veiculo_encontrado->placa_veiculo,
+                                         novo_aluguel->data_inicio, novo_aluguel->data_fim, ""))
+    {
+        printf("XXX - ERRO: Veículo PLACA %s já está alugado ou indisponível no período solicitado!\n", veiculo_encontrado->placa_veiculo);
+        free(novo_aluguel);
+        limparListaAlugueis(lista_aluguel);
+        printf("[>] - Pressione Enter para voltar...");
+        getchar();
+        return;
+    }
+
+    // ===================== FINALIZAR CADASTRO =====================
     novo_aluguel->status = true;
     novo_aluguel->prox_alu = NULL;
 
-    // ===================== SALVAR ALUGUEL =====================
-    Aluguel *lista_aluguel = carregarListaAlugueis();
     listaOrdenadaAlugueis(&lista_aluguel, novo_aluguel);
     salvarListaAlugueis(lista_aluguel);
     limparListaAlugueis(lista_aluguel);
@@ -315,7 +377,288 @@ void modulo_cadastrar_aluguel(void)
     getchar();
 }
 
-void modulo_verificar_aluguel(void)
+void modulo_verificar_aluguel(void) 
 {
+    system("clear||cls");
+    char id_busca[5];
+    
+    // Variáveis auxiliares para buscar e calcular
+    int dias;
+    float preco_veiculo;
+    float valor_total;
 
+    // Ponteiros para as listas
+    Aluguel *lista_aluguel = NULL;
+    Cliente *lista_cliente = NULL;
+    Veiculo *lista_veiculo = NULL;
+    
+    // Ponteiros para os registros encontrados
+    Aluguel *aluguel_encontrado = NULL;
+    Cliente *cliente_encontrado = NULL;
+    Veiculo *veiculo_encontrado = NULL;
+
+    printf("#=====================================================================#\n");
+    printf("|                         --------------------                        |\n");
+    printf("|                         | SIG - Rent a Car |                        |\n");
+    printf("|                         --------------------                        |\n");
+    printf("#=====================================================================#\n");
+    printf("|                          VERIFICAR ALUGUEIS                         |\n");
+    printf("#=====================================================================#\n");
+
+    // --- 1. BUSCA INICIAL PELO ID DO ALUGUEL ---
+    printf("[>] - Informe o ID do Aluguel (Ex: #001): ");
+    scanf("%4s", id_busca);
+    while (getchar() != '\n');
+
+    lista_aluguel = carregarListaAlugueis();
+    aluguel_encontrado = buscarAluguelID(lista_aluguel, id_busca);
+
+    if (!aluguel_encontrado) {
+        printf("XXX - Aluguel com ID '%s' não encontrado, inativo ou finalizado!\n", id_busca);
+        limparListaAlugueis(lista_aluguel);
+        printf("[>] - Pressione Enter para voltar...");
+        getchar();
+        return; // Sai da função
+    }
+
+    // --- 2. BUSCAR CLIENTE E VEÍCULO (Por Referência) ---
+    lista_cliente = carregarListaCliente();
+    lista_veiculo = carregarListaVeiculos();
+
+    cliente_encontrado = buscarCliente(lista_cliente, aluguel_encontrado->cpf_cliente);
+    veiculo_encontrado = buscarVeiculo(lista_veiculo, aluguel_encontrado->placa_veiculo);
+    
+    // Verificação de integridade
+    if (!cliente_encontrado || !veiculo_encontrado) {
+        printf("XXX - Erro de integridade: Cliente ou Veículo referenciado não encontrado nos cadastros.\n");
+        // Limpa todas as listas antes de sair
+        limparListaAlugueis(lista_aluguel);
+        limparListaCliente(lista_cliente);
+        limparListaVeiculos(lista_veiculo);
+        printf("[>] - Pressione Enter para voltar...");
+        getchar();
+        return; // Sai da função
+    }
+
+    // --- 3. CÁLCULOS FINAIS ---
+    preco_veiculo = veiculo_encontrado->preco_veiculo; 
+    dias = diasEntreDatas(aluguel_encontrado->data_inicio, aluguel_encontrado->data_fim);
+    valor_total = calcular_valor_total(dias, preco_veiculo);
+
+    // --- 4. EXIBIÇÃO DOS DETALHES ---
+    printf("\n#======================= DETALHES DO ALUGUEL (ID: %s) =========================#\n", aluguel_encontrado->id);
+    printf("CLIENTE:\n");
+    printf("  Nome: %s\n", cliente_encontrado->nome_cliente);
+    printf("  CPF: %s\n", cliente_encontrado->cpf_cliente);
+    printf("  -----------------------------------------------------------------------\n");
+    printf("\nVEÍCULO:\n");
+    printf("  Placa: %s\n", veiculo_encontrado->placa_veiculo);
+    printf("  Modelo: %s\n", veiculo_encontrado->modelo_veiculo);
+    printf("  Preço Diário: R$ %.2f\n", preco_veiculo);
+    printf("  -----------------------------------------------------------------------\n");
+    printf("\nPERÍODO E VALOR:\n");
+    printf("  Início: %s\n", aluguel_encontrado->data_inicio);
+    printf("  Término: %s\n", aluguel_encontrado->data_fim);
+    printf("  Dias Alugados: %d dias\n", dias);
+    printf("  -----------------------------------------------------------------------\n");
+    printf("  VALOR TOTAL (R$ %.2f x %d dias): R$ %.2f\n", preco_veiculo, dias, valor_total);
+    printf("  -----------------------------------------------------------------------\n");
+
+    // --- 5. LIMPEZA FINAL (ALCANCE BEM-SUCEDIDO) ---
+    // Limpa as listas após a exibição bem-sucedida
+    limparListaAlugueis(lista_aluguel);
+    limparListaCliente(lista_cliente);
+    limparListaVeiculos(lista_veiculo);
+
+    printf("\n[>] - Pressione Enter para continuar...");
+    getchar();
+}
+
+void modulo_atualizar_aluguel(void) 
+{
+    system("clear||cls");
+    char id_busca[5];
+    
+    Aluguel *lista_aluguel = NULL;
+    Veiculo *lista_veiculo = NULL; 
+    
+    Aluguel *aluguel_atualizar = NULL;
+    Veiculo *veiculo_encontrado = NULL;
+    
+    int dias;
+    float valor_total;
+
+    printf("#=====================================================================#\n");
+    printf("|                         --------------------                        |\n");
+    printf("|                         | SIG - Rent a Car |                        |\n");
+    printf("|                         --------------------                        |\n");
+    printf("#=====================================================================#\n");
+    printf("|                        ATUALIZAR FUNCIONÁRIOS                       |\n");
+    printf("#=====================================================================#\n");
+
+    
+    printf("[>] - Informe o ID do Aluguel a ser atualizado (Ex: #001): ");
+    scanf("%4s", id_busca);
+    while (getchar() != '\n');
+
+    lista_aluguel = carregarListaAlugueis();
+    aluguel_atualizar = buscarAluguelID(lista_aluguel, id_busca);
+
+    if (!aluguel_atualizar) {
+        printf("XXX - Aluguel com ID '%s' não encontrado ou não está ativo!\n", id_busca);
+        limparListaAlugueis(lista_aluguel);
+        printf("[>] - Pressione Enter para voltar...");
+        getchar();
+        return;
+    }
+    
+    char data_inicio_antiga[11];
+    char data_fim_antiga[11];
+    strcpy(data_inicio_antiga, aluguel_atualizar->data_inicio);
+    strcpy(data_fim_antiga, aluguel_atualizar->data_fim);
+
+    printf("\n[o] - Datas Atuais: Início (%s) | Término (%s)\n", data_inicio_antiga, data_fim_antiga);
+    printf("-----------------------------------------------------------------------\n");
+    
+    printf("[>] - Informe a NOVA data de Início (dd/mm/aaaa): ");
+    scanf("%10s", aluguel_atualizar->data_inicio);
+    while (getchar() != '\n');
+
+    printf("[>] - Informe a NOVA data de Término (dd/mm/aaaa): ");
+    scanf("%10s", aluguel_atualizar->data_fim);
+    while (getchar() != '\n');
+    
+    // ===================== VERIFICAR DISPONIBILIDADE =====================
+    if (!verificarDisponibilidadeVeiculo(lista_aluguel, aluguel_atualizar->placa_veiculo,
+                                         aluguel_atualizar->data_inicio, aluguel_atualizar->data_fim,
+                                         aluguel_atualizar->id))
+    {
+        printf("XXX - ERRO: Veículo PLACA %s já está alugado ou indisponível no período solicitado!\n", aluguel_atualizar->placa_veiculo);
+        // Reverte para datas antigas
+        strcpy(aluguel_atualizar->data_inicio, data_inicio_antiga);
+        strcpy(aluguel_atualizar->data_fim, data_fim_antiga);
+        limparListaAlugueis(lista_aluguel);
+        printf("[>] - Pressione Enter para voltar...");
+        getchar();
+        return;
+    }
+
+    // ===================== RECALCULAR VALOR =====================
+    lista_veiculo = carregarListaVeiculos();
+    veiculo_encontrado = buscarVeiculo(lista_veiculo, aluguel_atualizar->placa_veiculo);
+
+    if (veiculo_encontrado) {
+        dias = diasEntreDatas(aluguel_atualizar->data_inicio, aluguel_atualizar->data_fim);
+        float preco_veiculo = veiculo_encontrado->preco_veiculo;
+        valor_total = calcular_valor_total(dias, preco_veiculo);
+
+        printf("\n[o] - Aluguel atualizado com sucesso!\n");
+        printf("  - Novo Período de %d dias\n", dias);
+        printf("  - Novo Valor: R$ %.2f\n", valor_total);
+
+        limparListaVeiculos(lista_veiculo);
+    } else {
+        printf("XXX - Aviso: Veículo referenciado não encontrado. Não foi possível recalcular o novo valor.\n");
+    }
+
+    // ===================== SALVAR LISTA =====================
+    salvarListaAlugueis(lista_aluguel);
+    limparListaAlugueis(lista_aluguel);
+
+    printf("\n[>] - Pressione Enter para continuar...");
+    getchar();
+}
+
+void modulo_excluir_aluguel(void) 
+{
+    system("clear||cls");
+    char id_busca[5];
+    char confirmacao;
+    
+    Aluguel *lista_aluguel = NULL;
+    Veiculo *lista_veiculo = NULL; 
+    
+    Aluguel *aluguel_excluir = NULL;
+    Veiculo *veiculo_encontrado = NULL;
+    
+    int dias;
+    float valor_total;
+
+    printf("#=====================================================================#\n");
+    printf("|                         --------------------                        |\n");
+    printf("|                         | SIG - Rent a Car |                        |\n");
+    printf("|                         --------------------                        |\n");
+    printf("#=====================================================================#\n");
+    printf("|                           EXCLUIR ALUGUEIS                          |\n");
+    printf("#=====================================================================#\n");
+
+    
+    // --- 1. BUSCA ---
+    printf("[>] - Informe o ID do Aluguel a ser finalizado (Ex: #001): ");
+    scanf("%4s", id_busca);
+    while (getchar() != '\n');
+
+    lista_aluguel = carregarListaAlugueis();
+    aluguel_excluir = buscarAluguelID(lista_aluguel, id_busca);
+
+    if (!aluguel_excluir) {
+        printf("XXX - Aluguel com ID '%s' não encontrado ou já está finalizado!\n", id_busca);
+        limparListaAlugueis(lista_aluguel);
+        printf("[>] - Pressione Enter para voltar...");
+        getchar();
+        return;
+    }
+    
+    // --- 2. RECUPERAÇÃO DE DADOS (Para Exibição) ---
+    lista_veiculo = carregarListaVeiculos();
+    veiculo_encontrado = buscarVeiculo(lista_veiculo, aluguel_excluir->placa_veiculo);
+    
+    if (!veiculo_encontrado) {
+        printf("XXX - Erro: Veículo referenciado não encontrado. Não é possível calcular o valor.\n");
+        limparListaAlugueis(lista_aluguel);
+        limparListaVeiculos(lista_veiculo);
+        printf("[>] - Pressione Enter para voltar...");
+        getchar();
+        return;
+    }
+    
+    // Cálculo do valor com as datas REGISTRADAS (data_inicio e data_fim original)
+    dias = diasEntreDatas(aluguel_excluir->data_inicio, aluguel_excluir->data_fim);
+    valor_total = calcular_valor_total(dias, veiculo_encontrado->preco_veiculo);
+
+    // --- 3. EXIBIÇÃO E CONFIRMAÇÃO ---
+    printf("\n#======================= DETALHES DO ALUGUEL (ID: %s) =========================#\n", aluguel_excluir->id);
+    printf("  - CPF Cliente: %s\n", aluguel_excluir->cpf_cliente);
+    printf("  - Placa Veículo: %s\n", aluguel_excluir->placa_veiculo);
+    printf("  - Período: %s até %s (%d dias)\n", aluguel_excluir->data_inicio, aluguel_excluir->data_fim, dias);
+    printf("  - VALOR TOTAL ESTIMADO: R$ %.2f\n", valor_total);
+    printf("#==============================================================================#\n");
+
+    printf("\n[>] - Tem certeza que deseja FINALIZAR este aluguel? (S/N): ");
+    scanf(" %c", &confirmacao); // O espaço antes de %c evita quebra de linha do buffer
+    while (getchar() != '\n');
+
+    if (confirmacao == 's' || confirmacao == 'S') {
+        // --- 4. EXCLUSÃO/FINALIZAÇÃO ---
+        aluguel_excluir->status = false; // Desativa o aluguel
+        
+        // Libera o Veículo
+        veiculo_encontrado->status = true; // Veículo agora está disponível
+        salvarListaVeiculos(lista_veiculo);
+
+        // Salva o Aluguel finalizado
+        salvarListaAlugueis(lista_aluguel);
+        
+        printf("\n[o] - Aluguel ID %s FINALIZADO e Veículo liberado com sucesso!\n", id_busca);
+
+    } else {
+        printf("\n[o] - Operação cancelada. O aluguel permanece ATIVO.\n");
+    }
+
+    // --- 5. LIMPEZA FINAL ---
+    limparListaAlugueis(lista_aluguel);
+    limparListaVeiculos(lista_veiculo);
+    
+    printf("\n[>] - Pressione Enter para continuar...");
+    getchar();
 }
