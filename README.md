@@ -10,11 +10,11 @@ Bacharelado em Sistemas de Informação
 
 Disciplina DCT1106 - Programação
 
-Developed by @j.samuel007 & @icarononato23 - since Aug/2025
+Developed by @j.samuel007, @icarononato23, @G-Henri - since Aug/2025
 
 ## Sobre o Projeto
 
-Programa para fins didáticos, feito por Ícaro Nonato e José Samuel durante a disciplina DCT1106 - Programação do curso de Bacharelado em Sistemas de Informação da Universidade Federal do Rio Grande do Norte.
+Programa para fins didáticos, feito por Ícaro Nonato, José Samuel, Gleydson Henrique e Pedro Henrique durante a disciplina DCT1106 - Programação do curso de Bacharelado em Sistemas de Informação da Universidade Federal do Rio Grande do Norte.
 
 SIG-Rent-a-Car é um sistema simples, desenvolvido em **C**, que simula o gerenciamento de uma locadora de veículos. O projeto inclui os principais módulos para controlar clientes, funcionários, veículos, aluguéis e relatórios, com foco em operações básicas de cadastro, pesquisa, alteração e exclusão de dados.
 
@@ -60,7 +60,7 @@ O projeto inclui um **Makefile** para facilitar:
 2. Execute o programa:
 
    ```bash
-   ./sig-rentacar
+   make run all
    ```
 
 3. Para limpar arquivos objeto e binários gerados:
