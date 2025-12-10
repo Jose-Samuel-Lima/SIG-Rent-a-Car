@@ -36,6 +36,9 @@ int modulo_relatorio(void)
         case 3:
             navegar_relatorio_veiculos();
             break;
+        case 4:
+            navegar_relatorio_alugueis();
+            break;
         case 0:
             return -1;
         }
@@ -115,6 +118,31 @@ int navegar_relatorio_veiculos(void)
     } while (esc_veiculos != 0);
     return -1;
 }
+
+int navegar_relatorio_alugueis(void)
+{ 
+    int esc_alugueis;
+    do
+    {
+        esc_alugueis = modulo_relatorio_alugueis();
+        switch(esc_alugueis)
+        {
+        case 1: 
+            alugueis_ativos();
+            break;
+        case 2: 
+            alugueis_inativos();
+            break;
+        case 3: 
+            alugueis_por_cliente();
+            break;
+        case 0:
+            return -1;
+        }
+    } while (esc_alugueis != 0);
+    return -1;
+}
+
 
 int modulo_tela_relatorio(void)
 {
@@ -486,6 +514,7 @@ void filtrar_funcionario_cargo(char* cargo_funcionario)
     free(fun);
 
     printf("\n[>] - Pressione ENTER para continuar...");
+    getchar();
 }
 
 void funcionarios_por_cargo(void)
@@ -973,6 +1002,7 @@ void filtrar_veiculo_marca(char* marca_veiculo)
     free(vei);
 
     printf("\n[>] - Pressione Enter para continuar...");
+    getchar();
 }
 
 void veiculos_por_marca(void)
@@ -1213,6 +1243,7 @@ void filtrar_aluguel_cliente(char* cpf_cliente)
     free(al);
 
     printf("\n[>] - Pressione Enter para continuar...");
+    getchar();
 }
 
 void alugueis_por_cliente(void)

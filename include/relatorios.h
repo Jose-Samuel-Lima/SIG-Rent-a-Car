@@ -30,8 +30,8 @@ void filtrar_veiculo_marca(char* marca_veiculo);
 int modulo_relatorio_alugueis(void);
 void alugueis_ativos(void);
 void alugueis_inativos(void);
-void alugueis_por_data(void);
-void filtrar_aluguel_data(char* cpf_cliente);
+void alugueis_por_cliente(void);
+void filtrar_aluguel_cliente(char* cpf_cliente);
 
 void str_to_lower(char *str);
 
